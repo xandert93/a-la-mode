@@ -1,1 +1,1 @@
-export { categories } from './starter-data'
+export { categories, heroItems } from './starter-data'

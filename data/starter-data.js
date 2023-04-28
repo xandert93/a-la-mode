@@ -25,3 +25,30 @@ export const categories = [
     title: 'Festive Collection',
   },
 ]
+
+export const heroItems = [
+  {
+    title: 'Summer Collection',
+    description: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ipsum, repellendus.',
+    imageUrl: '/images/hero-carousel/collection-summer.png',
+    href: '#',
+  },
+  {
+    title: 'Fall Collection',
+    description: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ipsum, repellendus.',
+    imageUrl: '/images/hero-carousel/collection-fall.png',
+    href: '#',
+  },
+  {
+    title: 'Winter Collection',
+    description: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ipsum, repellendus.',
+    imageUrl: '/images/hero-carousel/collection-winter.png',
+    href: '#',
+  },
+  {
+    title: 'Spring Collection',
+    description: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ipsum, repellendus.',
+    imageUrl: '/images/hero-carousel/collection-spring.png',
+    href: '#',
+  },
+]
