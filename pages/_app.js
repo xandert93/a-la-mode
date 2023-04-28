@@ -42,10 +42,10 @@ export default function App({ Component, pageProps }) {
       </Head>
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        <TopNavigation />
-        <PromotionBanner />
+        {/* <TopNavigation />
+        <PromotionBanner /> */}
         <Component {...pageProps} />
-        <Footer />
+        {/* <Footer /> */}
       </ThemeProvider>
     </>
   )
