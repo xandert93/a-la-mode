@@ -1,9 +1,37 @@
 import { createTheme, responsiveFontSizes as createResponsiveTheme } from '@mui/material'
+import { isVPXs } from './media-queries'
 
 export const theme = createResponsiveTheme(
   createTheme({
+    components: {
+      MuiContainer: {
+        styleOverrides: {
+          root: {
+            padding: 24,
+            [isVPXs]: {
+              padding: 16,
+            },
+          },
+        },
+      },
+
+      MuiListItem: {
+        defaultProps: {
+          disableGutters: true,
+        },
+      },
+
+      MuiListItemIcon: {
+        styleOverrides: {
+          root: {
+            minWidth: 40, // 56px* (too big and looks shit)
+          },
+        },
+      },
+    },
+
     palette: {
-      mode: 'dark',
+      mode: 'light',
     },
 
     typography: {

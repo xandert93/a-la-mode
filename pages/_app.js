@@ -1,6 +1,19 @@
+import { Link } from '@/components'
 import { PATHS } from '@/constants'
 import { isVPXs, theme } from '@/theme'
-import { Favorite, LocationCity, ShoppingBag } from '@mui/icons-material'
+import {
+  Email,
+  Facebook,
+  Favorite,
+  Instagram,
+  LocationCity,
+  LocationOn,
+  Phone,
+  Place,
+  ShoppingBag,
+  Twitter,
+  YouTube,
+} from '@mui/icons-material'
 import {
   AppBar,
   Button,
@@ -12,9 +25,13 @@ import {
   Typography,
   IconButton,
   useMediaQuery,
+  List,
+  ListItem,
+  Container,
+  ListItemIcon,
+  ListItemText,
 } from '@mui/material'
 import Head from 'next/head'
-import Link from 'next/link'
 import { useRouter } from 'next/router'
 
 export default function App({ Component, pageProps }) {
@@ -39,15 +56,15 @@ const TopNavigation = () => {
     <AppBar position="static" color="transparent" elevation={0}>
       <Toolbar>
         <Grid container justifyContent="center" alignItems="center">
-          <Grid item xs={4}>
+          {/* <Grid item xs={4}>
             <input placeholder="search" />
-          </Grid>
+          </Grid> */}
           <Grid item xs={4}>
             <TopNavigationHeading />
           </Grid>
-          <Grid item xs={4} container justifyContent="flex-end" component="nav" sx={{ gap: 1 }}>
+          {/* <Grid item xs={4} container justifyContent="flex-end" component="nav" sx={{ gap: 1 }}>
             <TopNavigationActions />
-          </Grid>
+          </Grid> */}
         </Grid>
       </Toolbar>
     </AppBar>
@@ -123,37 +140,119 @@ const paymentMethods = [
 
 const Footer = () => {
   return (
-    <Grid container component="footer" spacing={2} sx={{ p: 2 }}>
-      <Grid item xs={12} sm={6} md={4}>
-        <Typography variant="h6">á la mode</Typography>
-        <Typography>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Corporis labore quaerat, quisquam
-          unde iure aut recusandae accusantium deserunt quo, voluptates laborum debitis est eius
-          soluta, rerum quod a veritatis molestias.
-        </Typography>
+    <Container component="footer">
+      <Grid container columnSpacing={{ lg: 8 }} rowSpacing={2}>
+        <Grid item xs={12} sm={12} md={12} lg={3}>
+          <FooterAbout />
+        </Grid>
+        <Grid item xs={12} sm={6} md={4} lg={3}>
+          <FooterCustomerHelp />
+        </Grid>
+        <Grid item xs={12} sm={6} md={4} lg={3}>
+          <FooterCustomerHelp />
+        </Grid>
+        <Grid item xs={12} sm={12} md={4} lg={3}>
+          <FooterContact />
+        </Grid>
+        <Grid item container direction="column" alignItems="center" sx={{ gap: 1.5 }}>
+          <FooterPaymentMethods />
+        </Grid>
       </Grid>
-      <Grid item xs={12} sm={6} md={4}>
-        <Typography variant="h6">Customer Care</Typography>
-        <Typography>Delivery & Returns</Typography>
-        <Typography>Track My Order</Typography>
-        <Typography>Sustainability</Typography>
-        <Typography>Accessibility</Typography>
-        <Typography>Terms & Conditions</Typography>
-      </Grid>
-      <Grid item xs={12} md={4}>
-        <Typography variant="h6">Get in Touch</Typography>
-        <LocationCity />
-        <Typography children="07516 659 542" />
-        <LocationCity />
-        <Typography children="07516 659 542" />
-        <LocationCity />
-        <Typography children="07516 659 542" />
-      </Grid>
-      <Grid item container direction="column" alignItems="center" sx={{ gap: 1 }}>
-        <Typography color="text.secondary" children="We accept the following payment methods" />
-        <PaymentMethodImages />
-      </Grid>
+    </Container>
+  )
+}
+
+const FooterAbout = () => {
+  return (
+    <>
+      <Typography variant="h6" children="Our Mission at á la mode" />
+      <Typography>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Corporis labore quaerat, quisquam
+        unde iure aut recusandae accusantium deserunt quo, voluptates laborum debitis est eius
+        soluta, rerum quod a veritatis molestias.
+      </Typography>
+    </>
+  )
+}
+
+const FooterCustomerHelp = () => {
+  return (
+    <>
+      <Typography variant="h6" component="h4" children="Customer Care" />
+      <nav>
+        <List dense disablePadding>
+          <ListItem>
+            <Link href="/" children="Delivery & Returns" />
+          </ListItem>
+          <ListItem>
+            <Link href="/" children="Track My Order" />
+          </ListItem>
+          <ListItem>
+            <Link href="/" children="Sustainability" />
+          </ListItem>
+          <ListItem>
+            <Link href="/" children="Accessibility" />
+          </ListItem>
+          <ListItem>
+            <Link href="/" children="Terms & Conditions" />
+          </ListItem>
+        </List>
+      </nav>
+    </>
+  )
+}
+
+const FooterContact = () => {
+  return (
+    <>
+      <Typography variant="h6">Contact Us</Typography>
+      <List disablePadding>
+        <ListItem>
+          <ListItemIcon children={<Place />} />
+          <ListItemText primary="60 Av. Montaigne, 75008 Paris" />
+        </ListItem>
+        <ListItem>
+          <ListItemIcon children={<Phone />} />
+          <ListItemText primary="+33 1 56 69 80 80" />
+        </ListItem>
+        <ListItem>
+          <ListItemIcon children={<Email />} />
+          <ListItemText primary="support@alamode.fr" />
+        </ListItem>
+      </List>
+    </>
+  )
+}
+
+const SocialMediaLinks = () => {
+  return (
+    <Grid container sx={{ gap: 1 }}>
+      <IconButton href="/">
+        <Instagram />
+      </IconButton>
+      <IconButton href="/">
+        <YouTube />
+      </IconButton>
+      <IconButton href="/">
+        <Twitter />
+      </IconButton>
+      <IconButton href="/">
+        <Facebook />
+      </IconButton>
     </Grid>
+  )
+}
+
+const FooterPaymentMethods = () => {
+  return (
+    <>
+      <Typography
+        color="text.secondary"
+        align="center"
+        children="We accept the following payment methods:"
+      />
+      <PaymentMethodImages />
+    </>
   )
 }
 
