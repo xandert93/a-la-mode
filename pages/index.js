@@ -1,6 +1,6 @@
-import { Link, MailingForm, Carousel } from '@/components'
+import { Link, NewsletterSection, Carousel, HeartIcon } from '@/components'
 import { categories, heroItems, latestProducts } from '@/data'
-import { Favorite, FavoriteBorder, HeartBroken } from '@mui/icons-material'
+import { Facebook, Instagram, Twitter, YouTube } from '@mui/icons-material'
 
 import { Box, Button, Container, Grid, IconButton, Typography } from '@mui/material'
 import { useState } from 'react'
@@ -8,11 +8,122 @@ import { useState } from 'react'
 export default function HomePage() {
   return (
     <>
-      {/* <HeroSection />
-      <CategoryList /> */}
+      <HeroSection />
+      <FeaturedInSection />
+      <CollectionSection />
+      <BrandsSection />
+      <CategorySection />
       <NewArrivalsSection />
-      {/* <MailingForm /> */}
+      <TrendingSection />
+      <NewsletterSection />
+      <BlogSection />
+      <SocialsSection />
     </>
+  )
+}
+
+const FeaturedInSection = () => {
+  return (
+    <LogosSection
+      title="As featured in"
+      n={['elle', 'gq', 'marie-claire', 'vogue']}
+      loc="publications"
+    />
+  )
+}
+
+const BrandsSection = () => {
+  return (
+    <LogosSection
+      title="Brands You Need in Your Closet"
+      n={['dkny', 'k-swiss', 'lacoste', 'levis']}
+      loc="brands"
+    />
+  )
+}
+
+const BlogSection = () => {
+  return <img src="/blog.jpg" />
+}
+
+const SocialsSection = () => {
+  return (
+    <section style={{ background: 'grey', padding: 8 }}>
+      <Grid container justifyContent={'center'} alignItems="center" direction={'column'}>
+        <Typography component="h2" variant="h6" children="Join the revolution" />
+        <Box sx={{ display: 'flex', gap: 2 }}>
+          <IconButton href="#" children={<Instagram fontSize="large" />} />
+          <IconButton href="#" children={<YouTube fontSize="large" />} />
+          <IconButton href="#" children={<Twitter fontSize="large" />} />
+          <IconButton href="#" children={<Facebook fontSize="large" />} />
+        </Box>
+      </Grid>
+    </section>
+  )
+}
+
+const SocialMediaLinks = () => {
+  return (
+    <Grid>
+      <IconButton href="#" children={<Instagram />} />
+      <IconButton href="#" children={<YouTube />} />
+      <IconButton href="#" children={<Twitter />} />
+      <IconButton href="#" children={<Facebook />} />
+    </Grid>
+  )
+}
+
+const TrendingSection = () => {
+  return (
+    <Container style={{ padding: 24 }}>
+      <Typography component="h2" variant="h6" children="This is what we're loving right now" />
+
+      <Grid container spacing={1}>
+        <Grid item xs={6}>
+          <img
+            src="https://i.ebayimg.com/images/g/DocAAOSwftlijc3Q/s-l500.jpg"
+            style={{ display: 'block', width: '100%', height: '100%', objectFit: 'cover' }}
+          />
+
+          <Typography>Ready to look cute in pastels & florals? Yeah, you are.</Typography>
+          <Typography>Dress Trends</Typography>
+        </Grid>
+        <Grid item xs={6}>
+          <img
+            src="https://whitfieldandward.co.uk/wp-content/uploads/2018/08/Bespoke-montage-e1534492507791.jpg"
+            style={{ display: 'block', width: '100%', height: '100%', objectFit: 'cover' }}
+          />
+
+          <Typography>For those who use every excuse to dress up.</Typography>
+          <Typography>Tuxedos & Suits</Typography>
+        </Grid>
+      </Grid>
+    </Container>
+  )
+}
+
+const LogosSection = ({ title, n, loc }) => {
+  return (
+    <Container maxWidth="md">
+      <Typography textAlign={'center'} paragraph component="h2" variant="h6" children={title} />
+      <Grid
+        container
+        alignItems={'center'}
+        sx={(theme) => ({
+          ...(theme.palette.mode === 'dark' && { filter: 'invert(1)' }),
+        })}>
+        {n.map((pub) => {
+          return (
+            <Grid item xs={3} container justifyContent={'center'}>
+              <img
+                src={'/images/' + loc + '/' + pub + '.png'}
+                style={{ width: '50%', display: 'block' }}
+              />
+            </Grid>
+          )
+        })}
+      </Grid>
+    </Container>
   )
 }
 
@@ -74,6 +185,11 @@ const ProductPreviewImages = ({ urls }) => {
 const ProductPreviewLikeButton = () => {
   const [isLiked, setIsLiked] = useState(false)
 
+  const handleClick = (e) => {
+    e.preventDefault()
+    setIsLiked((prev) => !prev)
+  }
+
   return (
     <IconButton
       sx={{
@@ -86,11 +202,8 @@ const ProductPreviewLikeButton = () => {
           transform: 'scale(1.1)',
         },
       }}
-      onClick={(e) => {
-        e.preventDefault()
-        setIsLiked((prev) => !prev)
-      }}>
-      <Favorite
+      onClick={handleClick}>
+      <HeartIcon
         sx={{
           fill: isLiked ? 'red' : 'transparent',
           stroke: isLiked ? 'red' : 'black',
@@ -100,15 +213,17 @@ const ProductPreviewLikeButton = () => {
   )
 }
 
-const CategoryList = () => {
+const CategorySection = () => {
   return (
-    <Grid container spacing={1} sx={{ p: { xs: 1, sm: 2, md: 3 } }}>
-      {categories.map((c, index) => (
-        <Grid item xs={12} md={index < 3 ? 4 : 6}>
-          <CategoryPreview category={c} />
-        </Grid>
-      ))}
-    </Grid>
+    <section>
+      <Grid container spacing={1} sx={{ p: { xs: 1, sm: 2, md: 3 } }}>
+        {categories.map((c, index) => (
+          <Grid item xs={12} md={index < 3 ? 4 : 6}>
+            <CategoryPreview category={c} />
+          </Grid>
+        ))}
+      </Grid>
+    </section>
   )
 }
 
@@ -131,7 +246,7 @@ const CategoryPreview = ({ category }) => {
   )
 }
 
-const HeroSection_w_Video = () => {
+const HeroSection = () => {
   return (
     <section
       style={{
@@ -157,7 +272,7 @@ const HeroSection_w_Video = () => {
           autoPlay
           muted
           loop>
-          <source src="/videos/hero-video-2.mp4" />
+          <source src="/videos/hero-video-1.mp4" />
           Your Browser is not supported.
         </video>
       </div>
@@ -165,7 +280,7 @@ const HeroSection_w_Video = () => {
   )
 }
 
-const HeroSection = () => {
+const CollectionSection = () => {
   return (
     <section>
       <Carousel

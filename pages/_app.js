@@ -42,10 +42,10 @@ export default function App({ Component, pageProps }) {
       </Head>
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        {/* <TopNavigation />
-        <PromotionBanner /> */}
+        <PromotionBanner />
+        <TopNavigation />
         <Component {...pageProps} />
-        {/* <Footer /> */}
+        <Footer />
       </ThemeProvider>
     </>
   )
@@ -221,25 +221,6 @@ const FooterContact = () => {
         </ListItem>
       </List>
     </>
-  )
-}
-
-const SocialMediaLinks = () => {
-  return (
-    <Grid container sx={{ gap: 1 }}>
-      <IconButton href="/">
-        <Instagram />
-      </IconButton>
-      <IconButton href="/">
-        <YouTube />
-      </IconButton>
-      <IconButton href="/">
-        <Twitter />
-      </IconButton>
-      <IconButton href="/">
-        <Facebook />
-      </IconButton>
-    </Grid>
   )
 }
 
