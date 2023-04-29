@@ -113,11 +113,11 @@ const PromotionBanner = () => {
       }}>
       <Grid item xs={12} sm={6} md={4}>
         <Typography sx={{ fontWeight: 'bold' }}>Free Express Delivery!</Typography>
-        <Typography variant="body2">Use code: "SMOOTHDEL" at checkout</Typography>
+        <Typography variant="body2" children={"Use code: 'SMOOTHDEL' at checkout"} />
       </Grid>
       <Grid item sm={6} md={4} sx={{ display: { xs: 'none', sm: 'initial' } }}>
         <Typography sx={{ fontWeight: 'bold' }}>Calling All Students</Typography>
-        <Typography variant="body2">Get 20% Off</Typography>
+        <Typography variant="body2" children="Get 20% Off" />
       </Grid>
       <Grid item md={4} sx={{ display: { xs: 'none', md: 'initial' } }}>
         <Typography sx={{ fontWeight: 'bold' }}>Stuck for ideas?</Typography>

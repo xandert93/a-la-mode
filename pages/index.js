@@ -114,7 +114,7 @@ const LogosSection = ({ title, n, loc }) => {
         })}>
         {n.map((pub) => {
           return (
-            <Grid item xs={3} container justifyContent={'center'}>
+            <Grid key={pub} item xs={3} container justifyContent={'center'}>
               <img
                 src={'/images/' + loc + '/' + pub + '.png'}
                 style={{ width: '50%', display: 'block' }}
@@ -139,7 +139,7 @@ const NewArrivalsSection = () => {
         </Grid>
         <Grid container spacing={1.5}>
           {latestProducts.map((product) => (
-            <Grid item xs={3}>
+            <Grid key={product.name} item xs={3}>
               <ProductPreview {...product} />
             </Grid>
           ))}
@@ -218,7 +218,7 @@ const CategorySection = () => {
     <section>
       <Grid container spacing={1} sx={{ p: { xs: 1, sm: 2, md: 3 } }}>
         {categories.map((c, index) => (
-          <Grid item xs={12} md={index < 3 ? 4 : 6}>
+          <Grid key={c.id} item xs={12} md={index < 3 ? 4 : 6}>
             <CategoryPreview category={c} />
           </Grid>
         ))}
@@ -293,7 +293,7 @@ const CollectionSection = () => {
         duration={1500}
         swipe>
         {heroItems.map((h) => (
-          <HeroCarouselItem {...h} />
+          <HeroCarouselItem key={h.title} {...h} />
         ))}
       </Carousel>
     </section>
