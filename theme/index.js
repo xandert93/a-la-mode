@@ -12,4 +12,5 @@ export {
   isVPMinLg,
   isVPMaxLg,
   isVPXl,
+  isVPLandscape,
 } from './media-queries'

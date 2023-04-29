@@ -1,9 +1,19 @@
 import { createTheme, responsiveFontSizes as createResponsiveTheme } from '@mui/material'
 import { isVPXs } from './media-queries'
 
+import { mixins } from './config'
+
 export const theme = createResponsiveTheme(
   createTheme({
     components: {
+      MuiCssBaseline: {
+        styleOverrides: {
+          'img, video': {
+            display: 'block',
+          },
+        },
+      },
+
       MuiContainer: {
         styleOverrides: {
           root: {
@@ -11,6 +21,14 @@ export const theme = createResponsiveTheme(
             [isVPXs]: {
               padding: 16,
             },
+          },
+        },
+      },
+
+      MuiButton: {
+        styleOverrides: {
+          outlined: {
+            ':hover': {},
           },
         },
       },
@@ -33,6 +51,8 @@ export const theme = createResponsiveTheme(
     palette: {
       mode: 'light',
     },
+
+    mixins,
 
     typography: {
       fontFamily: ['Rubik', 'sans-serif'].join(','), // Rubik imported from Google into _document.js (recommended)

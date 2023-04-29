@@ -42,7 +42,7 @@ export default function App({ Component, pageProps }) {
       </Head>
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        <PromotionBanner />
+        {/* <PromotionBanner /> */}
         <TopNavigation />
         <Component {...pageProps} />
         <Footer />
@@ -53,18 +53,19 @@ export default function App({ Component, pageProps }) {
 
 const TopNavigation = () => {
   return (
-    <AppBar position="static" color="transparent" elevation={0}>
+    <AppBar position="sticky" elevation={8}>
       <Toolbar>
         <Grid container justifyContent="center" alignItems="center">
+          <TopNavigationHeading />
           {/* <Grid item xs={4}>
             <input placeholder="search" />
           </Grid> */}
-          <Grid item xs={4}>
+          {/* <Grid item xs={4}>
             <TopNavigationHeading />
           </Grid>
           <Grid item xs={4} container justifyContent="flex-end" component="nav" sx={{ gap: 1 }}>
             <TopNavigationActions />
-          </Grid>
+          </Grid> */}
         </Grid>
       </Toolbar>
     </AppBar>
@@ -242,10 +243,7 @@ const PaymentMethodImages = () => {
     <Grid container wrap="nowrap" sx={{ maxWidth: 400 }}>
       {paymentMethods.map((name) => (
         <Grid item key={name}>
-          <img
-            style={{ display: 'block', width: '100%' }}
-            src={`/images/payment-methods/${name}.png`}
-          />
+          <img style={{ width: '100%' }} src={`/images/payment-methods/${name}.png`} />
         </Grid>
       ))}
     </Grid>

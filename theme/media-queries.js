@@ -27,3 +27,5 @@ export const isVPMinLg = isMin(lg)
 export const isVPMaxLg = isMax(xl)
 
 export const isVPXl = isMin(xl)
+
+export const isVPLandscape = '@media (orientation: landscape)'

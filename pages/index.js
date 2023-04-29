@@ -1,5 +1,7 @@
 import { Link, NewsletterSection, Carousel, HeartIcon } from '@/components'
+import { HomeHeroSection } from '@/components-page/home'
 import { categories, heroItems, latestProducts } from '@/data'
+import { isVPXs } from '@/theme'
 import { Facebook, Instagram, Twitter, YouTube } from '@mui/icons-material'
 
 import { Box, Button, Container, Grid, IconButton, Typography } from '@mui/material'
@@ -8,13 +10,13 @@ import { useState } from 'react'
 export default function HomePage() {
   return (
     <>
-      <HeroSection />
+      <HomeHeroSection />
       <FeaturedInSection />
-      <CollectionSection />
+      {/* <CollectionSection /> */}
       <BrandsSection />
-      <CategorySection />
-      <NewArrivalsSection />
-      <TrendingSection />
+      {/* <CategoriesSection /> */}
+      <NewProductsSection />
+      <TrendingProductsSection />
       <NewsletterSection />
       <BlogSection />
       <SocialsSection />
@@ -43,7 +45,7 @@ const BrandsSection = () => {
 }
 
 const BlogSection = () => {
-  return <img src="/blog.jpg" />
+  return <img src="/blog.jpg" width="50px" />
 }
 
 const SocialsSection = () => {
@@ -73,7 +75,7 @@ const SocialMediaLinks = () => {
   )
 }
 
-const TrendingSection = () => {
+const TrendingProductsSection = () => {
   return (
     <Container style={{ padding: 24 }}>
       <Typography component="h2" variant="h6" children="This is what we're loving right now" />
@@ -82,7 +84,7 @@ const TrendingSection = () => {
         <Grid item xs={6}>
           <img
             src="https://i.ebayimg.com/images/g/DocAAOSwftlijc3Q/s-l500.jpg"
-            style={{ display: 'block', width: '100%', height: '100%', objectFit: 'cover' }}
+            style={{ width: '100%', height: '100%', objectFit: 'cover' }}
           />
 
           <Typography>Ready to look cute in pastels & florals? Yeah, you are.</Typography>
@@ -91,7 +93,7 @@ const TrendingSection = () => {
         <Grid item xs={6}>
           <img
             src="https://whitfieldandward.co.uk/wp-content/uploads/2018/08/Bespoke-montage-e1534492507791.jpg"
-            style={{ display: 'block', width: '100%', height: '100%', objectFit: 'cover' }}
+            style={{ width: '100%', height: '100%', objectFit: 'cover' }}
           />
 
           <Typography>For those who use every excuse to dress up.</Typography>
@@ -115,10 +117,7 @@ const LogosSection = ({ title, n, loc }) => {
         {n.map((pub) => {
           return (
             <Grid key={pub} item xs={3} container justifyContent={'center'}>
-              <img
-                src={'/images/' + loc + '/' + pub + '.png'}
-                style={{ width: '50%', display: 'block' }}
-              />
+              <img src={'/images/' + loc + '/' + pub + '.png'} style={{ width: '50%' }} />
             </Grid>
           )
         })}
@@ -127,7 +126,7 @@ const LogosSection = ({ title, n, loc }) => {
   )
 }
 
-const NewArrivalsSection = () => {
+const NewProductsSection = () => {
   return (
     <section>
       <Container>
@@ -176,7 +175,7 @@ const ProductPreviewImages = ({ urls }) => {
       onMouseEnter={toggleImage(1)}
       onMouseLeave={toggleImage(0)}
       sx={{ position: 'relative' }}>
-      <img src={urls[index]} style={{ display: 'block', width: '100%' }} />
+      <img src={urls[index]} style={{ width: '100%' }} />
       <ProductPreviewLikeButton />
     </Grid>
   )
@@ -213,7 +212,7 @@ const ProductPreviewLikeButton = () => {
   )
 }
 
-const CategorySection = () => {
+const CategoriesSection = () => {
   return (
     <section>
       <Grid container spacing={1} sx={{ p: { xs: 1, sm: 2, md: 3 } }}>
@@ -234,7 +233,6 @@ const CategoryPreview = ({ category }) => {
         <img
           src={category.imageUrl}
           style={{
-            display: 'block',
             // borderRadius: 3,
             width: '100%',
             height: '100%',
@@ -243,40 +241,6 @@ const CategoryPreview = ({ category }) => {
         />
       </Box>
     </Link>
-  )
-}
-
-const HeroSection = () => {
-  return (
-    <section
-      style={{
-        position: 'relative',
-        height: '100vh',
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'center',
-        color: 'white',
-      }}>
-      <Typography variant="h3" children="Summer'23" />
-      <Typography variant="h2" children="Explore the Everyday" />
-      <Typography children="Embrace every moment this season, taking on new ventures in a thoughtfully curated collection for Summer'23" />
-      <Grid container justifyContent={'space-evenly'}>
-        <Button variant="contained" href="#" children="Menswear" />
-        <Button variant="contained" href="#" children="Womenswear" />
-      </Grid>
-
-      <div style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, zIndex: -1 }}>
-        <video
-          style={{ display: 'block', width: '100%', height: '100%', objectFit: 'cover' }}
-          autoPlay
-          muted
-          loop>
-          <source src="/videos/hero-video-1.mp4" />
-          Your Browser is not supported.
-        </video>
-      </div>
-    </section>
   )
 }
 
@@ -304,10 +268,7 @@ const HeroCarouselItem = ({ title, description, imageUrl, href }) => {
   return (
     <Grid container spacing={4} /* sx={{ height: '80vh' }} */>
       <Grid item xs={5} container>
-        <img
-          style={{ display: 'block', width: '100%', maxHeight: '80vh', objectFit: 'contain' }}
-          src={imageUrl}
-        />
+        <img style={{ width: '100%', maxHeight: '80vh', objectFit: 'contain' }} src={imageUrl} />
       </Grid>
       <Grid item xs={7} sx={{ gap: 4 }} container direction={'column'} justifyContent={'center'}>
         <Typography variant="h3">{title}</Typography>
