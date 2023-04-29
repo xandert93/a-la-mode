@@ -62,9 +62,9 @@ const TopNavigation = () => {
           <Grid item xs={4}>
             <TopNavigationHeading />
           </Grid>
-          {/* <Grid item xs={4} container justifyContent="flex-end" component="nav" sx={{ gap: 1 }}>
+          <Grid item xs={4} container justifyContent="flex-end" component="nav" sx={{ gap: 1 }}>
             <TopNavigationActions />
-          </Grid> */}
+          </Grid>
         </Grid>
       </Toolbar>
     </AppBar>

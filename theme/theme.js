@@ -31,7 +31,7 @@ export const theme = createResponsiveTheme(
     },
 
     palette: {
-      mode: 'light',
+      mode: 'dark',
     },
 
     typography: {

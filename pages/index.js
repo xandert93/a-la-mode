@@ -1,20 +1,106 @@
-import { Link, MailingForm } from '@/components'
-import { categories, heroItems } from '@/data'
+import { Link, MailingForm, Carousel } from '@/components'
+import { categories, heroItems, latestProducts } from '@/data'
+import { Favorite, FavoriteBorder, HeartBroken } from '@mui/icons-material'
 
-import { Box, Button, Grid, Typography } from '@mui/material'
-import Carousel from 'react-material-ui-carousel'
+import { Box, Button, Container, Grid, IconButton, Typography } from '@mui/material'
+import { useState } from 'react'
 
 export default function HomePage() {
   return (
     <>
-      <HeroSection />
-      {/* <CategoryPreviewList />
-      <MailingForm /> */}
+      {/* <HeroSection />
+      <CategoryList /> */}
+      <NewArrivalsSection />
+      {/* <MailingForm /> */}
     </>
   )
 }
 
-const CategoryPreviewList = () => {
+const NewArrivalsSection = () => {
+  return (
+    <section>
+      <Container>
+        <Grid container alignItems={'center'}>
+          <Typography component="h2" children="New Arrivals" />
+          <Button children="Shop Men's" />
+          <Button children="Shop Women's" />
+          <Button children="Shop Kids'" />
+        </Grid>
+        <Grid container spacing={1.5}>
+          {latestProducts.map((product) => (
+            <Grid item xs={3}>
+              <ProductPreview {...product} />
+            </Grid>
+          ))}
+        </Grid>
+      </Container>
+    </section>
+  )
+}
+
+const ProductPreview = ({ name, price, imageUrls, href }) => {
+  return (
+    <Grid
+      container
+      direction="column"
+      sx={{ gap: 1 }}
+      component={Link}
+      underline="none"
+      href={href}>
+      <ProductPreviewImages urls={imageUrls} />
+      <Typography children={'£' + price} sx={{ fontWeight: 'bold' }} />
+      <Typography children={name} />
+    </Grid>
+  )
+}
+
+const ProductPreviewImages = ({ urls }) => {
+  const [index, setIndex] = useState(0)
+
+  const toggleImage = (newIndex) => () => setIndex(newIndex)
+
+  return (
+    <Grid
+      container
+      onMouseEnter={toggleImage(1)}
+      onMouseLeave={toggleImage(0)}
+      sx={{ position: 'relative' }}>
+      <img src={urls[index]} style={{ display: 'block', width: '100%' }} />
+      <ProductPreviewLikeButton />
+    </Grid>
+  )
+}
+
+const ProductPreviewLikeButton = () => {
+  const [isLiked, setIsLiked] = useState(false)
+
+  return (
+    <IconButton
+      sx={{
+        position: 'absolute',
+        display: 'flex',
+        bottom: '1%',
+        right: '1%',
+        transition: 'transform 0.2s ease',
+        ':hover': {
+          transform: 'scale(1.1)',
+        },
+      }}
+      onClick={(e) => {
+        e.preventDefault()
+        setIsLiked((prev) => !prev)
+      }}>
+      <Favorite
+        sx={{
+          fill: isLiked ? 'red' : 'transparent',
+          stroke: isLiked ? 'red' : 'black',
+        }}
+      />
+    </IconButton>
+  )
+}
+
+const CategoryList = () => {
   return (
     <Grid container spacing={1} sx={{ p: { xs: 1, sm: 2, md: 3 } }}>
       {categories.map((c, index) => (
@@ -34,7 +120,7 @@ const CategoryPreview = ({ category }) => {
           src={category.imageUrl}
           style={{
             display: 'block',
-            borderRadius: 3,
+            // borderRadius: 3,
             width: '100%',
             height: '100%',
             objectFit: 'cover',
@@ -82,45 +168,33 @@ const HeroSection_w_Video = () => {
 const HeroSection = () => {
   return (
     <section>
-      <HeroSectionCarousel />
+      <Carousel
+        autoPlay={true}
+        indicators={false}
+        cycleNavigation={true}
+        stopAutoPlayOnHover={true}
+        interval={5500}
+        animation="slide"
+        duration={1500}
+        swipe>
+        {heroItems.map((h) => (
+          <HeroCarouselItem {...h} />
+        ))}
+      </Carousel>
     </section>
-  )
-}
-
-const HeroSectionCarousel = () => {
-  return (
-    <Carousel
-      autoPlay={true && false}
-      indicators={false}
-      cycleNavigation={true}
-      stopAutoPlayOnHover={true}
-      interval={5500}
-      animation="slide"
-      duration={1500}
-      swipe>
-      {heroItems.map((h) => (
-        <HeroCarouselItem {...h} />
-      ))}
-    </Carousel>
   )
 }
 
 const HeroCarouselItem = ({ title, description, imageUrl, href }) => {
   return (
-    <Grid container style={{ height: '100vh' /*move above carousel?*/ }}>
-      <Grid item xs={6} container>
+    <Grid container spacing={4} /* sx={{ height: '80vh' }} */>
+      <Grid item xs={5} container>
         <img
-          style={{ display: 'block', width: '100%', maxHeight: '100vh', objectFit: 'contain' }}
+          style={{ display: 'block', width: '100%', maxHeight: '80vh', objectFit: 'contain' }}
           src={imageUrl}
         />
       </Grid>
-      <Grid
-        item
-        xs={6}
-        style={{ gap: 32 }}
-        container
-        direction={'column'}
-        justifyContent={'center'}>
+      <Grid item xs={7} sx={{ gap: 4 }} container direction={'column'} justifyContent={'center'}>
         <Typography variant="h3">{title}</Typography>
         <Typography variant="h5">{description}</Typography>
         <Button href={href} style={{ alignSelf: 'flex-start' }} variant="contained">

@@ -1,3 +1,29 @@
+export const heroItems = [
+  {
+    title: 'Summer Collection',
+    description: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ipsum, repellendus.',
+    imageUrl: '/images/hero-carousel/collection-summer.png',
+    href: '#',
+  },
+  {
+    title: 'Fall Collection',
+    description: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ipsum, repellendus.',
+    imageUrl: '/images/hero-carousel/collection-fall.png',
+    href: '#',
+  },
+  {
+    title: 'Winter Collection',
+    description: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ipsum, repellendus.',
+    imageUrl: '/images/hero-carousel/collection-winter.png',
+    href: '#',
+  },
+  {
+    title: 'Spring Collection',
+    description: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ipsum, repellendus.',
+    imageUrl: '/images/hero-carousel/collection-spring.png',
+    href: '#',
+  },
+]
 export const categories = [
   {
     id: 1,
@@ -26,29 +52,50 @@ export const categories = [
   },
 ]
 
-export const heroItems = [
+export const latestProducts = [
   {
-    title: 'Summer Collection',
-    description: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ipsum, repellendus.',
-    imageUrl: '/images/hero-carousel/collection-summer.png',
+    name: 'Basketball Shorts 1',
+    price: 50,
+    imageUrls: [
+      'https://i8.amplience.net/i/jpl/jd_657902_al?w=408&h=408',
+      'https://i8.amplience.net/i/jpl/jd_657902_bl?w=408&h=408',
+    ],
     href: '#',
   },
   {
-    title: 'Fall Collection',
-    description: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ipsum, repellendus.',
-    imageUrl: '/images/hero-carousel/collection-fall.png',
+    name: 'Basketball Shorts 2',
+    price: 50,
+    imageUrls: [
+      'https://i8.amplience.net/i/jpl/jd_657902_al?w=408&h=408',
+      'https://i8.amplience.net/i/jpl/jd_657902_bl?w=408&h=408',
+    ],
     href: '#',
   },
   {
-    title: 'Winter Collection',
-    description: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ipsum, repellendus.',
-    imageUrl: '/images/hero-carousel/collection-winter.png',
+    name: 'Basketball Shorts 3',
+    price: 50,
+    imageUrls: [
+      'https://i8.amplience.net/i/jpl/jd_657902_al?w=408&h=408',
+      'https://i8.amplience.net/i/jpl/jd_657902_bl?w=408&h=408',
+    ],
     href: '#',
   },
   {
-    title: 'Spring Collection',
-    description: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ipsum, repellendus.',
-    imageUrl: '/images/hero-carousel/collection-spring.png',
+    name: 'Basketball Shorts 4',
+    price: 50,
+    imageUrls: [
+      'https://i8.amplience.net/i/jpl/jd_657902_al?w=408&h=408',
+      'https://i8.amplience.net/i/jpl/jd_657902_bl?w=408&h=408',
+    ],
+    href: '#',
+  },
+  {
+    name: 'Basketball Shorts 5',
+    price: 50,
+    imageUrls: [
+      'https://i8.amplience.net/i/jpl/jd_657902_al?w=408&h=408',
+      'https://i8.amplience.net/i/jpl/jd_657902_bl?w=408&h=408',
+    ],
     href: '#',
   },
 ]
