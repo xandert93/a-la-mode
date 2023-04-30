@@ -1,6 +1,7 @@
-import { Link } from '@/components'
+import { Form, Link } from '@/components'
 import { PATHS } from '@/constants'
-import { hasNoMouse } from '@/theme'
+import { useToggle } from '@/hooks'
+import { hasNoMouse, isVPXs } from '@/theme'
 import {
   PersonOutline,
   Favorite,
@@ -9,6 +10,7 @@ import {
   ShoppingBag,
   ShoppingBagOutlined,
   FavoriteBorder,
+  Close,
 } from '@mui/icons-material'
 import {
   AppBar,
@@ -16,12 +18,16 @@ import {
   Button,
   Grid,
   IconButton,
+  InputBase,
   Slide,
   Toolbar,
   Typography,
+  useMediaQuery,
   useScrollTrigger,
 } from '@mui/material'
+import zIndex from '@mui/material/styles/zIndex'
 import { useRouter } from 'next/router'
+import { useState } from 'react'
 
 const sx = {
   heading: {
@@ -96,6 +102,8 @@ const TopNavigationHeading = () => {
 }
 
 const TopNavigationActions = () => {
+  const isXs = useMediaQuery(isVPXs)
+
   return (
     <Grid
       container
@@ -109,11 +117,8 @@ const TopNavigationActions = () => {
         href={PATHS.WISHLIST}
         children={<PersonOutline sx={{ fontSize: { xs: 28, sm: 32 } }} />}
       />
-      <IconButton
-        component={Link}
-        href={PATHS.WISHLIST}
-        children={<Search sx={{ fontSize: { xs: 28, sm: 32 } }} />}
-      />
+      {isXs && <MobileSearchButton />}
+
       <IconButton
         component={Link}
         href={PATHS.WISHLIST}
@@ -121,5 +126,40 @@ const TopNavigationActions = () => {
       />
       <IconButton children={<ShoppingBagOutlined sx={{ fontSize: { xs: 28, sm: 32 } }} />} />
     </Grid>
+  )
+}
+
+const MobileSearchButton = () => {
+  const [isOpen, toggleSearch] = useToggle()
+
+  return (
+    <>
+      <IconButton
+        onClick={toggleSearch}
+        children={<Search sx={{ fontSize: { xs: 28, sm: 32 } }} />}
+      />
+      {/* temporarily placing 👇 here to isolate logic. Semantically, not ideal though */}
+      {isOpen && <MobileSearchBar close={toggleSearch} />}
+    </>
+  )
+}
+
+const MobileSearchBar = ({ close }) => {
+  return (
+    <AppBar component="div" position="fixed" sx={{ background: 'orange' }}>
+      <Toolbar>
+        <IconButton onClick={close} children={<Close sx={{ fontSize: 28 }} />} />
+        <MobileSearchForm />
+      </Toolbar>
+    </AppBar>
+  )
+}
+
+const MobileSearchForm = () => {
+  return (
+    <Form sx={{ flexGrow: 1, display: 'flex' }}>
+      <InputBase sx={{ flexGrow: 1 }} placeholder="Daddy, I'm gonna be a <SearchInput>!" />
+      <IconButton children={<Search sx={{ fontSize: 28 }} />} />
+    </Form>
   )
 }
