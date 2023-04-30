@@ -13,4 +13,5 @@ export {
   isVPMaxLg,
   isVPXl,
   isVPLandscape,
+  hasNoMouse,
 } from './media-queries'

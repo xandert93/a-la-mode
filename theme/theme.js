@@ -14,6 +14,17 @@ export const theme = createResponsiveTheme(
         },
       },
 
+      MuiToolbar: {
+        styleOverrides: {
+          root: {
+            [isVPXs]: {
+              paddingLeft: 8, // 16px*
+              paddingRight: 8, // 16px*
+            },
+          },
+        },
+      },
+
       MuiContainer: {
         styleOverrides: {
           root: {
@@ -55,7 +66,7 @@ export const theme = createResponsiveTheme(
     mixins,
 
     typography: {
-      fontFamily: ['Rubik', 'sans-serif'].join(','), // Rubik imported from Google into _document.js (recommended)
+      fontFamily: 'Rubik, sans-serif', // Rubik imported from Google into _document.js (recommended)
 
       h1: {
         fontWeight: 'bold', // 300*

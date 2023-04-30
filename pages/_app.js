@@ -1,4 +1,5 @@
 import { Link } from '@/components'
+import { TopNavigation } from '@/components-layout'
 import { PATHS } from '@/constants'
 import { isVPXs, theme } from '@/theme'
 import {
@@ -30,6 +31,8 @@ import {
   Container,
   ListItemIcon,
   ListItemText,
+  Slide,
+  useScrollTrigger,
 } from '@mui/material'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
@@ -47,55 +50,6 @@ export default function App({ Component, pageProps }) {
         <Component {...pageProps} />
         <Footer />
       </ThemeProvider>
-    </>
-  )
-}
-
-const TopNavigation = () => {
-  return (
-    <AppBar position="sticky" elevation={8}>
-      <Toolbar>
-        <Grid container justifyContent="center" alignItems="center">
-          <TopNavigationHeading />
-          {/* <Grid item xs={4}>
-            <input placeholder="search" />
-          </Grid> */}
-          {/* <Grid item xs={4}>
-            <TopNavigationHeading />
-          </Grid>
-          <Grid item xs={4} container justifyContent="flex-end" component="nav" sx={{ gap: 1 }}>
-            <TopNavigationActions />
-          </Grid> */}
-        </Grid>
-      </Toolbar>
-    </AppBar>
-  )
-}
-
-const TopNavigationHeading = () => {
-  const router = useRouter()
-
-  const handleClick = () => router.push(PATHS.HOME)
-
-  return (
-    <Typography
-      variant="h4"
-      component="h1"
-      children="á la mode"
-      align="center"
-      onClick={handleClick}
-      sx={{ letterSpacing: { xs: 1, md: 3 } }}
-    />
-  )
-}
-
-const TopNavigationActions = () => {
-  return (
-    <>
-      <Button component={Link} href="#" children="Register" />
-      <Button component={Link} href="#" children=" Sign In" />
-      <IconButton component={Link} href={PATHS.WISHLIST} children={<Favorite />} />
-      <IconButton children={<ShoppingBag />} />
     </>
   )
 }
