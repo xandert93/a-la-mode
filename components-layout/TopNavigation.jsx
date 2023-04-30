@@ -146,7 +146,12 @@ const MobileSearchButton = () => {
 
 const MobileSearchBar = ({ close }) => {
   return (
-    <AppBar component="div" position="fixed" sx={{ background: 'orange' }}>
+    <AppBar
+      component="div"
+      position="fixed"
+      color="inherit"
+      elevation={0} // otherwise adds additional box-shadow on top of <TopNavigation>'s
+    >
       <Toolbar>
         <IconButton onClick={close} children={<Close sx={{ fontSize: 28 }} />} />
         <MobileSearchForm />
@@ -156,10 +161,14 @@ const MobileSearchBar = ({ close }) => {
 }
 
 const MobileSearchForm = () => {
+  const handleSubmit = () => {
+    alert('Eurgh...you just made me search 👄')
+  }
+
   return (
-    <Form sx={{ flexGrow: 1, display: 'flex' }}>
+    <Form sx={{ flexGrow: 1, display: 'flex' }} onSubmit={handleSubmit}>
       <InputBase sx={{ flexGrow: 1 }} placeholder="Daddy, I'm gonna be a <SearchInput>!" />
-      <IconButton children={<Search sx={{ fontSize: 28 }} />} />
+      <IconButton type="submit" children={<Search sx={{ fontSize: 28 }} />} />
     </Form>
   )
 }

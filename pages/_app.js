@@ -1,41 +1,20 @@
 import { Link } from '@/components'
 import { TopNavigation } from '@/components-layout'
-import { PATHS } from '@/constants'
-import { isVPXs, theme } from '@/theme'
+
+import { theme } from '@/theme'
+import { Email, Phone, Place } from '@mui/icons-material'
 import {
-  Email,
-  Facebook,
-  Favorite,
-  Instagram,
-  LocationCity,
-  LocationOn,
-  Phone,
-  Place,
-  ShoppingBag,
-  Twitter,
-  YouTube,
-} from '@mui/icons-material'
-import {
-  AppBar,
-  Button,
   CssBaseline,
   Grid,
-  TextField,
   ThemeProvider,
-  Toolbar,
   Typography,
-  IconButton,
-  useMediaQuery,
   List,
   ListItem,
   Container,
   ListItemIcon,
   ListItemText,
-  Slide,
-  useScrollTrigger,
 } from '@mui/material'
 import Head from 'next/head'
-import { useRouter } from 'next/router'
 
 export default function App({ Component, pageProps }) {
   return (
