@@ -15,8 +15,11 @@ import {
   Box,
   Grid,
   IconButton,
+  Input,
+  InputAdornment,
   InputBase,
   Slide,
+  TextField,
   Toolbar,
   Typography,
   useMediaQuery,
@@ -32,7 +35,7 @@ const sx = {
   },
 
   icon: {
-    fontSize: ({ spacing }) => ({ xs: spacing(3.5), sm: spacing(4) }),
+    fontSize: ({ spacing }) => ({ xs: spacing(3.5), sm: spacing(3.75) }),
   },
 }
 
@@ -45,15 +48,15 @@ export const TopNavigation = () => {
       <AppBar position="sticky" elevation={8}>
         <Toolbar>
           <Grid container justifyContent="space-between" alignItems="center">
-            <Grid item md={3}>
+            <Grid item md={3.5}>
               <TopNavigationHeading />
             </Grid>
             {isMinMd && (
-              <Grid item md={6}>
+              <Grid item md={5}>
                 <TopNavigationCategoryLinks />
               </Grid>
             )}
-            <Grid item md={3}>
+            <Grid item md={3.5}>
               <TopNavigationActions />
             </Grid>
           </Grid>
@@ -106,21 +109,11 @@ const TopNavigationCategoryLinks = () => {
 }
 
 const TopNavigationActions = () => {
-  const isXs = useMediaQuery(isVPXs)
   const isMinLg = useMediaQuery(isVPMinLg)
 
   return (
     <Grid container justifyContent="flex-end" columnGap={0.5}>
-      {isMinLg ? (
-        <InputBase
-          placeholder="Search"
-          sx={{
-            width: 144, // *** hardcoded for now
-          }}
-        />
-      ) : (
-        <MobileSearchButton />
-      )}
+      {isMinLg ? <SearchForm /> : <MobileSearchButton />}
       <IconButton children={<PersonOutline sx={sx.icon} />} />
       <IconButton
         component={Link}
@@ -144,6 +137,32 @@ const MobileSearchButton = () => {
   )
 }
 
+const SearchForm = () => {
+  const handleSubmit = () => {
+    alert('Eurgh...you just made me search 👄')
+  }
+
+  return (
+    <Form sx={{ display: 'flex' }} onSubmit={handleSubmit}>
+      <TextField
+        variant="filled"
+        placeholder="Search"
+        sx={{
+          width: 200,
+          justifyContent: 'center' /* borderRadius: 2, ':hover': { background: 'red' } */,
+        }}
+        InputProps={{
+          sx: {
+            paddingRight: 'initial',
+          },
+          endAdornment: <SearchInputAdornment />,
+        }}
+        inputProps={{ sx: { padding: '8px 12px' } }}
+      />
+    </Form>
+  )
+}
+
 const MobileSearchBar = ({ close }) => {
   return (
     <AppBar
@@ -151,7 +170,7 @@ const MobileSearchBar = ({ close }) => {
       position="fixed"
       elevation={0} // otherwise adds additional box-shadow on top of <TopNavigation>'s
     >
-      <Toolbar>
+      <Toolbar sx={{ gap: 1 }}>
         <IconButton onClick={close} children={<Close sx={sx.icon} />} />
         <MobileSearchForm />
       </Toolbar>
@@ -165,9 +184,24 @@ const MobileSearchForm = () => {
   }
 
   return (
-    <Form sx={{ flexGrow: 1, display: 'flex' }} onSubmit={handleSubmit}>
-      <InputBase sx={{ flexGrow: 1 }} placeholder="Daddy, I'm gonna be a <SearchInput>!" />
-      <IconButton type="submit" children={<Search sx={sx.icon} />} />
+    <Form sx={{ flexGrow: 1 }} onSubmit={handleSubmit}>
+      <InputBase
+        fullWidth
+        placeholder="Search our products and brands"
+        endAdornment={<SearchInputAdornment />}
+      />
     </Form>
+  )
+}
+
+const SearchInputAdornment = () => {
+  return (
+    <InputAdornment position="end">
+      <IconButton
+        type="submit"
+        disabled={false} // eventually update
+        children={<Search sx={sx.icon} />}
+      />
+    </InputAdornment>
   )
 }

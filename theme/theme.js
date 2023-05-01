@@ -1,7 +1,7 @@
 import { createTheme, responsiveFontSizes as createResponsiveTheme } from '@mui/material'
 import { isVPXs } from './media-queries'
 
-import { mixins } from './config'
+import { mixins, breakpoints } from './config'
 
 export const theme = createResponsiveTheme(
   createTheme({
@@ -70,6 +70,7 @@ export const theme = createResponsiveTheme(
     },
 
     mixins,
+    breakpoints,
 
     typography: {
       fontFamily: 'Rubik, sans-serif', // Rubik imported from Google into _document.js (recommended)
