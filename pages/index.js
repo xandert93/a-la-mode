@@ -10,16 +10,16 @@ import { useState } from 'react'
 export default function HomePage() {
   return (
     <>
-      <HomeHeroSection />
-      <FeaturedInSection />
+      {/* <HomeHeroSection /> */}
+      {/* <FeaturedInSection /> */}
       {/* <CollectionSection /> */}
-      <BrandsSection />
+      {/* <BrandsSection /> */}
       {/* <CategoriesSection /> */}
-      <NewProductsSection />
-      <TrendingProductsSection />
+      {/* <NewProductsSection /> */}
+      {/* <TrendingProductsSection /> */}
       <NewsletterSection />
-      <BlogSection />
-      <SocialsSection />
+      {/* <BlogSection />
+      <SocialsSection /> */}
     </>
   )
 }
@@ -131,23 +131,28 @@ const TrendingProductsSection = () => {
 
 const LogosSection = ({ title, n, loc }) => {
   return (
-    <Container maxWidth="md">
-      <Typography textAlign={'center'} paragraph component="h2" variant="h6" children={title} />
-      <Grid
-        container
-        alignItems={'center'}
-        sx={(theme) => ({
-          ...(theme.palette.mode === 'dark' && { filter: 'invert(1)' }),
-        })}>
-        {n.map((pub) => {
-          return (
-            <Grid key={pub} item xs={3} container justifyContent={'center'}>
-              <img src={'/images/' + loc + '/' + pub + '.png'} style={{ width: '50%' }} />
-            </Grid>
-          )
-        })}
-      </Grid>
-    </Container>
+    <Box component="section" sx={{ backgroundColor: 'background.highlight' }}>
+      <Container maxWidth="md">
+        <Typography textAlign={'center'} paragraph component="h2" variant="h6" children={title} />
+        <Grid
+          container
+          alignItems={'center'}
+          sx={(theme) => ({
+            ...(theme.palette.mode === 'dark' && { filter: 'invert(1)' }),
+          })}>
+          {n.map((pub) => {
+            return (
+              <Grid key={pub} item xs={3} container justifyContent={'center'}>
+                <img
+                  src={'/images/' + loc + '/' + pub + '.png'}
+                  style={{ maxWidth: '60%', maxHeight: 100 }}
+                />
+              </Grid>
+            )
+          })}
+        </Grid>
+      </Container>
+    </Box>
   )
 }
 
