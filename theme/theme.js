@@ -67,6 +67,10 @@ export const theme = createResponsiveTheme(
 
     palette: {
       mode: 'light',
+
+      background: {
+        highlight: '#edecea',
+      },
     },
 
     mixins,
@@ -100,3 +104,5 @@ export const theme = createResponsiveTheme(
     factor: 2,
   }
 )
+
+console.log(theme)

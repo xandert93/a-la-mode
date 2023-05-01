@@ -50,17 +50,42 @@ const BlogSection = () => {
 
 const SocialsSection = () => {
   return (
-    <section style={{ background: 'grey', padding: 8 }}>
-      <Grid container justifyContent={'center'} alignItems="center" direction={'column'}>
-        <Typography component="h2" variant="h6" children="Join the revolution" />
-        <Box sx={{ display: 'flex', gap: 2 }}>
-          <IconButton href="#" children={<Instagram fontSize="large" />} />
-          <IconButton href="#" children={<YouTube fontSize="large" />} />
-          <IconButton href="#" children={<Twitter fontSize="large" />} />
-          <IconButton href="#" children={<Facebook fontSize="large" />} />
-        </Box>
+    <Grid
+      container
+      component="section"
+      direction={'column'}
+      gap={2}
+      sx={{ backgroundColor: 'background.highlight', padding: 2 }}>
+      <Typography component="h2" align="center" children="Join the conversation" />
+      <Grid container justifyContent="center" columnGap={{ xs: 3, sm: 4 }}>
+        <IconButton
+          href="#"
+          sx={{
+            background:
+              'radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%,#d6249f 60%,#285AEB 90%)',
+          }}
+          children={<Instagram sx={{ color: 'common.white', fontSize: { xs: 28, sm: 32 } }} />}
+        />
+        <IconButton
+          disableRipple
+          href="#"
+          sx={{ backgroundColor: 'red' }}
+          children={<YouTube sx={{ color: 'common.white', fontSize: { xs: 28, sm: 32 } }} />}
+        />
+        <IconButton
+          disableRipple
+          href="#"
+          sx={{ backgroundColor: '#1DA1F2' }}
+          children={<Twitter sx={{ color: 'common.white', fontSize: { xs: 28, sm: 32 } }} />}
+        />
+        <IconButton
+          disableRipple
+          href="#"
+          sx={{ backgroundColor: '#0165E1' }}
+          children={<Facebook sx={{ color: 'common.white', fontSize: { xs: 28, sm: 32 } }} />}
+        />
       </Grid>
-    </section>
+    </Grid>
   )
 }
 

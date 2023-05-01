@@ -12,9 +12,9 @@ const sx = {
     justifyContent: 'center',
     alignItems: 'center',
 
-    height: `calc(100vh - 64px)`,
-    [isVPXs]: { height: `calc(100vh - 56px)` },
-    [isVPLandscape]: { height: `calc(100vh - 48px)` },
+    height: `calc(100vh - 64px - 36px)`, // *** better way to do this?
+    [isVPXs]: { height: `calc(100vh - 56px - 36px)` },
+    [isVPLandscape]: { height: `calc(100vh - 48px - 36px)` },
   },
 
   content: {

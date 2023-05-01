@@ -14,6 +14,7 @@ import {
   Container,
   ListItemIcon,
   ListItemText,
+  Box,
 } from '@mui/material'
 import Head from 'next/head'
 
@@ -25,7 +26,6 @@ export default function App({ Component, pageProps }) {
       </Head>
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        {/* <PromotionBanner /> */}
         <Header />
         <Component {...pageProps} />
         <Footer />
@@ -34,7 +34,7 @@ export default function App({ Component, pageProps }) {
   )
 }
 
-const PromotionBanner = () => {
+const PromotionBanner_old = () => {
   return (
     <Grid
       container
@@ -100,7 +100,7 @@ const Footer = () => {
 const FooterAbout = () => {
   return (
     <>
-      <Typography variant="h6" children="Our Mission at á la mode" />
+      <Typography variant="h6" children="Our Mission" />
       <Typography>
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Corporis labore quaerat, quisquam
         unde iure aut recusandae accusantium deserunt quo, voluptates laborum debitis est eius

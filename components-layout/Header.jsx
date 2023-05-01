@@ -12,6 +12,7 @@ import {
 } from '@mui/icons-material'
 import {
   AppBar,
+  Box,
   Grid,
   IconButton,
   InputAdornment,
@@ -43,7 +44,7 @@ const sx = {
   },
 
   icon: {
-    fontSize: { xs: 25, sm: 30 },
+    fontSize: { xs: 28, sm: 32 },
   },
 }
 
@@ -54,6 +55,7 @@ export const Header = () => {
   return (
     <Slide appear={false} in={!isScrolledDown} timeout={{ enter: 250, exit: 500 }}>
       <AppBar position="sticky" elevation={8}>
+        <PromotionBanner />
         <Toolbar>
           <Grid container justifyContent="space-between" alignItems="center">
             <Grid item md={3.5}>
@@ -71,6 +73,20 @@ export const Header = () => {
         </Toolbar>
       </AppBar>
     </Slide>
+  )
+}
+
+const PromotionBanner = () => {
+  return (
+    <Box
+      sx={{
+        p: 1,
+        backgroundColor: 'background.highlight',
+        textAlign: 'center',
+        letterSpacing: 1,
+      }}>
+      <Typography variant="body2">Free UK Delivery on orders over £50</Typography>
+    </Box>
   )
 }
 

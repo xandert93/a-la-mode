@@ -8,7 +8,7 @@ export const NewsletterSection = () => {
         container
         direction="column"
         alignItems="center"
-        sx={{ py: 10, gap: 5, backgroundColor: 'action.hover' }}>
+        sx={{ py: 10, gap: 5, backgroundColor: 'background.highlight' }}>
         <Typography variant="h4" component="h3" children="Want 10% Off Your Next Order?*" />
         <Typography children="Sign up for our lateset products and offers" />
 
