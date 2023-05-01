@@ -1,7 +1,7 @@
-import { Form, Link } from '@/components'
+import { CompanyLogo, CompanyHeading, Form, Link } from '@/components'
 import { PATHS, companyName } from '@/constants'
 import { useToggle } from '@/hooks'
-import { isVPMaxSm, isVPMinLg, isVPMinMd, isVPXs } from '@/theme'
+import { isVPMaxSm, isVPMinLg, isVPMinMd } from '@/theme'
 import {
   PersonOutline,
   Menu,
@@ -12,13 +12,17 @@ import {
 } from '@mui/icons-material'
 import {
   AppBar,
-  Box,
   Grid,
   IconButton,
-  Input,
   InputAdornment,
   InputBase,
+  List,
+  ListItem,
+  ListItemText,
+  MenuItem,
+  MenuList,
   Slide,
+  SwipeableDrawer,
   TextField,
   Toolbar,
   Typography,
@@ -27,19 +31,23 @@ import {
 } from '@mui/material'
 
 const sx = {
+  logo: {
+    width: { xs: 40, sm: 48 },
+  },
+
   heading: {
     fontFamily: 'Ephesis, cursive',
     fontWeight: 400,
-    letterSpacing: { xs: 1, md: 3 },
+    letterSpacing: 1,
     display: { xs: 'none', lg: 'block' },
   },
 
   icon: {
-    fontSize: ({ spacing }) => ({ xs: spacing(3.5), sm: spacing(3.75) }),
+    fontSize: { xs: 25, sm: 30 },
   },
 }
 
-export const TopNavigation = () => {
+export const Header = () => {
   const isScrolledDown = useScrollTrigger({ threshold: 100 })
   const isMinMd = useMediaQuery(isVPMinMd)
 
@@ -49,15 +57,15 @@ export const TopNavigation = () => {
         <Toolbar>
           <Grid container justifyContent="space-between" alignItems="center">
             <Grid item md={3.5}>
-              <TopNavigationHeading />
+              <HeaderHeading />
             </Grid>
             {isMinMd && (
               <Grid item md={5}>
-                <TopNavigationCategoryLinks />
+                <HeaderNavigation />
               </Grid>
             )}
             <Grid item md={3.5}>
-              <TopNavigationActions />
+              <HeaderActions />
             </Grid>
           </Grid>
         </Toolbar>
@@ -66,7 +74,7 @@ export const TopNavigation = () => {
   )
 }
 
-const TopNavigationHeading = () => {
+const HeaderHeading = () => {
   const isMaxSm = useMediaQuery(isVPMaxSm)
 
   return (
@@ -74,16 +82,8 @@ const TopNavigationHeading = () => {
       {isMaxSm && <SideDrawerButton />}
       <Link href={PATHS.HOME} underline="none">
         <Grid container alignItems="center" columnGap={2}>
-          <Box sx={{ width: { xs: 40, sm: 48 }, height: { xs: 40, sm: 48 } }}>
-            <img src="/logo.png" width="100%" />
-          </Box>
-          <Typography
-            variant="h3"
-            component="h1"
-            children={companyName}
-            align="center"
-            sx={sx.heading}
-          />
+          <CompanyLogo sx={sx.logo} />
+          <CompanyHeading variant="h3" sx={sx.heading} />
         </Grid>
       </Link>
     </Grid>
@@ -91,24 +91,44 @@ const TopNavigationHeading = () => {
 }
 
 const SideDrawerButton = () => {
-  const handleClick = () => alert('Coming soon...lol')
-
-  return <IconButton onClick={handleClick} children={<Menu sx={sx.icon} />} />
-}
-
-const TopNavigationCategoryLinks = () => {
-  const categories = ['Men', 'Women', 'Sport', 'Collections', 'The Brand']
+  const [isOpen, toggle] = useToggle()
 
   return (
-    <Grid container columnGap={2} justifyContent="center">
-      {categories.map((c) => (
-        <Link href="/#" children={c} />
+    <>
+      <IconButton onClick={toggle} children={<Menu sx={sx.icon} />} />
+      {/* temporarily placing 👇 here to isolate logic. Semantically, not ideal though */}
+      <SideDrawer isOpen={isOpen} toggle={toggle} />
+    </>
+  )
+}
+
+const SideDrawer = ({ isOpen, toggle }) => {
+  return (
+    <SwipeableDrawer anchor="left" open={isOpen} onClose={toggle}>
+      <MenuList onClick={toggle}>
+        {categories.map((category) => (
+          <MenuItem key={category}>
+            <ListItemText>{category}</ListItemText>
+          </MenuItem>
+        ))}
+      </MenuList>
+    </SwipeableDrawer>
+  )
+}
+
+const categories = ['Men', 'Women', 'Sport', 'Collections', 'The Brand']
+
+const HeaderNavigation = () => {
+  return (
+    <Grid component="nav" container columnGap={{ md: 2, lg: 3, xl: 4 }} justifyContent="center">
+      {categories.map((category) => (
+        <Link key={category} href="/#" children={category} />
       ))}
     </Grid>
   )
 }
 
-const TopNavigationActions = () => {
+const HeaderActions = () => {
   const isMinLg = useMediaQuery(isVPMinLg)
 
   return (
@@ -168,7 +188,7 @@ const MobileSearchBar = ({ close }) => {
     <AppBar
       component="div"
       position="fixed"
-      elevation={0} // otherwise adds additional box-shadow on top of <TopNavigation>'s
+      elevation={0} // otherwise adds additional box-shadow on top of <Header>'s
     >
       <Toolbar sx={{ gap: 1 }}>
         <IconButton onClick={close} children={<Close sx={sx.icon} />} />
@@ -198,6 +218,7 @@ const SearchInputAdornment = () => {
   return (
     <InputAdornment position="end">
       <IconButton
+        size="small"
         type="submit"
         disabled={false} // eventually update
         children={<Search sx={sx.icon} />}

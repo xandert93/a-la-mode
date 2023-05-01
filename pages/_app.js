@@ -1,5 +1,5 @@
 import { Link } from '@/components'
-import { TopNavigation } from '@/components-layout'
+import { Header } from '@/components-layout'
 import { companyName } from '@/constants'
 
 import { theme } from '@/theme'
@@ -26,7 +26,7 @@ export default function App({ Component, pageProps }) {
       <ThemeProvider theme={theme}>
         <CssBaseline />
         {/* <PromotionBanner /> */}
-        <TopNavigation />
+        <Header />
         <Component {...pageProps} />
         <Footer />
       </ThemeProvider>
