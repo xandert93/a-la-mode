@@ -1,5 +1,6 @@
 import { Link } from '@/components'
 import { TopNavigation } from '@/components-layout'
+import { companyName } from '@/constants'
 
 import { theme } from '@/theme'
 import { Email, Phone, Place } from '@mui/icons-material'
@@ -20,7 +21,7 @@ export default function App({ Component, pageProps }) {
   return (
     <>
       <Head>
-        <title children="á la mode" />
+        <title children={companyName} />
       </Head>
       <ThemeProvider theme={theme}>
         <CssBaseline />

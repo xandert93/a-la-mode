@@ -1,13 +1,11 @@
 import { Form, Link } from '@/components'
-import { PATHS } from '@/constants'
+import { PATHS, companyName } from '@/constants'
 import { useToggle } from '@/hooks'
-import { hasNoMouse, isVPXs } from '@/theme'
+import { isVPMaxSm, isVPMinLg, isVPMinMd, isVPXs } from '@/theme'
 import {
   PersonOutline,
-  Favorite,
   Menu,
   Search,
-  ShoppingBag,
   ShoppingBagOutlined,
   FavoriteBorder,
   Close,
@@ -15,7 +13,6 @@ import {
 import {
   AppBar,
   Box,
-  Button,
   Grid,
   IconButton,
   InputBase,
@@ -25,38 +22,40 @@ import {
   useMediaQuery,
   useScrollTrigger,
 } from '@mui/material'
-import zIndex from '@mui/material/styles/zIndex'
-import { useRouter } from 'next/router'
-import { useState } from 'react'
 
 const sx = {
   heading: {
     fontFamily: 'Ephesis, cursive',
     fontWeight: 400,
     letterSpacing: { xs: 1, md: 3 },
-    display: { xs: 'none', sm: 'block' },
+    display: { xs: 'none', lg: 'block' },
+  },
+
+  icon: {
+    fontSize: ({ spacing }) => ({ xs: spacing(3.5), sm: spacing(4) }),
   },
 }
 
 export const TopNavigation = () => {
   const isScrolledDown = useScrollTrigger({ threshold: 100 })
+  const isMinMd = useMediaQuery(isVPMinMd)
 
   return (
     <Slide appear={false} in={!isScrolledDown} timeout={{ enter: 250, exit: 500 }}>
-      <AppBar position="sticky" elevation={8} color="inherit">
+      <AppBar position="sticky" elevation={8}>
         <Toolbar>
           <Grid container justifyContent="space-between" alignItems="center">
-            <TopNavigationHeading />
-            <TopNavigationActions />
-            {/* <Grid item xs={4}>
-              <input placeholder="search" />
-            </Grid> */}
-            {/* <Grid item xs={4}>
+            <Grid item md={3}>
               <TopNavigationHeading />
             </Grid>
-            <Grid item xs={4} container justifyContent="flex-end" component="nav" sx={{ gap: 1 }}>
+            {isMinMd && (
+              <Grid item md={6}>
+                <TopNavigationCategoryLinks />
+              </Grid>
+            )}
+            <Grid item md={3}>
               <TopNavigationActions />
-            </Grid> */}
+            </Grid>
           </Grid>
         </Toolbar>
       </AppBar>
@@ -65,34 +64,21 @@ export const TopNavigation = () => {
 }
 
 const TopNavigationHeading = () => {
-  const router = useRouter()
-
-  const handleClick = () => router.push(PATHS.HOME)
+  const isMaxSm = useMediaQuery(isVPMaxSm)
 
   return (
-    <Grid
-      container
-      sx={{ width: 'initial' }} // *** temp fix
-      alignItems="center">
-      <IconButton
-        children={<Menu sx={{ fontSize: { xs: 28, sm: 32 } }} />}
-        sx={{ display: { sm: 'none' } }}
-      />
+    <Grid container alignItems="center" columnGap={{ sm: 1 }}>
+      {isMaxSm && <SideDrawerButton />}
       <Link href={PATHS.HOME} underline="none">
-        <Grid
-          container
-          alignItems="center"
-          sx={{ width: 'initial' }} // *** temp fix
-          columnGap={2}>
+        <Grid container alignItems="center" columnGap={2}>
           <Box sx={{ width: { xs: 40, sm: 48 }, height: { xs: 40, sm: 48 } }}>
             <img src="/logo.png" width="100%" />
           </Box>
           <Typography
             variant="h3"
             component="h1"
-            children="Á la Mode"
+            children={companyName}
             align="center"
-            onClick={handleClick}
             sx={sx.heading}
           />
         </Grid>
@@ -101,30 +87,47 @@ const TopNavigationHeading = () => {
   )
 }
 
-const TopNavigationActions = () => {
-  const isXs = useMediaQuery(isVPXs)
+const SideDrawerButton = () => {
+  const handleClick = () => alert('Coming soon...lol')
+
+  return <IconButton onClick={handleClick} children={<Menu sx={sx.icon} />} />
+}
+
+const TopNavigationCategoryLinks = () => {
+  const categories = ['Men', 'Women', 'Sport', 'Collections', 'The Brand']
 
   return (
-    <Grid
-      container
-      sx={{ width: 'initial' }} // *** temp fix
-      columnGap={0.5}>
-      {/* <Button component={Link} href="#" children="Register" />
-      <Button component={Link} href="#" children=" Sign In" /> */}
+    <Grid container columnGap={2} justifyContent="center">
+      {categories.map((c) => (
+        <Link href="/#" children={c} />
+      ))}
+    </Grid>
+  )
+}
 
+const TopNavigationActions = () => {
+  const isXs = useMediaQuery(isVPXs)
+  const isMinLg = useMediaQuery(isVPMinLg)
+
+  return (
+    <Grid container justifyContent="flex-end" columnGap={0.5}>
+      {isMinLg ? (
+        <InputBase
+          placeholder="Search"
+          sx={{
+            width: 144, // *** hardcoded for now
+          }}
+        />
+      ) : (
+        <MobileSearchButton />
+      )}
+      <IconButton children={<PersonOutline sx={sx.icon} />} />
       <IconButton
         component={Link}
         href={PATHS.WISHLIST}
-        children={<PersonOutline sx={{ fontSize: { xs: 28, sm: 32 } }} />}
+        children={<FavoriteBorder sx={sx.icon} />}
       />
-      {isXs && <MobileSearchButton />}
-
-      <IconButton
-        component={Link}
-        href={PATHS.WISHLIST}
-        children={<FavoriteBorder sx={{ fontSize: { xs: 28, sm: 32 } }} />}
-      />
-      <IconButton children={<ShoppingBagOutlined sx={{ fontSize: { xs: 28, sm: 32 } }} />} />
+      <IconButton children={<ShoppingBagOutlined sx={sx.icon} />} />
     </Grid>
   )
 }
@@ -134,10 +137,7 @@ const MobileSearchButton = () => {
 
   return (
     <>
-      <IconButton
-        onClick={toggleSearch}
-        children={<Search sx={{ fontSize: { xs: 28, sm: 32 } }} />}
-      />
+      <IconButton onClick={toggleSearch} children={<Search sx={sx.icon} />} />
       {/* temporarily placing 👇 here to isolate logic. Semantically, not ideal though */}
       {isOpen && <MobileSearchBar close={toggleSearch} />}
     </>
@@ -149,11 +149,10 @@ const MobileSearchBar = ({ close }) => {
     <AppBar
       component="div"
       position="fixed"
-      color="inherit"
       elevation={0} // otherwise adds additional box-shadow on top of <TopNavigation>'s
     >
       <Toolbar>
-        <IconButton onClick={close} children={<Close sx={{ fontSize: 28 }} />} />
+        <IconButton onClick={close} children={<Close sx={sx.icon} />} />
         <MobileSearchForm />
       </Toolbar>
     </AppBar>
@@ -168,7 +167,7 @@ const MobileSearchForm = () => {
   return (
     <Form sx={{ flexGrow: 1, display: 'flex' }} onSubmit={handleSubmit}>
       <InputBase sx={{ flexGrow: 1 }} placeholder="Daddy, I'm gonna be a <SearchInput>!" />
-      <IconButton type="submit" children={<Search sx={{ fontSize: 28 }} />} />
+      <IconButton type="submit" children={<Search sx={sx.icon} />} />
     </Form>
   )
 }

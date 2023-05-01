@@ -28,14 +28,11 @@ const sx = {
 export const HomeHeroSection = () => {
   return (
     <Box component="section" sx={sx.root}>
-      <BackgroundVideo src="/videos/hero-video-1.mp4" />
+      <BackgroundVideo poster="/videos/hero-video-1-poster.jpg" src="/videos/hero-video-1.mp4" />
       <Grid container direction="column" rowGap={{ xs: 3, sm: 4, md: 6 }} sx={sx.content}>
         <Typography component="h3" variant="h4" children="Summer'23" />
         <Typography component="h2" variant="h3" children="Explore the Everyday" />
-        <Typography
-          variant="body2"
-          children="Embrace every moment this season, taking on new ventures in a thoughtfully curated collection for Summer'23"
-        />
+        <Typography children="Embrace every moment this season, taking on new ventures in a thoughtfully curated collection for Summer'23" />
         <Grid container justifyContent="space-evenly" rowGap={2}>
           <HomeHeroButton href="#" children="Menswear" />
           <HomeHeroButton href="#" children="Womenswear" />

@@ -14,6 +14,12 @@ export const theme = createResponsiveTheme(
         },
       },
 
+      MuiAppBar: {
+        defaultProps: {
+          color: 'inherit', // 'primary'* (sets background-color)
+        },
+      },
+
       MuiToolbar: {
         styleOverrides: {
           root: {

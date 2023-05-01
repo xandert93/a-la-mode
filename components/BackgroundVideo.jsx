@@ -11,10 +11,10 @@ const videoStyles = {
   objectFit: 'cover',
 }
 
-export const BackgroundVideo = ({ src }) => {
+export const BackgroundVideo = ({ poster, src }) => {
   return (
     <Box sx={rootStyles}>
-      <video style={videoStyles} autoPlay muted loop>
+      <video style={videoStyles} poster={poster} autoPlay muted loop>
         <source src={src} />
         Your Browser is not supported.
       </video>
