@@ -1,8 +1,8 @@
 import { Link } from '@/components'
-import { Header } from '@/components-layout'
+import { FooterAccordion, FooterLinks, Header } from '@/components-layout'
 import { companyName } from '@/constants'
 
-import { theme } from '@/theme'
+import { isVPXs, theme } from '@/theme'
 import { Email, Phone, Place } from '@mui/icons-material'
 import {
   CssBaseline,
@@ -14,7 +14,7 @@ import {
   Container,
   ListItemIcon,
   ListItemText,
-  Box,
+  useMediaQuery,
 } from '@mui/material'
 import Head from 'next/head'
 
@@ -81,10 +81,10 @@ const Footer = () => {
           <FooterAbout />
         </Grid>
         <Grid item xs={12} sm={6} md={4} lg={3}>
-          <FooterCustomerHelp />
+          <FooterLinks title="Customer Care" />
         </Grid>
         <Grid item xs={12} sm={6} md={4} lg={3}>
-          <FooterCustomerHelp />
+          <FooterLinks title="Corporate" />
         </Grid>
         <Grid item xs={12} sm={12} md={4} lg={3}>
           <FooterContact />
@@ -110,32 +110,9 @@ const FooterAbout = () => {
   )
 }
 
-const FooterCustomerHelp = () => {
-  return (
-    <>
-      <Typography variant="h6" component="h4" children="Customer Care" />
-      <nav>
-        <List dense disablePadding>
-          <ListItem>
-            <Link href="/" children="Delivery & Returns" />
-          </ListItem>
-          <ListItem>
-            <Link href="/" children="Track My Order" />
-          </ListItem>
-          <ListItem>
-            <Link href="/" children="Sustainability" />
-          </ListItem>
-          <ListItem>
-            <Link href="/" children="Accessibility" />
-          </ListItem>
-          <ListItem>
-            <Link href="/" children="Terms & Conditions" />
-          </ListItem>
-        </List>
-      </nav>
-    </>
-  )
-}
+/*
+🔥 1) <ListItem> wrapper effectively adds { padding: '4px 0px'} to <li> and some other neglible stuff (inspect DevTools if need be)
+*/
 
 const FooterContact = () => {
   return (

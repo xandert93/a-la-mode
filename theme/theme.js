@@ -1,5 +1,5 @@
 import { createTheme, responsiveFontSizes as createResponsiveTheme } from '@mui/material'
-import { isVPXs } from './media-queries'
+import { isVPMinSm, isVPXs } from './media-queries'
 
 import { mixins, breakpoints } from './config'
 
@@ -38,14 +38,6 @@ export const theme = createResponsiveTheme(
             [isVPXs]: {
               padding: 16,
             },
-          },
-        },
-      },
-
-      MuiButton: {
-        styleOverrides: {
-          outlined: {
-            ':hover': {},
           },
         },
       },
@@ -104,5 +96,3 @@ export const theme = createResponsiveTheme(
     factor: 2,
   }
 )
-
-console.log(theme)

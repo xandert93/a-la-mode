@@ -1,13 +1,14 @@
 import { Link, NewsletterSection, Carousel, HeartIcon } from '@/components'
 import { HomeHeroSection } from '@/components-page/home'
 import { categories, heroItems, latestProducts } from '@/data'
-import { isVPXs } from '@/theme'
 import { Facebook, Instagram, Twitter, YouTube } from '@mui/icons-material'
 
 import { Box, Button, Container, Grid, IconButton, Typography } from '@mui/material'
 import { useState } from 'react'
 
 export default function HomePage() {
+  const isLoggedIn = false
+
   return (
     <>
       {/* <HomeHeroSection /> */}
@@ -17,7 +18,7 @@ export default function HomePage() {
       {/* <CategoriesSection /> */}
       {/* <NewProductsSection /> */}
       {/* <TrendingProductsSection /> */}
-      <NewsletterSection />
+      {/* {!isLoggedIn && <NewsletterSection />} */}
       {/* <BlogSection />
       <SocialsSection /> */}
     </>
