@@ -4,7 +4,8 @@ export { BackgroundVideo } from './BackgroundVideo'
 export { Form } from './Form'
 export { CompanyLogo } from './CompanyLogo'
 export { CompanyHeading } from './CompanyHeading'
-
-export { Favorite as HeartIcon } from '@mui/icons-material'
+export { SearchInputAdornment } from './SearchInputAdornment'
 
 export { default as Carousel } from 'react-material-ui-carousel'
+
+export { Favorite as HeartIcon, Menu as MenuIcon, Search as SearchIcon } from '@mui/icons-material'

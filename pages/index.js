@@ -1,6 +1,6 @@
 import { Link, NewsletterSection, Carousel, HeartIcon } from '@/components'
 import { HomeHeroSection } from '@/components-page/home'
-import { categories, heroItems, latestProducts } from '@/data'
+import { collections, heroItems, latestProducts } from '@/data'
 import { Facebook, Instagram, Twitter, YouTube } from '@mui/icons-material'
 
 import { Box, Button, Container, Grid, IconButton, Typography } from '@mui/material'
@@ -11,11 +11,11 @@ export default function HomePage() {
 
   return (
     <>
-      {/* <HomeHeroSection /> */}
+      <HomeHeroSection />
       {/* <FeaturedInSection /> */}
       {/* <CollectionSection /> */}
       {/* <BrandsSection /> */}
-      {/* <CategoriesSection /> */}
+      {/* <CollectionsSection /> */}
       {/* <NewProductsSection /> */}
       {/* <TrendingProductsSection /> */}
       {/* {!isLoggedIn && <NewsletterSection />} */}
@@ -181,13 +181,7 @@ const NewProductsSection = () => {
 
 const ProductPreview = ({ name, price, imageUrls, href }) => {
   return (
-    <Grid
-      container
-      direction="column"
-      sx={{ gap: 1 }}
-      component={Link}
-      underline="none"
-      href={href}>
+    <Grid container direction="column" gap={1} component={Link} underline="none" href={href}>
       <ProductPreviewImages urls={imageUrls} />
       <Typography children={'£' + price} sx={{ fontWeight: 'bold' }} />
       <Typography children={name} />
@@ -243,11 +237,11 @@ const ProductPreviewLikeButton = () => {
   )
 }
 
-const CategoriesSection = () => {
+const CollectionsSection = () => {
   return (
     <section>
       <Grid container spacing={1} sx={{ p: { xs: 1, sm: 2, md: 3 } }}>
-        {categories.map((c, index) => (
+        {collections.map((c, index) => (
           <Grid key={c.id} item xs={12} md={index < 3 ? 4 : 6}>
             <CategoryPreview category={c} />
           </Grid>

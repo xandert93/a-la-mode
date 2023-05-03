@@ -1,5 +1,4 @@
-import { Link } from '@/components'
-import { FooterAccordion, FooterLinks, Header } from '@/components-layout'
+import { FooterLinks, Header } from '@/components-layout'
 import { companyName } from '@/constants'
 
 import { isVPXs, theme } from '@/theme'
@@ -14,7 +13,6 @@ import {
   Container,
   ListItemIcon,
   ListItemText,
-  useMediaQuery,
 } from '@mui/material'
 import Head from 'next/head'
 
@@ -31,34 +29,6 @@ export default function App({ Component, pageProps }) {
         <Footer />
       </ThemeProvider>
     </>
-  )
-}
-
-const PromotionBanner_old = () => {
-  return (
-    <Grid
-      container
-      sx={{
-        p: 1,
-        backgroundColor: 'gold',
-        color: 'common.black',
-        textAlign: 'center',
-        textTransform: 'uppercase',
-        letterSpacing: 1,
-      }}>
-      <Grid item xs={12} sm={6} md={4}>
-        <Typography sx={{ fontWeight: 'bold' }}>Free Express Delivery!</Typography>
-        <Typography variant="body2" children={"Use code: 'SMOOTHDEL' at checkout"} />
-      </Grid>
-      <Grid item sm={6} md={4} sx={{ display: { xs: 'none', sm: 'initial' } }}>
-        <Typography sx={{ fontWeight: 'bold' }}>Calling All Students</Typography>
-        <Typography variant="body2" children="Get 20% Off" />
-      </Grid>
-      <Grid item md={4} sx={{ display: { xs: 'none', md: 'initial' } }}>
-        <Typography sx={{ fontWeight: 'bold' }}>Stuck for ideas?</Typography>
-        <Typography variant="body2">Shop our E-Gift Card Now</Typography>
-      </Grid>
-    </Grid>
   )
 }
 
@@ -89,7 +59,7 @@ const Footer = () => {
         <Grid item xs={12} sm={12} md={4} lg={3}>
           <FooterContact />
         </Grid>
-        <Grid item container direction="column" alignItems="center" sx={{ gap: 1.5 }}>
+        <Grid item container direction="column" alignItems="center" gap={1.5}>
           <FooterPaymentMethods />
         </Grid>
       </Grid>

@@ -55,6 +55,18 @@ export const theme = createResponsiveTheme(
           },
         },
       },
+
+      // JTO (just trying out):
+      MuiSvgIcon: {
+        styleOverrides: {
+          root: {
+            fontSize: 30,
+            [isVPXs]: {
+              fontSize: 25,
+            },
+          },
+        },
+      },
     },
 
     palette: {

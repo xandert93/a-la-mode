@@ -24,7 +24,10 @@ export const heroItems = [
     href: '#',
   },
 ]
-export const categories = [
+
+export const categories = ['Men', 'Women', 'Sport', 'Collections', 'The Brand']
+
+export const collections = [
   {
     id: 1,
     imageUrl: 'https://images.pexels.com/photos/2792080/pexels-photo-2792080.jpeg',

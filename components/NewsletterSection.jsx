@@ -44,7 +44,7 @@ export const NewsletterSection = () => {
           <Typography>Subscribe to our newsletter for our latest products and offers</Typography>
           <NewsletterForm />
           <Typography variant="body2">
-            We will use your information in accordance with our Privacy Notice
+            We'll use your information in accordance with our Privacy Notice
           </Typography>
           <Typography variant="caption" color="text.disabled">
             *Terms & Conditions Apply

@@ -9,17 +9,18 @@ const styles = {
   },
 
   summary: {
-    borderBottom: '2px solid beige',
+    borderBottom: '2px solid',
+    borderColor: 'background.highlight',
     p: 0,
     mb: 1,
-    minHeight: 'initial',
+    minHeight: 'initial', // 48px*
     '& .MuiAccordionSummary-content': {
-      margin: '8px 0',
+      my: 1, // 1.5*
     },
   },
 
   details: {
-    padding: 0, // 8px 16px 16px
+    p: 0, // 8px 16px 16px
   },
 }
 
