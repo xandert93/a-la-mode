@@ -1,4 +1,4 @@
-import { companyName } from '@/constants'
+import { NAMES } from '@/constants'
 import { Typography } from '@mui/material'
 
 export const CompanyHeading = ({ variant, ...props }) => {
@@ -6,7 +6,7 @@ export const CompanyHeading = ({ variant, ...props }) => {
     <Typography
       component="h1"
       variant={variant} //
-      children={companyName}
+      children={NAMES.COMPANY}
       align="center"
       {...props}
     />

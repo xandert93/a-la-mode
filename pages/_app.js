@@ -1,8 +1,9 @@
+import { EmailIcon, LocationIcon, TelephoneIcon } from '@/components'
 import { FooterLinks, Header } from '@/components-layout'
-import { companyName } from '@/constants'
+import { NAMES } from '@/constants'
+import { paymentMethods } from '@/data'
 
-import { isVPXs, theme } from '@/theme'
-import { Email, Phone, Place } from '@mui/icons-material'
+import { theme } from '@/theme'
 import {
   CssBaseline,
   Grid,
@@ -20,7 +21,7 @@ export default function App({ Component, pageProps }) {
   return (
     <>
       <Head>
-        <title children={companyName} />
+        <title children={NAMES.COMPANY} />
       </Head>
       <ThemeProvider theme={theme}>
         <CssBaseline />
@@ -31,18 +32,7 @@ export default function App({ Component, pageProps }) {
     </>
   )
 }
-
-const paymentMethods = [
-  'mastercard',
-  'visa',
-  'amex',
-  'google-pay',
-  'apple-pay',
-  'paypal',
-  'stripe',
-  'klarna',
-]
-
+// I don't need to specify the `xs`, `sm` prop each time if they are the same, but just makes it easier to understand/picture
 const Footer = () => {
   return (
     <Container component="footer">
@@ -90,15 +80,15 @@ const FooterContact = () => {
       <Typography variant="h6">Contact Us</Typography>
       <List disablePadding>
         <ListItem>
-          <ListItemIcon children={<Place />} />
+          <ListItemIcon children={<LocationIcon />} />
           <ListItemText primary="60 Av. Montaigne, 75008 Paris" />
         </ListItem>
         <ListItem>
-          <ListItemIcon children={<Phone />} />
+          <ListItemIcon children={<TelephoneIcon />} />
           <ListItemText primary="+33 1 56 69 80 80" />
         </ListItem>
         <ListItem>
-          <ListItemIcon children={<Email />} />
+          <ListItemIcon children={<EmailIcon />} />
           <ListItemText primary="support@alamode.fr" />
         </ListItem>
       </List>
@@ -110,6 +100,7 @@ const FooterPaymentMethods = () => {
   return (
     <>
       <Typography
+        variant="body2"
         color="text.secondary"
         align="center"
         children="We accept the following payment methods:"

@@ -42,6 +42,25 @@ export const theme = createResponsiveTheme(
         },
       },
 
+      MuiCard: {
+        styleOverrides: {
+          root: {
+            borderRadius: 12,
+          },
+        },
+      },
+
+      MuiLink: {
+        styleOverrides: {
+          root: {
+            display: 'block',
+          },
+        },
+        defaultProps: {
+          underline: 'none', // 'hover'*
+        },
+      },
+
       MuiListItem: {
         defaultProps: {
           disableGutters: true,
@@ -62,7 +81,7 @@ export const theme = createResponsiveTheme(
           root: {
             fontSize: 30,
             [isVPXs]: {
-              fontSize: 25,
+              fontSize: 26.5,
             },
           },
         },
@@ -94,6 +113,7 @@ export const theme = createResponsiveTheme(
       },
       h4: {
         fontWeight: 'bold', // 400*
+        fontSize: '2.5rem', // ~2rem* (felt like a big drop off from <h3>'s ~3rem)
       },
       h5: {
         fontWeight: 'bold', // 400*

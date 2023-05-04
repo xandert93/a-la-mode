@@ -93,3 +93,14 @@ export const latestProducts = [
     href: '#',
   },
 ]
+
+export const paymentMethods = [
+  'mastercard',
+  'visa',
+  'amex',
+  'google-pay',
+  'apple-pay',
+  'paypal',
+  'stripe',
+  'klarna',
+]

@@ -28,7 +28,7 @@ export const HeaderHeading = () => {
       <Link href={PATHS.HOME} underline="none">
         <Grid container alignItems="center" columnGap={2}>
           <CompanyLogo sx={styles.logo} />
-          <CompanyHeading variant="h3" sx={styles.heading} />
+          <CompanyHeading variant="h4" sx={styles.heading} />
         </Grid>
       </Link>
     </Grid>

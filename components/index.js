@@ -8,4 +8,14 @@ export { SearchInputAdornment } from './SearchInputAdornment'
 
 export { default as Carousel } from 'react-material-ui-carousel'
 
-export { Favorite as HeartIcon, Menu as MenuIcon, Search as SearchIcon } from '@mui/icons-material'
+export {
+  Favorite as HeartIcon,
+  Menu as MenuIcon,
+  Search as SearchIcon,
+  Place as LocationIcon,
+  Phone as TelephoneIcon,
+  Email as EmailIcon,
+} from '@mui/icons-material'
+
+// JFN
+export { ProductPreviewCard } from './ProductPreviewCard'

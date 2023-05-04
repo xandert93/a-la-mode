@@ -1,9 +1,20 @@
-import { Link, NewsletterSection, Carousel, HeartIcon } from '@/components'
+import { Link, NewsletterSection, Carousel, ProductPreviewCard } from '@/components'
 import { HomeHeroSection } from '@/components-page/home'
 import { collections, heroItems, latestProducts } from '@/data'
+import { useToggle } from '@/hooks'
 import { Facebook, Instagram, Twitter, YouTube } from '@mui/icons-material'
 
-import { Box, Button, Container, Grid, IconButton, Typography } from '@mui/material'
+import {
+  Avatar,
+  AvatarGroup,
+  Box,
+  Button,
+  Card,
+  Container,
+  Grid,
+  IconButton,
+  Typography,
+} from '@mui/material'
 import { useState } from 'react'
 
 export default function HomePage() {
@@ -12,15 +23,15 @@ export default function HomePage() {
   return (
     <>
       <HomeHeroSection />
-      {/* <FeaturedInSection /> */}
+      <FeaturedInSection />
       {/* <CollectionSection /> */}
-      {/* <BrandsSection /> */}
+      <BrandsSection />
       {/* <CollectionsSection /> */}
-      {/* <NewProductsSection /> */}
+      <NewProductsSection />
       {/* <TrendingProductsSection /> */}
-      {/* {!isLoggedIn && <NewsletterSection />} */}
-      {/* <BlogSection />
-      <SocialsSection /> */}
+      {!isLoggedIn && <NewsletterSection />}
+      {/* <BlogSection /> */}
+      {/* <SocialsSection /> */}
     </>
   )
 }
@@ -157,6 +168,23 @@ const LogosSection = ({ title, n, loc }) => {
   )
 }
 
+/*
+
+
+*/
+
+const ProductPreviewList = () => {
+  return (
+    <Grid container spacing={{ xs: 1, sm: 2 }}>
+      {latestProducts.map((product) => (
+        <Grid key={product.name} item lg={3} md={4} sm={6} xs={12}>
+          <ProductPreviewCard {...product} />
+        </Grid>
+      ))}
+    </Grid>
+  )
+}
+
 const NewProductsSection = () => {
   return (
     <section>
@@ -167,73 +195,10 @@ const NewProductsSection = () => {
           <Button children="Shop Women's" />
           <Button children="Shop Kids'" />
         </Grid>
-        <Grid container spacing={1.5}>
-          {latestProducts.map((product) => (
-            <Grid key={product.name} item xs={3}>
-              <ProductPreview {...product} />
-            </Grid>
-          ))}
-        </Grid>
+        {/* 👇 thinking to convert to horizontal carousel - see Nike or Asos */}
+        <ProductPreviewList />
       </Container>
     </section>
-  )
-}
-
-const ProductPreview = ({ name, price, imageUrls, href }) => {
-  return (
-    <Grid container direction="column" gap={1} component={Link} underline="none" href={href}>
-      <ProductPreviewImages urls={imageUrls} />
-      <Typography children={'£' + price} sx={{ fontWeight: 'bold' }} />
-      <Typography children={name} />
-    </Grid>
-  )
-}
-
-const ProductPreviewImages = ({ urls }) => {
-  const [index, setIndex] = useState(0)
-
-  const toggleImage = (newIndex) => () => setIndex(newIndex)
-
-  return (
-    <Grid
-      container
-      onMouseEnter={toggleImage(1)}
-      onMouseLeave={toggleImage(0)}
-      sx={{ position: 'relative' }}>
-      <img src={urls[index]} style={{ width: '100%' }} />
-      <ProductPreviewLikeButton />
-    </Grid>
-  )
-}
-
-const ProductPreviewLikeButton = () => {
-  const [isLiked, setIsLiked] = useState(false)
-
-  const handleClick = (e) => {
-    e.preventDefault()
-    setIsLiked((prev) => !prev)
-  }
-
-  return (
-    <IconButton
-      sx={{
-        position: 'absolute',
-        display: 'flex',
-        bottom: '1%',
-        right: '1%',
-        transition: 'transform 0.2s ease',
-        ':hover': {
-          transform: 'scale(1.1)',
-        },
-      }}
-      onClick={handleClick}>
-      <HeartIcon
-        sx={{
-          fill: isLiked ? 'red' : 'transparent',
-          stroke: isLiked ? 'red' : 'black',
-        }}
-      />
-    </IconButton>
   )
 }
 
