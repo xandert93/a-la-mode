@@ -187,8 +187,8 @@ const ProductPreviewList = () => {
         duration={1200}
         swipe={true}>
         {latestProducts.map((product) => (
-          <Box p={1}>
-            <ProductPreviewCard key={product.name} {...product} />
+          <Box key={product.name} p={1}>
+            <ProductPreviewCard {...product} />
           </Box>
         ))}
       </Carousel>
