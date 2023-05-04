@@ -1,20 +1,10 @@
 import { Link, NewsletterSection, Carousel, ProductPreviewCard } from '@/components'
 import { HomeHeroSection } from '@/components-page/home'
 import { collections, heroItems, latestProducts } from '@/data'
-import { useToggle } from '@/hooks'
+import { isVPXs } from '@/theme'
 import { Facebook, Instagram, Twitter, YouTube } from '@mui/icons-material'
 
-import {
-  Avatar,
-  AvatarGroup,
-  Box,
-  Button,
-  Card,
-  Container,
-  Grid,
-  IconButton,
-  Typography,
-} from '@mui/material'
+import { Box, Button, Container, Grid, IconButton, Typography, useMediaQuery } from '@mui/material'
 import { useState } from 'react'
 
 export default function HomePage() {
@@ -168,23 +158,6 @@ const LogosSection = ({ title, n, loc }) => {
   )
 }
 
-/*
-
-
-*/
-
-const ProductPreviewList = () => {
-  return (
-    <Grid container spacing={{ xs: 1, sm: 2 }}>
-      {latestProducts.map((product) => (
-        <Grid key={product.name} item lg={3} md={4} sm={6} xs={12}>
-          <ProductPreviewCard {...product} />
-        </Grid>
-      ))}
-    </Grid>
-  )
-}
-
 const NewProductsSection = () => {
   return (
     <section>
@@ -200,6 +173,36 @@ const NewProductsSection = () => {
       </Container>
     </section>
   )
+}
+
+const ProductPreviewList = () => {
+  const isXs = useMediaQuery(isVPXs)
+
+  if (isXs)
+    return (
+      <Carousel
+        autoPlay={false}
+        navButtonsAlwaysInvisible
+        animation="slide"
+        duration={1200}
+        swipe={true}>
+        {latestProducts.map((product) => (
+          <Box p={1}>
+            <ProductPreviewCard key={product.name} {...product} />
+          </Box>
+        ))}
+      </Carousel>
+    )
+  else
+    return (
+      <Grid container spacing={{ xs: 1, sm: 2 }}>
+        {latestProducts.map((product) => (
+          <Grid key={product.name} item lg={3} md={4} sm={6}>
+            <ProductPreviewCard {...product} />
+          </Grid>
+        ))}
+      </Grid>
+    )
 }
 
 const CollectionsSection = () => {

@@ -1,4 +1,4 @@
-export default {
+export const styles = {
   root: {
     position: 'relative',
     ':hover': {
@@ -18,8 +18,8 @@ export default {
   },
 
   icon: (isLiked) => ({
-    fill: isLiked ? 'red' : 'transparent',
-    stroke: isLiked ? 'red' : 'black',
+    fill: isLiked ? 'red' : 'transparent', // background-color
+    stroke: isLiked ? 'red' : 'black', // border
   }),
 
   'image-box': {
@@ -44,3 +44,5 @@ export default {
     backgroundColor: color,
   }),
 }
+
+export default styles
