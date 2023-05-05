@@ -16,26 +16,29 @@ export const ProductPreviewCard = ({
 }) => {
   return (
     <Card component="article" elevation={4} sx={styles.root}>
-      <Grid container direction="column" p={2} rowGap={2} component={Link} href={href}>
-        <ProductImage urls={imageUrls} />
-        <Grid container alignItems="center" rowGap={1} px={1}>
-          <Grid item xs={12}>
+      <Link href={href}>
+        <Grid container direction="column" p={2} rowGap={2}>
+          <ProductImage urls={imageUrls} />
+          <Grid container alignItems="center" rowGap={1} px={1}>
+            <Grid item xs={12}>
+              <Typography
+                children={name}
+                sx={{ fontWeight: 'bold', letterSpacing: 1 }} // JFN
+              />
+            </Grid>
+            <Grid item xs>
+              <ProductColors colors={colors} />
+            </Grid>
             <Typography
-              children={name}
-              sx={{ fontWeight: 'bold', letterSpacing: 1 }} // JFN
+              children={'£' + price}
+              component="p"
+              variant="h6"
+              sx={{ fontWeight: 'initial', letterSpacing: 1 }} // JFN
             />
           </Grid>
-          <Grid item xs>
-            <ProductColors colors={colors} />
-          </Grid>
-          <Typography
-            children={'£' + price}
-            component="p"
-            variant="h6"
-            sx={{ fontWeight: 'initial', letterSpacing: 1 }} // JFN
-          />
         </Grid>
-      </Grid>
+      </Link>
+
       <LikeButton />
     </Card>
   )

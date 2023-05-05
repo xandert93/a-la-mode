@@ -27,9 +27,9 @@ export default function App({ Component, pageProps }) {
       </Head>
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        {/* <Header /> */}
+        <Header />
         <Component {...pageProps} />
-        {/* <Footer /> */}
+        <Footer />
       </ThemeProvider>
     </>
   )
