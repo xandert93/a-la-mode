@@ -1,28 +1,130 @@
-import { Link, NewsletterSection, Carousel, ProductPreviewCard } from '@/components'
+import { Link, NewsletterSection, ProductPreviewCard } from '@/components'
 import { HomeHeroSection } from '@/components-page/home'
 import { collections, heroItems, latestProducts } from '@/data'
-import { isVPXs } from '@/theme'
-import { Facebook, Instagram, Twitter, YouTube } from '@mui/icons-material'
+import { breakpoints, isVPMinMd, isVPXs } from '@/theme'
+import { ArrowLeft, ArrowRight, Facebook, Instagram, Twitter, YouTube } from '@mui/icons-material'
 
 import { Box, Button, Container, Grid, IconButton, Typography, useMediaQuery } from '@mui/material'
-import { useState } from 'react'
+import { useCallback, useRef, useState } from 'react'
+import { Swiper, SwiperSlide } from 'swiper/react'
+
+import 'swiper/css'
+
+import { Navigation, Pagination, Scrollbar, A11y } from 'swiper'
+import 'swiper/css/navigation'
+import 'swiper/css/pagination'
+import 'swiper/css/scrollbar'
+
+import { EffectFade } from 'swiper'
+
+import 'swiper/css/effect-fade'
 
 export default function HomePage() {
   const isLoggedIn = false
 
   return (
     <>
-      <HomeHeroSection />
-      <FeaturedInSection />
+      {/* <HomeHeroSection />
+      <FeaturedInSection /> */}
       {/* <CollectionSection /> */}
-      <BrandsSection />
+      {/* <BrandsSection /> */}
       {/* <CollectionsSection /> */}
       <NewProductsSection />
       {/* <TrendingProductsSection /> */}
-      {!isLoggedIn && <NewsletterSection />}
+      {/* {!isLoggedIn && <NewsletterSection />} */}
       {/* <BlogSection /> */}
       {/* <SocialsSection /> */}
     </>
+  )
+}
+
+const NewProductsSection = () => {
+  return (
+    <section>
+      <Container>
+        <Grid container alignItems={'center'}>
+          <Typography component="h2" children="New Arrivals" />
+          <Button children="Shop Men's" />
+          <Button children="Shop Women's" />
+          <Button children="Shop Kids'" />
+        </Grid>
+        {/* 👇 thinking to convert to horizontal carousel - see Nike or Asos */}
+        <ProductPreviewList />
+      </Container>
+    </section>
+  )
+}
+
+// stackoverflow original code: https://stackoverflow.com/a/71225996. I haven't encountered bug yet, so I've removed useCallback etc.
+const ProductPreviewList = () => {
+  const isMinMd = useMediaQuery(isVPMinMd)
+
+  const handleSlideChange = () => {
+    // console.log('slide changed')
+  }
+
+  const swiperRef = useRef(null)
+
+  const goBack = () => {
+    swiperRef.current.swiper.slidePrev()
+  }
+
+  const goForward = () => {
+    swiperRef.current.swiper.slideNext()
+  }
+
+  return (
+    <>
+      {isMinMd && (
+        <div style={{ textAlign: 'right' }}>
+          <IconButton onClick={goBack} children={<ArrowLeft />} />
+          <IconButton onClick={goForward} children={<ArrowRight />} />
+        </div>
+      )}
+      <Swiper
+        ref={swiperRef}
+        direction="horizontal"
+        speed={800}
+        // install additional Swiper modules
+        modules={[Pagination, Scrollbar, A11y]}
+        // horizontal scrollbar beneath Swiper
+        scrollbar={isMinMd && { draggable: true }}
+        // slide indicators
+        pagination={isMinMd && { clickable: true }}
+        breakpoints={{
+          [breakpoints.values.xs]: {
+            slidesPerView: 1.1,
+          },
+          [breakpoints.values.sm]: {
+            slidesPerView: 2.1,
+          },
+          [breakpoints.values.md]: {
+            slidesPerView: 3,
+          },
+          [breakpoints.values.xl]: {
+            slidesPerView: 4,
+          },
+        }}
+        onSlideChange={handleSlideChange}>
+        {latestProducts.map((product) => (
+          <SwiperSlide key={product.name}>
+            <Box p={1}>
+              <ProductPreviewCard {...product} />
+            </Box>
+          </SwiperSlide>
+        ))}
+      </Swiper>
+    </>
+  )
+
+  return (
+    <Grid container spacing={{ xs: 1, sm: 2 }}>
+      {latestProducts.map((product) => (
+        <Grid key={product.name} item lg={3} md={4} sm={6}>
+          <ProductPreviewCard {...product} />
+        </Grid>
+      ))}
+    </Grid>
   )
 }
 
@@ -156,53 +258,6 @@ const LogosSection = ({ title, n, loc }) => {
       </Container>
     </Box>
   )
-}
-
-const NewProductsSection = () => {
-  return (
-    <section>
-      <Container>
-        <Grid container alignItems={'center'}>
-          <Typography component="h2" children="New Arrivals" />
-          <Button children="Shop Men's" />
-          <Button children="Shop Women's" />
-          <Button children="Shop Kids'" />
-        </Grid>
-        {/* 👇 thinking to convert to horizontal carousel - see Nike or Asos */}
-        <ProductPreviewList />
-      </Container>
-    </section>
-  )
-}
-
-const ProductPreviewList = () => {
-  const isXs = useMediaQuery(isVPXs)
-
-  if (isXs)
-    return (
-      <Carousel
-        autoPlay={false}
-        navButtonsAlwaysInvisible
-        animation="slide"
-        duration={1200}
-        swipe={true}>
-        {latestProducts.map((product) => (
-          <Box key={product.name} p={1}>
-            <ProductPreviewCard {...product} />
-          </Box>
-        ))}
-      </Carousel>
-    )
-  else
-    return (
-      <Grid container spacing={{ xs: 1, sm: 2 }}>
-        {latestProducts.map((product) => (
-          <Grid key={product.name} item lg={3} md={4} sm={6}>
-            <ProductPreviewCard {...product} />
-          </Grid>
-        ))}
-      </Grid>
-    )
 }
 
 const CollectionsSection = () => {

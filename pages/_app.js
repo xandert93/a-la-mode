@@ -17,6 +17,8 @@ import {
 } from '@mui/material'
 import Head from 'next/head'
 
+import './styles.css'
+
 export default function App({ Component, pageProps }) {
   return (
     <>
@@ -25,9 +27,9 @@ export default function App({ Component, pageProps }) {
       </Head>
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        <Header />
+        {/* <Header /> */}
         <Component {...pageProps} />
-        <Footer />
+        {/* <Footer /> */}
       </ThemeProvider>
     </>
   )

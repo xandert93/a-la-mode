@@ -1,10 +1,14 @@
+import { isHoverable } from '@/theme'
+
 export const styles = {
   root: {
     position: 'relative',
-    ':hover': {
-      boxShadow: ({ shadows }) => shadows[16],
-      // backgroundColor: '',
-    },
+    // [isHoverable]: {
+    //   ':hover': {
+    //     boxShadow: ({ shadows }) => shadows[16],
+    //     // backgroundColor: '',
+    //   },
+    // },
   },
 
   'like-button': {

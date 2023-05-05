@@ -1,0 +1,18 @@
+.swiper-horizontal {
+}
+
+.swiper-pagination {
+  position: initial !important; /* absolute* (positions inside swiper) */
+  margin-top: 8px;
+}
+
+.swiper-scrollbar {
+  position: initial !important; /* absolute* (positions inside swiper) */
+  margin-top: 8px;
+  height: 6px !important;
+  cursor: grab;
+}
+
+.swiper-scrollbar:active {
+  cursor: grabbing;
+}

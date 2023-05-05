@@ -13,5 +13,7 @@ export {
   isVPMaxLg,
   isVPXl,
   isVPLandscape,
-  hasNoMouse,
+  isHoverable,
 } from './media-queries'
+
+export { breakpoints } from './config'

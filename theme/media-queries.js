@@ -29,9 +29,11 @@ export const isVPMaxLg = isMax(xl)
 export const isVPXl = isMin(xl)
 
 export const isVPLandscape = '@media (orientation: landscape)' // 1
-export const hasNoMouse = '@media not (pointer: fine)' // 2
+export const isHoverable = '@media (hover: hover) and (pointer: fine)' // 2
 
 /* 
 🔥 1) https://developer.mozilla.org/en-US/docs/Web/CSS/@media/orientation
-🔥 2) https://developer.mozilla.org/en-US/docs/Web/CSS/@media/pointer
+
+🔥 2) https://developer.mozilla.org/en-US/docs/Web/CSS/@media/hover
+      https://developer.mozilla.org/en-US/docs/Web/CSS/@media/pointer where "fine" represents a precise pointing device (e.g. mouse) and "coarse" represents an imprecise pointing device e.g. a finger on a touchscreen
 */
