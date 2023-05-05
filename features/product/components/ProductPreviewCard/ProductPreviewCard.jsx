@@ -1,10 +1,11 @@
+import { useState } from 'react'
 import { Box, Card, Grid, IconButton, Typography } from '@mui/material'
 
-import styles from './styles'
-import { Link } from '../Link'
-import { HeartIcon } from '..'
-import { useState } from 'react'
+import { Link, HeartIcon } from '../../../../components'
+
 import { useToggle } from '@/hooks'
+
+import styles from './styles'
 
 export const ProductPreviewCard = ({
   id,

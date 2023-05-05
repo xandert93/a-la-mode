@@ -1,3 +1,7 @@
+/* styles just in case I want to override default swiper styles. Is there a React way to do this?
+   This works for now, but a) not comfy using classic stylesheet and b) having to use !important
+   to override default Swiper styles. Anyway, import into _app.js to use. */
+
 .swiper-pagination {
   position: initial !important; /* absolute* (positions inside swiper) */
   margin-top: 8px;

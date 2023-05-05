@@ -5,6 +5,7 @@ export { Form } from './Form'
 export { CompanyLogo } from './CompanyLogo'
 export { CompanyHeading } from './CompanyHeading'
 export { SearchInputAdornment } from './SearchInputAdornment'
+export { PaymentMethodImageList } from './PaymentMethodImageList'
 
 export {
   Favorite as HeartIcon,
@@ -13,7 +14,6 @@ export {
   Place as LocationIcon,
   Phone as TelephoneIcon,
   Email as EmailIcon,
+  ArrowLeft as SwiperBackIcon,
+  ArrowRight as SwiperForwardIcon,
 } from '@mui/icons-material'
-
-// JFN
-export { ProductPreviewCard } from './ProductPreviewCard'

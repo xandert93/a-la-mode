@@ -67,7 +67,7 @@ export const latestProducts = [
   },
   {
     name: 'Basketball Shorts 2',
-    price: 50,
+    price: 500,
     imageUrls: [
       'https://i8.amplience.net/i/jpl/jd_657902_al?w=408&h=408',
       'https://i8.amplience.net/i/jpl/jd_657902_bl?w=408&h=408',
@@ -85,6 +85,15 @@ export const latestProducts = [
   },
   {
     name: 'Basketball Shorts 4',
+    price: 200,
+    imageUrls: [
+      'https://i8.amplience.net/i/jpl/jd_657902_al?w=408&h=408',
+      'https://i8.amplience.net/i/jpl/jd_657902_bl?w=408&h=408',
+    ],
+    href: '#',
+  },
+  {
+    name: 'Basketball Shorts 5',
     price: 50,
     imageUrls: [
       'https://i8.amplience.net/i/jpl/jd_657902_al?w=408&h=408',

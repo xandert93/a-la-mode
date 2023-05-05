@@ -17,8 +17,6 @@ import {
 } from '@mui/material'
 import Head from 'next/head'
 
-import './styles.css'
-
 export default function App({ Component, pageProps }) {
   return (
     <>
@@ -62,11 +60,13 @@ const Footer = () => {
 const FooterAbout = () => {
   return (
     <>
-      <Typography variant="h6" children="Our Mission" />
+      <Typography variant="h6" children="Our Story" gutterBottom />
+      <Typography paragraph>
+        Since our establishment in 1943, we are just as passionate today as we were 80 years ago.
+      </Typography>
       <Typography>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Corporis labore quaerat, quisquam
-        unde iure aut recusandae accusantium deserunt quo, voluptates laborum debitis est eius
-        soluta, rerum quod a veritatis molestias.
+        Since the first store opened on the Champs Élysées, we have received numerous awards for our
+        superior quality, attention to detail and exquisite craftsmanship.
       </Typography>
     </>
   )
