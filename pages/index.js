@@ -295,7 +295,7 @@ const CategoryPreview = ({ category }) => {
 const CollectionSection = () => {
   return (
     <section>
-      <Carousel
+      <Swiper
         autoPlay={true}
         indicators={false}
         cycleNavigation={true}
@@ -307,7 +307,7 @@ const CollectionSection = () => {
         {heroItems.map((h) => (
           <HeroCarouselItem key={h.title} {...h} />
         ))}
-      </Carousel>
+      </Swiper>
     </section>
   )
 }
