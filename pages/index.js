@@ -1,11 +1,12 @@
 import { Link, NewsletterSection } from '@/components'
-import { HomeHeroSection } from '@/components-page/home'
+import { HomeHeroSection, NewProductsSection } from '@/components-page/home'
 import { collections, heroItems, latestProducts } from '@/data'
 import { Facebook, Instagram, Twitter, YouTube } from '@mui/icons-material'
 
 import { Box, Button, Container, Grid, IconButton, Typography, useMediaQuery } from '@mui/material'
 
 import { ProductPreviewSwiper } from '@/features/product'
+import { Swiper } from 'swiper/react'
 
 export default function HomePage() {
   const isLoggedIn = false
@@ -23,23 +24,6 @@ export default function HomePage() {
       {/* <BlogSection /> */}
       {/* <SocialsSection /> */}
     </>
-  )
-}
-
-const NewProductsSection = () => {
-  return (
-    <section>
-      <Container>
-        <Typography component="h2" variant="h6" children="New Arrivals" />
-        <Grid container alignItems="center">
-          <Button children="Shop Men's" />
-          <Button children="Shop Women's" />
-          <Button children="Shop Kids'" />
-        </Grid>
-        {/* 👇 thinking to convert to horizontal carousel - see Nike or Asos */}
-        <ProductPreviewSwiper />
-      </Container>
-    </section>
   )
 }
 
