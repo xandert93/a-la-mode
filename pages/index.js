@@ -1,11 +1,10 @@
-import { Link, NewsletterSection } from '@/components'
-import { HomeHeroSection, NewProductsSection } from '@/components-page/home'
-import { collections, heroItems, latestProducts } from '@/data'
+import { NewsletterSection } from '@/components'
+import { HomeHeroSection, NewProductsSection, CollectionsSection } from '@/components-page/home'
+import { heroItems } from '@/data'
 import { Facebook, Instagram, Twitter, YouTube } from '@mui/icons-material'
 
-import { Box, Button, Container, Grid, IconButton, Typography, useMediaQuery } from '@mui/material'
+import { Box, Button, Container, Grid, IconButton, Typography } from '@mui/material'
 
-import { ProductPreviewSwiper } from '@/features/product'
 import { Swiper } from 'swiper/react'
 
 export default function HomePage() {
@@ -14,13 +13,14 @@ export default function HomePage() {
   return (
     <>
       <HomeHeroSection />
-      <FeaturedInSection />
+      {/* 
+      <FeaturedInSection /> */}
       {/* <CollectionSection /> */}
       {/* <BrandsSection /> */}
-      {/* <CollectionsSection /> */}
+      <CollectionsSection />
       <NewProductsSection />
       {/* <TrendingProductsSection /> */}
-      {/* {!isLoggedIn && <NewsletterSection />} */}
+      {!isLoggedIn && <NewsletterSection />}
       {/* <BlogSection /> */}
       {/* <SocialsSection /> */}
     </>
@@ -156,38 +156,6 @@ const LogosSection = ({ title, n, loc }) => {
         </Grid>
       </Container>
     </Box>
-  )
-}
-
-const CollectionsSection = () => {
-  return (
-    <section>
-      <Grid container spacing={1} sx={{ p: { xs: 1, sm: 2, md: 3 } }}>
-        {collections.map((c, index) => (
-          <Grid key={c.id} item xs={12} md={index < 3 ? 4 : 6}>
-            <CategoryPreview category={c} />
-          </Grid>
-        ))}
-      </Grid>
-    </section>
-  )
-}
-
-const CategoryPreview = ({ category }) => {
-  return (
-    <Link href="/">
-      <Box sx={{ height: '50vh' }}>
-        <img
-          src={category.imageUrl}
-          style={{
-            // borderRadius: 3,
-            width: '100%',
-            height: '100%',
-            objectFit: 'cover',
-          }}
-        />
-      </Box>
-    </Link>
   )
 }
 

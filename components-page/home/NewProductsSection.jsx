@@ -6,11 +6,11 @@ export const NewProductsSection = () => {
     <section>
       <Container>
         <Typography component="h2" variant="h6" children="New Arrivals" />
-        <Grid container alignItems="center">
+        {/* <Grid container alignItems="center">
           <Button children="Shop Men's" />
           <Button children="Shop Women's" />
           <Button children="Shop Kids'" />
-        </Grid>
+        </Grid> */}
         <ProductPreviewSwiper />
       </Container>
     </section>

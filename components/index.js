@@ -17,3 +17,5 @@ export {
   ArrowLeft as SwiperBackIcon,
   ArrowRight as SwiperForwardIcon,
 } from '@mui/icons-material'
+
+export { Img, CoverImg } from './Images'

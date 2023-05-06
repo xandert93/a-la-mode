@@ -14,6 +14,12 @@ export const mixins = {
     bottom: 0,
   },
 
+  coverImg: {
+    width: '100%',
+    height: '100%',
+    objectFit: 'cover',
+  },
+
   gradientColor: (angle = 135, color1, color2) => ({
     backgroundImage: `linear-gradient(${angle}deg, ${color1}, ${color2})`,
     color: 'transparent',
