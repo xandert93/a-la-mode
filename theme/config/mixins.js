@@ -4,6 +4,7 @@ export const mixins = {
     top: '50%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
+    zIndex: 1,
   },
 
   absCover: {
@@ -12,6 +13,7 @@ export const mixins = {
     left: 0,
     right: 0,
     bottom: 0,
+    zIndex: 1,
   },
 
   coverImage: {
@@ -19,6 +21,10 @@ export const mixins = {
     height: '100%',
     objectFit: 'cover',
   },
+
+  textOutline: (color) => ({
+    textShadow: `1.5px 1px 1px ${color}`,
+  }),
 
   // around white text
   textShadowDark: {

@@ -4,8 +4,8 @@ const { xs, sm, md, lg, xl } = breakpoints.values
 
 // xs: 0, - 'xs' key now means anything in the range of 0 - 600px and so forth
 // sm: 600,
-// md: 900,
-// lg: 1200,
+// md: 960,
+// lg: 1280,
 // xl: 1536,
 
 const isBetween = (key_1, key_2) => `@media (min-width:${key_1}px) and (max-width:${key_2}px)`
@@ -29,6 +29,8 @@ export const isVPMaxLg = isMax(xl)
 export const isVPXl = isMin(xl)
 
 export const isVPLandscape = '@media (orientation: landscape)' // 1
+export const isVPMaxSmAndLandscape = `${isVPMaxSm} and (orientation: landscape)`
+
 export const isHoverable = '@media (hover: hover) and (pointer: fine)' // 2
 
 /* 

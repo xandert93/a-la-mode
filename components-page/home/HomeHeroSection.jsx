@@ -1,6 +1,6 @@
-import { BackgroundVideo } from '@/components'
+import { BackgroundVideo, ImageButton } from '@/components'
 import { isVPXs, isVPLandscape } from '@/theme'
-import { Box, Grid, Typography, Button as MuiButton } from '@mui/material'
+import { Box, Grid, Typography } from '@mui/material'
 
 const styles = {
   root: {
@@ -19,53 +19,24 @@ const styles = {
   content: (theme) => ({
     maxWidth: 600,
     color: 'white',
+    textAlign: 'center',
     ...theme.mixins.textShadowDark,
   }),
-
-  button: (outlined) => {
-    const outlinedStyles = {
-      color: 'white',
-    }
-
-    const containedStyles = {
-      color: 'black',
-      backgroundColor: 'white',
-    }
-
-    return {
-      minWidth: '15ch',
-      border: '1px solid white',
-      ...(outlined ? outlinedStyles : containedStyles),
-      ':hover': {
-        ...(outlined ? containedStyles : outlinedStyles),
-      },
-    }
-  },
 }
 
 export const HomeHeroSection = () => {
   return (
     <Box component="section" sx={styles.root}>
       <BackgroundVideo poster="/videos/hero-video-1-poster.jpg" src="/videos/hero-video-1.mp4" />
-      <Grid
-        container
-        direction="column"
-        textAlign="center"
-        max
-        rowGap={{ xs: 3, sm: 4, md: 6 }}
-        sx={styles.content}>
+      <Grid container direction="column" rowGap={{ xs: 3, sm: 4, md: 6 }} sx={styles.content}>
         <Typography component="h3" variant="h4" children="Summer'23" />
         <Typography component="h2" variant="h3" children="Explore the Everyday" />
         <Typography children="Embrace every moment this season, taking on new ventures in a thoughtfully curated collection for Summer'23" />
         <Grid container justifyContent="space-evenly" rowGap={2}>
-          <ImageButton outlined href="#" children="Menswear" />
-          <ImageButton outlined href="#" children="Womenswear" />
+          <ImageButton outlined children="Menswear" />
+          <ImageButton outlined children="Womenswear" />
         </Grid>
       </Grid>
     </Box>
   )
-}
-
-export const ImageButton = ({ sx, outlined, href, children }) => {
-  return <MuiButton sx={{ ...styles.button(outlined), ...sx }} href={href} children={children} />
 }

@@ -13,6 +13,7 @@ export {
   isVPMaxLg,
   isVPXl,
   isVPLandscape,
+  isVPMaxSmAndLandscape,
   isHoverable,
 } from './media-queries'
 

@@ -30,34 +30,34 @@ export const categories = ['Men', 'Women', 'Sport', 'Collections', 'The Brand']
 export const collections = [
   {
     id: 2,
-    title: 'Fall',
+    title: 'Fabulous Fall',
     description: 'Reset your style for the new season with our autumn outfits',
     imageUrl: '/images/collections/fall.jpg',
   },
   {
     id: 1,
-    title: 'Summer',
-    description: 'Get ready for warm weather with our set of summer clothing',
+    title: 'Sleek Summer',
+    description: 'Get ready for the warm weather with our summer wear',
     imageUrl: '/images/collections/summer.jpg',
   },
   {
     id: 4,
 
-    title: 'Winter',
-    description: 'Let it snow - time to layer up with winter essentials that you will cherish',
+    title: 'Wonderous Winter',
+    description: 'Let it snow - layer up with winter essentials that you will love',
     imageUrl: '/images/collections/winter.jpg',
   },
   {
     id: 3,
 
-    title: 'Spring',
+    title: 'Suave Spring',
     description: 'Spring into the season with our newest edit of spring clothes',
     imageUrl: '/images/collections/spring.jpg',
   },
   {
     id: 5,
 
-    title: 'Festive',
+    title: 'Festive Faithfuls',
     description: 'Stay warm and stylish during the holidays with our festive take',
     imageUrl: '/images/collections/festive.jpg',
   },

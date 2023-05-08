@@ -18,4 +18,6 @@ export {
   ArrowRight as SwiperForwardIcon,
 } from '@mui/icons-material'
 
-export { Img, CoverImage } from './Images'
+export { Image, CoverImage } from './Images'
+
+export { ImageButton } from './Buttons'
