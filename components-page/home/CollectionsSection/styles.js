@@ -34,7 +34,6 @@ const styles = {
     position: 'relative',
     overflow: 'hidden',
     height: '50vh',
-
     [isVPMaxSmAndLandscape]: {
       height: '75vh',
     },

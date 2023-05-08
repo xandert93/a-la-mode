@@ -1,3 +1,21 @@
+export const promotions = [
+  {
+    title: 'Free UK Delivery on orders over £50',
+    message: "Use code: 'SMOOTHDEL' at checkout",
+    priority: 1,
+  },
+  {
+    title: 'Calling All Students',
+    message: 'Get 20% Off',
+    priority: 2,
+  },
+  {
+    title: 'Stuck for ideas?',
+    message: 'Shop our E-Gift Card Now',
+    priority: 3,
+  },
+]
+
 export const heroItems = [
   {
     title: 'Summer Collection',

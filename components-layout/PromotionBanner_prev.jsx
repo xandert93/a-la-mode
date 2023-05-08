@@ -1,23 +1,5 @@
 import { Grid, Typography } from '@mui/material'
 
-const promotions = [
-  {
-    title: 'Free Express Delivery!',
-    message: "Use code: 'SMOOTHDEL' at checkout",
-    priority: 1,
-  },
-  {
-    title: 'Calling All Students',
-    message: 'Get 20% Off',
-    priority: 2,
-  },
-  {
-    title: 'Stuck for ideas?',
-    message: 'Shop our E-Gift Card Now',
-    priority: 3,
-  },
-]
-
 const styles = {
   root: {
     p: 1,
