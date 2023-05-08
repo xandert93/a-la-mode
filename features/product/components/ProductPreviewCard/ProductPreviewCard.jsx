@@ -82,7 +82,10 @@ const LikeButton = () => {
   const [isLiked, toggleLike] = useToggle()
 
   return (
-    <IconButton sx={styles['like-button']} onClick={toggleLike}>
+    <IconButton
+      sx={styles['like-button']}
+      onClick={toggleLike}
+      aria-label="Add product to your wishlist">
       <HeartIcon sx={styles.icon(isLiked)} />
     </IconButton>
   )

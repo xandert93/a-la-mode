@@ -12,9 +12,14 @@ export const HeaderActions = () => {
   return (
     <Grid container justifyContent="flex-end" columnGap={0.5}>
       {isMinLg ? <HeaderSearchForm /> : <MobileHeaderSearchButton />}
-      <IconButton children={<PersonOutline />} />
-      <IconButton component={Link} href={PATHS.WISHLIST} children={<FavoriteBorder />} />
-      <IconButton children={<ShoppingBagOutlined />} />
+      <IconButton children={<PersonOutline />} aria-label="See Account" />
+      <IconButton
+        component={Link}
+        href={PATHS.WISHLIST}
+        children={<FavoriteBorder />}
+        aria-label="Visit Wishlist Page"
+      />
+      <IconButton children={<ShoppingBagOutlined />} aria-label="Visit Basket Page" />
     </Grid>
   )
 }

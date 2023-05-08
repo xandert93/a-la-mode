@@ -9,6 +9,7 @@ export const SearchInputAdornment = (props) => {
         type="submit"
         disabled={false} // eventually update
         children={<SearchIcon />}
+        aria-label="Search products"
       />
     </InputAdornment>
   )

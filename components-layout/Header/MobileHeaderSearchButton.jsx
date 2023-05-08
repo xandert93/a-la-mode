@@ -10,7 +10,7 @@ export const MobileHeaderSearchButton = () => {
 
   return (
     <>
-      <IconButton onClick={toggleSearch} children={<SearchIcon />} />
+      <IconButton onClick={toggleSearch} children={<SearchIcon />} aria-label="Open search" />
       {/* temporarily placing 👇 here to isolate logic. Semantically, not ideal though */}
       {isOpen && <MobileHeaderSearchBar close={toggleSearch} />}
     </>

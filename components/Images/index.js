@@ -1,2 +1,2 @@
-export { default as Img } from 'next/image'
-export { CoverImg } from './CoverImg'
+export { default as Image } from 'next/image'
+export { CoverImage } from './CoverImage'

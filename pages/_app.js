@@ -10,6 +10,10 @@ export default function App({ Component, pageProps }) {
     <>
       <Head>
         <title children={NAMES.COMPANY} />
+        <meta
+          name="description"
+          content="Menswear and Womenswear defined by fine tailoring and a quintessentially British style."
+        />
       </Head>
       <ThemeProvider theme={theme}>
         <CssBaseline />

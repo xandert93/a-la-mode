@@ -1,6 +1,6 @@
 import { Send } from '@mui/icons-material'
 import { Box, Button, Container, Grid, TextField, Typography } from '@mui/material'
-import { Form } from './Form'
+import { Form } from '../../components/Form'
 
 const styles = {
   section: {
@@ -64,7 +64,7 @@ const NewsletterForm = () => {
     <Grid container component={Form} onSubmit={handleSubmit} justifyContent="center" wrap="nowrap">
       <TextField
         type="email"
-        placeholder="Enter your Email Address"
+        placeholder="Email Address"
         name="email"
         sx={styles['text-field']}
         InputProps={{ sx: styles['input-base'] }}

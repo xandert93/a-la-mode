@@ -9,7 +9,7 @@ export const SideDrawerButton = () => {
 
   return (
     <>
-      <IconButton onClick={toggle} children={<MenuIcon />} />
+      <IconButton onClick={toggle} children={<MenuIcon />} aria-label="Open side drawer" />
       {/* temporarily placing 👇 here to isolate logic. Semantically, not ideal though */}
       <SideDrawer isOpen={isOpen} toggle={toggle} />
     </>

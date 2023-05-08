@@ -34,7 +34,7 @@ export const FooterLinks = ({ title }) => {
   else
     return (
       <>
-        <Typography variant="h6" component="h4" children={title} />
+        <Typography component="h2" variant="h6" children={title} />
         <FooterNavigation links={links} />
       </>
     )

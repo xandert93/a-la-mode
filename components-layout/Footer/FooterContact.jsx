@@ -4,7 +4,7 @@ import { List, ListItem, ListItemIcon, ListItemText, Typography } from '@mui/mat
 export const FooterContact = () => {
   return (
     <>
-      <Typography variant="h6" children="Contact Us" />
+      <Typography component="h2" variant="h6" children="Contact Us" />
       <List disablePadding>
         <ListItem>
           <ListItemIcon children={<LocationIcon />} />

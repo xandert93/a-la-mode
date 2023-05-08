@@ -29,7 +29,7 @@ export const FooterAccordion = ({ title, children }) => {
   return (
     <Accordion disableGutters square elevation={0} sx={styles.root}>
       <AccordionSummary expandIcon={<ExpandMore />} sx={styles.summary}>
-        <Typography variant="h6" component="h3" children={title} />
+        <Typography component="h2" variant="h6" children={title} />
       </AccordionSummary>
       <AccordionDetails sx={styles.details}>{children}</AccordionDetails>
     </Accordion>

@@ -11,9 +11,7 @@ export const FooterPaymentMethods = () => {
         children="We accept the following payment methods:"
       />
 
-      <Grid container wrap="nowrap" sx={{ maxWidth: 400 }}>
-        <PaymentMethodImageList />
-      </Grid>
+      <PaymentMethodImageList />
     </>
   )
 }

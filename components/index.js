@@ -1,5 +1,5 @@
 export { Link } from './Link'
-export { NewsletterSection } from './NewsletterSection'
+export { NewsletterSection } from '../components-page/home/NewsletterSection'
 export { BackgroundVideo } from './BackgroundVideo'
 export { Form } from './Form'
 export { CompanyLogo } from './CompanyLogo'
@@ -18,4 +18,4 @@ export {
   ArrowRight as SwiperForwardIcon,
 } from '@mui/icons-material'
 
-export { Img, CoverImg } from './Images'
+export { Img, CoverImage } from './Images'

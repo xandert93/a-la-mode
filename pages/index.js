@@ -1,5 +1,9 @@
-import { NewsletterSection } from '@/components'
-import { HomeHeroSection, NewProductsSection, CollectionsSection } from '@/components-page/home'
+import {
+  HomeHeroSection,
+  NewProductsSection,
+  CollectionsSection,
+  NewsletterSection,
+} from '@/components-page/home'
 import { heroItems } from '@/data'
 import { Facebook, Instagram, Twitter, YouTube } from '@mui/icons-material'
 
@@ -18,9 +22,9 @@ export default function HomePage() {
       {/* <CollectionSection /> */}
       {/* <BrandsSection /> */}
       <CollectionsSection />
-      <NewProductsSection />
+      {/* <NewProductsSection /> */}
       {/* <TrendingProductsSection /> */}
-      {!isLoggedIn && <NewsletterSection />}
+      {/* {!isLoggedIn && <NewsletterSection />} */}
       {/* <BlogSection /> */}
       {/* <SocialsSection /> */}
     </>

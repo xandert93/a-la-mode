@@ -4,7 +4,7 @@ const styles = {
   objectFit: 'cover',
 }
 
-export const CoverImg = ({ src, style, ...props }) => {
+export const CoverImage = ({ src, style, ...props }) => {
   return (
     <Image
       src={src} //

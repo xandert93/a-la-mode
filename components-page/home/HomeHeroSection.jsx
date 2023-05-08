@@ -16,20 +16,30 @@ const styles = {
     [isVPLandscape]: { height: `calc(100vh - 48px - 36px)` },
   },
 
-  content: {
+  content: (theme) => ({
     maxWidth: 600,
-    textAlign: 'center',
-    color: 'common.white',
-    textShadow: '0 2px 24px rgba(0, 0, 0, 0.6)',
-  },
+    color: 'white',
+    ...theme.mixins.textShadowDark,
+  }),
 
-  button: {
-    width: '15ch',
-    borderColor: 'common.white',
-    ':hover': {
-      color: 'common.black',
-      backgroundColor: 'common.white',
-    },
+  button: (outlined) => {
+    const outlinedStyles = {
+      color: 'white',
+    }
+
+    const containedStyles = {
+      color: 'black',
+      backgroundColor: 'white',
+    }
+
+    return {
+      minWidth: '15ch',
+      border: '1px solid white',
+      ...(outlined ? outlinedStyles : containedStyles),
+      ':hover': {
+        ...(outlined ? containedStyles : outlinedStyles),
+      },
+    }
   },
 }
 
@@ -37,27 +47,25 @@ export const HomeHeroSection = () => {
   return (
     <Box component="section" sx={styles.root}>
       <BackgroundVideo poster="/videos/hero-video-1-poster.jpg" src="/videos/hero-video-1.mp4" />
-      <Grid container direction="column" rowGap={{ xs: 3, sm: 4, md: 6 }} sx={styles.content}>
+      <Grid
+        container
+        direction="column"
+        textAlign="center"
+        max
+        rowGap={{ xs: 3, sm: 4, md: 6 }}
+        sx={styles.content}>
         <Typography component="h3" variant="h4" children="Summer'23" />
         <Typography component="h2" variant="h3" children="Explore the Everyday" />
         <Typography children="Embrace every moment this season, taking on new ventures in a thoughtfully curated collection for Summer'23" />
         <Grid container justifyContent="space-evenly" rowGap={2}>
-          <Button href="#" children="Menswear" />
-          <Button href="#" children="Womenswear" />
+          <ImageButton outlined href="#" children="Menswear" />
+          <ImageButton outlined href="#" children="Womenswear" />
         </Grid>
       </Grid>
     </Box>
   )
 }
 
-const Button = ({ href, children }) => {
-  return (
-    <MuiButton
-      variant="outlined"
-      color="inherit" // only way to get white MUI styling (for now)
-      href={href}
-      children={children}
-      sx={styles.button}
-    />
-  )
+export const ImageButton = ({ sx, outlined, href, children }) => {
+  return <MuiButton sx={{ ...styles.button(outlined), ...sx }} href={href} children={children} />
 }

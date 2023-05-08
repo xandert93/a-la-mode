@@ -31,8 +31,16 @@ export const ProductPreviewSwiper = () => {
     <Box>
       {isMinMd && (
         <Box sx={styles['buttons-box']}>
-          <IconButton onClick={goBack} children={<SwiperBackIcon />} />
-          <IconButton onClick={goForward} children={<SwiperForwardIcon />} />
+          <IconButton
+            onClick={goBack}
+            children={<SwiperBackIcon />}
+            aria-label="Go to next slide"
+          />
+          <IconButton
+            onClick={goForward}
+            children={<SwiperForwardIcon />}
+            aria-label="Go to previous slide"
+          />
         </Box>
       )}
       <Swiper

@@ -3,7 +3,7 @@ import { Typography } from '@mui/material'
 export const FooterAbout = () => {
   return (
     <>
-      <Typography variant="h6" children="Our Story" gutterBottom />
+      <Typography component="h2" variant="h6" children="Our Story" gutterBottom />
       <Typography paragraph>
         Since our establishment in 1943, we are just as passionate today as we were 80 years ago.
       </Typography>

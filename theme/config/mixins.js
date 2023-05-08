@@ -14,10 +14,15 @@ export const mixins = {
     bottom: 0,
   },
 
-  coverImg: {
+  coverImage: {
     width: '100%',
     height: '100%',
     objectFit: 'cover',
+  },
+
+  // around white text
+  textShadowDark: {
+    textShadow: '0 2px 24px rgba(0, 0, 0, 0.6)',
   },
 
   gradientColor: (angle = 135, color1, color2) => ({

@@ -19,7 +19,7 @@ export const MobileHeaderSearchBar = ({ close }) => {
       elevation={0} // otherwise adds additional box-shadow on top of <Header>'s
       sx={styles.appBar}>
       <ToolBar sx={styles.toolBar}>
-        <IconButton onClick={close} children={<Close />} />
+        <IconButton onClick={close} children={<Close />} aria-label="Close search" />
         <MobileHeaderSearchForm />
       </ToolBar>
     </AppBar>
