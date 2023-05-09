@@ -1,5 +1,5 @@
 import { useRef } from 'react'
-import { Box, IconButton, useMediaQuery } from '@mui/material'
+import { Box, IconButton, Typography, useMediaQuery, Grid } from '@mui/material'
 
 import { breakpoints, isVPMinMd } from '@/theme'
 
@@ -11,15 +11,8 @@ import { SwiperBackIcon, SwiperForwardIcon } from '@/components'
 
 import { latestProducts } from '@/data'
 
-const styles = {
-  'buttons-box': {
-    width: 'fit-content',
-    marginLeft: 'auto',
-  },
-}
-
 // stackoverflow original code: https://stackoverflow.com/a/71225996. I haven't encountered bug yet, so I've removed useCallback etc.
-export const ProductPreviewSwiper = () => {
+export const ProductPreviewSwiper = ({ title }) => {
   const isMinMd = useMediaQuery(isVPMinMd)
 
   const swiperRef = useRef(null)
@@ -29,20 +22,25 @@ export const ProductPreviewSwiper = () => {
 
   return (
     <Box>
-      {isMinMd && (
-        <Box sx={styles['buttons-box']}>
-          <IconButton
-            onClick={goBack}
-            children={<SwiperBackIcon />}
-            aria-label="Go to next slide"
-          />
-          <IconButton
-            onClick={goForward}
-            children={<SwiperForwardIcon />}
-            aria-label="Go to previous slide"
-          />
-        </Box>
-      )}
+      <Grid container alignItems="center">
+        <Grid item xs>
+          <Typography component="h2" variant="h6" children={title} />
+        </Grid>
+        {isMinMd && (
+          <Box>
+            <IconButton
+              onClick={goBack}
+              children={<SwiperBackIcon />}
+              aria-label="Go to next slide"
+            />
+            <IconButton
+              onClick={goForward}
+              children={<SwiperForwardIcon />}
+              aria-label="Go to previous slide"
+            />
+          </Box>
+        )}
+      </Grid>
       <Swiper
         ref={swiperRef}
         speed={800}

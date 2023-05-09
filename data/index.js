@@ -4,5 +4,6 @@ export {
   collections,
   heroItems,
   latestProducts,
+  blogArticles,
   paymentMethods,
 } from './starter-data'

@@ -13,8 +13,16 @@ export const styles = {
 
   'like-button': {
     position: 'absolute',
-    top: '3%',
-    right: '4%',
+
+    // *** probs not best (JFN), but when hoverable, padding is applied which affects positioning
+    [isHoverable]: {
+      top: '3%',
+      right: '4%',
+    },
+
+    top: '1%',
+    right: '1%',
+
     transition: ({ transitions }) => transitions.create('transform'),
     ':hover': {
       transform: 'scale(0.95)',

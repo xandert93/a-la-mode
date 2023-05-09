@@ -5,9 +5,9 @@ import {
   NewProductsSection,
   CollectionsSection,
   NewsletterSection,
+  BlogSection,
 } from '@/components-page/home'
 import { heroItems } from '@/data'
-import { Facebook, Instagram, Twitter, YouTube } from '@mui/icons-material'
 
 import { Box, Button, Container, Grid, IconButton, Typography } from '@mui/material'
 
@@ -25,10 +25,9 @@ export default function HomePage() {
       <BrandsSection />
 
       <NewProductsSection />
-      <TrendingProductsSection />
-      {!isLoggedIn && <NewsletterSection />}
+      {/* <TrendingProductsSection /> */}
+      {/* {!isLoggedIn && <NewsletterSection />} */}
       <BlogSection />
-      {/* <SocialsSection /> */}
     </HomeMain>
   )
 }
@@ -50,55 +49,6 @@ const BrandsSection = () => {
       n={['dkny', 'k-swiss', 'lacoste', 'levis']}
       loc="brands"
     />
-  )
-}
-
-const BlogSection = () => {
-  return (
-    <Section>
-      <img src="/blog.jpg" width="50px" />
-    </Section>
-  )
-}
-
-const SocialsSection = () => {
-  return (
-    <Grid
-      container
-      component="section"
-      direction={'column'}
-      gap={2}
-      sx={{ backgroundColor: 'background.highlight', padding: 2 }}>
-      <Typography component="h2" align="center" children="Join the conversation" />
-      <Grid container justifyContent="center" columnGap={{ xs: 3, sm: 4 }}>
-        <IconButton
-          href="#"
-          sx={{
-            background:
-              'radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%,#d6249f 60%,#285AEB 90%)',
-          }}
-          children={<Instagram sx={{ color: 'common.white', fontSize: { xs: 28, sm: 32 } }} />}
-        />
-        <IconButton
-          disableRipple
-          href="#"
-          sx={{ backgroundColor: 'red' }}
-          children={<YouTube sx={{ color: 'common.white', fontSize: { xs: 28, sm: 32 } }} />}
-        />
-        <IconButton
-          disableRipple
-          href="#"
-          sx={{ backgroundColor: '#1DA1F2' }}
-          children={<Twitter sx={{ color: 'common.white', fontSize: { xs: 28, sm: 32 } }} />}
-        />
-        <IconButton
-          disableRipple
-          href="#"
-          sx={{ backgroundColor: '#0165E1' }}
-          children={<Facebook sx={{ color: 'common.white', fontSize: { xs: 28, sm: 32 } }} />}
-        />
-      </Grid>
-    </Grid>
   )
 }
 
