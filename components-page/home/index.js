@@ -1,3 +1,4 @@
+export { HomeMain } from './HomeMain'
 export { HomeHeroSection } from './HomeHeroSection'
 export { NewProductsSection } from './NewProductsSection'
 export { CollectionsSection } from './CollectionsSection'

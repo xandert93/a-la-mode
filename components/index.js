@@ -16,8 +16,11 @@ export {
   Email as EmailIcon,
   ArrowLeft as SwiperBackIcon,
   ArrowRight as SwiperForwardIcon,
+  Send as SendIcon,
 } from '@mui/icons-material'
 
 export { Image, CoverImage } from './Images'
 
 export { ImageButton } from './Buttons'
+
+export { Section } from './Containers'

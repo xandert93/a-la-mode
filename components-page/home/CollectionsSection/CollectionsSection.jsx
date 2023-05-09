@@ -1,29 +1,27 @@
 import { Box, Container, Grid, Typography } from '@mui/material'
 
-import { CoverImage, Link, ImageButton } from '@/components'
+import { CoverImage, Link, ImageButton, Section } from '@/components'
 import { collections } from '@/data'
 
 import styles from './styles'
 
 export const CollectionsSection = () => {
   return (
-    <section>
-      <Container maxWidth="xl">
-        <Grid container spacing={1}>
-          {collections.map((collection, index) => (
-            <Grid key={collection.id} item xs={12} sm={index === 2 ? 12 : 6} md={index < 3 ? 4 : 6}>
-              <CollectionPreview {...collection} />
-            </Grid>
-          ))}
-        </Grid>
-      </Container>
-    </section>
+    <Section>
+      <Grid container spacing={2}>
+        {collections.map((collection, index) => (
+          <Grid key={collection.id} item xs={12} sm={index === 2 ? 12 : 6} md={index < 3 ? 4 : 6}>
+            <CollectionPreview {...collection} />
+          </Grid>
+        ))}
+      </Grid>
+    </Section>
   )
 }
 
 const CollectionPreview = ({ title, description, imageUrl }) => {
   return (
-    <Link href="/#" sx={{ display: 'block' }}>
+    <Link href="/#" sx={{ display: 'block', borderRadius: '4px', overflow: 'hidden' }}>
       <PreviewOverlay {...{ title, description }} />
       <PreviewImage {...{ title, imageUrl }} />
     </Link>

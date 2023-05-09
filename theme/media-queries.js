@@ -29,6 +29,7 @@ export const isVPMaxLg = isMax(xl)
 export const isVPXl = isMin(xl)
 
 export const isVPLandscape = '@media (orientation: landscape)' // 1
+export const isVPXsAndLandscape = `${isVPXs} and (orientation: landscape)`
 export const isVPMaxSmAndLandscape = `${isVPMaxSm} and (orientation: landscape)`
 
 export const isHoverable = '@media (hover: hover) and (pointer: fine)' // 2

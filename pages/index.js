@@ -1,4 +1,6 @@
+import { Section } from '@/components'
 import {
+  HomeMain,
   HomeHeroSection,
   NewProductsSection,
   CollectionsSection,
@@ -15,19 +17,19 @@ export default function HomePage() {
   const isLoggedIn = false
 
   return (
-    <>
+    <HomeMain>
       <HomeHeroSection />
-      {/* 
-      <FeaturedInSection /> */}
+      <FeaturedInSection />
       {/* <CollectionSection /> */}
-      {/* <BrandsSection /> */}
       <CollectionsSection />
-      {/* <NewProductsSection /> */}
-      {/* <TrendingProductsSection /> */}
-      {/* {!isLoggedIn && <NewsletterSection />} */}
-      {/* <BlogSection /> */}
-      {/* <SocialsSection /> */}
-    </>
+      <BrandsSection />
+
+      <NewProductsSection />
+      <TrendingProductsSection />
+      {!isLoggedIn && <NewsletterSection />}
+      <BlogSection />
+      <SocialsSection />
+    </HomeMain>
   )
 }
 
@@ -52,7 +54,11 @@ const BrandsSection = () => {
 }
 
 const BlogSection = () => {
-  return <img src="/blog.jpg" width="50px" />
+  return (
+    <Section>
+      <img src="/blog.jpg" width="50px" />
+    </Section>
+  )
 }
 
 const SocialsSection = () => {
@@ -109,7 +115,7 @@ const SocialMediaLinks = () => {
 
 const TrendingProductsSection = () => {
   return (
-    <Container style={{ padding: 24 }}>
+    <Section>
       <Typography component="h2" variant="h6" children="This is what we're loving right now" />
 
       <Grid container spacing={1}>
@@ -132,34 +138,32 @@ const TrendingProductsSection = () => {
           <Typography>Tuxedos & Suits</Typography>
         </Grid>
       </Grid>
-    </Container>
+    </Section>
   )
 }
 
 const LogosSection = ({ title, n, loc }) => {
   return (
-    <Box component="section" sx={{ backgroundColor: 'background.highlight' }}>
-      <Container maxWidth="md">
-        <Typography textAlign="center" paragraph component="h2" variant="h6" children={title} />
-        <Grid
-          container
-          alignItems="center"
-          sx={(theme) => ({
-            ...(theme.palette.mode === 'dark' && { filter: 'invert(1)' }),
-          })}>
-          {n.map((pub) => {
-            return (
-              <Grid key={pub} item xs={3} container justifyContent="center">
-                <img
-                  src={'/images/' + loc + '/' + pub + '.png'}
-                  style={{ maxWidth: '60%', maxHeight: 100 }}
-                />
-              </Grid>
-            )
-          })}
-        </Grid>
-      </Container>
-    </Box>
+    <Section maxWidth="md">
+      <Typography textAlign="center" component="h2" variant="h6" children={title} />
+      <Grid
+        container
+        alignItems="center"
+        sx={(theme) => ({
+          ...(theme.palette.mode === 'dark' && { filter: 'invert(1)' }),
+        })}>
+        {n.map((pub) => {
+          return (
+            <Grid key={pub} item xs={3} container justifyContent="center">
+              <img
+                src={'/images/' + loc + '/' + pub + '.png'}
+                style={{ maxWidth: '60%', maxHeight: 100 }}
+              />
+            </Grid>
+          )
+        })}
+      </Grid>
+    </Section>
   )
 }
 

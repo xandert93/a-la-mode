@@ -32,13 +32,17 @@ export const theme = createResponsiveTheme(
       },
 
       MuiContainer: {
+        defaultProps: {
+          maxWidth: false,
+        },
+
         styleOverrides: {
-          root: {
-            padding: 24,
-            [isVPXs]: {
-              padding: 16,
-            },
-          },
+          // root: {
+          //   padding: 24,
+          //   [isVPXs]: {
+          //     padding: 16,
+          //   },
+          // },
         },
       },
 

@@ -4,8 +4,10 @@ import { alpha } from '@mui/material'
 const styles = {
   overlay: (theme) => ({
     ...theme.mixins.absCover,
+
     color: 'white',
     textAlign: 'center',
+
     backgroundColor: alpha('#000', 0.12),
     transition: theme.transitions.create('background-color'),
     [isHoverable]: {
@@ -32,7 +34,6 @@ const styles = {
 
   'image-box': {
     position: 'relative',
-    overflow: 'hidden',
     height: '50vh',
     [isVPMaxSmAndLandscape]: {
       height: '75vh',

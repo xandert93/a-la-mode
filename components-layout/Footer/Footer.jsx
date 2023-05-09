@@ -5,10 +5,16 @@ import { FooterLinks } from './FooterLinks'
 import { FooterContact } from './FooterContact'
 import { FooterPaymentMethods } from './FooterPaymentMethods'
 
+const styles = {
+  root: {
+    py: { xs: 2, sm: 3 },
+  },
+}
+
 // I don't need to specify the `xs`, `sm` prop each time if they are the same, but just makes it easier to understand/picture
 export const Footer = () => {
   return (
-    <Container component="footer">
+    <Container component="footer" maxWidth="lg" sx={styles.root}>
       <Grid container columnSpacing={{ lg: 8 }} rowSpacing={2}>
         <Grid item xs={12} sm={12} md={12} lg={3}>
           <FooterAbout />

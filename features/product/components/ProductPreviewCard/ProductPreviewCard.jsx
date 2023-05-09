@@ -17,7 +17,7 @@ export const ProductPreviewCard = ({
 }) => {
   return (
     <Card component="article" elevation={4} sx={styles.root}>
-      <Link href={href}>
+      <Link href={href} sx={{ display: 'block' }}>
         <Grid container direction="column" p={1.5} rowGap={2}>
           <ProductImage urls={imageUrls} />
           <Grid container alignItems="center" rowGap={1} px={1}>
