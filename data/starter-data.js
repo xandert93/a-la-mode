@@ -83,47 +83,47 @@ export const collections = [
 
 export const latestProducts = [
   {
-    name: 'Basketball Shorts 1',
-    price: 50,
+    name: 'Natural Herringbone Linen Shirt Jacket',
+    price: 79,
     imageUrls: [
-      'https://i8.amplience.net/i/jpl/jd_657902_al?w=408&h=408',
-      'https://i8.amplience.net/i/jpl/jd_657902_bl?w=408&h=408',
+      'https://handcmediastorage.blob.core.windows.net/productimages/JK/JKPLEA22-C63-171255-1400px-1820px.jpg',
+      'https://handcmediastorage.blob.core.windows.net/productimages/JK/JKPLEA22-C63-171207-1400px-1820px.jpg',
     ],
     href: '#',
   },
   {
-    name: 'Basketball Shorts 2',
-    price: 500,
+    name: 'Non-Iron Pink & White Bengal Stripe Fitted Slim Shirt',
+    price: 29,
     imageUrls: [
-      'https://i8.amplience.net/i/jpl/jd_657902_al?w=408&h=408',
-      'https://i8.amplience.net/i/jpl/jd_657902_bl?w=408&h=408',
+      'https://handcmediastorage.blob.core.windows.net/productimages/IG/IGSRE010-J18-171228-1400px-1820px.jpg',
+      'https://handcmediastorage.blob.core.windows.net/productimages/IG/IGSRE010-J18-170531-1400px-1820px.jpg',
     ],
     href: '#',
   },
   {
-    name: 'Basketball Shorts 3',
-    price: 50,
+    name: 'Royal Blue 2 Piece Italian Cotton Linen Slim Suit',
+    price: 139,
     imageUrls: [
-      'https://i8.amplience.net/i/jpl/jd_657902_al?w=408&h=408',
-      'https://i8.amplience.net/i/jpl/jd_657902_bl?w=408&h=408',
+      'https://handcmediastorage.blob.core.windows.net/productimages/JK/JKPBZA502P-B52V-171267-1400px-1820px.jpg',
+      'https://handcmediastorage.blob.core.windows.net/productimages/JK/JKPBZA502P-B52V-168882-1400px-1820px.jpg',
     ],
     href: '#',
   },
   {
-    name: 'Basketball Shorts 4',
-    price: 200,
+    name: 'Navy Mercerised Pique Polo Shirt - Short Sleeve',
+    price: 39,
     imageUrls: [
-      'https://i8.amplience.net/i/jpl/jd_657902_al?w=408&h=408',
-      'https://i8.amplience.net/i/jpl/jd_657902_bl?w=408&h=408',
+      'https://handcmediastorage.blob.core.windows.net/productimages/PP/PPPFA002-G01-171268-1400px-1820px.jpg',
+      'https://handcmediastorage.blob.core.windows.net/productimages/PP/PPPFA002-G01-167651-1400px-1820px.jpg',
     ],
     href: '#',
   },
   {
-    name: 'Basketball Shorts 5',
-    price: 50,
+    name: 'Taupe Mercerised Pique Polo Shirt - Short Sleeve',
+    price: 39,
     imageUrls: [
-      'https://i8.amplience.net/i/jpl/jd_657902_al?w=408&h=408',
-      'https://i8.amplience.net/i/jpl/jd_657902_bl?w=408&h=408',
+      'https://handcmediastorage.blob.core.windows.net/productimages/PP/PPPFA002-C50-171248-1400px-1820px.jpg',
+      'https://handcmediastorage.blob.core.windows.net/productimages/PP/PPPFA002-C50-167645-1400px-1820px.jpg',
     ],
     href: '#',
   },

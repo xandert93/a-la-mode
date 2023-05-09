@@ -28,7 +28,7 @@ export default function HomePage() {
       <TrendingProductsSection />
       {!isLoggedIn && <NewsletterSection />}
       <BlogSection />
-      <SocialsSection />
+      {/* <SocialsSection /> */}
     </HomeMain>
   )
 }
@@ -98,17 +98,6 @@ const SocialsSection = () => {
           children={<Facebook sx={{ color: 'common.white', fontSize: { xs: 28, sm: 32 } }} />}
         />
       </Grid>
-    </Grid>
-  )
-}
-
-const SocialMediaLinks = () => {
-  return (
-    <Grid>
-      <IconButton href="#" children={<Instagram />} />
-      <IconButton href="#" children={<YouTube />} />
-      <IconButton href="#" children={<Twitter />} />
-      <IconButton href="#" children={<Facebook />} />
     </Grid>
   )
 }

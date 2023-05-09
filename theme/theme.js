@@ -48,9 +48,7 @@ export const theme = createResponsiveTheme(
 
       MuiCard: {
         styleOverrides: {
-          root: {
-            borderRadius: 12,
-          },
+          root: {},
         },
       },
 

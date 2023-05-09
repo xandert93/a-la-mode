@@ -6,6 +6,7 @@ import { Link, HeartIcon } from '../../../../components'
 import { useToggle } from '@/hooks'
 
 import styles from './styles'
+import { isHoverable } from '@/theme'
 
 export const ProductPreviewCard = ({
   id,
@@ -13,18 +14,18 @@ export const ProductPreviewCard = ({
   price,
   imageUrls,
   href,
-  colors = ['orange', 'red', 'yellow'],
+  colors = ['black', 'navy', '#c5c285'],
 }) => {
   return (
-    <Card component="article" elevation={4} sx={styles.root}>
-      <Link href={href} sx={{ display: 'block' }}>
-        <Grid container direction="column" p={1.5} rowGap={2}>
+    <Card component="article" elevation={0} sx={styles.root}>
+      <Link href={href} sx={{ display: 'block', [isHoverable]: { p: 1.5 } }}>
+        <Grid container direction="column" rowGap={2}>
           <ProductImage urls={imageUrls} />
           <Grid container alignItems="center" rowGap={1} px={1}>
             <Grid item xs={12}>
               <Typography
                 children={name}
-                sx={{ fontWeight: 'bold', letterSpacing: 1 }} // JFN
+                sx={{ letterSpacing: 1 }} // JFN
               />
             </Grid>
             <Grid item xs>

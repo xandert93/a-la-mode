@@ -54,7 +54,7 @@ export const ProductPreviewSwiper = () => {
         }}>
         {latestProducts.map((product) => (
           <SwiperSlide key={product.name}>
-            <Box py={2} px={1}>
+            <Box py={2} px={0.5}>
               <ProductPreviewCard {...product} />
             </Box>
           </SwiperSlide>

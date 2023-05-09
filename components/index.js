@@ -17,6 +17,11 @@ export {
   ArrowLeft as SwiperBackIcon,
   ArrowRight as SwiperForwardIcon,
   Send as SendIcon,
+  Facebook as FacebookIcon,
+  Instagram as InstagramIcon,
+  Pinterest as PinterestIcon,
+  Twitter as TwitterIcon,
+  YouTube as YouTubeIcon,
 } from '@mui/icons-material'
 
 export { Image, CoverImage } from './Images'

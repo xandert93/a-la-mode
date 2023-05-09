@@ -13,8 +13,8 @@ export const styles = {
 
   'like-button': {
     position: 'absolute',
-    top: '4%',
-    right: '5%',
+    top: '3%',
+    right: '4%',
     transition: ({ transitions }) => transitions.create('transform'),
     ':hover': {
       transform: 'scale(0.95)',
@@ -27,13 +27,13 @@ export const styles = {
   }),
 
   'image-box': {
-    borderRadius: '12px',
+    borderRadius: 1,
     overflow: 'hidden',
   },
 
   image: {
     width: '100%',
-    aspectRatio: '1/1',
+    aspectRatio: '4/5',
     objectFit: 'cover',
   },
 
