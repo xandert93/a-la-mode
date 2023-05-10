@@ -1,4 +1,3 @@
-import { isHoverable } from '@/theme'
 import { Button } from '@mui/material'
 
 const styles = (outlined) => {
@@ -17,10 +16,10 @@ const styles = (outlined) => {
 
     // *** probably more efficient way of doing this:
     ...(outlined ? outlinedStyles : containedStyles),
-    [isHoverable]: {
-      ':hover': {
-        ...(outlined ? containedStyles : outlinedStyles),
-      },
+
+    // *** should only apply if [isHoverable], but that causes small styling bug. Fix later
+    ':hover': {
+      ...(outlined ? containedStyles : outlinedStyles),
     },
   }
 }

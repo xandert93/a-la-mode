@@ -26,7 +26,7 @@ export default function HomePage() {
 
       <NewProductsSection />
       {/* <TrendingProductsSection /> */}
-      {/* {!isLoggedIn && <NewsletterSection />} */}
+      {!isLoggedIn && <NewsletterSection />}
       <BlogSection />
     </HomeMain>
   )
@@ -36,8 +36,8 @@ const FeaturedInSection = () => {
   return (
     <LogosSection
       title="As featured in"
-      n={['elle', 'gq', 'marie-claire', 'vogue']}
-      loc="publications"
+      names={['elle', 'gq', 'cosmopolitan', 'hello', 'marie-claire', 'vogue']}
+      location="publications"
     />
   )
 }
@@ -45,10 +45,61 @@ const FeaturedInSection = () => {
 const BrandsSection = () => {
   return (
     <LogosSection
-      title="Brands You Need in Your Closet"
-      n={['dkny', 'k-swiss', 'lacoste', 'levis']}
-      loc="brands"
+      title="Brands we love"
+      names={['dkny', 'topman', 'lacoste', 'ralph-lauren', 'k-swiss', 'tommy-hilfiger']}
+      location="brands"
     />
+  )
+}
+
+const LogosSection = ({ title, names, location }) => {
+  return (
+    <Section maxWidth="lg">
+      {title && (
+        <Typography
+          align="center"
+          color="text.secondary"
+          textTransform="uppercase"
+          letterSpacing={3}
+          fontWeight="bold"
+          component="h2"
+          children={title}
+          paragraph
+        />
+      )}
+      <Box px={{ sm: 2 }}>
+        <Grid
+          container
+          justifyContent="center"
+          alignItems="center"
+          spacing={{ xs: 3, md: 5, lg: 7 }} // could use gap, but then we'd lose MUI flex-wrapping with spacing functionality
+          sx={(theme) => ({
+            filter: 'invert(50%)',
+            ...(theme.palette.mode === 'dark' && {
+              filter: 'grayscale(1) invert(80%)',
+            }),
+          })}>
+          {names.map((name) => {
+            return (
+              <Grid
+                key={name}
+                item
+                xs={3.5} // show 3 per row on xs
+                sm={2} // show 6 per row on sm+
+                container
+                justifyContent="center">
+                <Box
+                  component="img"
+                  src={'/images/' + location + '/' + name + '.png'}
+                  sx={{ maxWidth: '100%', maxHeight: 48 }}
+                  alt={name}
+                />
+              </Grid>
+            )
+          })}
+        </Grid>
+      </Box>
+    </Section>
   )
 }
 
@@ -76,31 +127,6 @@ const TrendingProductsSection = () => {
           <Typography>For those who use every excuse to dress up.</Typography>
           <Typography>Tuxedos & Suits</Typography>
         </Grid>
-      </Grid>
-    </Section>
-  )
-}
-
-const LogosSection = ({ title, n, loc }) => {
-  return (
-    <Section maxWidth="md">
-      <Typography textAlign="center" component="h2" variant="h6" children={title} />
-      <Grid
-        container
-        alignItems="center"
-        sx={(theme) => ({
-          ...(theme.palette.mode === 'dark' && { filter: 'invert(1)' }),
-        })}>
-        {n.map((pub) => {
-          return (
-            <Grid key={pub} item xs={3} container justifyContent="center">
-              <img
-                src={'/images/' + loc + '/' + pub + '.png'}
-                style={{ maxWidth: '60%', maxHeight: 100 }}
-              />
-            </Grid>
-          )
-        })}
       </Grid>
     </Section>
   )
