@@ -83,7 +83,7 @@ export const collections = [
 
 export const latestProducts = [
   {
-    name: 'Natural Herringbone Linen Shirt Jacket',
+    name: 'Natural Herringbone Linen Jacket',
     price: 79,
     imageUrls: [
       'https://handcmediastorage.blob.core.windows.net/productimages/JK/JKPLEA22-C63-171255-1400px-1820px.jpg',
@@ -147,7 +147,6 @@ export const blogArticles = [
     body: 'Relaxed but still with and edge of smart tailoring. Opt for formal comfort with our fresh chinos paired with light linen shirts or blazers to your preference.',
     imageUrl:
       'https://handcmediastorage.blob.core.windows.net/etc/banner/2022/MAY/lords_hnc_collection_casualwear_2022051711.jpg',
-    imageUrl: 'https://simp6.jpg.church/images/3024x4032_d5afd17112f701e8bc43a58410c84b0d.jpg',
   },
 ]
 

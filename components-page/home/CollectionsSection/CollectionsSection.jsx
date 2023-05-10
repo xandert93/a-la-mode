@@ -7,7 +7,7 @@ import styles from './styles'
 
 export const CollectionsSection = () => {
   return (
-    <Section>
+    <Section maxWidth="xl">
       <Grid container spacing={2}>
         {collections.map((collection, index) => (
           <Grid key={collection.id} item xs={12} sm={index === 2 ? 12 : 6} md={index < 3 ? 4 : 6}>
