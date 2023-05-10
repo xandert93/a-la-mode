@@ -3,6 +3,8 @@ import { blogArticles } from '@/data'
 import { isVPMaxSmAndLandscape } from '@/theme'
 import { Box, Button, Grid, Typography } from '@mui/material'
 
+// *** inspo: https://www.hawesandcurtis.co.uk/lords-cricket-club
+
 export const BlogSection = () => {
   return (
     <Section maxWidth="lg">
@@ -52,7 +54,7 @@ const Article = ({ direction, title, body, imageUrl }) => {
           p={{ sm: 2, md: 3, lg: 4, xl: 5 }}
           rowGap={2}>
           <Box>
-            <Typography component="h3" variant="h5" children={title} marginBottom />
+            <Typography component="h3" variant="h6" children={title} marginBottom />
             <Typography children={body} />
           </Box>
           <Button variant="outlined" color="inherit" children="Read More ➡" />
