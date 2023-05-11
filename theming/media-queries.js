@@ -34,9 +34,12 @@ export const isVPMaxSmAndLandscape = `${isVPMaxSm} and (orientation: landscape)`
 
 export const isHoverable = '@media (hover: hover) and (pointer: fine)' // 2
 
+export const prefersDarkMode = '(prefers-color-scheme: dark)' // 3
 /* 
 🔥 1) https://developer.mozilla.org/en-US/docs/Web/CSS/@media/orientation
 
 🔥 2) https://developer.mozilla.org/en-US/docs/Web/CSS/@media/hover
       https://developer.mozilla.org/en-US/docs/Web/CSS/@media/pointer where "fine" represents a precise pointing device (e.g. mouse) and "coarse" represents an imprecise pointing device e.g. a finger on a touchscreen
+
+🔥 3) https://developer.mozilla.org/en-US/docs/Web/CSS/@media/prefers-color-scheme     
 */

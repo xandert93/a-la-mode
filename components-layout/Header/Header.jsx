@@ -1,4 +1,4 @@
-import { isVPMinMd } from '@/theme'
+import { isVPMinMd } from '@/theming'
 
 import {
   AppBar,

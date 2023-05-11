@@ -1,5 +1,5 @@
 import { BackgroundVideo, ImageButton, Section } from '@/components'
-import { isVPXs, isVPXsAndLandscape } from '@/theme'
+import { isVPXs, isVPXsAndLandscape } from '@/theming'
 import { Grid, Typography } from '@mui/material'
 
 const styles = {

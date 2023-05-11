@@ -1,4 +1,5 @@
 export const PATHS = {
   HOME: '/',
-  WISHLIST: '/wishlist',
+  WISH_LIST: '/wish-list',
+  SHOPPING_BAG: '/shopping-bag',
 }

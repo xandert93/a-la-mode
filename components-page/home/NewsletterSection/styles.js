@@ -1,4 +1,4 @@
-import { isVPMaxSm } from '@/theme'
+import { isVPMaxSm } from '@/theming'
 
 const styles = {
   root: {
@@ -8,7 +8,7 @@ const styles = {
   },
 
   content: {
-    backgroundColor: 'background.highlight',
+    backgroundColor: 'primary.touch',
     padding: { xs: 3, sm: 4 },
     rowGap: { xs: 3, md: 4 },
     textAlign: 'center',

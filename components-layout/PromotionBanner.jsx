@@ -5,7 +5,7 @@ import { promotions } from '@/data'
 
 const styles = {
   root: {
-    backgroundColor: 'background.highlight',
+    backgroundColor: 'primary.touch',
     textAlign: 'center',
     letterSpacing: 1,
   },

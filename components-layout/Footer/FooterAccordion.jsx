@@ -10,7 +10,7 @@ const styles = {
 
   summary: {
     borderBottom: '2px solid',
-    borderColor: 'background.highlight',
+    borderColor: 'primary.touch',
     p: 0,
     mb: 1,
     minHeight: 'initial', // 48px*

@@ -1,4 +1,4 @@
-import { isHoverable } from '@/theme'
+import { isHoverable } from '@/theming'
 
 export const styles = {
   root: {
@@ -52,7 +52,7 @@ export const styles = {
     width: 20,
     borderRadius: '50%',
     border: '2px solid',
-    borderColor: 'background.highlight',
+    borderColor: 'primary.touch',
     backgroundColor: color,
   }),
 }

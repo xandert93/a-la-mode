@@ -1,5 +1,5 @@
 import { Link } from '@/components'
-import { isVPMinLg } from '@/theme'
+import { isVPMinLg } from '@/theming'
 import { Grid, IconButton, useMediaQuery } from '@mui/material'
 import { MobileHeaderSearchButton } from './MobileHeaderSearchButton'
 import { HeaderSearchForm } from './HeaderSearchForm'
@@ -15,11 +15,16 @@ export const HeaderActions = () => {
       <IconButton children={<PersonOutline />} aria-label="See Account" />
       <IconButton
         component={Link}
-        href={PATHS.WISHLIST}
+        href={PATHS.WISH_LIST}
         children={<FavoriteBorder />}
-        aria-label="Visit Wishlist Page"
+        aria-label="Visit Wish List Page"
       />
-      <IconButton children={<ShoppingBagOutlined />} aria-label="Visit Basket Page" />
+      <IconButton
+        component={Link}
+        href={PATHS.SHOPPING_BAG}
+        children={<ShoppingBagOutlined />}
+        aria-label="Visit Shopping Bag Page"
+      />
     </Grid>
   )
 }

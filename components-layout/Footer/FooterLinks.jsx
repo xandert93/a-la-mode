@@ -1,6 +1,6 @@
 import { List, ListItem, Typography, useMediaQuery } from '@mui/material'
 import { FooterAccordion } from './FooterAccordion'
-import { isVPXs } from '@/theme'
+import { isVPXs } from '@/theming'
 import { Link } from '@/components'
 
 const data = {

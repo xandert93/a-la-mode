@@ -6,7 +6,7 @@ import { Link, HeartIcon } from '../../../../components'
 import { useToggle } from '@/hooks'
 
 import styles from './styles'
-import { isHoverable } from '@/theme'
+import { isHoverable } from '@/theming'
 
 export const ProductPreviewCard = ({
   id,
@@ -86,7 +86,7 @@ const LikeButton = () => {
     <IconButton
       sx={styles['like-button']}
       onClick={toggleLike}
-      aria-label="Add product to your wishlist">
+      aria-label="Add product to your wish list">
       <HeartIcon sx={styles.icon(isLiked)} />
     </IconButton>
   )

@@ -86,8 +86,8 @@ export const latestProducts = [
     name: 'Natural Herringbone Linen Jacket',
     price: 79,
     imageUrls: [
-      'https://handcmediastorage.blob.core.windows.net/productimages/JK/JKPLEA22-C63-171255-1400px-1820px.jpg',
-      'https://handcmediastorage.blob.core.windows.net/productimages/JK/JKPLEA22-C63-171207-1400px-1820px.jpg',
+      '/images/latest-products/linen-jacket-1.jpg',
+      '/images/latest-products/linen-jacket-2.jpg',
     ],
     href: '#',
   },
@@ -95,8 +95,8 @@ export const latestProducts = [
     name: 'Non-Iron Pink & White Bengal Stripe Fitted Slim Shirt',
     price: 29,
     imageUrls: [
-      'https://handcmediastorage.blob.core.windows.net/productimages/IG/IGSRE010-J18-171228-1400px-1820px.jpg',
-      'https://handcmediastorage.blob.core.windows.net/productimages/IG/IGSRE010-J18-170531-1400px-1820px.jpg',
+      '/images/latest-products/slim-shirt-1.jpg',
+      '/images/latest-products/slim-shirt-2.jpg',
     ],
     href: '#',
   },
@@ -104,8 +104,8 @@ export const latestProducts = [
     name: 'Royal Blue 2 Piece Italian Cotton Linen Slim Suit',
     price: 139,
     imageUrls: [
-      'https://handcmediastorage.blob.core.windows.net/productimages/JK/JKPBZA502P-B52V-171267-1400px-1820px.jpg',
-      'https://handcmediastorage.blob.core.windows.net/productimages/JK/JKPBZA502P-B52V-168882-1400px-1820px.jpg',
+      '/images/latest-products/linen-suit-1.jpg',
+      '/images/latest-products/linen-suit-2.jpg',
     ],
     href: '#',
   },
@@ -113,8 +113,8 @@ export const latestProducts = [
     name: 'Navy Mercerised Pique Polo Shirt - Short Sleeve',
     price: 39,
     imageUrls: [
-      'https://handcmediastorage.blob.core.windows.net/productimages/PP/PPPFA002-G01-171268-1400px-1820px.jpg',
-      'https://handcmediastorage.blob.core.windows.net/productimages/PP/PPPFA002-G01-167651-1400px-1820px.jpg',
+      '/images/latest-products/polo-shirt-1.jpg',
+      '/images/latest-products/polo-shirt-2.jpg',
     ],
     href: '#',
   },
@@ -122,8 +122,8 @@ export const latestProducts = [
     name: 'Taupe Mercerised Pique Polo Shirt - Short Sleeve',
     price: 39,
     imageUrls: [
-      'https://handcmediastorage.blob.core.windows.net/productimages/PP/PPPFA002-C50-171248-1400px-1820px.jpg',
-      'https://handcmediastorage.blob.core.windows.net/productimages/PP/PPPFA002-C50-167645-1400px-1820px.jpg',
+      '/images/latest-products/polo-shirt-3.jpg',
+      '/images/latest-products/polo-shirt-4.jpg',
     ],
     href: '#',
   },
@@ -133,30 +133,51 @@ export const blogArticles = [
   {
     title: 'Formal Wear',
     body: 'Luxury meets history. Stylish formal wear that exudes confidence. Crafted from luxurious Italian fabrics, our menswear collections will give you an ultra-smart and polished look, perfect for prestigious events.',
-    imageUrl:
-      'https://handcmediastorage.blob.core.windows.net/etc/banner/2022/MAY/lords_hnc_collection_formal_wear_2022051711.jpg',
+    imageUrl: '/images/blog-articles/formal-wear.jpg',
   },
   {
     title: 'Smart-Casual Wear',
     body: 'Tailored in excellence, find a great balance between formalwear and a more casual look. Timeless piece will elevate your style in ways.',
-    imageUrl:
-      'https://handcmediastorage.blob.core.windows.net/etc/banner/2022/MAY/lords_hnc_collection_smartcasualwear_2022051711.jpg',
+    imageUrl: '/images/blog-articles/smart-casual-wear.jpg',
   },
   {
     title: 'Casual Wear',
     body: 'Relaxed but still with and edge of smart tailoring. Opt for formal comfort with our fresh chinos paired with light linen shirts or blazers to your preference.',
-    imageUrl:
-      'https://handcmediastorage.blob.core.windows.net/etc/banner/2022/MAY/lords_hnc_collection_casualwear_2022051711.jpg',
+    imageUrl: '/images/blog-articles/casual-wear.jpg',
   },
 ]
 
 export const paymentMethods = [
-  'mastercard',
-  'visa',
-  'amex',
-  'google-pay',
-  'apple-pay',
-  'paypal',
-  'stripe',
-  'klarna',
+  {
+    name: 'mastercard',
+    imageUrl: '/images/payment-methods/mastercard.png',
+  },
+  {
+    name: 'visa',
+    imageUrl: '/images/payment-methods/visa.png',
+  },
+  {
+    name: 'amex',
+    imageUrl: '/images/payment-methods/amex.png',
+  },
+  {
+    name: 'google-pay',
+    imageUrl: '/images/payment-methods/google-pay.png',
+  },
+  {
+    name: 'apple-pay',
+    imageUrl: '/images/payment-methods/apple-pay.png',
+  },
+  {
+    name: 'paypal',
+    imageUrl: '/images/payment-methods/paypal.png',
+  },
+  {
+    name: 'stripe',
+    imageUrl: '/images/payment-methods/stripe.png',
+  },
+  {
+    name: 'klarna',
+    imageUrl: '/images/payment-methods/klarna.png',
+  },
 ]

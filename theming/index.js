@@ -1,5 +1,3 @@
-export { theme } from './theme'
-
 export {
   isVPXs,
   isVPSm,
@@ -16,6 +14,9 @@ export {
   isVPXsAndLandscape,
   isVPMaxSmAndLandscape,
   isHoverable,
+  prefersDarkMode,
 } from './media-queries'
 
 export { breakpoints } from './config'
+
+export { ThemeProvider } from './ThemeProvider'

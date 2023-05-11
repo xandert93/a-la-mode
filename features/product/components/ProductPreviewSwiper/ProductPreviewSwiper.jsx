@@ -1,7 +1,7 @@
 import { useRef } from 'react'
 import { Box, IconButton, Typography, useMediaQuery, Grid } from '@mui/material'
 
-import { breakpoints, isVPMinMd } from '@/theme'
+import { breakpoints, isVPMinMd } from '@/theming'
 
 import { ProductPreviewCard } from '../ProductPreviewCard'
 
