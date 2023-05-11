@@ -1,15 +1,17 @@
+import { Box } from '@mui/material'
 import Image from 'next/image'
 
 const styles = {
   objectFit: 'cover',
 }
 
-export const CoverImage = ({ src, style, ...props }) => {
+export const CoverImage = ({ src, sx, ...props }) => {
   return (
-    <Image
+    <Box
+      component={Image}
       src={src} //
       fill
-      style={{ ...styles, ...style }}
+      sx={[styles, sx]}
       {...props}
     />
   )

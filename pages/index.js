@@ -60,9 +60,10 @@ const LogosSection = ({ title, names, location }) => {
           align="center"
           color="text.secondary"
           textTransform="uppercase"
-          letterSpacing={3}
+          letterSpacing={5}
           fontWeight="bold"
           component="h2"
+          variant="body2"
           children={title}
           paragraph
         />
@@ -85,13 +86,13 @@ const LogosSection = ({ title, names, location }) => {
                 key={name}
                 item
                 xs={3.5} // show 3 per row on xs
-                sm={2} // show 6 per row on sm+
+                md={2} // show 6 per row on sm+
                 container
                 justifyContent="center">
                 <Box
                   component="img"
                   src={'/images/' + location + '/' + name + '.png'}
-                  sx={{ maxWidth: '100%', maxHeight: 48 }}
+                  sx={{ maxWidth: '100%', maxHeight: 24 }}
                   alt={name}
                 />
               </Grid>

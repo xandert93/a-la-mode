@@ -16,8 +16,10 @@ export const typography = {
   },
   h5: {
     fontWeight: 'bold', // 400*
+    fontSize: '2rem', // ~1.5rem* (felt like a big drop off from <h4>'s new ~2.5rem)
   },
   h6: {
     fontWeight: 'bold', // 500*
+    fontSize: '1.5rem', // ~1.25rem* (felt like a big drop off from <h5>'s new ~1.5rem)
   },
 }

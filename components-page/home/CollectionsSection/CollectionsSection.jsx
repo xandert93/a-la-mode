@@ -47,7 +47,7 @@ const PreviewOverlay = ({ title, description }) => {
       rowGap={3}
       p={{ xs: 4, sm: 5 }}
       sx={styles.overlay}>
-      <Typography component="h3" variant="h5" children={title} sx={styles.title} />
+      <Typography component="h3" variant="h6" children={title} sx={styles.title} />
       <Typography children={description} sx={styles.description} />
       <ImageButton children="Shop Now" />
     </Grid>

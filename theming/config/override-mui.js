@@ -63,6 +63,20 @@ export const overrideMui = (palette) => ({
     },
   },
 
+  MuiTextField: {
+    defaultProps: {
+      fullWidth: true,
+    },
+  },
+
+  MuiOutlinedInput: {
+    styleOverrides: {
+      input: {
+        padding: 14.5, // 16.5px 14px* (too big and `size` prop is useless - best I could do)
+      },
+    },
+  },
+
   // JTO
   MuiIconButton: {
     styleOverrides: {
