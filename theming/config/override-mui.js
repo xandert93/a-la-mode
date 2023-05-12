@@ -62,6 +62,7 @@ export const overrideMui = (palette) => ({
     styleOverrides: {
       root: {
         minWidth: 40, // 56px* (too big and looks shit)
+        color: 'inherit', // rgba(0, 0, 0, 0.54)*
       },
     },
   },
@@ -75,7 +76,15 @@ export const overrideMui = (palette) => ({
   MuiOutlinedInput: {
     styleOverrides: {
       input: {
-        padding: 14.5, // 16.5px 14px* (too big and `size` prop is useless - best I could do)
+        padding: 15, // 16.5px 14px* (too big and `size` prop is useless - best I could do)
+      },
+    },
+  },
+
+  MuiAccordionSummary: {
+    styleOverrides: {
+      expandIconWrapper: {
+        color: 'inherit', // rgba(0, 0, 0, 0.54)*
       },
     },
   },

@@ -3,7 +3,7 @@ import {
   responsiveFontSizes as createResponsiveTheme,
 } from '@mui/material'
 
-import { breakpoints, mixins, palettes, typography, overrideMui } from '.'
+import { breakpoints, mixins, palettes, typography, overrideMui } from './index'
 
 const createBaseTheme = ({ isDarkMode }) => {
   const palette = palettes[isDarkMode ? 'dark' : 'light'] // so we can use palette in `createMuiTheme`

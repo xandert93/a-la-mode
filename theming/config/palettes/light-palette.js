@@ -8,6 +8,7 @@ const { palette } = createTheme({
     primary: {
       main: brown[300], // light brown
       touch: brown[50],
+      heavy: brown[900],
     },
 
     secondary: {

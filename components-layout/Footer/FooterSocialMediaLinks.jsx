@@ -1,20 +1,58 @@
 import { FacebookIcon, InstagramIcon, PinterestIcon, TwitterIcon, YouTubeIcon } from '@/components'
 import { Grid, IconButton } from '@mui/material'
 
+const socialLinks = [
+  {
+    name: 'Instagram',
+    href: '#',
+    Icon: InstagramIcon,
+  },
+  {
+    name: 'YouTube',
+    href: '#',
+    Icon: YouTubeIcon,
+  },
+  {
+    name: 'Twitter',
+    href: '#',
+    Icon: TwitterIcon,
+  },
+  {
+    name: 'Facebook',
+    href: '#',
+    Icon: FacebookIcon,
+  },
+  {
+    name: 'Pinterest',
+    href: '#',
+    Icon: PinterestIcon,
+  },
+]
+
 const styles = {
-  root: {
+  button: {
     color: 'primary.light',
   },
 }
 
 export const FooterSocialMediaLinks = () => {
   return (
-    <Grid container wrap="nowrap" columnGap={2} sx={styles.root}>
-      <IconButton href="#" children={<InstagramIcon />} />
-      <IconButton href="#" children={<YouTubeIcon />} />
-      <IconButton href="#" children={<TwitterIcon />} />
-      <IconButton href="#" children={<FacebookIcon />} />
-      <IconButton href="#" children={<PinterestIcon />} />
+    <Grid container wrap="nowrap" justifyContent="center" columnGap={{ xs: 1.5, md: 2 }}>
+      {socialLinks.map(({ name, href, Icon }) => {
+        const ariaLabel = `Visit our ${name} Page`
+
+        return (
+          <IconButton
+            key={name}
+            href={href}
+            target="_blank"
+            aria-label={ariaLabel}
+            title={ariaLabel}
+            sx={styles.button}
+            children={<Icon />}
+          />
+        )
+      })}
     </Grid>
   )
 }

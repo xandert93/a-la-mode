@@ -28,7 +28,7 @@ export const ThemeProvider = ({ children }) => {
       <CssBaseline />
       {children}
       {/* 👇 JFN */}
-      <Button onClick={toggleDarkMode} children="💡" />
+      {/* <Button onClick={toggleDarkMode} children="💡" /> */}
     </MuiThemeProvider>
   )
 }

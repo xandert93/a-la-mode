@@ -22,6 +22,7 @@ export {
   Pinterest as PinterestIcon,
   Twitter as TwitterIcon,
   YouTube as YouTubeIcon,
+  Add as AddIcon,
 } from '@mui/icons-material'
 
 export { Image, CoverImage } from './Images'

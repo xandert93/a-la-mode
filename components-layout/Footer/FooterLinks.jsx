@@ -1,7 +1,10 @@
 import { List, ListItem, Typography, useMediaQuery } from '@mui/material'
-import { FooterAccordion } from './FooterAccordion'
-import { isVPXs } from '@/theming'
+
 import { Link } from '@/components'
+import { isHoverable, isVPXs } from '@/theming'
+
+import { FooterAccordion } from './FooterAccordion'
+import { FooterHeading } from './FooterHeading'
 
 const data = {
   'Customer Care': [
@@ -14,9 +17,29 @@ const data = {
   Corporate: [
     { href: '/#', children: 'Careers' },
     { href: '/#', children: 'News Room' },
-    { href: '/#', children: 'Sustainability' },
+    { href: '/#', children: 'Corporate Responsibility' },
     { href: '/#', children: 'Investors' },
   ],
+  'More from Á la Mode': [
+    { href: '/#', children: 'Gift Vouchers' },
+    { href: '/#', children: 'News Room' },
+    { href: '/#', children: 'Sustainability' },
+    { href: '/#', children: 'Refer a Friend' },
+  ],
+}
+
+const styles = {
+  // *** maybe create reusable <TextLink> with this styling
+  link: {
+    px: 1,
+    py: 0.5,
+    borderRadius: 1,
+    [isHoverable]: {
+      ':hover': {
+        color: 'primary.light',
+      },
+    },
+  },
 }
 
 // *** probably more efficient way of doing this
@@ -34,7 +57,7 @@ export const FooterLinks = ({ title }) => {
   else
     return (
       <>
-        <Typography component="h2" variant="h6" children={title} />
+        <FooterHeading children={title} pl={1} paragraph />
         <FooterNavigation links={links} />
       </>
     )
@@ -43,9 +66,11 @@ export const FooterLinks = ({ title }) => {
 const FooterNavigation = ({ links }) => {
   return (
     <nav>
-      <List dense disablePadding>
+      <List disablePadding>
         {links.map((props, index) => (
-          <ListItem key={index} children={<Link {...props} />} />
+          <ListItem key={index} disablePadding>
+            <Typography variant="body2" component={Link} {...props} sx={styles.link} />
+          </ListItem>
         ))}
       </List>
     </nav>

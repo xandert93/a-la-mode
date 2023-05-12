@@ -6,6 +6,8 @@ const styles = {
   },
 
   container: {
+    maxWidth: 1000,
+    margin: '0 auto',
     p: { xs: 0, md: 3, lg: 4 },
   },
 

@@ -1,41 +1,52 @@
-import { Container, Grid } from '@mui/material'
+import { Box, Container, Grid } from '@mui/material'
 
 import { FooterAbout } from './FooterAbout'
 import { FooterLinks } from './FooterLinks'
 import { FooterContact } from './FooterContact'
 import { FooterPaymentMethods } from './FooterPaymentMethods'
 import { FooterSocialMediaLinks } from './FooterSocialMediaLinks'
+import { FooterCopyright } from './FooterCopyright'
 
 const styles = {
   root: {
-    py: { xs: 2, sm: 3 },
+    marginTop: 5, // mimic <Main>'s `rowGap: 5`
+    backgroundColor: 'primary.heavy',
   },
 }
 
 // I don't need to specify the `xs`, `sm` prop each time if they are the same, but just makes it easier to understand/picture
 export const Footer = () => {
   return (
-    <Container component="footer" maxWidth="lg" sx={styles.root}>
-      <Grid container columnSpacing={{ lg: 8 }} rowSpacing={2} justifyContent="center">
-        <Grid item xs={12} sm={12} md={12} lg={3}>
-          <FooterAbout />
+    <Box component="footer" sx={styles.root}>
+      <Container maxWidth="lg" disableGutters>
+        <Grid
+          container
+          justifyContent="center"
+          columnSpacing={2}
+          rowGap={{ xs: 1.5, sm: 2 }}
+          p={4}
+          color="white">
+          <Grid item xs={12} sm={4} md={3}>
+            <FooterLinks title="Customer Care" />
+          </Grid>
+          <Grid item xs={12} sm={4} md={3}>
+            <FooterLinks title="Corporate" />
+          </Grid>
+          <Grid item xs={12} sm={4} md={3}>
+            <FooterLinks title="More from Á la Mode" />
+          </Grid>
+          <Grid item xs={12} sm={5} md={3}>
+            <FooterContact />
+          </Grid>
+          <Grid item xs={12} sm={7} md={12}>
+            <Grid container direction="column" justifyContent="center" gap={{ xs: 3, md: 4 }}>
+              <FooterSocialMediaLinks />
+              <FooterPaymentMethods />
+            </Grid>
+          </Grid>
         </Grid>
-        <Grid item xs={12} sm={6} md={4} lg={3}>
-          <FooterLinks title="Customer Care" />
-        </Grid>
-        <Grid item xs={12} sm={6} md={4} lg={3}>
-          <FooterLinks title="Corporate" />
-        </Grid>
-        <Grid item xs={12} sm={12} md={4} lg={3}>
-          <FooterContact />
-        </Grid>
-        <Grid item>
-          <FooterSocialMediaLinks />
-        </Grid>
-        <Grid item container direction="column" alignItems="center" gap={1.5}>
-          <FooterPaymentMethods />
-        </Grid>
-      </Grid>
-    </Container>
+      </Container>
+      <FooterCopyright />
+    </Box>
   )
 }

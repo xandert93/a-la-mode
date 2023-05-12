@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-import { Card, Container, Grid, MenuItem, TextField, Typography } from '@mui/material'
+import { Card, Grid, MenuItem, TextField, Typography } from '@mui/material'
 import { CoverImage, Form, Section } from '@/components'
 
 import { LoadingButton } from '@mui/lab'
@@ -14,21 +14,20 @@ export const NewsletterSection = () => {
   return (
     <Section maxWidth="xl">
       <Card sx={styles.card}>
-        <Container maxWidth="lg" sx={styles.container}>
-          <Grid
-            container
-            direction="row-reverse"
-            // *** had trouble here applying `spacing` prop between two items. Appears to be because of Next's absolute image. Using `px` for now. Update when I get more experience.
-            // could use `gap` but would need to turn off flex-wrap and then write media query to turn on again for small viewport, which acts against MUI
-          >
-            <Grid item xs={12} sm={4} sx={styles['image-box']}>
-              <CoverImage src="/images/newsletter.jpg" sx={styles.image} />
-            </Grid>
-            <Grid item xs={12} sm={8} sx={styles['subscription-box']}>
-              <Subscription />
-            </Grid>
+        <Grid
+          container
+          direction="row-reverse"
+          sx={styles.container}
+          // *** had trouble here applying `spacing` prop between two items. Appears to be because of Next's absolute image. Using `px` for now. Update when I get more experience.
+          // could use `gap` but would need to turn off flex-wrap and then write media query to turn on again for small viewport, which acts against MUI
+        >
+          <Grid item xs={12} sm={4} sx={styles['image-box']}>
+            <CoverImage src="/images/newsletter.jpg" sx={styles.image} />
           </Grid>
-        </Container>
+          <Grid item xs={12} sm={8} sx={styles['subscription-box']}>
+            <Subscription />
+          </Grid>
+        </Grid>
       </Card>
     </Section>
   )
@@ -36,7 +35,7 @@ export const NewsletterSection = () => {
 
 const Subscription = () => {
   return (
-    <Grid container direction="column" alignItems="center" rowGap={{ xs: 1.5, sm: 3 }}>
+    <Grid container direction="column" alignItems="center" rowGap={{ xs: 2, sm: 3 }}>
       <Typography
         component="h2"
         variant="h5"
@@ -64,7 +63,7 @@ const SubscriptionForm = () => {
   }
 
   return (
-    <Grid container component={Form} onSubmit={handleSubmit} spacing={{ xs: 2, md: 2.5, lg: 3 }}>
+    <Grid container component={Form} onSubmit={handleSubmit} spacing={{ xs: 2.5, md: 2.5, lg: 3 }}>
       <Grid item xs={12} md={6}>
         <TextField label="Name" />
       </Grid>

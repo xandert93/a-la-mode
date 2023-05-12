@@ -1,8 +1,11 @@
 import { ExpandMore } from '@mui/icons-material'
 import { Accordion, AccordionDetails, AccordionSummary, Typography } from '@mui/material'
+import { FooterHeading } from './FooterHeading'
 
 const styles = {
   root: {
+    color: 'inherit',
+    backgroundColor: 'transparent',
     '&:before': {
       display: 'none', // https://stackoverflow.com/questions/63488140/how-can-i-remove-line-above-the-accordion-of-material-ui
     },
@@ -10,7 +13,7 @@ const styles = {
 
   summary: {
     borderBottom: '2px solid',
-    borderColor: 'primary.touch',
+    borderColor: 'primary.light',
     p: 0,
     mb: 1,
     minHeight: 'initial', // 48px*
@@ -21,6 +24,7 @@ const styles = {
 
   details: {
     p: 0, // 8px 16px 16px
+    ml: -1, // to account for `px:1` on <Link>
   },
 }
 
@@ -29,7 +33,7 @@ export const FooterAccordion = ({ title, children }) => {
   return (
     <Accordion disableGutters square elevation={0} sx={styles.root}>
       <AccordionSummary expandIcon={<ExpandMore />} sx={styles.summary}>
-        <Typography component="h2" variant="h6" children={title} />
+        <FooterHeading children={title} />
       </AccordionSummary>
       <AccordionDetails sx={styles.details}>{children}</AccordionDetails>
     </Accordion>
