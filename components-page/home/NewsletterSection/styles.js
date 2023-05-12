@@ -1,36 +1,42 @@
-import { isVPMaxSm } from '@/theming'
+import { isVPMinMd } from '@/theming'
 
 const styles = {
-  root: {
-    [isVPMaxSm]: {
-      padding: 'initial',
+  card: {
+    backgroundColor: 'primary.touch',
+  },
+
+  container: {
+    p: { xs: 0, md: 3, lg: 4 },
+  },
+
+  'image-box': {
+    position: 'relative',
+    height: {
+      xs: '40vh', // enables image to be limited by size of content in container and not vice versa
+      sm: 'initial',
+    },
+    [isVPMinMd]: {
+      borderRadius: 1,
+      overflow: 'hidden',
     },
   },
 
-  content: {
-    backgroundColor: 'primary.touch',
-    padding: { xs: 3, sm: 4 },
-    rowGap: { xs: 3, md: 4 },
-    textAlign: 'center',
+  image: {
+    filter: 'invert(0)',
   },
 
-  'text-field': {
-    width: '100%',
-    maxWidth: 320,
+  'subscription-box': {
+    px: { xs: 3, sm: 5, md: 6 },
+    py: { xs: 3, sm: 4, md: 5 },
   },
 
-  'input-base': {
-    borderRadius: ({ spacing }) => spacing(0.5, 0, 0, 0.5),
+  heading: {
+    color: 'primary.dark',
+    letterSpacing: 1,
   },
 
-  input: {
-    padding: 1.5, // 16.5px 14px*
-  },
-
-  button: {
-    borderRadius: ({ spacing }) => spacing(0, 0.5, 0.5, 0),
-    boxShadow: 'none',
-    width: '10ch',
+  'submit-button': {
+    padding: '13px', // just to have similar size to <TextField>s, which have about ~14px padding
   },
 }
 

@@ -33,6 +33,9 @@ export const overrideMui = (palette) => ({
   },
 
   MuiCard: {
+    defaultProps: {
+      elevation: 0,
+    },
     styleOverrides: {
       root: {},
     },

@@ -1,73 +1,60 @@
-import { Button, Card, Grid, MenuItem, Select, TextField, Typography } from '@mui/material'
-import { CoverImage, Form, Section, SendIcon } from '@/components'
-
-import styles from './styles'
-import { LoadingButton } from '@mui/lab'
 import { useState } from 'react'
+
+import { Card, Container, Grid, MenuItem, TextField, Typography } from '@mui/material'
+import { CoverImage, Form, Section } from '@/components'
+
+import { LoadingButton } from '@mui/lab'
+
 import { wait } from '@/utils/helpers'
 import { MarkEmailRead } from '@mui/icons-material'
-import { isVPMinSm } from '@/theming'
+
+import styles from './styles'
 
 export const NewsletterSection = () => {
   return (
-    <Section maxWidth="md">
-      <Card
-        sx={{
-          borderRadius: 3,
-          [isVPMinSm]: {
-            boxShadow: ({ shadows }) => shadows[16],
-          },
-
-          backgroundImage: (theme) =>
-            `linear-gradient(to right bottom, ${theme.palette.background.paper} 25%, ${theme.palette.primary.main})`,
-        }}>
-        <Grid container direction="row-reverse">
+    <Section maxWidth="xl">
+      <Card sx={styles.card}>
+        <Container maxWidth="lg" sx={styles.container}>
           <Grid
-            item
-            xs={12}
-            sm={4}
-            sx={{ position: 'relative', height: { xs: '40vh', sm: 'initial' } }}>
-            <CoverImage
-              src="/images/latest-products/linen-suit-2.jpg"
-              sx={{ filter: 'invert(0)' }}
-            />
-          </Grid>
-          <Grid
-            item
-            xs={12}
-            sm={8}
-            py={{ xs: 3, sm: 4, md: 5 }}
-            px={{ xs: 4, sm: 5, md: 6 }}
             container
-            direction="column"
-            alignItems="center"
-            rowGap={{ xs: 1.5, sm: 3 }}>
-            <Typography
-              component="h2"
-              variant="h5"
-              color="primary.dark"
-              letterSpacing={1}
-              children="Want 10% Off Your Next Order?"
-            />
-            <Typography children="Subscribe to our weekly newsletter for our latest products and offers" />
-            <NewsletterForm />
-            <Typography
-              variant="body2"
-              children=" We'll use your information in accordance with our Privacy Notice"
-            />
-            <Typography
-              variant="caption"
-              color="text.disabled"
-              children="*Terms & Conditions Apply"
-            />
+            direction="row-reverse"
+            // *** had trouble here applying `spacing` prop between two items. Appears to be because of Next's absolute image. Using `px` for now. Update when I get more experience.
+            // could use `gap` but would need to turn off flex-wrap and then write media query to turn on again for small viewport, which acts against MUI
+          >
+            <Grid item xs={12} sm={4} sx={styles['image-box']}>
+              <CoverImage src="/images/newsletter.jpg" sx={styles.image} />
+            </Grid>
+            <Grid item xs={12} sm={8} sx={styles['subscription-box']}>
+              <Subscription />
+            </Grid>
           </Grid>
-        </Grid>
+        </Container>
       </Card>
     </Section>
   )
 }
 
-const NewsletterForm = () => {
+const Subscription = () => {
+  return (
+    <Grid container direction="column" alignItems="center" rowGap={{ xs: 1.5, sm: 3 }}>
+      <Typography
+        component="h2"
+        variant="h5"
+        children="Want 10% Off Your Next Order?"
+        sx={styles.heading}
+      />
+      <Typography children="Subscribe to our weekly newsletter for our latest products and offers" />
+      <SubscriptionForm />
+      <Typography
+        variant="body2"
+        children=" We'll use your information in accordance with our Privacy Notice"
+      />
+      <Typography variant="caption" color="text.disabled" children="*Terms & Conditions Apply" />
+    </Grid>
+  )
+}
+
+const SubscriptionForm = () => {
   const [isSubmitting, setIsSubmitting] = useState(false)
 
   const handleSubmit = async () => {
@@ -96,13 +83,11 @@ const NewsletterForm = () => {
         <LoadingButton
           type="submit"
           variant="contained"
+          loading={isSubmitting}
           children="Subscribe"
           endIcon={<MarkEmailRead />}
-          loading={isSubmitting}
           fullWidth
-          sx={{
-            padding: '13px', // just to have similar size to <TextField>s, which have about ~14px padding
-          }}
+          sx={styles['submit-button']}
         />
       </Grid>
     </Grid>
