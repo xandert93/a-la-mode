@@ -29,7 +29,7 @@ export const HeaderHeading = () => {
   const isMaxSm = useMediaQuery(isVPMaxSm)
 
   return (
-    <Grid container alignItems="center" columnGap={{ sm: 1 }}>
+    <Grid container alignItems="center" columnGap={{ xs: 1 }}>
       {isMaxSm && <SideDrawerButton />}
       <Link href={PATHS.HOME} underline="none" sx={styles.link}>
         <Grid container alignItems="center" columnGap={2}>

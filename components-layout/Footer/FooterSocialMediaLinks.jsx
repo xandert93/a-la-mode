@@ -1,5 +1,12 @@
-import { FacebookIcon, InstagramIcon, PinterestIcon, TwitterIcon, YouTubeIcon } from '@/components'
-import { Grid, IconButton } from '@mui/material'
+import {
+  FacebookIcon,
+  InstagramIcon,
+  PinterestIcon,
+  TwitterIcon,
+  YouTubeIcon,
+  IconButton,
+} from '@/components'
+import { Grid } from '@mui/material'
 
 const socialLinks = [
   {

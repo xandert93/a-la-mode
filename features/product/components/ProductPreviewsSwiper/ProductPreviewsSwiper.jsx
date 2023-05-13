@@ -1,5 +1,5 @@
 import { useRef } from 'react'
-import { Box, IconButton, useMediaQuery, Grid } from '@mui/material'
+import { Box, useMediaQuery, Grid } from '@mui/material'
 
 import { breakpoints, isVPMinMd } from '@/theming'
 
@@ -7,9 +7,21 @@ import { ProductPreviewCard } from '../ProductPreviewCard'
 
 import { Swiper, SwiperSlide } from 'swiper/react'
 import 'swiper/css'
-import { SectionSubHeading, SectionHeading, SwiperBackIcon, SwiperForwardIcon } from '@/components'
+import {
+  SectionSubHeading,
+  SectionHeading,
+  SwiperBackIcon,
+  SwiperForwardIcon,
+  IconButton,
+} from '@/components'
 
 import { latestProducts } from '@/data'
+
+const styles = {
+  arrow: {
+    fontSize: 40,
+  },
+}
 
 export const ProductPreviewsSwiper = ({ type, title }) => {
   const isMinMd = useMediaQuery(isVPMinMd)
@@ -22,23 +34,21 @@ export const ProductPreviewsSwiper = ({ type, title }) => {
   return (
     <Box>
       <SectionSubHeading children={type} />
-      <Grid container alignItems="center">
-        <Grid item xs>
-          <SectionHeading children={title} />
-        </Grid>
+      <Grid container justifyContent="space-between" alignItems="center">
+        <SectionHeading children={title} />
         {isMinMd && (
-          <Box>
+          <Grid container columnGap={1} width="fit-content">
             <IconButton
               onClick={goBack}
-              children={<SwiperBackIcon />}
+              children={<SwiperBackIcon sx={styles.arrow} />}
               aria-label="Go to next slide"
             />
             <IconButton
               onClick={goForward}
-              children={<SwiperForwardIcon />}
+              children={<SwiperForwardIcon sx={styles.arrow} />}
               aria-label="Go to previous slide"
             />
-          </Box>
+          </Grid>
         )}
       </Grid>
 

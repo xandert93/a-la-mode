@@ -1,9 +1,7 @@
 import { useState } from 'react'
 
 import { Card, Grid, MenuItem, TextField, Typography } from '@mui/material'
-import { CoverImage, Form, Section } from '@/components'
-
-import { LoadingButton } from '@mui/lab'
+import { CoverImage, Form, Section, LoadingButton } from '@/components'
 
 import { wait } from '@/utils/helpers'
 import { MarkEmailRead } from '@mui/icons-material'
@@ -58,7 +56,7 @@ const SubscriptionForm = () => {
 
   const handleSubmit = async () => {
     setIsSubmitting(true)
-    await wait(3)
+    await wait(5)
     setIsSubmitting(false)
   }
 
@@ -82,7 +80,8 @@ const SubscriptionForm = () => {
         <LoadingButton
           type="submit"
           variant="contained"
-          loading={isSubmitting}
+          size="large"
+          isLoading={isSubmitting}
           children="Subscribe"
           endIcon={<MarkEmailRead />}
           fullWidth

@@ -1,7 +1,7 @@
 import { useState } from 'react'
-import { Box, Card, Grid, IconButton, Typography } from '@mui/material'
+import { Box, Card, Grid, Typography } from '@mui/material'
 
-import { Link, HeartIcon } from '../../../../components'
+import { Link, HeartIcon, IconButton } from '../../../../components'
 
 import { useToggle } from '@/hooks'
 
@@ -57,10 +57,7 @@ const ProductImage = ({ urls }) => {
       onMouseEnter={toggleImage(1)}
       onMouseLeave={toggleImage(0)}
       sx={styles['image-box']}>
-      <img
-        src={urls[index]}
-        style={styles.image} // *** inline (not a fan)
-      />
+      <Box component="img" src={urls[index]} sx={styles.image} />
     </Grid>
   )
 }
@@ -84,7 +81,7 @@ const LikeButton = () => {
 
   return (
     <IconButton
-      sx={styles['like-button']}
+      sx={styles['like-button'](isLiked)}
       onClick={toggleLike}
       aria-label="Add product to your wish list">
       <HeartIcon sx={styles.icon(isLiked)} />

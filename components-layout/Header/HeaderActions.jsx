@@ -1,6 +1,6 @@
-import { Link } from '@/components'
+import { Link, IconButton } from '@/components'
 import { isVPMinLg } from '@/theming'
-import { Grid, IconButton, useMediaQuery } from '@mui/material'
+import { Grid, useMediaQuery } from '@mui/material'
 import { MobileHeaderSearchButton } from './MobileHeaderSearchButton'
 import { HeaderSearchForm } from './HeaderSearchForm'
 import { FavoriteBorder, PersonOutline, ShoppingBagOutlined } from '@mui/icons-material'
@@ -10,7 +10,7 @@ export const HeaderActions = () => {
   const isMinLg = useMediaQuery(isVPMinLg)
 
   return (
-    <Grid container justifyContent="flex-end" columnGap={0.5}>
+    <Grid container justifyContent="flex-end" columnGap={1}>
       {isMinLg ? <HeaderSearchForm /> : <MobileHeaderSearchButton />}
       <IconButton children={<PersonOutline />} aria-label="See Account" />
       <IconButton

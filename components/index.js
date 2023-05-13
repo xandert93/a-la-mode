@@ -27,7 +27,7 @@ export {
 
 export { Image, CoverImage } from './Images'
 
-export { ImageButton } from './Buttons'
+export { ImageButton, IconButton, LoadingButton } from './Buttons'
 
 export { Section } from './Containers'
 export { SectionHeading, SectionSubHeading } from './Headings'

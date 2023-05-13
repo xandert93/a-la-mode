@@ -1,6 +1,4 @@
-import { IconButton } from '@mui/material'
-
-import { SearchIcon } from '@/components'
+import { SearchIcon, IconButton } from '@/components'
 import { useToggle } from '@/hooks'
 
 import { MobileHeaderSearchBar } from './MobileHeaderSearchBar'

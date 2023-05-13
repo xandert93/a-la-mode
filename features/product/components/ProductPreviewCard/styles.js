@@ -1,4 +1,5 @@
 import { isHoverable } from '@/theming'
+import { alpha } from '@mui/material'
 
 export const styles = {
   root: {
@@ -11,13 +12,18 @@ export const styles = {
     },
   },
 
-  'like-button': {
+  'like-button': (isLiked) => ({
     position: 'absolute',
+    p: {
+      xs: 0.75, // default of `1` looks a bit crap on xs
+      sm: 1,
+    },
+    backgroundColor: ({ palette }) => alpha(palette.primary.main, isLiked ? 0 : 0.5),
 
     // *** probs not best (JFN), but when hoverable, padding is applied which affects positioning
     [isHoverable]: {
-      top: '3%',
-      right: '4%',
+      top: '4%',
+      right: '5%',
     },
 
     top: '1%',
@@ -27,11 +33,11 @@ export const styles = {
     ':hover': {
       transform: 'scale(0.95)',
     },
-  },
+  }),
 
   icon: (isLiked) => ({
-    fill: isLiked ? 'red' : 'transparent', // background-color
-    stroke: isLiked ? 'red' : 'black', // border
+    stroke: 'white', // border
+    fill: ({ palette }) => (isLiked ? palette.primary.main : 'transparent'), // background-color
   }),
 
   'image-box': {

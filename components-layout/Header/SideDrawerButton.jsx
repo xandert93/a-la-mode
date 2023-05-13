@@ -1,8 +1,6 @@
-import { IconButton } from '@mui/material'
-import { MenuIcon } from '@/components'
+import { MenuIcon, IconButton } from '@/components'
 import { SideDrawer } from './SideDrawer'
-
-const { useToggle } = require('@/hooks')
+import { useToggle } from '@/hooks'
 
 export const SideDrawerButton = () => {
   const [isOpen, toggle] = useToggle()
