@@ -16,30 +16,57 @@ export const promotions = [
   },
 ]
 
-export const heroItems = [
+export const publications = [
   {
-    title: 'Summer Collection',
-    description: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ipsum, repellendus.',
-    imageUrl: '/images/hero-carousel/collection-summer.png',
-    href: '#',
+    name: 'Elle',
+    imageUrl: '/images/publications/elle.png',
   },
   {
-    title: 'Fall Collection',
-    description: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ipsum, repellendus.',
-    imageUrl: '/images/hero-carousel/collection-fall.png',
-    href: '#',
+    name: 'GQ',
+    imageUrl: '/images/publications/gq.png',
   },
   {
-    title: 'Winter Collection',
-    description: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ipsum, repellendus.',
-    imageUrl: '/images/hero-carousel/collection-winter.png',
-    href: '#',
+    name: 'Cosmopolitan',
+    imageUrl: '/images/publications/cosmopolitan.png',
   },
   {
-    title: 'Spring Collection',
-    description: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ipsum, repellendus.',
-    imageUrl: '/images/hero-carousel/collection-spring.png',
-    href: '#',
+    name: 'Hello',
+    imageUrl: '/images/publications/hello.png',
+  },
+  {
+    name: 'Marie Claire',
+    imageUrl: '/images/publications/marie-claire.png',
+  },
+  {
+    name: 'Vogue',
+    imageUrl: '/images/publications/vogue.png',
+  },
+]
+
+export const brands = [
+  {
+    name: 'DKNY',
+    imageUrl: '/images/brands/dkny.png',
+  },
+  {
+    name: 'Topman',
+    imageUrl: '/images/brands/topman.png',
+  },
+  {
+    name: 'Lacoste',
+    imageUrl: '/images/brands/lacoste.png',
+  },
+  {
+    name: 'Ralph Lauren',
+    imageUrl: '/images/brands/ralph-lauren.png',
+  },
+  {
+    name: 'K Swiss',
+    imageUrl: '/images/brands/k-swiss.png',
+  },
+  {
+    name: 'Tommy Hilfiger',
+    imageUrl: '/images/brands/tommy-hilfiger.png',
   },
 ]
 
@@ -179,5 +206,33 @@ export const paymentMethods = [
   {
     name: 'klarna',
     imageUrl: '/images/payment-methods/klarna.png',
+  },
+]
+
+// unused:
+export const heroItems = [
+  {
+    title: 'Summer Collection',
+    description: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ipsum, repellendus.',
+    imageUrl: '/images/hero-carousel/collection-summer.png',
+    href: '#',
+  },
+  {
+    title: 'Fall Collection',
+    description: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ipsum, repellendus.',
+    imageUrl: '/images/hero-carousel/collection-fall.png',
+    href: '#',
+  },
+  {
+    title: 'Winter Collection',
+    description: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ipsum, repellendus.',
+    imageUrl: '/images/hero-carousel/collection-winter.png',
+    href: '#',
+  },
+  {
+    title: 'Spring Collection',
+    description: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ipsum, repellendus.',
+    imageUrl: '/images/hero-carousel/collection-spring.png',
+    href: '#',
   },
 ]

@@ -7,7 +7,7 @@ import { Box, Button, Grid, Typography } from '@mui/material'
 
 const styles = {}
 
-export const BlogSection = () => {
+export const ArticlesSection = () => {
   return (
     <Section maxWidth="lg">
       <Box mb={3} textAlign={{ xs: 'left', sm: 'center' }}>

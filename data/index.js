@@ -1,5 +1,7 @@
 export {
   promotions,
+  publications,
+  brands,
   categories,
   collections,
   heroItems,
