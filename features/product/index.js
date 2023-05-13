@@ -1,1 +1,1 @@
-export { ProductPreviewCard, ProductPreviewSwiper } from './components'
+export { ProductPreviewCard, ProductPreviewsSwiper } from './components'

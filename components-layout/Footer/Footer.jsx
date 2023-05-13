@@ -9,7 +9,7 @@ import { FooterCopyright } from './FooterCopyright'
 
 const styles = {
   root: {
-    marginTop: 5, // mimic <Main>'s `rowGap: 5`
+    mt: 5,
     backgroundColor: 'primary.heavy',
   },
 }
@@ -24,7 +24,7 @@ export const Footer = () => {
           justifyContent="center"
           columnSpacing={2}
           rowGap={{ xs: 1.5, sm: 2 }}
-          p={4}
+          p={{ xs: 3, sm: 4 }}
           color="white">
           <Grid item xs={12} sm={4} md={3}>
             <FooterLinks title="Customer Care" />

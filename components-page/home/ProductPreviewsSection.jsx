@@ -1,8 +1,8 @@
 import { Section } from '@/components'
-import { ProductPreviewSwiper } from '@/features/product'
+import { ProductPreviewsSwiper } from '@/features/product'
 import { Button, Container, Typography, Grid } from '@mui/material'
 
-export const NewProductsSection = () => {
+export const ProductPreviewsSection = ({ type, title }) => {
   return (
     <Section maxWidth="xl">
       {/* <Typography component="h2" variant="h6" children="Our Latest Additions" /> */}
@@ -11,7 +11,7 @@ export const NewProductsSection = () => {
           <Button children="Shop Women's" />
           <Button children="Shop Kids'" />
         </Grid> */}
-      <ProductPreviewSwiper title="Our Latest Arrivals" />
+      <ProductPreviewsSwiper type={type} title={title} />
     </Section>
   )
 }

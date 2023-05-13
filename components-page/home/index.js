@@ -1,6 +1,6 @@
 export { HomeMain } from './HomeMain'
 export { HomeHeroSection } from './HomeHeroSection'
-export { NewProductsSection } from './NewProductsSection'
+export { ProductPreviewsSection } from './ProductPreviewsSection'
 export { CollectionsSection } from './CollectionsSection'
 export { NewsletterSection } from './NewsletterSection'
 export { BlogSection } from './BlogSection'

@@ -7,7 +7,7 @@ export const HomeMain = (props) => {
       container
       direction="column"
       wrap="nowrap" // otherwise <Swiper> spazzes out
-      rowGap={{ xs: 5 }}
+      rowGap={{ xs: 5, sm: 6, md: 7, lg: 8 }}
       {...props}
     />
   )

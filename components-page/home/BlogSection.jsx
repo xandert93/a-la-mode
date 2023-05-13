@@ -1,14 +1,19 @@
-import { Section } from '@/components'
+import { Section, SectionHeading, SectionSubHeading } from '@/components'
 import { blogArticles } from '@/data'
 import { isVPMaxSmAndLandscape } from '@/theming'
 import { Box, Button, Grid, Typography } from '@mui/material'
 
 // *** inspo: https://www.hawesandcurtis.co.uk/lords-cricket-club
 
+const styles = {}
+
 export const BlogSection = () => {
   return (
     <Section maxWidth="lg">
-      <Typography children="Inside Á la Mode" />
+      <Box mb={3} textAlign={{ xs: 'left', sm: 'center' }}>
+        <SectionSubHeading children="Inspiration" />
+        <SectionHeading children="Inside Á la Mode" />
+      </Box>
       <Grid container direction="column" rowGap={{ xs: 2, md: 5 }}>
         {blogArticles.map((article, index) => {
           const isEven = index % 2 === 0

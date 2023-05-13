@@ -1,5 +1,5 @@
 import { useRef } from 'react'
-import { Box, IconButton, Typography, useMediaQuery, Grid } from '@mui/material'
+import { Box, IconButton, useMediaQuery, Grid } from '@mui/material'
 
 import { breakpoints, isVPMinMd } from '@/theming'
 
@@ -7,12 +7,11 @@ import { ProductPreviewCard } from '../ProductPreviewCard'
 
 import { Swiper, SwiperSlide } from 'swiper/react'
 import 'swiper/css'
-import { SwiperBackIcon, SwiperForwardIcon } from '@/components'
+import { SectionSubHeading, SectionHeading, SwiperBackIcon, SwiperForwardIcon } from '@/components'
 
 import { latestProducts } from '@/data'
 
-// stackoverflow original code: https://stackoverflow.com/a/71225996. I haven't encountered bug yet, so I've removed useCallback etc.
-export const ProductPreviewSwiper = ({ title }) => {
+export const ProductPreviewsSwiper = ({ type, title }) => {
   const isMinMd = useMediaQuery(isVPMinMd)
 
   const swiperRef = useRef(null)
@@ -22,9 +21,10 @@ export const ProductPreviewSwiper = ({ title }) => {
 
   return (
     <Box>
+      <SectionSubHeading children={type} />
       <Grid container alignItems="center">
         <Grid item xs>
-          <Typography component="h2" variant="h6" children={title} />
+          <SectionHeading children={title} />
         </Grid>
         {isMinMd && (
           <Box>
@@ -41,6 +41,7 @@ export const ProductPreviewSwiper = ({ title }) => {
           </Box>
         )}
       </Grid>
+
       <Swiper
         ref={swiperRef}
         speed={800}

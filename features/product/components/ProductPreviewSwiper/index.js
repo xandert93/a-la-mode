@@ -1,1 +1,0 @@
-export { ProductPreviewSwiper } from './ProductPreviewSwiper'
