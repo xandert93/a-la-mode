@@ -70,7 +70,7 @@ export const brands = [
   },
 ]
 
-export const categories = ['Men', 'Women', 'Sport', 'Collections', 'The Brand']
+export const categories = ['Men', 'Women', /* 'Sport', */ 'Collections', 'The Brand']
 
 export const collections = [
   {
@@ -108,13 +108,13 @@ export const collections = [
   },
 ]
 
-export const latestProducts = [
+export const popularProducts = [
   {
     name: 'Natural Herringbone Linen Jacket',
     price: 79,
     imageUrls: [
-      '/images/latest-products/linen-jacket-1.jpg',
-      '/images/latest-products/linen-jacket-2.jpg',
+      '/images/products/popular/linen-jacket-1.jpg',
+      '/images/products/popular/linen-jacket-2.jpg',
     ],
     href: '#',
   },
@@ -122,8 +122,8 @@ export const latestProducts = [
     name: 'Non-Iron Pink & White Bengal Stripe Fitted Slim Shirt',
     price: 29,
     imageUrls: [
-      '/images/latest-products/slim-shirt-1.jpg',
-      '/images/latest-products/slim-shirt-2.jpg',
+      '/images/products/popular/slim-shirt-1.jpg',
+      '/images/products/popular/slim-shirt-2.jpg',
     ],
     href: '#',
   },
@@ -131,8 +131,8 @@ export const latestProducts = [
     name: 'Royal Blue 2 Piece Italian Cotton Linen Slim Suit',
     price: 139,
     imageUrls: [
-      '/images/latest-products/linen-suit-1.jpg',
-      '/images/latest-products/linen-suit-2.jpg',
+      '/images/products/popular/linen-suit-1.jpg',
+      '/images/products/popular/linen-suit-2.jpg',
     ],
     href: '#',
   },
@@ -140,8 +140,8 @@ export const latestProducts = [
     name: 'Navy Mercerised Pique Polo Shirt - Short Sleeve',
     price: 39,
     imageUrls: [
-      '/images/latest-products/polo-shirt-1.jpg',
-      '/images/latest-products/polo-shirt-2.jpg',
+      '/images/products/popular/polo-shirt-1.jpg',
+      '/images/products/popular/polo-shirt-2.jpg',
     ],
     href: '#',
   },
@@ -149,8 +149,50 @@ export const latestProducts = [
     name: 'Taupe Mercerised Pique Polo Shirt - Short Sleeve',
     price: 39,
     imageUrls: [
-      '/images/latest-products/polo-shirt-3.jpg',
-      '/images/latest-products/polo-shirt-4.jpg',
+      '/images/products/popular/polo-shirt-3.jpg',
+      '/images/products/popular/polo-shirt-4.jpg',
+    ],
+    href: '#',
+  },
+]
+
+export const newProducts = [
+  {
+    name: 'Black Printed Paisley Velvet Tuxedo Jacket',
+    price: 349,
+    imageUrls: [
+      '/images/products/new/tuxedo-jacket-1.jpg',
+      '/images/products/new/tuxedo-jacket-2.jpg',
+    ],
+    href: '#',
+  },
+  {
+    name: 'White & Cream Broken Stripe Pussy Bow Blouse',
+    price: 45,
+    imageUrls: [
+      '/images/products/new/stripe-blouse-1.jpg',
+      '/images/products/new/stripe-blouse-2.jpg',
+    ],
+    href: '#',
+  },
+  {
+    name: 'Light Grey Twill 3 Piece Slim Suit',
+    price: 429,
+    imageUrls: ['/images/products/new/grey-suit-1.jpg', '/images/products/new/grey-suit-2.jpg'],
+    href: '#',
+  },
+  {
+    name: 'Pink & Black Abstract Paint Pussy Bow Blouse',
+    price: 45,
+    imageUrls: ['/images/products/new/pink-blouse-1.jpg', '/images/products/new/pink-blouse-2.jpg'],
+    href: '#',
+  },
+  {
+    name: 'Men’s Navy Plain Velvet Jacket',
+    price: 279,
+    imageUrls: [
+      '/images/products/new/velvet-jacket-1.jpg',
+      '/images/products/new/velvet-jacket-2.jpg',
     ],
     href: '#',
   },

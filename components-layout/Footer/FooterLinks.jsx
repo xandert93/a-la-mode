@@ -1,6 +1,6 @@
 import { List, ListItem, Typography, useMediaQuery } from '@mui/material'
 
-import { Link } from '@/components'
+import { TextLink } from '@/components'
 import { isHoverable, isVPXs } from '@/theming'
 
 import { FooterAccordion } from './FooterAccordion'
@@ -29,11 +29,7 @@ const data = {
 }
 
 const styles = {
-  // *** maybe create reusable <TextLink> with this styling
   link: {
-    px: 1,
-    py: 0.5,
-    borderRadius: 1,
     [isHoverable]: {
       ':hover': {
         color: 'primary.light',
@@ -69,7 +65,7 @@ const FooterNavigation = ({ links }) => {
       <List disablePadding>
         {links.map((props, index) => (
           <ListItem key={index} disablePadding>
-            <Typography variant="body2" component={Link} {...props} sx={styles.link} />
+            <Typography variant="body2" sx={styles.link} component={TextLink} {...props} />
           </ListItem>
         ))}
       </List>

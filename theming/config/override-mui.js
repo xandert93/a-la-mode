@@ -1,4 +1,4 @@
-import { isVPMaxSm, isVPXs } from '../media-queries'
+import { isVPMaxSm, isVPMinSm, isVPXs } from '../media-queries'
 
 export const overrideMui = (palette) => ({
   MuiCssBaseline: {
@@ -24,6 +24,10 @@ export const overrideMui = (palette) => ({
   MuiToolbar: {
     styleOverrides: {
       root: {
+        [isVPMinSm]: {
+          paddingLeft: 16, // 24px*
+          paddingRight: 16, // 24px*
+        },
         [isVPXs]: {
           paddingLeft: 8, // 16px*
           paddingRight: 8, // 16px*
@@ -108,9 +112,9 @@ export const overrideMui = (palette) => ({
   MuiSvgIcon: {
     styleOverrides: {
       root: {
-        fontSize: 30,
+        fontSize: 28,
         [isVPXs]: {
-          fontSize: 26.5,
+          fontSize: 24,
         },
       },
     },

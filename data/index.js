@@ -5,7 +5,8 @@ export {
   categories,
   collections,
   heroItems,
-  latestProducts,
+  newProducts,
+  popularProducts,
   blogArticles,
   paymentMethods,
 } from './starter-data'

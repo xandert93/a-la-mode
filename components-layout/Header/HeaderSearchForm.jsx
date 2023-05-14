@@ -7,7 +7,7 @@ const styles = {
   },
 
   'text-field': {
-    width: 192,
+    width: 200,
     justifyContent: 'center',
   },
 

@@ -1,4 +1,3 @@
-export { Link } from './Link'
 export { NewsletterSection } from '../components-page/home/NewsletterSection'
 export { BackgroundVideo } from './BackgroundVideo'
 export { Form } from './Form'
@@ -27,7 +26,9 @@ export {
 
 export { Image, CoverImage } from './Images'
 
-export { ImageButton, IconButton, LoadingButton } from './Buttons'
+export { ImageButton, IconButton, LoadingButton, OutlinedButton } from './Buttons'
 
 export { Section } from './Containers'
 export { SectionHeading, SectionSubHeading } from './Headings'
+
+export { Link, TextLink } from './Links'

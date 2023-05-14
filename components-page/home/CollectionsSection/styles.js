@@ -22,6 +22,11 @@ const styles = {
     },
   }),
 
+  preview: {
+    borderRadius: 1,
+    overflow: 'hidden',
+  },
+
   title: (theme) => ({
     textTransform: 'uppercase',
     letterSpacing: 5,

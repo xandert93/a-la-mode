@@ -35,8 +35,8 @@ export const HomeHeroSection = () => {
         <Typography component="h2" variant="h3" children="Explore the Everyday" />
         <Typography children="Embrace every moment this season, taking on new ventures in a thoughtfully curated collection for Summer'23" />
         <Grid container justifyContent="space-evenly" rowGap={2}>
-          <ImageButton outlined children="Menswear" />
-          <ImageButton outlined children="Womenswear" />
+          <ImageButton outlined elevation={8} children="Menswear" />
+          <ImageButton outlined elevation={8} children="Womenswear" />
         </Grid>
       </Grid>
     </Section>

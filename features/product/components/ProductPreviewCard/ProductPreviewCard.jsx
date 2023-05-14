@@ -40,7 +40,6 @@ export const ProductPreviewCard = ({
           </Grid>
         </Grid>
       </Link>
-
       <LikeButton />
     </Card>
   )

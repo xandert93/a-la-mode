@@ -16,22 +16,24 @@ export const styles = {
     position: 'absolute',
     p: {
       xs: 0.75, // default of `1` looks a bit crap on xs
-      sm: 1,
+      lg: 1,
     },
     backgroundColor: ({ palette }) => alpha(palette.primary.main, isLiked ? 0 : 0.5),
 
     // *** probs not best (JFN), but when hoverable, padding is applied which affects positioning
     [isHoverable]: {
       top: '4%',
-      right: '5%',
+      right: '6%',
     },
 
     top: '1%',
     right: '1%',
 
     transition: ({ transitions }) => transitions.create('transform'),
-    ':hover': {
-      transform: 'scale(0.95)',
+    [isHoverable]: {
+      ':hover': {
+        transform: 'scale(0.95)',
+      },
     },
   }),
 

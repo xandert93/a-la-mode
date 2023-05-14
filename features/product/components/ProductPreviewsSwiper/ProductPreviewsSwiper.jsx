@@ -15,15 +15,13 @@ import {
   IconButton,
 } from '@/components'
 
-import { latestProducts } from '@/data'
-
 const styles = {
   arrow: {
-    fontSize: 40,
+    fontSize: { xl: 40, lg: 36, md: 32 },
   },
 }
 
-export const ProductPreviewsSwiper = ({ type, title }) => {
+export const ProductPreviewsSwiper = ({ type, title, products }) => {
   const isMinMd = useMediaQuery(isVPMinMd)
 
   const swiperRef = useRef(null)
@@ -61,7 +59,7 @@ export const ProductPreviewsSwiper = ({ type, title }) => {
           [breakpoints.values.md]: { slidesPerView: 3 },
           [breakpoints.values.lg]: { slidesPerView: 4 },
         }}>
-        {latestProducts.map((product) => (
+        {products.map((product) => (
           <SwiperSlide key={product.name}>
             <Box py={2} px={0.5}>
               <ProductPreviewCard {...product} />

@@ -1,5 +1,6 @@
 import { Header, Footer } from '@/components-layout'
 import { NAMES } from '@/constants'
+import { SnackbarProvider, Snackbar } from '@/context/snackbar'
 import { ThemeProvider } from '@/theming'
 
 import Head from 'next/head'
@@ -16,11 +17,10 @@ export default function App({ Component, pageProps }) {
       </Head>
       <ThemeProvider>
         <Header />
-        <Component {...pageProps} />
-        {/* <SnackbarProvider>
+        <SnackbarProvider>
           <Component {...pageProps} />
           <Snackbar />
-        </SnackbarProvider> */}
+        </SnackbarProvider>
         <Footer />
       </ThemeProvider>
     </>

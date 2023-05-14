@@ -1,4 +1,4 @@
-import { Box, Container, Grid, Typography } from '@mui/material'
+import { Box, Grid, Typography } from '@mui/material'
 
 import { CoverImage, Link, ImageButton, Section } from '@/components'
 import { collections } from '@/data'
@@ -21,7 +21,7 @@ export const CollectionsSection = () => {
 
 const CollectionPreview = ({ title, description, imageUrl }) => {
   return (
-    <Link href="/#" sx={{ display: 'block', borderRadius: '4px', overflow: 'hidden' }}>
+    <Link href="/#" sx={styles.preview}>
       <PreviewOverlay {...{ title, description }} />
       <PreviewImage {...{ title, imageUrl }} />
     </Link>
@@ -49,7 +49,7 @@ const PreviewOverlay = ({ title, description }) => {
       sx={styles.overlay}>
       <Typography component="h3" variant="h6" children={title} sx={styles.title} />
       <Typography children={description} sx={styles.description} />
-      <ImageButton children="Shop Now" />
+      <ImageButton elevation={8} children="Shop Now" />
     </Grid>
   )
 }
