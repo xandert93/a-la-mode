@@ -1,10 +1,16 @@
-import { isVPXs } from '../media-queries'
+import { isVPMaxSm, isVPXs } from '../media-queries'
 
 export const overrideMui = (palette) => ({
   MuiCssBaseline: {
     styleOverrides: {
       'img, video': {
         display: 'block',
+      },
+
+      [isVPMaxSm]: {
+        'body::-webkit-scrollbar': {
+          display: 'none',
+        },
       },
     },
   },

@@ -3,7 +3,7 @@ import { LogosSection } from './LogosSection'
 
 const styles = {
   root: {
-    my: { xs: 7, sm: 8 },
+    my: { xs: 6, sm: 7 },
   },
 }
 

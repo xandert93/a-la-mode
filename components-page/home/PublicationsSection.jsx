@@ -3,8 +3,8 @@ import { LogosSection } from './LogosSection'
 
 const styles = {
   root: {
-    mt: 6, // since <HomeHeroSection> has padding-bottom already
-    mb: 8,
+    mt: { xs: 4, sm: 5 }, // since <HomeHeroSection> has padding-bottom already
+    mb: { xs: 6, sm: 7 },
   },
 }
 

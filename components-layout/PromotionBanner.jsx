@@ -32,7 +32,7 @@ export const PromotionBanner = () => {
     <Box p={1} sx={styles.root}>
       <Fade key={index} in timeout={1200}>
         <Typography
-          sx={(theme) => console.log(theme)}
+          sx={styles.root}
           variant="body2"
           color="primary.heavy"
           children={promotions[index].title}
