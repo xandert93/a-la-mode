@@ -1,10 +1,10 @@
 import { isVPMinMd } from '@/theming'
 
 import {
-  AppBar,
+  AppBar as Appbar,
   Grid,
   Slide,
-  Toolbar as ToolBar,
+  Toolbar,
   useMediaQuery,
   useScrollTrigger,
 } from '@mui/material'
@@ -20,9 +20,9 @@ export const Header = () => {
 
   return (
     <Slide appear={false} in={!isScrolledDown} timeout={{ enter: 250, exit: 500 }}>
-      <AppBar position="sticky" elevation={8}>
+      <Appbar position="sticky" elevation={8}>
         <PromotionBanner />
-        <ToolBar>
+        <Toolbar>
           <Grid container justifyContent="space-between" alignItems="center">
             <Grid item md={3.5}>
               <HeaderHeading />
@@ -36,8 +36,8 @@ export const Header = () => {
               <HeaderActions />
             </Grid>
           </Grid>
-        </ToolBar>
-      </AppBar>
+        </Toolbar>
+      </Appbar>
     </Slide>
   )
 }

@@ -8,7 +8,7 @@ const styles = {
     color: 'white',
     textAlign: 'center',
 
-    backgroundColor: alpha('#000', 0.12),
+    backgroundColor: alpha(theme.palette.common.black, 0.12),
     transition: theme.transitions.create('background-color'),
     [isHoverable]: {
       ':hover': {

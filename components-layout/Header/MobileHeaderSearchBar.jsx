@@ -1,27 +1,27 @@
 import { Close } from '@mui/icons-material'
-import { AppBar, IconButton, Toolbar as ToolBar } from '@mui/material'
+import { AppBar as Appbar, IconButton, Toolbar as ToolBar } from '@mui/material'
 import { MobileHeaderSearchForm } from './MobileHeaderSearchForm'
 
 const styles = {
-  'app-bar': {
+  appbar: {
     top: 36, //*** hardcoded for now to account for <PromotionBanner>
   },
-  'tool-bar': {
+  toolbar: {
     columnGap: 1,
   },
 }
 
 export const MobileHeaderSearchBar = ({ close }) => {
   return (
-    <AppBar
+    <Appbar
       component="div"
       position="fixed"
       elevation={0} // otherwise adds additional box-shadow on top of <Header>'s
-      sx={styles['app-bar']}>
-      <ToolBar sx={styles['tool-bar']}>
+      sx={styles.appbar}>
+      <ToolBar sx={styles.toolbar}>
         <IconButton onClick={close} children={<Close />} aria-label="Close search" />
         <MobileHeaderSearchForm />
       </ToolBar>
-    </AppBar>
+    </Appbar>
   )
 }
