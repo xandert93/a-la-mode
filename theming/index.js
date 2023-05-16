@@ -1,4 +1,5 @@
 export {
+  breakpoints,
   isVPXs,
   isVPSm,
   isVPMinSm,
@@ -15,8 +16,6 @@ export {
   isVPMaxSmAndLandscape,
   isHoverable,
   prefersDarkMode,
-} from './media-queries'
-
-export { breakpoints } from './config'
+} from './config'
 
 export { ThemeProvider } from './ThemeProvider'

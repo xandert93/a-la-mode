@@ -7,6 +7,7 @@ export {
   heroItems,
   newProducts,
   popularProducts,
+  productReviews,
   blogArticles,
   paymentMethods,
 } from './starter-data'

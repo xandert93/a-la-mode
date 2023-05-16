@@ -27,5 +27,5 @@ const styles = ({ outlined, elevation = 0 }) => {
 }
 
 export const ImageButton = ({ sx, outlined, elevation, ...props }) => {
-  return <Button sx={[styles({ outlined, elevation }), sx]} {...props} />
+  return <Button variant="text" sx={[styles({ outlined, elevation }), sx]} {...props} />
 }

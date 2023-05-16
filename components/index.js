@@ -33,3 +33,5 @@ export { Section } from './Containers'
 export { SectionHeading, SectionSubHeading } from './Headings'
 
 export { Link, TextLink } from './Links'
+
+export { Select } from './Inputs'

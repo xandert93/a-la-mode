@@ -1,4 +1,4 @@
-import { breakpoints } from './config'
+import { breakpoints } from '.'
 
 const { xs, sm, md, lg, xl } = breakpoints.values
 

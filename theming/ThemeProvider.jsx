@@ -7,7 +7,7 @@ import {
 import { useEffectOnMount, useEffectOnUpdate, useToggle } from '@/hooks'
 
 import { lightTheme, darkTheme } from './themes'
-import { prefersDarkMode } from './media-queries'
+import { prefersDarkMode } from './config/media-queries'
 
 export const ThemeProvider = ({ children }) => {
   // const userPrefersDarkMode = useMediaQuery(prefersDarkMode)

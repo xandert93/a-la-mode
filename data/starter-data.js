@@ -150,7 +150,7 @@ const popularProducts = [
   },
 ]
 
-;('additional product fields')
+// additional product fields:
 // productId
 // priceId
 // description
@@ -159,12 +159,69 @@ const popularProducts = [
 // price
 // lastPurchasedAt
 
-;('review fields')
-// productId
-// reviewerId
-// rating
-// text
-// createdAt
+// additional product review fields: productId, reviewer._id
+export const productReviews = [
+  {
+    _id: 1,
+    reviewer: {
+      firstName: 'Carlos',
+      lastName: 'Vela',
+      avatarUrl: '/images/users/carlos-vela.png',
+    },
+    rating: 5,
+    title: 'Choose one size smaller',
+    text: 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Eligendi, non.',
+    createdAt: '3 hours ago',
+  },
+  {
+    _id: 2,
+    reviewer: {
+      firstName: 'Lotta',
+      lastName: 'Lindgren',
+      avatarUrl: '/images/users/lotta-lindgren.jpg',
+    },
+    rating: 4,
+    title: 'Very relaxed fit, perfect for daily use',
+    text: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ullam, odio hic. Ex, harum. Voluptates beatae illo nam eos, sapiente a impedit facilis quidem, architecto iure, ullam obcaecati porro in. Distinctio deserunt magni, ab quod quos illum corrupti! Aliquam libero magni esse iste voluptates accusantium consequuntur repellat incidunt facilis commodi! Assumenda?',
+    createdAt: 'Yesterday',
+  },
+  {
+    _id: 3,
+    reviewer: {
+      firstName: 'Ken',
+      lastName: 'Yates',
+      avatarUrl: '/images/users/ken-yates.jpg',
+    },
+    rating: 5,
+    title: 'Excellent design, very comfy and stylish',
+    text: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Unde dolore quam inventore natus omnis doloribus hic quas, ratione explicabo error?',
+    createdAt: '4 days ago',
+  },
+  {
+    _id: 4,
+    reviewer: {
+      firstName: 'Jordan',
+      lastName: 'Davis',
+      avatarUrl: '/images/users/jordan-davis.jpg',
+    },
+    rating: 4,
+    title: 'Classic fit and high quality',
+    text: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur debitis mollitia iste ducimus dolore excepturi dicta a aut voluptates natus deserunt, nam vitae assumenda commodi eligendi cumque perferendis similique reprehenderit?',
+    createdAt: 'Last week',
+  },
+  {
+    _id: 5,
+    reviewer: {
+      firstName: 'Sam',
+      lastName: 'Cooke',
+      avatarUrl: '/images/users/sam-cooke.jpg',
+    },
+    rating: 4,
+    title: "I like it, but the size isn't consistent with the chart",
+    text: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Maiores temporibus esse eveniet quasi necessitatibus optio.',
+    createdAt: '2 weeks ago',
+  },
+]
 
 const newProducts = [
   {

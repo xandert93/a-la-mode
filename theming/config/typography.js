@@ -1,3 +1,5 @@
+import { isVPSm, isVPXs } from './media-queries'
+
 export const typography = {
   fontFamily: 'Rubik, sans-serif', // Rubik imported from Google into _document.js (recommended)
 
@@ -22,6 +24,26 @@ export const typography = {
     fontWeight: 500, // 500*
     // fontSize: '1.25rem'
   },
+
+  body1: {
+    [isVPXs]: {
+      fontSize: '0.9rem', // => 14.4px
+    },
+    [isVPSm]: {
+      fontSize: '0.95rem', // => 15.2px
+    },
+    // fontSize: '1rem' // => 16px
+  },
+  body2: {
+    [isVPXs]: {
+      fontSize: '0.8rem', // => 13.2px
+    },
+    [isVPSm]: {
+      fontSize: '0.85rem', // => 13.6px
+    },
+    fontSize: '0.9rem', // 0.875rem* => 14px, new is => 14.4px
+  },
+
   button: {
     fontWeight: 400, // 500*
   },

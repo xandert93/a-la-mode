@@ -1,7 +1,7 @@
 import { useState } from 'react'
 
 import { Card, Grid, MenuItem, TextField, Typography } from '@mui/material'
-import { CoverImage, Form, Section, LoadingButton } from '@/components'
+import { CoverImage, Form, Section, LoadingButton, Select } from '@/components'
 
 import { wait } from '@/utils/helpers'
 import { MarkEmailRead } from '@mui/icons-material'
@@ -69,12 +69,12 @@ const SubscriptionForm = () => {
         <TextField type="email" label="Email Address" />
       </Grid>
       <Grid item xs={12} md={6}>
-        <TextField select label="How did you hear of us?" helperText="Please choose one option">
+        <Select label="How did you hear of us?" helperText="Please choose one option">
           <MenuItem value={1} children="Search Engine" />
           <MenuItem value={2} children="Friends and Family" />
           <MenuItem value={3} children="Social Media Ad" />
           <MenuItem value={4} children="Others" />
-        </TextField>
+        </Select>
       </Grid>
       <Grid item xs={12} md={6}>
         <LoadingButton

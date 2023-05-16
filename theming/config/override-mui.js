@@ -1,4 +1,4 @@
-import { isVPMaxSm, isVPMinSm, isVPXs } from '../media-queries'
+import { isVPMaxSm, isVPMinSm, isVPXs } from './media-queries'
 
 export const overrideMui = (palette) => ({
   MuiCssBaseline: {
@@ -96,6 +96,12 @@ export const overrideMui = (palette) => ({
       expandIconWrapper: {
         color: 'inherit', // rgba(0, 0, 0, 0.54)*
       },
+    },
+  },
+
+  MuiButton: {
+    defaultProps: {
+      variant: 'contained',
     },
   },
 
