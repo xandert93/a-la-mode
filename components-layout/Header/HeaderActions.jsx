@@ -1,9 +1,9 @@
-import { Link, IconButton } from '@/components'
+import { Link, IconButton, HeartIconOutlined } from '@/components'
 import { isVPMinLg } from '@/theming'
 import { Grid, useMediaQuery } from '@mui/material'
 import { MobileHeaderSearchButton } from './MobileHeaderSearchButton'
 import { HeaderSearchForm } from './HeaderSearchForm'
-import { FavoriteBorder, PersonOutline, ShoppingBagOutlined } from '@mui/icons-material'
+import { PersonOutline, ShoppingBagOutlined } from '@mui/icons-material'
 import { PATHS } from '@/constants'
 
 export const HeaderActions = () => {
@@ -16,7 +16,7 @@ export const HeaderActions = () => {
       <IconButton
         component={Link}
         href={PATHS.WISH_LIST}
-        children={<FavoriteBorder />}
+        children={<HeartIconOutlined />}
         aria-label="Visit Wish List Page"
       />
       <IconButton

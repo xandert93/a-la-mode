@@ -16,12 +16,12 @@ export default function App({ Component, pageProps }) {
         />
       </Head>
       <ThemeProvider>
-        <Header />
+        {/* <Header /> */}
         <SnackbarProvider>
           <Component {...pageProps} />
           <Snackbar />
         </SnackbarProvider>
-        <Footer />
+        {/* <Footer /> */}
       </ThemeProvider>
     </>
   )

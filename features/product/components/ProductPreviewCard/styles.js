@@ -20,21 +20,19 @@ export const styles = {
     },
     backgroundColor: ({ palette }) => alpha(palette.primary.main, isLiked ? 0 : 0.5),
 
+    top: '5px',
+    right: '5px',
+
     // *** probs not best (JFN), but when hoverable, padding is applied which affects positioning
     [isHoverable]: {
-      top: '4%',
-      right: '6%',
-    },
-
-    top: '1%',
-    right: '1%',
-
-    transition: ({ transitions }) => transitions.create('transform'),
-    [isHoverable]: {
+      top: '22px',
+      right: '22px',
       ':hover': {
         transform: 'scale(0.95)',
       },
     },
+
+    transition: ({ transitions }) => transitions.create('transform'),
   }),
 
   icon: (isLiked) => ({

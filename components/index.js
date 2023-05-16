@@ -8,6 +8,7 @@ export { PaymentMethodImageList } from './PaymentMethodImageList'
 
 export {
   Favorite as HeartIcon,
+  FavoriteBorder as HeartIconOutlined,
   Menu as MenuIcon,
   Search as SearchIcon,
   Place as LocationIcon,

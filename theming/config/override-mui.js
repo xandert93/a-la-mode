@@ -112,11 +112,17 @@ export const overrideMui = (palette) => ({
   MuiSvgIcon: {
     styleOverrides: {
       root: {
-        fontSize: 28,
-        [isVPXs]: {
-          fontSize: 24,
-        },
+        // fontSize: 28,
+        // [isVPXs]: {
+        //   fontSize: 24,
+        // },
       },
+    },
+  },
+
+  MuiRating: {
+    defaultProps: {
+      readOnly: true,
     },
   },
 })

@@ -1,3 +1,5 @@
+import { slugify } from '@/utils/helpers'
+
 export const promotions = [
   {
     title: 'Free UK Delivery on orders over £50',
@@ -74,41 +76,33 @@ export const categories = ['Men', 'Women', /* 'Sport', */ 'Collections', 'The Br
 
 export const collections = [
   {
-    id: 2,
     title: 'Fall Fervor',
     description: 'Reset your style for the new season with our autumn outfits',
     imageUrl: '/images/collections/fall.jpg',
   },
   {
-    id: 1,
     title: 'Summer Splendor',
     description: 'Get ready for the warm weather with our summer wear',
     imageUrl: '/images/collections/summer.jpg',
   },
   {
-    id: 4,
-
     title: 'Winter Wonderland',
     description: 'Let it snow - layer up with winter essentials that you will love',
     imageUrl: '/images/collections/winter.jpg',
   },
   {
-    id: 3,
-
     title: 'Spring Suaveness',
     description: 'Spring into the season with our newest edit of spring clothes',
     imageUrl: '/images/collections/spring.jpg',
   },
   {
-    id: 5,
-
     title: 'Festive Fidelity',
     description: 'Stay warm and stylish during the holidays with our festive take',
     imageUrl: '/images/collections/festive.jpg',
   },
 ]
 
-export const popularProducts = [
+const popularProducts = [
   {
     name: 'Natural Herringbone Linen Jacket',
     price: 79,
@@ -137,7 +131,7 @@ export const popularProducts = [
     href: '#',
   },
   {
-    name: 'Navy Mercerised Pique Polo Shirt - Short Sleeve',
+    name: 'Navy Mercerised Pique Polo Shirt',
     price: 39,
     imageUrls: [
       '/images/products/popular/polo-shirt-1.jpg',
@@ -146,7 +140,7 @@ export const popularProducts = [
     href: '#',
   },
   {
-    name: 'Taupe Mercerised Pique Polo Shirt - Short Sleeve',
+    name: 'Taupe Mercerised Pique Polo Shirt',
     price: 39,
     imageUrls: [
       '/images/products/popular/polo-shirt-3.jpg',
@@ -156,7 +150,23 @@ export const popularProducts = [
   },
 ]
 
-export const newProducts = [
+;('additional product fields')
+// productId
+// priceId
+// description
+// features
+// stockCount
+// price
+// lastPurchasedAt
+
+;('review fields')
+// productId
+// reviewerId
+// rating
+// text
+// createdAt
+
+const newProducts = [
   {
     name: 'Black Printed Paisley Velvet Tuxedo Jacket',
     price: 349,
@@ -197,6 +207,15 @@ export const newProducts = [
     href: '#',
   },
 ]
+
+popularProducts.forEach((product) => {
+  product.slug = slugify(product.name)
+})
+newProducts.forEach((product) => {
+  product.slug = slugify(product.name)
+})
+
+export { popularProducts, newProducts }
 
 export const blogArticles = [
   {

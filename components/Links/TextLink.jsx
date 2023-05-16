@@ -1,4 +1,5 @@
-import { Link } from './Link'
+import { ButtonBase } from '@mui/material'
+import NextLink from 'next/link'
 
 const styles = {
   px: 1,
@@ -7,5 +8,5 @@ const styles = {
 }
 
 export const TextLink = ({ sx, ...props }) => {
-  return <Link sx={styles} {...props} />
+  return <ButtonBase component={NextLink} sx={[styles, sx]} {...props} />
 }
