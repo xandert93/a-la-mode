@@ -1,11 +1,11 @@
 import { Box, Grid, Typography } from '@mui/material'
-import { Section } from '@/components'
+import { Img, Section } from '@/components'
 
 import styles from './styles'
 
 export const LogosSection = ({ title, data, ...props }) => {
   return (
-    <Section maxWidth="lg" {...props}>
+    <Section maxWidth="xl" {...props}>
       <Typography component="h2" variant="body2" children={title} sx={styles.heading} />
       <Box px={{ sm: 2 }}>
         <Logos data={data} />
@@ -37,7 +37,7 @@ const LogoList = ({ data }) => {
         md={2} // 6 logos per row on md+
         container
         justifyContent="center">
-        <Box component="img" src={imageUrl} sx={styles.image} alt={name} />
+        <Img src={imageUrl} sx={styles.image} alt={name} />
       </Grid>
     )
   })

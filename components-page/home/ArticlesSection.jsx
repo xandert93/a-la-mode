@@ -1,4 +1,4 @@
-import { Section, SectionHeading, SectionSubHeading } from '@/components'
+import { Img, Section, SectionHeading, SectionSubHeading } from '@/components'
 import { blogArticles } from '@/data'
 import { isVPMaxSmAndLandscape } from '@/theming'
 import { Box, Button, Grid, Typography } from '@mui/material'
@@ -40,8 +40,7 @@ const Article = ({ direction, title, body, imageUrl }) => {
             height: '70vh',
           },
         }}>
-        <Box
-          component="img"
+        <Img
           src={imageUrl}
           sx={{
             width: '100%',
@@ -49,6 +48,7 @@ const Article = ({ direction, title, body, imageUrl }) => {
             objectFit: 'cover',
             borderRadius: 1,
           }}
+          alt={title}
         />
       </Grid>
       <Grid item sm={6} xs={12} container alignItems="center" rowGap={2}>

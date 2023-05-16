@@ -25,7 +25,7 @@ export {
   Add as AddIcon,
 } from '@mui/icons-material'
 
-export { Image, CoverImage } from './Images'
+export { Img, Image, CoverImage } from './Images'
 
 export { ImageButton, IconButton, LoadingButton, OutlinedButton } from './Buttons'
 
@@ -35,3 +35,5 @@ export { SectionHeading, SectionSubHeading } from './Headings'
 export { Link, TextLink } from './Links'
 
 export { Select } from './Inputs'
+
+export { GradientTypography } from './Typographies'

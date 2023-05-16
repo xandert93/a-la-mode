@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Box, Card, Grid, Typography } from '@mui/material'
 
-import { Link, HeartIcon, IconButton } from '../../../../components'
+import { Link, HeartIcon, IconButton, Img } from '../../../../components'
 
 import { useToggle } from '@/hooks'
 
@@ -34,9 +34,7 @@ export const ProductPreviewCard = ({
             </Grid>
             <Typography
               children={'£' + price}
-              component="p"
-              variant="h6"
-              sx={{ fontWeight: 'initial', letterSpacing: 1 }} // JFN
+              sx={{ fontWeight: 500, letterSpacing: -0.5 }} // JFN - "body1" fontsize too small and "h6" too big...need solution
             />
           </Grid>
         </Grid>
@@ -57,7 +55,11 @@ const ProductImage = ({ urls }) => {
       onMouseEnter={toggleImage(1)}
       onMouseLeave={toggleImage(0)}
       sx={styles['image-box']}>
-      <Box component="img" src={urls[index]} sx={styles.image} />
+      <Img
+        src={urls[index]}
+        sx={styles.image}
+        alt="Product Image 3 of 4" // JFN come back later
+      />
     </Grid>
   )
 }

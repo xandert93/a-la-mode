@@ -7,11 +7,11 @@ export const overrideMui = (palette) => ({
         display: 'block',
       },
 
-      [isVPMaxSm]: {
-        'body::-webkit-scrollbar': {
-          display: 'none',
-        },
-      },
+      // [isVPMaxSm]: {
+      //   'body::-webkit-scrollbar': {
+      //     display: 'none',
+      //   },
+      // },
     },
   },
 
@@ -103,6 +103,16 @@ export const overrideMui = (palette) => ({
     defaultProps: {
       variant: 'contained',
     },
+    styleOverrides: {
+      root: {
+        /*    defaults:
+        textTransform: 'uppercase',
+        minWidth: 64,
+        padding: '5px 15px',
+        borderRadius: 4, 
+        */
+      },
+    },
   },
 
   // JTO
@@ -129,6 +139,7 @@ export const overrideMui = (palette) => ({
   MuiRating: {
     defaultProps: {
       readOnly: true,
+      precision: 0.1,
     },
   },
 })

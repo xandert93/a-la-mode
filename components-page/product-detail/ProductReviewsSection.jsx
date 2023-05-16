@@ -37,7 +37,7 @@ export const ProductReviewsSection = () => {
       <Grid container direction="column" alignItems={{ xs: 'center', sm: 'start' }} rowGap={1}>
         <SectionHeading children="Customer Reviews" />
         <Grid container width="initial" alignItems="center" columnGap={1}>
-          <Rating value={avgRating} precision={0.1} size="large" />
+          <Rating value={avgRating} size="large" />
           <Typography
             component="p"
             variant="h5"
@@ -103,7 +103,7 @@ const RatingBar = ({ starCount, percentage }) => {
         sx={{ height: { xs: 12, sm: 16 }, borderRadius: 0.5, flexGrow: 1 }}
       />
       <Typography
-        children={`(100)`}
+        children={`(99)`}
         minWidth={'3ch'} // hacky JFN - not gonna work when one is 1000 and another is 1
       />
     </Grid>

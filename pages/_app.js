@@ -21,7 +21,7 @@ export default function App({ Component, pageProps }) {
           <Component {...pageProps} />
           <Snackbar />
         </SnackbarProvider>
-        <Footer />
+        {/* <Footer /> */}
       </ThemeProvider>
     </>
   )

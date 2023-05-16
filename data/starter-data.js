@@ -106,11 +106,23 @@ const popularProducts = [
   {
     name: 'Natural Herringbone Linen Jacket',
     price: 79,
+    description:
+      'Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis officia veritatis sunt nostrum quas tempore necessitatibus tenetur. Dolorum reprehenderit facilis veritatis modi. Illo facere, vel ratione assumenda nisi ex quibusdam!',
+    features: ['feature 1', 'feature 2', 'feature 3', 'feature 4'],
     imageUrls: [
       '/images/products/popular/linen-jacket-1.jpg',
       '/images/products/popular/linen-jacket-2.jpg',
+      '/images/products/popular/linen-suit-1.jpg',
+      '/images/products/popular/linen-suit-2.jpg',
+      '/images/products/popular/polo-shirt-1.jpg',
+      // '/images/products/popular/polo-shirt-2.jpg',
+      // '/images/products/popular/polo-shirt-3.jpg',
+      // '/images/products/popular/polo-shirt-4.jpg',
+      // 'https://cdn.sportmonks.com/images/soccer/teams/10/42.png',
     ],
-    href: '#',
+    stockCount: 10,
+    lastPurchasedAt: 'Yesterday',
+    createdAt: '', // can display "NEW" flag in UI
   },
   {
     name: 'Non-Iron Pink & White Bengal Stripe Fitted Slim Shirt',
@@ -119,7 +131,6 @@ const popularProducts = [
       '/images/products/popular/slim-shirt-1.jpg',
       '/images/products/popular/slim-shirt-2.jpg',
     ],
-    href: '#',
   },
   {
     name: 'Royal Blue 2 Piece Italian Cotton Linen Slim Suit',
@@ -128,7 +139,6 @@ const popularProducts = [
       '/images/products/popular/linen-suit-1.jpg',
       '/images/products/popular/linen-suit-2.jpg',
     ],
-    href: '#',
   },
   {
     name: 'Navy Mercerised Pique Polo Shirt',
@@ -137,7 +147,6 @@ const popularProducts = [
       '/images/products/popular/polo-shirt-1.jpg',
       '/images/products/popular/polo-shirt-2.jpg',
     ],
-    href: '#',
   },
   {
     name: 'Taupe Mercerised Pique Polo Shirt',
@@ -146,18 +155,56 @@ const popularProducts = [
       '/images/products/popular/polo-shirt-3.jpg',
       '/images/products/popular/polo-shirt-4.jpg',
     ],
-    href: '#',
   },
 ]
 
-// additional product fields:
-// productId
-// priceId
-// description
-// features
-// stockCount
-// price
-// lastPurchasedAt
+const newProducts = [
+  {
+    name: 'Black Printed Paisley Velvet Tuxedo Jacket',
+    price: 349,
+    imageUrls: [
+      '/images/products/new/tuxedo-jacket-1.jpg',
+      '/images/products/new/tuxedo-jacket-2.jpg',
+    ],
+  },
+  {
+    name: 'White & Cream Broken Stripe Pussy Bow Blouse',
+    price: 45,
+    imageUrls: [
+      '/images/products/new/stripe-blouse-1.jpg',
+      '/images/products/new/stripe-blouse-2.jpg',
+    ],
+  },
+  {
+    name: 'Light Grey Twill 3 Piece Slim Suit',
+    price: 429,
+    imageUrls: ['/images/products/new/grey-suit-1.jpg', '/images/products/new/grey-suit-2.jpg'],
+  },
+  {
+    name: 'Pink & Black Abstract Paint Pussy Bow Blouse',
+    price: 45,
+    imageUrls: ['/images/products/new/pink-blouse-1.jpg', '/images/products/new/pink-blouse-2.jpg'],
+  },
+  {
+    name: 'Men’s Navy Plain Velvet Jacket',
+    price: 279,
+    imageUrls: [
+      '/images/products/new/velvet-jacket-1.jpg',
+      '/images/products/new/velvet-jacket-2.jpg',
+    ],
+  },
+]
+
+popularProducts.forEach((product) => {
+  product.slug = slugify(product.name)
+})
+newProducts.forEach((product) => {
+  product.slug = slugify(product.name)
+})
+
+export { popularProducts, newProducts }
+
+// additional product fields: productId, priceId
 
 // additional product review fields: productId, reviewer._id
 export const productReviews = [
@@ -222,57 +269,6 @@ export const productReviews = [
     createdAt: '2 weeks ago',
   },
 ]
-
-const newProducts = [
-  {
-    name: 'Black Printed Paisley Velvet Tuxedo Jacket',
-    price: 349,
-    imageUrls: [
-      '/images/products/new/tuxedo-jacket-1.jpg',
-      '/images/products/new/tuxedo-jacket-2.jpg',
-    ],
-    href: '#',
-  },
-  {
-    name: 'White & Cream Broken Stripe Pussy Bow Blouse',
-    price: 45,
-    imageUrls: [
-      '/images/products/new/stripe-blouse-1.jpg',
-      '/images/products/new/stripe-blouse-2.jpg',
-    ],
-    href: '#',
-  },
-  {
-    name: 'Light Grey Twill 3 Piece Slim Suit',
-    price: 429,
-    imageUrls: ['/images/products/new/grey-suit-1.jpg', '/images/products/new/grey-suit-2.jpg'],
-    href: '#',
-  },
-  {
-    name: 'Pink & Black Abstract Paint Pussy Bow Blouse',
-    price: 45,
-    imageUrls: ['/images/products/new/pink-blouse-1.jpg', '/images/products/new/pink-blouse-2.jpg'],
-    href: '#',
-  },
-  {
-    name: 'Men’s Navy Plain Velvet Jacket',
-    price: 279,
-    imageUrls: [
-      '/images/products/new/velvet-jacket-1.jpg',
-      '/images/products/new/velvet-jacket-2.jpg',
-    ],
-    href: '#',
-  },
-]
-
-popularProducts.forEach((product) => {
-  product.slug = slugify(product.name)
-})
-newProducts.forEach((product) => {
-  product.slug = slugify(product.name)
-})
-
-export { popularProducts, newProducts }
 
 export const blogArticles = [
   {
