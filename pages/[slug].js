@@ -112,16 +112,6 @@ export default function ProductDetailPage({
 }) {
   // Nike made each a <input:radio> (interesting). But all sites seemed to perform a HTTP request each time a size was picked. Something to explore and revisit later.
 
-  const [isRequesting, setIsRequesting] = useState(false)
-  const [isLiked, setIsLiked] = useState(false)
-
-  const toggleSave = async () => {
-    setIsRequesting(true)
-    await wait(1)
-    setIsLiked((prev) => !prev)
-    setIsRequesting(false)
-  }
-
   return (
     <>
       <Head>
@@ -135,174 +125,209 @@ export default function ProductDetailPage({
       </Head>
       {/* <p>BreadCrumbs - see MUI</p> */}
 
-      <Section
-        sx={{
-          pt: 2,
-          maxWidth: (theme) => ({
-            sm: 640, // at the moment the <ImageShit> wrapper <Grid> has implicit sm={12}. This is too big. While I could do sm={11 | 10} etc., this will cause the jarring effect when viewport is resized. This maxWidth approach (while against MUI), won't
-            md: theme.breakpoints.values.lg,
-          }),
-        }} // temp
-      >
-        <Grid container spacing={2}>
-          <Grid item xs={12} md={7} /* bgcolor="primary.light" */>
-            <ImageShit imageUrls={imageUrls} />
-          </Grid>
-          <Grid item xs={12} md={5} /* bgcolor="secondary.light" */>
-            <Grid
-              container
-              direction="column"
-              alignItems="flex-start" // without <Grid item> system, <ButtonBase> will stretch. Will remove if I start using <Grid item>s
-              rowGap={2.5}>
-              <Typography
-                variant="caption"
-                children="New"
-                bgcolor="text.primary"
-                color="background.default"
-                borderRadius={1}
-                py={0.5}
-                px={1}
-                boxShadow={2} // just use card if I want this effect? Lol
-              />
-
-              <Grid
-                container
-                direction="column"
-                alignItems="flex-start" // otherwise <ButtonBase> stretches, making whole line clickable
-                rowGap={1.5}>
-                <Typography
-                  component="h1" // *** all eComm website do this! Apparently is supposed to match <title>. But now have multiple and differing H1s...
-                  variant="h6"
-                  children={name}
-                  fontWeight={500} // JFN
-                  letterSpacing={-0.5}
-                />
-                <ButtonBase
-                  href="#" // *** might end up just being a button too - undecided
-                  sx={{
-                    columnGap: 2,
-                    borderRadius: 1,
-                    // py: 0.5,
-                  }}>
-                  <Rating value={3.7} />
-                  <Typography children="3.7 (898)" />
-                </ButtonBase>
-                <Box>
-                  <Typography
-                    component="span"
-                    variant="h6"
-                    color="text.disabled"
-                    children={'£' + prices.standard}
-                    sx={{ textDecoration: 'line-through' }} // probably only wanna do this if (prices.offer), for example
-                    mr={0.5} // JFN
-                  />
-                  {'   '}
-                  <Typography
-                    component="span"
-                    variant="h6"
-                    children={'£' + prices.offer}
-                    color="secondary.main"
-                  />
-                </Box>
-              </Grid>
-
-              <Grid container rowGap={1.5}>
-                <Typography variant="body2" children="Color:" fontWeight={500} />
-                <Grid container columnGap={2}>
-                  {['beige', 'navy', 'primary.dark', 'black'].map((c) => (
-                    <Box
-                      key={c}
-                      height={30}
-                      width={30}
-                      bgcolor={c}
-                      borderRadius="50%"
-                      border={'2px solid'}
-                      borderColor="primary.light"
-                    />
-                  ))}
-                </Grid>
-
-                <Grid container justifyContent="space-between" alignItems="center">
-                  <Typography variant="body2" children="Size:" fontWeight={500} />
-                  <Typography
-                    variant="body2"
-                    color="text.secondary"
-                    children="Size Guide"
-                    fontWeight={500}
-                  />
-                </Grid>
-                <Grid container gap={2}>
-                  {['s', 'm', 'l', 'xl', '2xl'].map((size) => (
-                    <Button
-                      key={size}
-                      variant="outlined"
-                      children={size}
-                      sx={{ py: 1.5, px: 2 }}
-                      disabled={['m', '2xl'].includes(size)}
-                    />
-                  ))}
-                </Grid>
-                <Box>
-                  <Typography variant="body2" children="Size Missing?" fontWeight={500} />
-                  <Typography
-                    variant="body2"
-                    children="Sign up to be notified when the product comes back in stock" // Add "Notify Me 🔔" link or button
-                  />
-                </Box>
-              </Grid>
-
-              <Grid container columnGap={1.5}>
-                <Img
-                  src="/images/popular-star.gif"
-                  height="40px"
-                  bgcolor="secondary.main"
-                  borderRadius="50%"
-                  p={0.5}
-                />
-                <Box>
-                  <Typography variant="body2" children="Best Seller" fontWeight={500} />
-                  <Typography variant="body2" children="7 sold today!" />
-                </Box>
-              </Grid>
-
-              <Grid container direction="column" rowGap={1}>
-                <Button variant="contained" children="Add to Bag" size="large" />
-                <LoadingButton
-                  variant="contained"
-                  isLoading={isRequesting}
-                  onClick={toggleSave}
-                  endIcon={isLiked ? <HeartIcon /> : <HeartIconOutlined />}
-                  size="large">
-                  Add{isLiked && 'ed'} to Wish List
-                </LoadingButton>
-              </Grid>
-              <Grid
-                container
-                wrap="nowrap"
-                alignItems="center"
-                columnGap={2}
-                bgcolor="primary.touch"
-                py={1}
-                pl={2}
-                pr={1} // JFN - since <IconButton> already has padding applied
-                borderRadius={1} // use paper/card instead?
-                color="primary.dark">
-                <LocalShippingOutlined />
-                <Typography
-                  variant="body2"
-                  children="Free standard delivery on orders over £50"
-                  flexGrow={1}
-                />
-                <IconButton
-                  children={<InfoOutlined />}
-                  onClick // see M&S - open modal displaying shipping data
-                />
-              </Grid>
-            </Grid>
-          </Grid>
+      <Section maxWidth="lg">
+        <Grid
+          container
+          flexWrap={{ xs: 'wrap', md: 'nowrap' }}
+          justifyContent="center"
+          gap={{ xs: 2 }}
+          pt={2}>
+          <Box maxWidth={{ xs: 640, md: 720 }}>
+            <LHS imageUrls={imageUrls} />
+          </Box>
+          <Box minWidth={{ md: 360 }} maxWidth={640}>
+            <RHS {...{ name, prices }} />
+          </Box>
         </Grid>
       </Section>
     </>
+  )
+}
+
+const oldConfig = () => {
+  return (
+    <Section
+      sx={{
+        maxWidth: (theme) => ({
+          sm: 640, // at the moment the <LHS> wrapper <Grid> has implicit sm={12}. This is too big. While I could do sm={11 | 10} etc., this will cause the jarring effect when viewport is resized. This maxWidth approach (while against MUI), won't
+          md: theme.breakpoints.values.lg,
+        }),
+      }} // temp
+    >
+      <Grid container>
+        <Grid item xs={12} md={7}>
+          <LHS />
+        </Grid>
+        <Grid item xs={12} md={5}>
+          <RHS />
+        </Grid>
+      </Grid>
+    </Section>
+  )
+}
+
+const RHS = ({ name, prices, description, features, stockCount, lastPurchasedAt, createdAt }) => {
+  const [isRequesting, setIsRequesting] = useState(false)
+  const [isLiked, setIsLiked] = useState(false)
+
+  const toggleSave = async () => {
+    setIsRequesting(true)
+    await wait(1)
+    setIsLiked((prev) => !prev)
+    setIsRequesting(false)
+  }
+
+  return (
+    <Grid
+      container
+      direction="column"
+      alignItems="flex-start" // without <Grid item> system, <ButtonBase> will stretch. Will remove if I start using <Grid item>s
+      rowGap={2.5}>
+      <Typography
+        variant="caption"
+        children="New"
+        bgcolor="text.primary"
+        color="background.default"
+        borderRadius={1}
+        py={0.5}
+        px={1}
+        boxShadow={2} // just use card if I want this effect? Lol
+      />
+
+      <Grid
+        container
+        direction="column"
+        alignItems="flex-start" // otherwise <ButtonBase> stretches, making whole line clickable
+        rowGap={1.5}>
+        <Typography
+          component="h1" // *** all eComm website do this! Apparently is supposed to match <title>. But now have multiple and differing H1s...
+          variant="h6"
+          children={name}
+          fontWeight={500} // JFN
+          letterSpacing={-0.5}
+        />
+        <ButtonBase
+          href="#" // *** might end up just being a button too - undecided
+          sx={{
+            columnGap: 2,
+            borderRadius: 1,
+            // py: 0.5,
+          }}>
+          <Rating value={3.7} />
+          <Typography children="3.7 (898)" />
+        </ButtonBase>
+        <Box>
+          <Typography
+            component="span"
+            variant="h6"
+            color="text.disabled"
+            children={'£' + prices.standard}
+            sx={{ textDecoration: 'line-through' }} // probably only wanna do this if (prices.offer), for example
+            mr={0.5} // JFN
+          />
+          {'   '}
+          <Typography
+            component="span"
+            variant="h6"
+            children={'£' + prices.offer}
+            color="secondary.main"
+          />
+        </Box>
+      </Grid>
+
+      <Grid container rowGap={1.5}>
+        <Typography variant="body2" children="Select your color:" fontWeight={500} />
+        <Grid container columnGap={2}>
+          {['beige', 'navy', 'primary.dark', 'black'].map((c) => (
+            <Box
+              key={c}
+              height={30}
+              width={30}
+              bgcolor={c}
+              borderRadius="50%"
+              border={'2px solid'}
+              borderColor="primary.light"
+            />
+          ))}
+        </Grid>
+
+        <Grid container justifyContent="space-between" alignItems="center">
+          <Typography variant="body2" children="Select your size:" fontWeight={500} />
+          <Typography
+            variant="body2"
+            color="text.secondary"
+            children="Size Guide"
+            fontWeight={500}
+          />
+        </Grid>
+        <Grid container gap={{ xs: 1, md: 1.5, xl: 2 }}>
+          {['xs', 's', 'm', 'l', 'xl', '2xl'].map((size) => (
+            <Button
+              key={size}
+              variant="outlined"
+              children={size}
+              sx={{ py: 1.5, px: 2 }}
+              disabled={['m', '2xl'].includes(size)}
+            />
+          ))}
+        </Grid>
+        <Box>
+          <Typography variant="body2" children="Size Missing?" fontWeight={500} />
+          <Typography
+            variant="body2"
+            children="Sign up to be notified when the product comes back in stock" // Add "Notify Me 🔔" link or button
+          />
+        </Box>
+      </Grid>
+
+      <Grid container columnGap={1.5}>
+        <Img
+          src="/images/popular-star.gif"
+          height="40px"
+          bgcolor="secondary.main"
+          borderRadius="50%"
+          p={0.5}
+        />
+        <Box>
+          <Typography variant="body2" children="Best Seller" fontWeight={500} />
+          <Typography variant="body2" children="7 sold today!" />
+        </Box>
+      </Grid>
+
+      <Grid container direction="column" rowGap={1}>
+        <Button variant="contained" children="Add to Bag" size="large" />
+        <LoadingButton
+          variant="contained"
+          isLoading={isRequesting}
+          onClick={toggleSave}
+          endIcon={isLiked ? <HeartIcon /> : <HeartIconOutlined />}
+          size="large">
+          {isLiked ? 'Saved' : 'Add to Wish List'}
+        </LoadingButton>
+      </Grid>
+      <Grid
+        container
+        wrap="nowrap"
+        alignItems="center"
+        columnGap={2}
+        bgcolor="primary.touch"
+        py={1}
+        pl={2}
+        pr={1} // JFN - since <IconButton> already has padding applied
+        borderRadius={1} // use paper/card instead?
+        color="primary.dark">
+        <LocalShippingOutlined />
+        <Typography
+          variant="body2"
+          children="Free standard delivery on orders over £50"
+          flexGrow={1}
+        />
+        <IconButton
+          children={<InfoOutlined />}
+          onClick // see M&S - open modal displaying shipping data
+        />
+      </Grid>
+    </Grid>
   )
 }
 
@@ -344,7 +369,7 @@ But for electronics, where customer makes a considered purchase, description and
 
 */
 
-const ImageShit = ({ imageUrls }) => {
+const LHS = ({ imageUrls }) => {
   const imageCount = imageUrls.length
 
   const [index, setIndex] = useState(0)
@@ -416,7 +441,7 @@ const ImageStack = ({ imageUrls, changeImage, imageIndex }) => {
   return (
     <Grid container spacing={1}>
       {imageUrls.map((url, index) => (
-        <Grid item xs={2} md={12} key={index}>
+        <Grid item xs={2.4} md={12} key={index}>
           <Box
             overflow="hidden"
             borderRadius={1}

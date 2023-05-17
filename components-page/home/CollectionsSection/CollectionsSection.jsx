@@ -10,7 +10,7 @@ export const CollectionsSection = () => {
     <Section maxWidth="xl">
       <Grid container spacing={2}>
         {collections.map((collection, index) => (
-          <Grid key={collection.id} item xs={12} sm={index === 2 ? 12 : 6} md={index < 3 ? 4 : 6}>
+          <Grid key={index} item xs={12} sm={index === 2 ? 12 : 6} md={index < 3 ? 4 : 6}>
             <CollectionPreview {...collection} />
           </Grid>
         ))}
