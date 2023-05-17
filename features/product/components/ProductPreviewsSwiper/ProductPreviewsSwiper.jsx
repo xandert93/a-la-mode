@@ -10,8 +10,8 @@ import 'swiper/css'
 import {
   SectionSubHeading,
   SectionHeading,
-  SwiperBackIcon,
-  SwiperForwardIcon,
+  ArrowLeftIcon,
+  ArrowRightIcon,
   IconButton,
 } from '@/components'
 
@@ -38,12 +38,12 @@ export const ProductPreviewsSwiper = ({ type, title, products }) => {
           <Grid container columnGap={1} width="fit-content">
             <IconButton
               onClick={goBack}
-              children={<SwiperBackIcon sx={styles.arrow} />}
+              children={<ArrowLeftIcon sx={styles.arrow} />}
               aria-label="Go to next slide"
             />
             <IconButton
               onClick={goForward}
-              children={<SwiperForwardIcon sx={styles.arrow} />}
+              children={<ArrowRightIcon sx={styles.arrow} />}
               aria-label="Go to previous slide"
             />
           </Grid>

@@ -1,4 +1,5 @@
 import {
+  FacebookIcon,
   HeartIcon,
   HeartIconOutlined,
   IconButton,
@@ -9,7 +10,12 @@ import {
   Section,
   SectionHeading,
   Select,
+  ShareIcon,
+  ArrowLeftIcon,
   TextLink,
+  TwitterIcon,
+  WhatsAppIcon,
+  ArrowRightIcon,
 } from '@/components'
 import { ProductReviewsSection } from '@/components-page/product-detail'
 import { NAMES } from '@/constants'
@@ -17,7 +23,18 @@ import { newProducts, popularProducts } from '@/data'
 import { useToggle } from '@/hooks'
 import { isHoverable } from '@/theming'
 import { wait } from '@/utils/helpers'
-import { Favorite, FavoriteBorder, HeartBroken, MoreHoriz } from '@mui/icons-material'
+import {
+  Favorite,
+  FavoriteBorder,
+  HeartBroken,
+  Info,
+  InfoOutlined,
+  InfoRounded,
+  LocalShipping,
+  LocalShippingOutlined,
+  LocalShippingRounded,
+  MoreHoriz,
+} from '@mui/icons-material'
 import {
   Avatar,
   Box,
@@ -25,6 +42,7 @@ import {
   ButtonBase,
   Card,
   ClickAwayListener,
+  Fade,
   FormControl,
   FormControlLabel,
   FormLabel,
@@ -38,6 +56,7 @@ import {
   Rating,
   TextField,
   Typography,
+  IconButton as MuiIconButton,
   alpha,
 } from '@mui/material'
 import Head from 'next/head'
@@ -83,7 +102,7 @@ export const getStaticProps = (context) => {
 
 export default function ProductDetailPage({
   name,
-  price,
+  prices,
   description,
   features,
   imageUrls,
@@ -114,34 +133,49 @@ export default function ProductDetailPage({
           content={description} // *** accurate use?
         />
       </Head>
-      <p>BreadCrumbs - see MUI</p>
-      <Box p={2}>
-        <Section maxWidth="lg">
-          <Grid container>
-            <Grid item sm={7} /* bgcolor="primary.light" */>
-              <ImageShit imageUrls={imageUrls} />
-            </Grid>
-            <Grid item sm={5} /* bgcolor="secondary.light" */ p={2}>
+      {/* <p>BreadCrumbs - see MUI</p> */}
+
+      <Section
+        sx={{
+          pt: 2,
+          maxWidth: (theme) => ({
+            sm: 640, // at the moment the <ImageShit> wrapper <Grid> has implicit sm={12}. This is too big. While I could do sm={11 | 10} etc., this will cause the jarring effect when viewport is resized. This maxWidth approach (while against MUI), won't
+            md: theme.breakpoints.values.lg,
+          }),
+        }} // temp
+      >
+        <Grid container spacing={2}>
+          <Grid item xs={12} md={7} /* bgcolor="primary.light" */>
+            <ImageShit imageUrls={imageUrls} />
+          </Grid>
+          <Grid item xs={12} md={5} /* bgcolor="secondary.light" */>
+            <Grid
+              container
+              direction="column"
+              alignItems="flex-start" // without <Grid item> system, <ButtonBase> will stretch. Will remove if I start using <Grid item>s
+              rowGap={2.5}>
+              <Typography
+                variant="caption"
+                children="New"
+                bgcolor="text.primary"
+                color="background.default"
+                borderRadius={1}
+                py={0.5}
+                px={1}
+                boxShadow={2} // just use card if I want this effect? Lol
+              />
+
               <Grid
                 container
                 direction="column"
-                alignItems="flex-start" // without <Grid item> system, <ButtonBase> will stretch. Will remove if I start using <Grid item>s
-                rowGap={2}>
-                <Typography
-                  variant="caption"
-                  children="New"
-                  bgcolor="text.primary"
-                  color="background.default"
-                  borderRadius={1}
-                  py={0.5}
-                  px={1}
-                  boxShadow={4}
-                />
+                alignItems="flex-start" // otherwise <ButtonBase> stretches, making whole line clickable
+                rowGap={1.5}>
                 <Typography
                   component="h1" // *** all eComm website do this! Apparently is supposed to match <title>. But now have multiple and differing H1s...
                   variant="h6"
                   children={name}
-                  fontWeight={400} // JFN
+                  fontWeight={500} // JFN
+                  letterSpacing={-0.5}
                 />
                 <ButtonBase
                   href="#" // *** might end up just being a button too - undecided
@@ -153,54 +187,126 @@ export default function ProductDetailPage({
                   <Rating value={3.7} />
                   <Typography children="3.7 (898)" />
                 </ButtonBase>
-                <Typography component="p" variant="h6" children={'£' + price} />
-                {/* <Typography children={description} /> */}
+                <Box>
+                  <Typography
+                    component="span"
+                    variant="h6"
+                    color="text.disabled"
+                    children={'£' + prices.standard}
+                    sx={{ textDecoration: 'line-through' }} // probably only wanna do this if (prices.offer), for example
+                    mr={0.5} // JFN
+                  />
+                  {'   '}
+                  <Typography
+                    component="span"
+                    variant="h6"
+                    children={'£' + prices.offer}
+                    color="secondary.main"
+                  />
+                </Box>
+              </Grid>
 
-                <Grid container rowGap={1}>
-                  <Grid container justifyContent="space-between" alignItems="center">
-                    <Typography children="Select Size:" fontWeight={500} />
-                    <Typography
-                      variant="body2"
-                      color="text.secondary"
-                      children="Size Guide"
-                      fontWeight={500}
+              <Grid container rowGap={1.5}>
+                <Typography variant="body2" children="Color:" fontWeight={500} />
+                <Grid container columnGap={2}>
+                  {['beige', 'navy', 'primary.dark', 'black'].map((c) => (
+                    <Box
+                      key={c}
+                      height={30}
+                      width={30}
+                      bgcolor={c}
+                      borderRadius="50%"
+                      border={'2px solid'}
+                      borderColor="primary.light"
                     />
-                  </Grid>
-                  <Grid container gap={2}>
-                    {['s', 'm', 'l', 'xl', '2xl'].map((size) => (
-                      <Button
-                        key={size}
-                        variant="outlined"
-                        children={size}
-                        sx={{ py: 1.5, px: 2 }}
-                        disabled={['m', '2xl'].includes(size)}
-                      />
-                    ))}
-                  </Grid>
+                  ))}
                 </Grid>
 
-                <Grid container direction="column" rowGap={1}>
-                  <Button variant="contained" children="Add to Bag" size="large" />
-                  <LoadingButton
-                    variant="contained"
-                    isLoading={isRequesting}
-                    onClick={toggleSave}
-                    endIcon={isLiked ? <HeartIcon /> : <HeartIconOutlined />}
-                    size="large">
-                    Add{isLiked && 'ed'} to Wish List
-                  </LoadingButton>
+                <Grid container justifyContent="space-between" alignItems="center">
+                  <Typography variant="body2" children="Size:" fontWeight={500} />
+                  <Typography
+                    variant="body2"
+                    color="text.secondary"
+                    children="Size Guide"
+                    fontWeight={500}
+                  />
                 </Grid>
+                <Grid container gap={2}>
+                  {['s', 'm', 'l', 'xl', '2xl'].map((size) => (
+                    <Button
+                      key={size}
+                      variant="outlined"
+                      children={size}
+                      sx={{ py: 1.5, px: 2 }}
+                      disabled={['m', '2xl'].includes(size)}
+                    />
+                  ))}
+                </Grid>
+                <Box>
+                  <Typography variant="body2" children="Size Missing?" fontWeight={500} />
+                  <Typography
+                    variant="body2"
+                    children="Sign up to be notified when the product comes back in stock" // Add "Notify Me 🔔" link or button
+                  />
+                </Box>
+              </Grid>
+
+              <Grid container columnGap={1.5}>
+                <Img
+                  src="/images/popular-star.gif"
+                  height="40px"
+                  bgcolor="secondary.main"
+                  borderRadius="50%"
+                  p={0.5}
+                />
+                <Box>
+                  <Typography variant="body2" children="Best Seller" fontWeight={500} />
+                  <Typography variant="body2" children="7 sold today!" />
+                </Box>
+              </Grid>
+
+              <Grid container direction="column" rowGap={1}>
+                <Button variant="contained" children="Add to Bag" size="large" />
+                <LoadingButton
+                  variant="contained"
+                  isLoading={isRequesting}
+                  onClick={toggleSave}
+                  endIcon={isLiked ? <HeartIcon /> : <HeartIconOutlined />}
+                  size="large">
+                  Add{isLiked && 'ed'} to Wish List
+                </LoadingButton>
+              </Grid>
+              <Grid
+                container
+                wrap="nowrap"
+                alignItems="center"
+                columnGap={2}
+                bgcolor="primary.touch"
+                py={1}
+                pl={2}
+                pr={1} // JFN - since <IconButton> already has padding applied
+                borderRadius={1} // use paper/card instead?
+                color="primary.dark">
+                <LocalShippingOutlined />
+                <Typography
+                  variant="body2"
+                  children="Free standard delivery on orders over £50"
+                  flexGrow={1}
+                />
+                <IconButton
+                  children={<InfoOutlined />}
+                  onClick // see M&S - open modal displaying shipping data
+                />
               </Grid>
             </Grid>
           </Grid>
-        </Section>
-      </Box>
+        </Grid>
+      </Section>
     </>
   )
 }
 
-{
-  /* <Select
+/* <Select
 value={1}
 label="Quantity"
 fullWidth={false}
@@ -209,63 +315,137 @@ sx={{ minWidth: '8ch', textAlign: 'center' }}>
   <MenuItem key={q} value={q} children={q} sx={{ justifyContent: 'center' }} />
 ))}
 </Select> */
-}
+
+/*
+"interest free payment with paypal" message - see M&S:
+
+                <Grid container alignItems="center" wrap="nowrap" bgcolor="white">
+                  <Typography children="Interest-free payments available on orders between £30 - £2000 with" />
+                  <Img src="/images/payment-methods/paypal.png" width="50px" />
+                  or
+                  <Img src="/images/payment-methods/klarna.png" width="50px" />
+                  <IconButton children={<InfoOutlined />} />
+                </Grid>
+
+
+Share product to socials:
+
+<Box>
+                  <ShareIcon />
+                  <FacebookIcon />
+                  <TwitterIcon />
+                  <WhatsAppIcon />
+                </Box>
+
+
+Gonna leave product details, features and colours for now. Need to determine type of eCommerce
+For example, if clothing, customer usually just impulsively look at image and buys - details/features are commonly hidden in accordion
+But for electronics, where customer makes a considered purchase, description and feature list must be immediately visible
+
+*/
 
 const ImageShit = ({ imageUrls }) => {
+  const imageCount = imageUrls.length
+
   const [index, setIndex] = useState(0)
 
   const changeImage = (newIndex) => () => setIndex(newIndex)
 
+  // JFN - probs better way lol
+  const toPrevImage = () => {
+    setIndex((curr) => {
+      return curr === 0 ? imageCount - 1 : curr - 1
+    })
+  }
+
+  // JFN - probs better way lol
+  const toNextImage = () => {
+    setIndex((curr) => {
+      return curr === imageCount - 1 ? 0 : curr + 1
+    })
+  }
+
   return (
-    <Grid container columnSpacing={1}>
-      <Grid item xs={1.5}>
+    <Grid container spacing={1} flexDirection={{ xs: 'column-reverse', md: 'row' }}>
+      <Grid item xs={12} md={1.5}>
         <ImageStack imageUrls={imageUrls} changeImage={changeImage} imageIndex={index} />
       </Grid>
-      <Grid item xs={10.5}>
-        <Box>
-          <Img
-            src={imageUrls[index]}
-            sx={{
-              width: '100%',
-              aspectRatio: '4/5',
-              objectFit: 'cover',
-              borderRadius: 1,
-            }}
-            alt="Product Image 1 of 3" // JFN
+      <Grid item xs={12} md={10.5} sx={{ position: 'relative' }}>
+        <Fade
+          in
+          timeout={500}
+          key={index} // JFN - bit of a hack, but desired effect. Best way to achieve?
+        >
+          <Box sx={{ borderRadius: 1, overflow: 'hidden' }}>
+            <Img
+              src={imageUrls[index]}
+              sx={{
+                width: '100%',
+                aspectRatio: { xs: '1/1', md: '4/5' },
+                objectFit: 'cover',
+              }}
+              alt="Product Image 1 of 3" // JFN
+            />
+          </Box>
+        </Fade>
+        <Grid
+          container
+          width="fit-content"
+          sx={{ position: 'absolute', bottom: 8, right: 8 }}
+          columnGap={1}>
+          <MuiIconButton
+            // JFN - kinda broken styling (even with default muiiconbutton because its not supposed to be styled like I have below) - need to come back and configure
+            sx={{ bgcolor: 'white', p: 0.5, border: '2px solid', borderColor: 'primary.main' }}
+            children={<ArrowLeftIcon fontSize="large" />}
+            onClick={toPrevImage}
           />
-        </Box>
+          <MuiIconButton
+            sx={{ bgcolor: 'white', p: 0.5, border: '2px solid', borderColor: 'primary.main' }}
+            children={<ArrowRightIcon fontSize="large" />}
+            onClick={toNextImage}
+          />
+        </Grid>
       </Grid>
     </Grid>
   )
 }
 
+// Nike also has < and > buttons in bottom right of their main image. Could add later
+
 const ImageStack = ({ imageUrls, changeImage, imageIndex }) => {
   return (
-    <Grid container direction="column" rowGap={1}>
+    <Grid container spacing={1}>
       {imageUrls.map((url, index) => (
-        <Box
-          overflow="hidden"
-          borderRadius={1}
-          sx={{
-            outline: imageIndex === index && '2px solid green',
-
-            [isHoverable]: {
-              ':hover': {
-                filter: 'brightness(0.85)',
-              },
-            },
-          }}
-          onClick={changeImage(index)}
-          onMouseEnter={changeImage(index)}>
-          <Img
-            src={url}
+        <Grid item xs={2} md={12} key={index}>
+          <Box
+            overflow="hidden"
+            borderRadius={1}
             sx={{
-              width: '100%',
-              aspectRatio: '1/1',
-              objectFit: 'cover',
+              border: '1px solid transparent',
+              transition: (theme) => theme.transitions.create('border-color'),
+
+              ...(imageIndex === index && {
+                borderColor: 'secondary.light',
+              }),
+
+              [isHoverable]: {
+                ':hover': {
+                  filter: 'brightness(0.9)',
+                },
+              },
             }}
-          />
-        </Box>
+            onClick={changeImage(index)}
+            onMouseEnter={changeImage(index)}>
+            <Img
+              src={url}
+              sx={{
+                width: '100%',
+                aspectRatio: '1/1',
+                objectFit: 'cover',
+              }}
+            />
+          </Box>
+        </Grid>
       ))}
     </Grid>
   )

@@ -12,7 +12,7 @@ export const ProductPreviewCard = ({
   id,
   slug,
   name,
-  price,
+  prices,
   imageUrls,
   href,
   colors = ['black', 'navy', '#c5c285'],
@@ -33,7 +33,7 @@ export const ProductPreviewCard = ({
               <ProductColors colors={colors} />
             </Grid>
             <Typography
-              children={'£' + price}
+              children={'£' + prices.standard}
               sx={{ fontWeight: 500, letterSpacing: -0.5 }} // JFN - "body1" fontsize too small and "h6" too big...need solution
             />
           </Grid>

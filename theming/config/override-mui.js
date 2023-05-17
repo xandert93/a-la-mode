@@ -119,7 +119,7 @@ export const overrideMui = (palette) => ({
   MuiIconButton: {
     styleOverrides: {
       root: {
-        color: palette.primary.dark,
+        color: palette.primary.main, // <IconButton> `color` prop will no longer work!
       },
     },
   },

@@ -105,7 +105,7 @@ export const collections = [
 const popularProducts = [
   {
     name: 'Natural Herringbone Linen Jacket',
-    price: 79,
+    prices: { standard: 79, offer: 59 },
     description:
       'Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis officia veritatis sunt nostrum quas tempore necessitatibus tenetur. Dolorum reprehenderit facilis veritatis modi. Illo facere, vel ratione assumenda nisi ex quibusdam!',
     features: ['feature 1', 'feature 2', 'feature 3', 'feature 4'],
@@ -126,7 +126,7 @@ const popularProducts = [
   },
   {
     name: 'Non-Iron Pink & White Bengal Stripe Fitted Slim Shirt',
-    price: 29,
+    prices: { standard: 29, offer: 19 },
     imageUrls: [
       '/images/products/popular/slim-shirt-1.jpg',
       '/images/products/popular/slim-shirt-2.jpg',
@@ -134,7 +134,7 @@ const popularProducts = [
   },
   {
     name: 'Royal Blue 2 Piece Italian Cotton Linen Slim Suit',
-    price: 139,
+    prices: { standard: 13 },
     imageUrls: [
       '/images/products/popular/linen-suit-1.jpg',
       '/images/products/popular/linen-suit-2.jpg',
@@ -142,7 +142,7 @@ const popularProducts = [
   },
   {
     name: 'Navy Mercerised Pique Polo Shirt',
-    price: 39,
+    prices: { standard: 39 },
     imageUrls: [
       '/images/products/popular/polo-shirt-1.jpg',
       '/images/products/popular/polo-shirt-2.jpg',
@@ -150,7 +150,7 @@ const popularProducts = [
   },
   {
     name: 'Taupe Mercerised Pique Polo Shirt',
-    price: 39,
+    prices: { standard: 39 },
     imageUrls: [
       '/images/products/popular/polo-shirt-3.jpg',
       '/images/products/popular/polo-shirt-4.jpg',
@@ -161,7 +161,7 @@ const popularProducts = [
 const newProducts = [
   {
     name: 'Black Printed Paisley Velvet Tuxedo Jacket',
-    price: 349,
+    prices: { standard: 34 },
     imageUrls: [
       '/images/products/new/tuxedo-jacket-1.jpg',
       '/images/products/new/tuxedo-jacket-2.jpg',
@@ -169,7 +169,7 @@ const newProducts = [
   },
   {
     name: 'White & Cream Broken Stripe Pussy Bow Blouse',
-    price: 45,
+    prices: { standard: 45 },
     imageUrls: [
       '/images/products/new/stripe-blouse-1.jpg',
       '/images/products/new/stripe-blouse-2.jpg',
@@ -177,17 +177,17 @@ const newProducts = [
   },
   {
     name: 'Light Grey Twill 3 Piece Slim Suit',
-    price: 429,
+    prices: { standard: 42 },
     imageUrls: ['/images/products/new/grey-suit-1.jpg', '/images/products/new/grey-suit-2.jpg'],
   },
   {
     name: 'Pink & Black Abstract Paint Pussy Bow Blouse',
-    price: 45,
+    prices: { standard: 45 },
     imageUrls: ['/images/products/new/pink-blouse-1.jpg', '/images/products/new/pink-blouse-2.jpg'],
   },
   {
     name: 'Men’s Navy Plain Velvet Jacket',
-    price: 279,
+    prices: { standard: 27 },
     imageUrls: [
       '/images/products/new/velvet-jacket-1.jpg',
       '/images/products/new/velvet-jacket-2.jpg',

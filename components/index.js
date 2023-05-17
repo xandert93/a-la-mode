@@ -14,14 +14,16 @@ export {
   Place as LocationIcon,
   Phone as TelephoneIcon,
   Email as EmailIcon,
-  ArrowLeft as SwiperBackIcon,
-  ArrowRight as SwiperForwardIcon,
+  ArrowLeft as ArrowLeftIcon,
+  ArrowRight as ArrowRightIcon,
   Send as SendIcon,
   Facebook as FacebookIcon,
   Instagram as InstagramIcon,
   Pinterest as PinterestIcon,
+  WhatsApp as WhatsAppIcon,
   Twitter as TwitterIcon,
   YouTube as YouTubeIcon,
+  Share as ShareIcon,
   Add as AddIcon,
 } from '@mui/icons-material'
 
