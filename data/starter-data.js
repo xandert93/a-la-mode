@@ -204,7 +204,7 @@ newProducts.forEach((product) => {
 
 export { popularProducts, newProducts }
 
-// additional product fields: productId, priceId
+// additional product fields: productId, priceId, tags/categories
 
 // additional product review fields: productId, reviewer._id
 export const productReviews = [

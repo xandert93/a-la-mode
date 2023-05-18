@@ -51,6 +51,12 @@ export const overrideMui = (palette) => ({
     },
   },
 
+  MuiFormControl: {
+    defaultProps: {
+      variant: 'standard', // outlined*
+    },
+  },
+
   MuiLink: {
     styleOverrides: {
       root: {
@@ -79,6 +85,7 @@ export const overrideMui = (palette) => ({
 
   MuiTextField: {
     defaultProps: {
+      required: true,
       fullWidth: true,
     },
   },
@@ -111,6 +118,7 @@ export const overrideMui = (palette) => ({
         padding: '5px 15px',
         borderRadius: 4, 
         */
+        textTransform: 'initial',
       },
     },
   },

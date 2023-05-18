@@ -1,14 +1,12 @@
-import { Grid } from '@mui/material'
+import { Main } from '@/components'
+
+import PropTypes from 'prop-types'
 
 export const HomeMain = (props) => {
-  return (
-    <Grid
-      component="main"
-      container
-      direction="column"
-      wrap="nowrap" // otherwise <Swiper> spazzes out
-      rowGap={{ xs: 5, sm: 6, md: 7, lg: 8 }}
-      {...props}
-    />
-  )
+  return <Main rowGap={{ xs: 5, sm: 6, md: 7, lg: 8 }} {...props} />
+}
+
+HomeMain.propTypes = {
+  sx: PropTypes.object,
+  rowGap: PropTypes.oneOfType([PropTypes.number, PropTypes.objectOf(PropTypes.number)]),
 }

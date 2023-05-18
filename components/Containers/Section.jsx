@@ -6,5 +6,6 @@ export const Section = (props) => {
 }
 
 Section.propTypes = {
+  sx: PropTypes.object,
   maxWidth: PropTypes.oneOf(['xs', 'sm', 'md', 'lg', 'xl']),
 }

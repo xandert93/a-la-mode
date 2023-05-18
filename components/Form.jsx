@@ -1,4 +1,5 @@
 import { Box } from '@mui/material'
+import PropTypes from 'prop-types'
 
 export const Form = ({ onSubmit, ...props }) => {
   return (
@@ -18,3 +19,7 @@ export const Form = ({ onSubmit, ...props }) => {
 /*
 🔥 1) Using Box just so that I can use `sx` prop from calling location
 */
+
+Form.propTypes = {
+  onSubmit: PropTypes.func.isRequired,
+}

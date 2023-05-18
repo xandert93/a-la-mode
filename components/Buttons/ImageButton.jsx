@@ -11,7 +11,8 @@ const styles = ({ outlined, elevation = 0 }) => {
   }
 
   return {
-    minWidth: '15ch',
+    minWidth: '15ch', // 64px
+    textTransform: 'uppercase',
     border: '1px solid white',
     boxShadow: elevation,
 

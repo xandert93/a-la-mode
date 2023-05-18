@@ -31,7 +31,7 @@ export { Img, Image, CoverImage } from './Images'
 
 export { ImageButton, IconButton, LoadingButton, OutlinedButton } from './Buttons'
 
-export { Section } from './Containers'
+export { Main, Section } from './Containers'
 export { SectionHeading, SectionSubHeading } from './Headings'
 
 export { Link, TextLink } from './Links'

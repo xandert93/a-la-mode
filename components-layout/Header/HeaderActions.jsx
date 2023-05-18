@@ -12,7 +12,12 @@ export const HeaderActions = () => {
   return (
     <Grid container justifyContent="flex-end" columnGap={1}>
       {isMinLg ? <HeaderSearchForm /> : <MobileHeaderSearchButton />}
-      <IconButton children={<PersonOutline />} aria-label="See Account" />
+      <IconButton
+        component={Link}
+        href="/auth/login" // JFN until I can privatise routes etc
+        children={<PersonOutline />}
+        aria-label="See Account"
+      />
       <IconButton
         component={Link}
         href={PATHS.WISH_LIST}
