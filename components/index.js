@@ -1,5 +1,5 @@
 export { NewsletterSection } from '../components-page/home/NewsletterSection'
-export { BackgroundVideo } from './BackgroundVideo'
+
 export { Form } from './Form'
 export { CompanyLogo } from './CompanyLogo'
 export { CompanyHeading } from './CompanyHeading'
@@ -17,7 +17,9 @@ export {
   ArrowLeft as ArrowLeftIcon,
   ArrowRight as ArrowRightIcon,
   Send as SendIcon,
+  Google as GoogleIcon,
   Facebook as FacebookIcon,
+  Apple as AppleIcon,
   Instagram as InstagramIcon,
   Pinterest as PinterestIcon,
   WhatsApp as WhatsAppIcon,
@@ -27,7 +29,7 @@ export {
   Add as AddIcon,
 } from '@mui/icons-material'
 
-export { Img, Image, CoverImage } from './Images'
+export { Img, Image, CoverImage, BackgroundVideo } from './Images'
 
 export { ImageButton, IconButton, LoadingButton, OutlinedButton } from './Buttons'
 
@@ -36,6 +38,6 @@ export { SectionHeading, SectionSubHeading } from './Headings'
 
 export { Link, TextLink } from './Links'
 
-export { Select } from './Inputs'
+export { Checkbox, CheckboxGroup, Select, Radio, RadioGroup } from './Inputs'
 
 export { GradientTypography } from './Typographies'

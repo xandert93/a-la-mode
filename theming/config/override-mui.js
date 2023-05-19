@@ -42,6 +42,14 @@ export const overrideMui = (palette) => ({
     },
   },
 
+  MuiPaper: {
+    styleOverrides: {
+      root: {
+        borderRadius: 8, // '4px'*
+      },
+    },
+  },
+
   MuiCard: {
     defaultProps: {
       elevation: 0,
@@ -90,6 +98,12 @@ export const overrideMui = (palette) => ({
     },
   },
 
+  MuiFormControl: {
+    defaultProps: {
+      required: true,
+    },
+  },
+
   MuiOutlinedInput: {
     styleOverrides: {
       input: {
@@ -112,13 +126,20 @@ export const overrideMui = (palette) => ({
     },
     styleOverrides: {
       root: {
-        /*    defaults:
-        textTransform: 'uppercase',
-        minWidth: 64,
-        padding: '5px 15px',
-        borderRadius: 4, 
-        */
-        textTransform: 'initial',
+        minWidth: 64, // default
+        borderRadius: 4, // default
+      },
+      text: {
+        fontWeight: 400, // 500*
+      },
+
+      outlined: {
+        padding: '5px 15px', // default
+        fontWeight: 400, // 500*
+      },
+      contained: {
+        // JTO:
+        padding: '12px 16px', // '6px 16px'*
       },
     },
   },

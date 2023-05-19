@@ -12,9 +12,6 @@ const styles = {
   },
 
   heading: {
-    fontFamily: 'Ephesis, cursive',
-    fontWeight: 400,
-    letterSpacing: 1,
     display: { xs: 'none', lg: 'block' },
   },
 
@@ -29,7 +26,7 @@ export const HeaderHeading = () => {
   return (
     <Grid container alignItems="center" columnGap={{ xs: 1 }}>
       {isMaxSm && <SideDrawerButton />}
-      <TextLink href={PATHS.HOME} underline="none" sx={styles.link}>
+      <TextLink href={PATHS.HOME} sx={styles.link}>
         <Grid container alignItems="center" columnGap={2}>
           <CompanyLogo sx={styles.logo} />
           <CompanyHeading variant="h4" sx={styles.heading} />

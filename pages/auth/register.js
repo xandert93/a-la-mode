@@ -1,19 +1,16 @@
-import { Form, Main, Section, TextLink } from '@/components'
-import { NAMES } from '@/constants'
 import {
-  Button,
   Checkbox,
-  FormControl,
-  FormControlLabel,
-  FormGroup,
-  FormHelperText,
-  FormLabel,
-  Grid,
+  Form,
+  Main,
+  Section,
+  TextLink,
   Radio,
   RadioGroup,
-  TextField,
-  Typography,
-} from '@mui/material'
+  CheckboxGroup,
+} from '@/components'
+
+import { NAMES } from '@/constants'
+import { Box, Button, Grid, List, ListItem, TextField, Typography } from '@mui/material'
 import { useState } from 'react'
 
 export default function RegistrationPage() {
@@ -24,22 +21,40 @@ export default function RegistrationPage() {
 
   return (
     <Main>
-      <Section maxWidth="sm">
-        <Grid container component={Form} onSubmit={handleSubmit} gap={2}>
+      <Box mns>Hey there! Let's get started</Box>
+      <Box mns>
+        Some of the great reasons to join Faster checkout Offers Rewards + Treats Digital Receipts
+      </Box>
+      <Box asos>
+        Hey there! We love new faces 😄 Fill in some quick details below to get started and place
+        your first order
+      </Box>
+      <Section
+        maxWidth="sm" // temp
+        sx={{ py: 2 }}>
+        <Grid
+          container
+          component={Form}
+          onSubmit={handleSubmit}
+          gap={{
+            xs: 2.5, // touch inaccuracy
+            sm: 2,
+          }}>
           <TextField type="text" name="firstName" label="First Name" />
           <TextField type="text" name="lastName" label="Last Name" />
           <TextField type="email" name="email" label="Email Address" />
           <TextField type="password" name="password" label="Password" />
           <TextField type="password" name="passwordConfirm" label="Confirm your password" />
-          {/* Due to bad UX, MUI discourage use of <DatePicker> for DOB: https://github.com/mui/mui-x/issues/5021 */}
+
+          <PurchasePreferenceRadioGroup />
           <TextField
-            // type="date"
+            type="text"
             name="dob"
             label="Date of Birth"
-            helperText="You must be 16 or over"
+            helperText="Get a reward from us on your birthday! 🎉"
           />
-          <PurchasePreferenceRadioGroup />
           <ContactPreferencesCheckboxGroup />
+          <PrivacyTermsCheckbox />
 
           <Button type="submit" children={`Join ${NAMES.COMPANY}`} fullWidth />
           <Typography component="p" variant="caption" color="text.secondary">
@@ -51,14 +66,17 @@ export default function RegistrationPage() {
       </Section>
     </Main>
   )
-
-  return (
-    <Main>
-      Hey there! We love new faces 😄 Fill in some quick details below to get started and place your
-      first order |
-    </Main>
-  )
 }
+
+// On md+, Nike splits <FirstName> and <LastName> in one row i.e. xs={12} md={6}
+
+/*
++ title (<Select>)
++ telephone
++ address
++ country
+
+*/
 
 const PurchasePreferenceRadioGroup = () => {
   const [preference, setPreference] = useState('')
@@ -66,14 +84,17 @@ const PurchasePreferenceRadioGroup = () => {
   const handleChange = (e) => setPreference(e.target.value)
 
   return (
-    <FormControl component="fieldset" variant="standard">
-      <FormLabel component="legend" children="I am mostly interested in:" />
-      <RadioGroup row name="preference" value={preference} onChange={handleChange}>
-        <FormControlLabel value="menswear" control={<Radio />} label="Menswear" />
-        <FormControlLabel value="womenswear" control={<Radio />} label="Womenswear" />
-      </RadioGroup>
-      <FormHelperText children="You can update this any time in your preferences" />
-    </FormControl>
+    <RadioGroup
+      row
+      name="preference"
+      label="I am mostly interested in:"
+      value={preference}
+      onChange={handleChange}
+      helperText="You can update this any time in your preferences"
+      required={false}>
+      <Radio value="menswear" label="Menswear" />
+      <Radio value="womenswear" label="Womenswear" />
+    </RadioGroup>
   )
 }
 
@@ -90,29 +111,53 @@ const ContactPreferencesCheckboxGroup = () => {
   }
 
   return (
-    <FormControl component="fieldset" variant="standard">
-      <FormLabel component="legend" children="I would like to receive emails about:" />
-      <FormGroup>
-        <FormControlLabel
-          control={<Checkbox checked={state.offers} onChange={handleChange} name="offers" />}
-          label="Discounts and promotions"
-        />
-        <FormControlLabel
-          control={<Checkbox checked={state.additions} onChange={handleChange} name="additions" />}
-          label="New arrivals"
-        />
-        <FormControlLabel
-          control={
-            <Checkbox checked={state.exclusives} onChange={handleChange} name="exclusives" />
-          }
-          label="Exclusives for you"
-        />
-        <FormControlLabel
-          control={<Checkbox checked={state.partners} onChange={handleChange} name="partners" />}
-          label="Our partners"
-        />
-      </FormGroup>
-      <FormHelperText children="You can update this any time in your preferences" />
-    </FormControl>
+    <CheckboxGroup
+      label="I would like to receive emails about:"
+      helperText="You can update this any time in your preferences">
+      <Checkbox
+        checked={state.offers}
+        onChange={handleChange}
+        name="offers"
+        label="Discounts and promotions"
+      />
+      <Checkbox
+        checked={state.additions}
+        onChange={handleChange}
+        name="additions"
+        label="New arrivals"
+      />
+      <Checkbox
+        checked={state.exclusives}
+        onChange={handleChange}
+        name="exclusives"
+        label="Exclusives for you"
+      />
+    </CheckboxGroup>
+  )
+}
+
+const PrivacyTermsCheckbox = () => {
+  const [isChecked, setIsChecked] = useState(false)
+  const handleCheck = (e) => setIsChecked(e.target.checked)
+
+  return (
+    <Checkbox
+      name="privacyTerms"
+      checked={isChecked}
+      onChange={handleCheck}
+      required
+      label={<Box>I agree to the Terms of Use and I have read the Privacy Policy</Box>}
+    />
+  )
+}
+
+const PasswordConstraints = () => {
+  // something like this - place below password input and change color from grey -> green/red as they type and fulfill
+  // could reconsider helperText=Node, but everything inside will go red if error prop => true
+  return (
+    <List>
+      <ListItem>Condition 1 e.g. Minimum of 8 characters</ListItem>
+      <ListItem>Condition 2 e.g. Uppercase, lowercase letters and one number</ListItem>
+    </List>
   )
 }

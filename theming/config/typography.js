@@ -38,7 +38,7 @@ export const typography = {
     [isVPSm]: {
       fontSize: '0.95rem', // => 15.2px
     },
-    // fontSize: '1rem' // => 16px
+    fontSize: '1rem', // default => 16px
   },
   body2: {
     [isVPXs]: {
@@ -51,6 +51,15 @@ export const typography = {
   },
 
   button: {
-    fontWeight: 400, // 500*
+    [isVPXs]: {
+      fontSize: '0.9rem', // => 14.4px
+    },
+    [isVPSm]: {
+      fontSize: '0.95rem', // => 15.2px
+    },
+    fontSize: '1rem', // 0.875rem* (bit small)
+
+    fontWeight: 500, // default
+    textTransform: 'initial', // uppercase*
   },
 }
