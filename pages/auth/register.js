@@ -7,68 +7,116 @@ import {
   Radio,
   RadioGroup,
   CheckboxGroup,
+  CompanyLogo,
+  CompanyHeading,
+  Link,
 } from '@/components'
 
-import { NAMES } from '@/constants'
-import { Box, Button, Grid, List, ListItem, TextField, Typography } from '@mui/material'
+import { NAMES, PATHS } from '@/constants'
+import { isVPXs } from '@/theming'
+import {
+  Box,
+  Button,
+  Card,
+  Grid,
+  List,
+  ListItem,
+  TextField,
+  Typography,
+  useMediaQuery,
+} from '@mui/material'
 import { useState } from 'react'
 
+// Hey there! Let's get started - M&S
+// Some of the great reasons to join: Faster checkout Offers Rewards + Treats Digital Receipts - M&S
+// Hey there! We love new faces 😄 Fill in some quick details below to get started and place your first order : asos
+
 export default function RegistrationPage() {
+  const isXs = useMediaQuery(isVPXs) // so I get <Paper>'s dark mode `elevation` background-image
+
   const handleSubmit = (e) => {
     const data = Object.fromEntries(new FormData(e.target))
     alert(JSON.stringify(data))
   }
 
   return (
-    <Main>
-      <Box mns>Hey there! Let's get started</Box>
-      <Box mns>
-        Some of the great reasons to join Faster checkout Offers Rewards + Treats Digital Receipts
-      </Box>
-      <Box asos>
-        Hey there! We love new faces 😄 Fill in some quick details below to get started and place
-        your first order
-      </Box>
-      <Section
-        maxWidth="sm" // temp
-        sx={{ py: 2 }}>
-        <Grid
-          container
-          component={Form}
-          onSubmit={handleSubmit}
-          gap={{
-            xs: 2.5, // touch inaccuracy
-            sm: 2,
-          }}>
-          <TextField type="text" name="firstName" label="First Name" />
-          <TextField type="text" name="lastName" label="Last Name" />
-          <TextField type="email" name="email" label="Email Address" />
-          <TextField type="password" name="password" label="Password" />
-          <TextField type="password" name="passwordConfirm" label="Confirm your password" />
+    <Main
+      alignItems="center"
+      justifyContent="center"
+      minHeight="100vh"
+      py={2} // just in case user zooms in
+      rowGap={{ xs: 1, sm: 4 }}>
+      <Grid
+        container
+        justifyContent="center"
+        alignItems="center"
+        gap={2}
+        component={Link} // *** fix stretching eventually
+        href={PATHS.HOME}>
+        <CompanyLogo sx={{ maxWidth: 64 }} />
+        <CompanyHeading variant="h2" />
+      </Grid>
+      <Card sx={{ p: { xs: 3, sm: 5 } }} elevation={!isXs ? 8 : 0}>
+        <Grid container direction="column" alignItems="center" gap={3} maxWidth={480}>
+          <Box alignSelf="flex-start">
+            <Typography
+              component="h2"
+              variant="h4"
+              children="Hey there!"
+              fontFamily="Ephesis"
+              fontWeight={400}
+              paragraph
+            />
+            <Typography
+              component="p"
+              variant="body2"
+              color="text.secondary"
+              children="Fill in some quick details below to get started and place your first order:"
+            />
+          </Box>
 
-          <PurchasePreferenceRadioGroup />
-          <TextField
-            type="text"
-            name="dob"
-            label="Date of Birth"
-            helperText="Get a reward from us on your birthday! 🎉"
-          />
-          <ContactPreferencesCheckboxGroup />
-          <PrivacyTermsCheckbox />
+          <Grid container direction="column" gap={3}>
+            <Grid container spacing={2} component={Form} onSubmit={handleSubmit}>
+              <Grid item xs={12} sm={6}>
+                <TextField type="text" name="firstName" label="First Name" />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <TextField type="text" name="lastName" label="Last Name" />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField type="email" name="email" label="Email Address" />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField type="password" name="password" label="Password" />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField type="password" name="passwordConfirm" label="Confirm your password" />
+              </Grid>
+            </Grid>
+            <PurchasePreferenceRadioGroup />
+            <ContactPreferencesCheckboxGroup />
+            <TextField
+              type="text"
+              name="dob"
+              label="Date of Birth"
+              helperText="Get a reward from us on your birthday! 🎉"
+            />
 
-          <Button type="submit" children={`Join ${NAMES.COMPANY}`} fullWidth />
-          <Typography component="p" variant="caption" color="text.secondary">
-            By creating an account, you'll automatically be signed up to Sparks (underline), our
-            reward scheme.
-          </Typography>
+            <PrivacyTermsCheckbox />
+            <Button type="submit" children={`Join ${NAMES.COMPANY}`} />
+            <Typography component="p" variant="caption" color="text.secondary">
+              By creating an account, you'll automatically be signed up to Sparks (underline), our
+              reward scheme.
+            </Typography>
+            <Typography>
+              Already have an account? <TextLink href={PATHS.LOGIN} children="Sign in ➡" />
+            </Typography>
+          </Grid>
         </Grid>
-        Already have an account? <TextLink href="/auth/login" children="Sign In" />
-      </Section>
+      </Card>
     </Main>
   )
 }
-
-// On md+, Nike splits <FirstName> and <LastName> in one row i.e. xs={12} md={6}
 
 /*
 + title (<Select>)
@@ -90,7 +138,6 @@ const PurchasePreferenceRadioGroup = () => {
       label="I am mostly interested in:"
       value={preference}
       onChange={handleChange}
-      helperText="You can update this any time in your preferences"
       required={false}>
       <Radio value="menswear" label="Menswear" />
       <Radio value="womenswear" label="Womenswear" />
