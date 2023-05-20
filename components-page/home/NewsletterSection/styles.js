@@ -38,7 +38,7 @@ const styles = {
   },
 
   'submit-button': {
-    padding: '13px', // just to have similar size to <TextField>s, which have about ~14px padding
+    padding: '14px', // just to have similar size to <TextField>s, which have about ~14px padding
   },
 }
 

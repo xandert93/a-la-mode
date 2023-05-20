@@ -1,4 +1,4 @@
-import { slugify } from '@/utils/helpers'
+import { genRandomIntFromInterval, slugify } from '@/utils/helpers'
 
 export const promotions = [
   {
@@ -105,20 +105,13 @@ export const collections = [
 const popularProducts = [
   {
     name: 'Natural Herringbone Linen Jacket',
-    prices: { standard: 79, offer: 59 },
+    prices: { previous: 7999, current: 5999 },
     description:
       'Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis officia veritatis sunt nostrum quas tempore necessitatibus tenetur. Dolorum reprehenderit facilis veritatis modi. Illo facere, vel ratione assumenda nisi ex quibusdam!',
     features: ['feature 1', 'feature 2', 'feature 3', 'feature 4'],
     imageUrls: [
       '/images/products/popular/linen-jacket-1.jpg',
       '/images/products/popular/linen-jacket-2.jpg',
-      '/images/products/popular/linen-suit-1.jpg',
-      '/images/products/popular/linen-suit-2.jpg',
-      '/images/products/popular/polo-shirt-1.jpg',
-      // '/images/products/popular/polo-shirt-2.jpg',
-      // '/images/products/popular/polo-shirt-3.jpg',
-      // '/images/products/popular/polo-shirt-4.jpg',
-      // 'https://cdn.sportmonks.com/images/soccer/teams/10/42.png',
     ],
     stockCount: 10,
     lastPurchasedAt: 'Yesterday',
@@ -126,7 +119,7 @@ const popularProducts = [
   },
   {
     name: 'Non-Iron Pink & White Bengal Stripe Fitted Slim Shirt',
-    prices: { standard: 29, offer: 19 },
+    prices: { previous: 2999, current: 1999 },
     imageUrls: [
       '/images/products/popular/slim-shirt-1.jpg',
       '/images/products/popular/slim-shirt-2.jpg',
@@ -134,7 +127,7 @@ const popularProducts = [
   },
   {
     name: 'Royal Blue 2 Piece Italian Cotton Linen Slim Suit',
-    prices: { standard: 13 },
+    prices: { current: 1399 },
     imageUrls: [
       '/images/products/popular/linen-suit-1.jpg',
       '/images/products/popular/linen-suit-2.jpg',
@@ -142,7 +135,7 @@ const popularProducts = [
   },
   {
     name: 'Navy Mercerised Pique Polo Shirt',
-    prices: { standard: 39 },
+    prices: { current: 3999 },
     imageUrls: [
       '/images/products/popular/polo-shirt-1.jpg',
       '/images/products/popular/polo-shirt-2.jpg',
@@ -150,7 +143,7 @@ const popularProducts = [
   },
   {
     name: 'Taupe Mercerised Pique Polo Shirt',
-    prices: { standard: 39 },
+    prices: { current: 3999 },
     imageUrls: [
       '/images/products/popular/polo-shirt-3.jpg',
       '/images/products/popular/polo-shirt-4.jpg',
@@ -161,7 +154,7 @@ const popularProducts = [
 const newProducts = [
   {
     name: 'Black Printed Paisley Velvet Tuxedo Jacket',
-    prices: { standard: 34 },
+    prices: { current: 3499 },
     imageUrls: [
       '/images/products/new/tuxedo-jacket-1.jpg',
       '/images/products/new/tuxedo-jacket-2.jpg',
@@ -169,7 +162,7 @@ const newProducts = [
   },
   {
     name: 'White & Cream Broken Stripe Pussy Bow Blouse',
-    prices: { standard: 45 },
+    prices: { current: 4599 },
     imageUrls: [
       '/images/products/new/stripe-blouse-1.jpg',
       '/images/products/new/stripe-blouse-2.jpg',
@@ -177,17 +170,17 @@ const newProducts = [
   },
   {
     name: 'Light Grey Twill 3 Piece Slim Suit',
-    prices: { standard: 42 },
+    prices: { current: 4299 },
     imageUrls: ['/images/products/new/grey-suit-1.jpg', '/images/products/new/grey-suit-2.jpg'],
   },
   {
     name: 'Pink & Black Abstract Paint Pussy Bow Blouse',
-    prices: { standard: 45 },
+    prices: { current: 4599 },
     imageUrls: ['/images/products/new/pink-blouse-1.jpg', '/images/products/new/pink-blouse-2.jpg'],
   },
   {
     name: 'Men’s Navy Plain Velvet Jacket',
-    prices: { standard: 27 },
+    prices: { current: 2799 },
     imageUrls: [
       '/images/products/new/velvet-jacket-1.jpg',
       '/images/products/new/velvet-jacket-2.jpg',
@@ -198,13 +191,23 @@ const newProducts = [
 popularProducts.forEach((product) => {
   product.slug = slugify(product.name)
 })
+
 newProducts.forEach((product) => {
   product.slug = slugify(product.name)
 })
 
+// additional product fields: productId, priceId, tags/categories, sizes (?), colours (?)
+
 export { popularProducts, newProducts }
 
-// additional product fields: productId, priceId, tags/categories
+export const bagProducts = popularProducts.slice(0, 3).map((prod, index) => ({
+  name: prod.name,
+  slug: prod.slug,
+  price: prod.prices.current,
+  size: '',
+  imageUrl: prod.imageUrls[0],
+  quantity: 2,
+}))
 
 // additional product review fields: productId, reviewer._id
 export const productReviews = [

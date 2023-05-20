@@ -46,7 +46,7 @@ export const FooterLinks = ({ title }) => {
 
   if (isXs)
     return (
-      <FooterAccordion title={title}>
+      <FooterAccordion title={<FooterHeading children={title} />}>
         <FooterNavigation links={links} />
       </FooterAccordion>
     )

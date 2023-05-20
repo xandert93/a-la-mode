@@ -68,7 +68,7 @@ const Article = ({ direction, title, body, imageUrl }) => {
             />
             <Typography children={body} />
           </Box>
-          <Button variant="contained" color="primary" children="Read The Story ➡" />
+          <Button variant="contained" color="primary" children="Read the Story ➡" />
         </Grid>
       </Grid>
     </Grid>

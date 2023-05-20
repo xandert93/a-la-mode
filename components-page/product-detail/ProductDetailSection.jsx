@@ -7,10 +7,12 @@ import {
   Section,
   ArrowLeftIcon,
   ArrowRightIcon,
+  InformationIcon,
+  DeliveryIcon,
+  MoneyTypography,
 } from '@/components'
 import { isHoverable } from '@/theming'
 import { wait } from '@/utils/helpers'
-import { InfoOutlined, LocalShippingOutlined } from '@mui/icons-material'
 import {
   Box,
   Button,
@@ -129,20 +131,22 @@ const RHS = ({ name, prices, description, features, stockCount, lastPurchasedAt,
           <Typography children="3.7 (898)" />
         </ButtonBase>
         <Box>
-          <Typography
-            component="span"
-            variant="h6"
-            color="text.disabled"
-            children={'£' + prices.standard}
-            sx={{ textDecoration: 'line-through' }} // probably only wanna do this if (prices.offer), for example
-            mr={0.5} // JFN
-          />
+          {prices.previous && (
+            <MoneyTypography
+              component="span"
+              variant="h6"
+              color="text.disabled"
+              children={prices.previous}
+              sx={{ textDecoration: 'line-through' }}
+              mr={0.5} // JFN
+            />
+          )}
           {'   '}
-          <Typography
+          <MoneyTypography
             component="span"
             variant="h6"
-            children={'£' + prices.offer}
-            color="secondary.main"
+            children={prices.current}
+            color={prices.previous && 'secondary.main'}
           />
         </Box>
       </Grid>
@@ -230,14 +234,14 @@ const RHS = ({ name, prices, description, features, stockCount, lastPurchasedAt,
         pr={1} // JFN - since <IconButton> already has padding applied
         borderRadius={1} // use paper/card instead?
         color="primary.dark">
-        <LocalShippingOutlined />
+        <DeliveryIcon />
         <Typography
           variant="body2"
           children="Free standard delivery on orders over £50"
           flexGrow={1}
         />
         <IconButton
-          children={<InfoOutlined />}
+          children={<InformationIcon />}
           onClick // see M&S - open modal displaying shipping data
         />
       </Grid>

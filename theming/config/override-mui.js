@@ -42,20 +42,14 @@ export const overrideMui = (palette) => ({
     },
   },
 
-  MuiPaper: {
-    styleOverrides: {
-      root: {
-        borderRadius: 8, // '4px'*
-      },
-    },
-  },
-
   MuiCard: {
     defaultProps: {
       elevation: 0,
     },
     styleOverrides: {
-      root: {},
+      root: {
+        borderRadius: 8, // '4px'*
+      },
     },
   },
 
@@ -104,18 +98,37 @@ export const overrideMui = (palette) => ({
     },
   },
 
-  MuiOutlinedInput: {
+  MuiAccordion: {
     styleOverrides: {
-      input: {
-        padding: 15, // 16.5px 14px* (too big and `size` prop is useless - best I could do)
+      root: {
+        color: 'inherit', // uses <Paper> classes* (i.e. theme.palette.text.primary)
+        backgroundColor: 'transparent', // uses <Paper> classes* (i.e. theme.palette.background.primary)
       },
     },
   },
 
   MuiAccordionSummary: {
     styleOverrides: {
+      root: {
+        minHeight: 'initial', // 48px* (kinda whack)
+        padding: 'initial', // 0px 16px* (kinda whack)
+      },
+
+      content: {
+        margin: 'initial', // 12px 0px (kinda whack)
+      },
+
       expandIconWrapper: {
         color: 'inherit', // rgba(0, 0, 0, 0.54)*
+      },
+    },
+  },
+
+  MuiAccordionDetails: {
+    styleOverrides: {
+      root: {
+        // JTO
+        padding: 'initial', // 8px 16px 16px* (kinda whack?)
       },
     },
   },

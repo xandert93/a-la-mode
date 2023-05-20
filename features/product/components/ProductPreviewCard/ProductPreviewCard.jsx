@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Box, Card, Grid, Typography } from '@mui/material'
 
-import { Link, HeartIcon, IconButton, Img } from '../../../../components'
+import { Link, HeartIcon, IconButton, Img, MoneyTypography } from '../../../../components'
 
 import { useToggle } from '@/hooks'
 
@@ -32,8 +32,8 @@ export const ProductPreviewCard = ({
             <Grid item xs>
               <ProductColors colors={colors} />
             </Grid>
-            <Typography
-              children={'£' + prices.standard}
+            <MoneyTypography
+              children={prices.current}
               sx={{ fontWeight: 500, letterSpacing: -0.5 }} // JFN - "body1" fontsize too small and "h6" too big...need solution
             />
           </Grid>

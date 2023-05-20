@@ -75,13 +75,13 @@ export default function RegistrationPage() {
             />
           </Box>
 
-          <Grid container direction="column" gap={3}>
-            <Grid container spacing={2} component={Form} onSubmit={handleSubmit}>
+          <Grid container direction="column" gap={3} component={Form} onSubmit={handleSubmit}>
+            <Grid container spacing={2}>
               <Grid item xs={12} sm={6}>
-                <TextField type="text" name="firstName" label="First Name" />
+                <TextField name="firstName" label="First Name" />
               </Grid>
               <Grid item xs={12} sm={6}>
-                <TextField type="text" name="lastName" label="Last Name" />
+                <TextField name="lastName" label="Last Name" />
               </Grid>
               <Grid item xs={12}>
                 <TextField type="email" name="email" label="Email Address" />
@@ -99,19 +99,19 @@ export default function RegistrationPage() {
               type="text"
               name="dob"
               label="Date of Birth"
-              helperText="Get a reward from us on your birthday! 🎉"
+              helperText="You'll get a reward from us on your birthday! 🎉"
             />
 
             <PrivacyTermsCheckbox />
             <Button type="submit" children={`Join ${NAMES.COMPANY}`} />
-            <Typography component="p" variant="caption" color="text.secondary">
-              By creating an account, you'll automatically be signed up to Sparks (underline), our
-              reward scheme.
-            </Typography>
-            <Typography>
-              Already have an account? <TextLink href={PATHS.LOGIN} children="Sign in ➡" />
-            </Typography>
           </Grid>
+          <Typography component="p" variant="caption" color="text.secondary">
+            By creating an account, you'll automatically be signed up to Sparks (underline), our
+            reward scheme.
+          </Typography>
+          <Typography>
+            Already have an account? <TextLink href={PATHS.LOGIN} children="Sign in ➡" />
+          </Typography>
         </Grid>
       </Card>
     </Main>
@@ -137,8 +137,7 @@ const PurchasePreferenceRadioGroup = () => {
       name="preference"
       label="I am mostly interested in:"
       value={preference}
-      onChange={handleChange}
-      required={false}>
+      onChange={handleChange}>
       <Radio value="menswear" label="Menswear" />
       <Radio value="womenswear" label="Womenswear" />
     </RadioGroup>
@@ -162,7 +161,7 @@ const ContactPreferencesCheckboxGroup = () => {
       label="I would like to receive emails about:"
       helperText="You can update this any time in your preferences">
       <Checkbox
-        checked={state.offers}
+        checked={state.currents}
         onChange={handleChange}
         name="offers"
         label="Discounts and promotions"
