@@ -1,5 +1,5 @@
 import { Header, Footer } from '@/components-layout'
-import { NAMES } from '@/constants'
+import { NAMES, PATHS } from '@/constants'
 import { SnackbarProvider, Snackbar } from '@/context/snackbar'
 import { ThemeProvider } from '@/theming'
 
@@ -8,7 +8,7 @@ import { useRouter } from 'next/router'
 
 export default function App({ Component, pageProps }) {
   const router = useRouter() // 1
-  const isAuthPage = ['/auth/login', '/auth/register'].includes(router.pathname) // JFN
+  const isAuthPage = [PATHS.LOGIN, PATHS.REGISTRATION].includes(router.pathname) // JFN
 
   return (
     <>
@@ -25,12 +25,12 @@ export default function App({ Component, pageProps }) {
         </ThemeProvider>
       ) : (
         <ThemeProvider>
-          <Header />
+          {/* <Header /> */}
           <SnackbarProvider>
             <Component {...pageProps} />
             <Snackbar />
           </SnackbarProvider>
-          <Footer />
+          {/* <Footer /> */}
         </ThemeProvider>
       )}
     </>

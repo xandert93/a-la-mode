@@ -1,9 +1,9 @@
-import { Link, IconButton, HeartIconOutlined } from '@/components'
+import { Link, IconButton, HeartIconOutlined, ShoppingBagIcon } from '@/components'
 import { isVPMinLg } from '@/theming'
 import { Grid, useMediaQuery } from '@mui/material'
 import { MobileHeaderSearchButton } from './MobileHeaderSearchButton'
 import { HeaderSearchForm } from './HeaderSearchForm'
-import { PersonOutline, ShoppingBagOutlined } from '@mui/icons-material'
+import { PersonOutline } from '@mui/icons-material'
 import { PATHS } from '@/constants'
 
 export const HeaderActions = () => {
@@ -27,7 +27,7 @@ export const HeaderActions = () => {
       <IconButton
         component={Link}
         href={PATHS.SHOPPING_BAG}
-        children={<ShoppingBagOutlined />}
+        children={<ShoppingBagIcon />}
         aria-label="Visit Shopping Bag Page"
       />
     </Grid>

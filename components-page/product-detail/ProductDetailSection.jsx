@@ -10,6 +10,7 @@ import {
   InformationIcon,
   DeliveryIcon,
   MoneyTypography,
+  Select,
 } from '@/components'
 import { isHoverable } from '@/theming'
 import { wait } from '@/utils/helpers'
@@ -22,6 +23,7 @@ import {
   Rating,
   Typography,
   IconButton as MuiIconButton,
+  MenuItem,
 } from '@mui/material'
 
 import { useState } from 'react'
@@ -51,7 +53,7 @@ export const ProductDetailSection = ({
           <LHS imageUrls={imageUrls} />
         </Box>
         <Box minWidth={{ md: 400 }} maxWidth={640}>
-          <RHS {...{ name, prices }} />
+          <RHS {...{ name, prices, stockCount }} />
         </Box>
       </Grid>
     </Section>
@@ -90,6 +92,8 @@ const RHS = ({ name, prices, description, features, stockCount, lastPurchasedAt,
     setIsLiked((prev) => !prev)
     setIsRequesting(false)
   }
+
+  const hasLowStock = stockCount < 10
 
   return (
     <Grid
@@ -151,7 +155,24 @@ const RHS = ({ name, prices, description, features, stockCount, lastPurchasedAt,
         </Box>
       </Grid>
 
-      <Grid container rowGap={1.5}>
+      <Grid container direction="column" rowGap={1.5}>
+        <Typography variant="body2" fontWeight={500}>
+          Availability:{' '}
+          <Typography
+            variant="inherit"
+            component="span"
+            color={!stockCount ? 'text.disabled' : hasLowStock ? 'red' : 'success.main'}
+            children={
+              !stockCount
+                ? 'out of stock ❌'
+                : hasLowStock
+                ? `only ${stockCount} left`
+                : 'in stock ✔'
+            }
+            fontWeight={500}
+          />
+        </Typography>
+
         <Typography variant="body2" children="Select your color:" fontWeight={500} />
         <Grid container columnGap={2}>
           {['beige', 'navy', 'primary.dark', 'black'].map((c) => (
@@ -210,18 +231,43 @@ const RHS = ({ name, prices, description, features, stockCount, lastPurchasedAt,
         </Box>
       </Grid>
 
-      <Grid container direction="column" rowGap={1}>
+      <Grid container justifyContent="flex-end" spacing={{ xs: 2, sm: 1 }}>
         {/* Quantity <Select> or "- val +" form control need to go in here somewhere, but where...? */}
         {/* Think these 👇 two buttons are a bit too thin on mobile and also need more space between due to inaccuracy of touch vs pointer */}
-        <Button variant="contained" children="Add to Bag" size="large" />
-        <LoadingButton
-          variant="contained"
-          isLoading={isRequesting}
-          onClick={toggleSave}
-          endIcon={isLiked ? <HeartIcon /> : <HeartIconOutlined />}
-          size="large">
-          {isLiked ? 'Saved' : 'Add to Wish List'}
-        </LoadingButton>
+        <Grid item xs={12} sm={2}>
+          <Select
+            label="Qty"
+            required={false}
+            defaultValue={1}
+            disabled={!stockCount}
+            // value = ... add state
+            onChange={(e) => {}}>
+            {[...Array(stockCount > 9 ? 9 : stockCount).keys()].slice(1).map((num) => (
+              <MenuItem key={num} value={num} children={num} /> // netter way to do this lol?
+            ))}
+          </Select>
+        </Grid>
+        <Grid item xs={12} sm={10}>
+          <Button
+            variant="contained"
+            children="Add to Bag"
+            fullWidth
+            sx={{ py: '13.5px' }} // hacky, but to match <Select>
+            disabled={!stockCount}
+          />
+        </Grid>
+        <Grid item xs={12} sm={10}>
+          <LoadingButton
+            variant="contained"
+            isLoading={isRequesting}
+            onClick={toggleSave}
+            endIcon={isLiked ? <HeartIcon /> : <HeartIconOutlined />}
+            size="large"
+            children={isLiked ? 'Saved' : 'Add to Wish List'}
+            fullWidth
+            sx={{ py: '13.5px' }} // hacky, but to match <Select>
+          />
+        </Grid>
       </Grid>
       <Grid
         container

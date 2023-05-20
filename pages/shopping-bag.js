@@ -9,7 +9,12 @@ import {
   TextLink,
   DeleteIcon,
   MoneyTypography,
-  ApproveIcon,
+  ReceiptIcon,
+  ShoppingBagIcon,
+  ClockIcon,
+  ValidateIcon,
+  HeartIconOutlined,
+  Select,
 } from '@/components'
 import { FooterPaymentMethods } from '@/components-layout/Footer/FooterPaymentMethods'
 import { NAMES } from '@/constants'
@@ -28,6 +33,7 @@ import {
   Card,
   useMediaQuery,
   accordionSummaryClasses,
+  MenuItem,
 } from '@mui/material'
 import Head from 'next/head'
 import Link from 'next/link'
@@ -37,8 +43,17 @@ export default function ShoppingBagPage() {
   const [products, setProducts] = useState(bagProducts)
   const hasProducts = Boolean(products.length)
 
-  const deleteProduct = (name) => () => {
+  const removeProduct = (name) => () => {
     setProducts((prev) => prev.filter((prod) => prod.name !== name))
+  }
+
+  const setProductQty = (name, newQty) => {
+    setProducts((prev) =>
+      prev.map((prod) => {
+        if (prod.name !== name) return prod
+        else return { ...prod, quantity: newQty }
+      })
+    )
   }
 
   return (
@@ -51,7 +66,7 @@ export default function ShoppingBagPage() {
         <Section maxWidth="lg" sx={{ pt: 2 }}>
           <Grid container spacing={2}>
             <Grid item xs={12} sm={8}>
-              <ProductsSummary products={products} deleteProduct={deleteProduct} />
+              <ProductsSummary {...{ products, removeProduct, setProductQty }} />
             </Grid>
             <Grid item xs={12} sm={4}>
               <PaymentSummary products={products} />
@@ -65,23 +80,71 @@ export default function ShoppingBagPage() {
   )
 }
 
-const ProductsSummary = ({ products, deleteProduct }) => {
+const ProductsSummary = ({ products, removeProduct, setProductQty }) => {
   const isXs = useMediaQuery(isVPXs)
   const productCount = products.length
 
   return (
     <Card elevation={isXs ? 0 : 8} sx={{ p: { xs: 1, sm: 3 } }}>
-      <Typography paragraph component="h2" variant="h6" children={`My Bag (${productCount})`} />
-      <Grid container direction="column" rowGap={2}>
-        {products.map((prod) => (
-          <BagProduct key={prod.name} {...prod} deleteProduct={deleteProduct} />
-        ))}
+      <Grid container rowGap={2}>
+        <IconTypography
+          Icon={ShoppingBagIcon}
+          component="h2"
+          variant="h6"
+          children={`My Bag (${productCount})`}
+        />
+
+        <Grid container direction="column" rowGap={2}>
+          {products.map((prod) => {
+            if (prod.stockCount >= prod.quantity)
+              return (
+                <BagProduct
+                  key={prod.name}
+                  {...prod}
+                  removeProduct={removeProduct}
+                  setProductQty={setProductQty}
+                />
+              )
+          })}
+          <Divider />
+          Sorry, stock issues:
+          {products.map((prod) => {
+            if (prod.stockCount < prod.quantity)
+              return (
+                // done it this way because the customer may have quantity of 5 saved to basket, but now there might only be 4 available
+                // so thus, customer should be able to adjust quantity
+                // point is, stock issues means the inability to meet customer's original demand - not just "out of stock"
+                // should add message saying "You wanted ${quantity} but there is now only ${stockCount}".
+                <BagProduct
+                  key={prod.name}
+                  {...prod}
+                  removeProduct={removeProduct}
+                  setProductQty={setProductQty}
+                />
+              )
+          })}
+        </Grid>
       </Grid>
     </Card>
   )
 }
 
-const BagProduct = ({ name, slug, price, quantity, imageUrl, deleteProduct }) => {
+const BagProduct = ({
+  name,
+  slug,
+  price,
+  quantity,
+  stockCount,
+  imageUrl,
+  removeProduct,
+  setProductQty,
+}) => {
+  // previously included logic if "0" was selected to remove product from basket, but all the sites don't have it and just offer bespoke delete button
+  const handleQtyChange = (e) => setProductQty(name, e.target.value)
+
+  const hasStock = Boolean(stockCount)
+  const hasLowStock = hasStock && stockCount < 10
+
   return (
     <Paper square>
       <Grid container p={1} columnSpacing={3}>
@@ -98,18 +161,47 @@ const BagProduct = ({ name, slug, price, quantity, imageUrl, deleteProduct }) =>
             <Link href={'/' + slug} children={name} />
             <MoneyTypography children={price} />
           </Grid>
-          <Typography children={`Quantity: ${quantity}`} />
-          <IconButton onClick={deleteProduct(name)} children={<DeleteIcon />} />
+          <IconButton onClick={removeProduct(name)} children={<DeleteIcon />} />
+          <IconButton children={<HeartIconOutlined />} />
+          {!hasStock && <Typography children="Sorry, this product is now out of stock" />}
+          {hasLowStock && (
+            <IconTypography Icon={ClockIcon} color="red" children={`Only ${stockCount} left`} />
+          )}
+          {hasStock && (
+            <Select
+              label="Qty"
+              required={false}
+              defaultValue={quantity}
+              disabled={!stockCount}
+              // value = ... add state
+              onChange={handleQtyChange}>
+              {[...Array(stockCount > 9 ? 9 : stockCount).keys()].map((index) => (
+                <MenuItem key={index} value={index + 1} children={index + 1} /> // netter way to do this lol?
+              ))}
+            </Select>
+          )}
         </Grid>
       </Grid>
     </Paper>
   )
 }
 
+const IconTypography = ({ Icon, ...props }) => {
+  return (
+    <Grid container wrap="nowrap" alignItems="center" columnGap={1}>
+      <Icon />
+      <Typography {...props} />
+    </Grid>
+  )
+}
+
 const PaymentSummary = ({ products }) => {
   const isXs = useMediaQuery(isVPXs)
 
-  const subtotal = products.reduce((acca, prod) => acca + prod.price * prod.quantity, 0).toFixed(2)
+  const subtotal = products.reduce((acca, prod) => {
+    if (prod.stockCount) acca += prod.price * prod.quantity
+    return acca
+  }, 0)
 
   const freeDeliveryOffset = 5000 - subtotal
   const hasFreeDelivery = freeDeliveryOffset <= 0
@@ -122,7 +214,7 @@ const PaymentSummary = ({ products }) => {
     <Card elevation={isXs ? 0 : 8} sx={{ p: { xs: 1, sm: 3 } }}>
       <Grid container direction="column" rowGap={3}>
         <Grid container direction="column" rowGap={2}>
-          <Typography component="h2" variant="h6" children="Summary" />
+          <IconTypography Icon={ReceiptIcon} component="h2" variant="h6" children="Summary" />
           <Divider />
           <Grid container direction="column" rowGap={0.5}>
             <CostRow variant="body2" title="Subtotal" amount={subtotal} />
@@ -156,29 +248,29 @@ const PaymentSummary = ({ products }) => {
               flexGrow={1}>
               Can we tempt you? Spend another{' '}
               <MoneyTypography variant="inherit" component="span" children={freeDeliveryOffset} />{' '}
-              to qualify for FREE Standard Delivery to UK.
+              to qualify for FREE Standard Delivery.
             </Typography>
             <IconButton
               children={<InformationIcon />}
-              onClick // see M&S - open modal displaying shipping data
+              // see M&S - open modal displaying shipping data
             />
           </Grid>
         )}
-        <VoucherCodeAccordion />
+        <DiscountCodeAccordion />
         <FooterPaymentMethods />
         <Box>
           <Typography
             variant="caption"
             component="p"
             color="text.secondary"
-            children="Prices and delivery costs are not confirmed until you've reached the checkout."
+            children="Prices and delivery costs are only confirmed at checkout."
             paragraph
           />
           <Typography
             variant="caption"
             component="p"
             color="text.secondary"
-            children="28 days withdrawal and free returns. Read more about return and refund policy."
+            children="28 days free returns. Read more about return and refund policy."
           />
         </Box>
       </Grid>
@@ -198,7 +290,7 @@ const styles = {
 
 accordionSummaryClasses
 
-const VoucherCodeAccordion = () => {
+const DiscountCodeAccordion = () => {
   const handleSubmit = (e) => {
     alert('Voucher code submitted')
   }
@@ -220,17 +312,7 @@ const VoucherCodeAccordion = () => {
         component={Form}
         onSubmit={handleSubmit}>
         <TextField label="Code" size="small" />
-        <Button
-          type="submit"
-          children={
-            <ApproveIcon
-              sx={{
-                fontSize: 14, // anything else too big. Decrease padding on button if required
-              }}
-            />
-          }
-          disableElevation
-        />
+        <Button type="submit" children={<ValidateIcon />} disableElevation sx={{ p: 0 }} />
       </Grid>
     </Accordion>
   )
@@ -247,22 +329,3 @@ const CostRow = ({ title, amount, ...props }) => {
 }
 
 // when checkout clicked, if not signed in, redirect to login and once logged in to checkout
-
-/*
-
-
-      <FooterPaymentMethods />
-
-      <Typography
-        variant="caption"
-        component="p"
-        color="text.secondary"
-        children="Prices and delivery costs are not confirmed until you've reached the checkout."
-      />
-      <Typography
-        variant="caption"
-        component="p"
-        color="text.secondary"
-        children="28 days withdrawal and free returns. Read more about return and refund policy."
-      />
-*/

@@ -33,6 +33,10 @@ export {
   ArrowForward as ArrowForwardIcon,
   Delete as DeleteIcon,
   Approval as ApproveIcon,
+  ShoppingBagOutlined as ShoppingBagIcon,
+  ReceiptOutlined as ReceiptIcon,
+  AccessTime as ClockIcon,
+  PublishedWithChanges as ValidateIcon,
 } from '@mui/icons-material'
 
 export { Img, Image, CoverImage, BackgroundVideo } from './Images'
