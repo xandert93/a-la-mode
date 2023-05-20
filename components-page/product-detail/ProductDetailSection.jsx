@@ -36,6 +36,7 @@ export const ProductDetailSection = ({
   imageUrls,
   stockCount,
   lastPurchasedAt,
+  rating,
   createdAt,
 }) => {
   return (
@@ -53,7 +54,7 @@ export const ProductDetailSection = ({
           <LHS imageUrls={imageUrls} />
         </Box>
         <Box minWidth={{ md: 400 }} maxWidth={640}>
-          <RHS {...{ name, prices, stockCount }} />
+          <RHS {...{ name, prices, rating, stockCount }} />
         </Box>
       </Grid>
     </Section>
@@ -82,7 +83,16 @@ const oldConfig = () => {
   )
 }
 
-const RHS = ({ name, prices, description, features, stockCount, lastPurchasedAt, createdAt }) => {
+const RHS = ({
+  name,
+  prices,
+  rating,
+  description,
+  features,
+  stockCount,
+  lastPurchasedAt,
+  createdAt,
+}) => {
   const [isRequesting, setIsRequesting] = useState(false)
   const [isLiked, setIsLiked] = useState(false)
 
@@ -131,8 +141,8 @@ const RHS = ({ name, prices, description, features, stockCount, lastPurchasedAt,
             borderRadius: 1,
             // py: 0.5,
           }}>
-          <Rating value={3.7} />
-          <Typography children="3.7 (898)" />
+          <Rating value={rating.average} />
+          <Typography children={`${rating.average} (${rating.count})`} />
         </ButtonBase>
         <Box>
           {prices.previous && (

@@ -6,7 +6,6 @@ import {
   InformationIcon,
   ArrowForwardIcon,
   Img,
-  TextLink,
   DeleteIcon,
   MoneyTypography,
   ReceiptIcon,
@@ -16,17 +15,15 @@ import {
   HeartIconOutlined,
   Select,
   IconTypography,
-  GiftIcon,
 } from '@/components'
 import { FooterPaymentMethods } from '@/components-layout/Footer/FooterPaymentMethods'
 import { NAMES } from '@/constants'
 import { bagProducts } from '@/data'
-import { isVPMaxSm, isVPXs } from '@/theming'
+import { isVPMaxSm } from '@/theming'
 
 import {
   Box,
   Button,
-  Paper,
   Divider,
   Grid,
   Typography,
@@ -41,6 +38,7 @@ import Head from 'next/head'
 import Link from 'next/link'
 import { useState } from 'react'
 
+// inspired by M&S shopping bag. Still more to copy: https://www.marksandspencer.com/webapp/wcs/stores/servlet/OrderCalculate?calculationUsageIdentifier=MSBasketView_ShoppingCartURL&calculationUsageId=-1&updatePrices=1&catalogId=&errorViewName=AjaxOrderItemDisplayView&orderId=.&langId=-24&storeId=10151&doPrice=Y&URL=AjaxOrderItemDisplayView&intid=pdpnav_atb-ack-modal_checkout-button
 export default function ShoppingBagPage() {
   const [products, setProducts] = useState(bagProducts)
   const hasProducts = Boolean(products.length)
@@ -68,7 +66,7 @@ export default function ShoppingBagPage() {
         <Section maxWidth="lg" sx={{ pt: 2 }}>
           <Grid container spacing={{ xs: 4, md: 2 }}>
             <Grid item xs={12} md={8}>
-              <ProductsSummary {...{ products, removeProduct, setProductQty }} />
+              <LineItemsSummary {...{ products, removeProduct, setProductQty }} />
             </Grid>
             <Grid item xs={12} md={4}>
               <PaymentSummary products={products} />
@@ -86,7 +84,7 @@ const spacing = {
   'products-summary': { xs: 1.5, sm: 2, md: 3 },
 }
 
-const ProductsSummary = ({ products, removeProduct, setProductQty }) => {
+const LineItemsSummary = ({ products, removeProduct, setProductQty }) => {
   const isMaxSm = useMediaQuery(isVPMaxSm)
   const productCount = products.length
 
@@ -227,7 +225,6 @@ const LineItem = ({
           <Grid container spacing={2}>
             <Grid item xs={12} sm={6}>
               <Button
-                color="secondary"
                 variant="outlined"
                 startIcon={<HeartIconOutlined />}
                 children="Save"
@@ -236,7 +233,6 @@ const LineItem = ({
             </Grid>
             <Grid item xs={12} sm={6}>
               <Button
-                color="secondary"
                 variant="outlined"
                 startIcon={<DeleteIcon />}
                 onClick={handleRemoveClick}

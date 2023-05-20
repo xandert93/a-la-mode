@@ -114,6 +114,10 @@ const popularProducts = [
       '/images/products/popular/linen-jacket-2.jpg',
     ],
     stockCount: 8,
+    rating: {
+      count: 787,
+      average: 4.8,
+    },
     lastPurchasedAt: 'Yesterday',
     createdAt: '', // can display "NEW" flag in UI
   },
@@ -125,6 +129,10 @@ const popularProducts = [
       '/images/products/popular/slim-shirt-2.jpg',
     ],
     stockCount: 0,
+    rating: {
+      count: 256,
+      average: 4.1,
+    },
   },
   {
     name: 'Royal Blue 2 Piece Italian Cotton Linen Slim Suit',
@@ -134,6 +142,10 @@ const popularProducts = [
       '/images/products/popular/linen-suit-2.jpg',
     ],
     stockCount: 67,
+    rating: {
+      count: 183,
+      average: 4.5,
+    },
   },
   {
     name: 'Navy Mercerised Pique Polo Shirt',
@@ -143,6 +155,10 @@ const popularProducts = [
       '/images/products/popular/polo-shirt-2.jpg',
     ],
     stockCount: 4,
+    rating: {
+      count: 83,
+      average: 4.2,
+    },
   },
   {
     name: 'Taupe Mercerised Pique Polo Shirt',
@@ -152,6 +168,10 @@ const popularProducts = [
       '/images/products/popular/polo-shirt-4.jpg',
     ],
     stockCount: 8,
+    rating: {
+      count: 109,
+      average: 4.6,
+    },
   },
 ]
 
@@ -164,6 +184,10 @@ const newProducts = [
       '/images/products/new/tuxedo-jacket-2.jpg',
     ],
     stockCount: 17,
+    rating: {
+      count: 9,
+      average: 3.9,
+    },
   },
   {
     name: 'White & Cream Broken Stripe Pussy Bow Blouse',
@@ -173,18 +197,30 @@ const newProducts = [
       '/images/products/new/stripe-blouse-2.jpg',
     ],
     stockCount: 7,
+    rating: {
+      count: 22,
+      average: 4.1,
+    },
   },
   {
     name: 'Light Grey Twill 3 Piece Slim Suit',
     prices: { current: 4299 },
     imageUrls: ['/images/products/new/grey-suit-1.jpg', '/images/products/new/grey-suit-2.jpg'],
     stockCount: 2,
+    rating: {
+      count: 12,
+      average: 4.3,
+    },
   },
   {
     name: 'Pink & Black Abstract Paint Pussy Bow Blouse',
     prices: { current: 4599 },
     imageUrls: ['/images/products/new/pink-blouse-1.jpg', '/images/products/new/pink-blouse-2.jpg'],
     stockCount: 35,
+    rating: {
+      count: 0,
+      average: 0,
+    },
   },
   {
     name: 'Men’s Navy Plain Velvet Jacket',
@@ -194,6 +230,10 @@ const newProducts = [
       '/images/products/new/velvet-jacket-2.jpg',
     ],
     stockCount: 91,
+    rating: {
+      count: 7,
+      average: 4.2,
+    },
   },
 ]
 
