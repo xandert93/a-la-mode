@@ -164,9 +164,9 @@ const RHS = ({ name, prices, description, features, stockCount, lastPurchasedAt,
             color={!stockCount ? 'text.disabled' : hasLowStock ? 'red' : 'success.main'}
             children={
               !stockCount
-                ? 'out of stock ❌'
+                ? 'out of stock ❌' // update to actual icons eventually
                 : hasLowStock
-                ? `only ${stockCount} left`
+                ? `only ${stockCount} left 🕒`
                 : 'in stock ✔'
             }
             fontWeight={500}
@@ -232,18 +232,16 @@ const RHS = ({ name, prices, description, features, stockCount, lastPurchasedAt,
       </Grid>
 
       <Grid container justifyContent="flex-end" spacing={{ xs: 2, sm: 1 }}>
-        {/* Quantity <Select> or "- val +" form control need to go in here somewhere, but where...? */}
-        {/* Think these 👇 two buttons are a bit too thin on mobile and also need more space between due to inaccuracy of touch vs pointer */}
         <Grid item xs={12} sm={2}>
           <Select
             label="Qty"
             required={false}
             defaultValue={1}
-            disabled={!stockCount}
+            disabled={!stockCount} // or something like this (or remove from UI entirely?)
             // value = ... add state
             onChange={(e) => {}}>
-            {[...Array(stockCount > 9 ? 9 : stockCount).keys()].slice(1).map((num) => (
-              <MenuItem key={num} value={num} children={num} /> // netter way to do this lol?
+            {[...Array(stockCount > 9 ? 9 : stockCount).keys()].map((index) => (
+              <MenuItem key={index} value={index + 1} children={index + 1} /> // netter way to do this lol?
             ))}
           </Select>
         </Grid>
@@ -253,7 +251,7 @@ const RHS = ({ name, prices, description, features, stockCount, lastPurchasedAt,
             children="Add to Bag"
             fullWidth
             sx={{ py: '13.5px' }} // hacky, but to match <Select>
-            disabled={!stockCount}
+            disabled={!stockCount} // or something like this (or remove from UI entirely?)
           />
         </Grid>
         <Grid item xs={12} sm={10}>

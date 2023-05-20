@@ -31,12 +31,13 @@ export {
   InfoOutlined as InformationIcon,
   LocalShippingOutlined as DeliveryIcon,
   ArrowForward as ArrowForwardIcon,
-  Delete as DeleteIcon,
+  DeleteOutlined as DeleteIcon,
   Approval as ApproveIcon,
   ShoppingBagOutlined as ShoppingBagIcon,
   ReceiptOutlined as ReceiptIcon,
   AccessTime as ClockIcon,
   PublishedWithChanges as ValidateIcon,
+  RedeemOutlined as GiftIcon,
 } from '@mui/icons-material'
 
 export { Img, Image, CoverImage, BackgroundVideo } from './Images'
@@ -50,4 +51,4 @@ export { Link, TextLink } from './Links'
 
 export { Checkbox, CheckboxGroup, Select, Radio, RadioGroup } from './Inputs'
 
-export { GradientTypography, MoneyTypography } from './Typographies'
+export { GradientTypography, MoneyTypography, IconTypography } from './Typographies'

@@ -150,8 +150,15 @@ export const overrideMui = (palette) => ({
         padding: '5px 15px', // default
         fontWeight: 400, // 500*
       },
-      contained: {
-        // JTO:
+
+      // JTO:
+      containedSizeSmall: {
+        padding: '5px 15px',
+        fontSize: 'initial', // 0.8125rem* (but will now revert to theme.typography.button styles)
+      },
+
+      // JTO:
+      containedSizeMedium: {
         padding: '12px 16px', // '6px 16px'*
       },
     },

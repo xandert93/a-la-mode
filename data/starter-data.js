@@ -209,7 +209,7 @@ newProducts.forEach((product) => {
 
 export { popularProducts, newProducts }
 
-export const bagProducts = popularProducts.slice(0, 3).map((prod, index) => ({
+export const bagProducts = popularProducts.slice(0, 4).map((prod, index) => ({
   name: prod.name,
   slug: prod.slug,
   price: prod.prices.current,
