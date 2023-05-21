@@ -249,15 +249,18 @@ newProducts.forEach((product) => {
 
 export { popularProducts, newProducts }
 
-export const bagProducts = popularProducts.slice(0, 4).map((prod, index) => ({
-  name: prod.name,
-  slug: prod.slug,
-  price: prod.prices.current,
+// stripped `product` suitable for FE <ShoppingBag> display
+export const genLineItem = (product, qty = 2) => ({
+  name: product.name,
+  slug: product.slug,
+  price: product.prices.current,
   size: '',
-  imageUrl: prod.imageUrls[0],
-  quantity: 2,
-  stockCount: prod.stockCount,
-}))
+  imageUrl: product.imageUrls[0],
+  quantity: qty,
+  stockCount: product.stockCount,
+})
+
+export const bagProducts = popularProducts.slice(0, 4).map((prod) => genLineItem(prod))
 
 // additional product review fields: productId, reviewer._id
 export const productReviews = [

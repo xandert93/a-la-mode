@@ -1,10 +1,11 @@
-import { Link, IconButton, HeartIconOutlined, ShoppingBagIcon } from '@/components'
+import { Link, IconButton, HeartIconOutlined, ShoppingBagIcon, AccountIcon } from '@/components'
 import { isVPMinLg } from '@/theming'
-import { Grid, useMediaQuery } from '@mui/material'
+import { Badge, Grid, useMediaQuery } from '@mui/material'
 import { MobileHeaderSearchButton } from './MobileHeaderSearchButton'
 import { HeaderSearchForm } from './HeaderSearchForm'
-import { PersonOutline } from '@mui/icons-material'
 import { PATHS } from '@/constants'
+
+import { useStore } from '@/context/global-context'
 
 export const HeaderActions = () => {
   const isMinLg = useMediaQuery(isVPMinLg)
@@ -15,7 +16,7 @@ export const HeaderActions = () => {
       <IconButton
         component={Link}
         href="/auth/login" // JFN until I can privatise routes etc
-        children={<PersonOutline />}
+        children={<AccountIcon />}
         aria-label="See Account"
       />
       <IconButton
@@ -27,9 +28,27 @@ export const HeaderActions = () => {
       <IconButton
         component={Link}
         href={PATHS.SHOPPING_BAG}
-        children={<ShoppingBagIcon />}
+        children={<ShoppingBagIconBadge />}
         aria-label="Visit Shopping Bag Page"
       />
     </Grid>
   )
+}
+
+const ShoppingBagIconBadge = () => {
+  const { itemCount } = useStore().bag
+
+  return (
+    <Badge
+      color="secondary"
+      badgeContent={itemCount} // badge now auto-hides if badgeContent === 0
+      children={<ShoppingBagIcon />}
+    />
+  )
+}
+
+const defaultProps = {
+  variant: 'standard',
+  overlap: 'rectangular',
+  anchorOrigin: { vertical: 'top', horizontal: 'right' },
 }

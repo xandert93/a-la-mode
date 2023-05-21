@@ -12,6 +12,7 @@ import {
   MoneyTypography,
   Select,
 } from '@/components'
+import { useStore } from '@/context/global-context'
 import { isHoverable } from '@/theming'
 import { wait } from '@/utils/helpers'
 import {
@@ -28,17 +29,7 @@ import {
 
 import { useState } from 'react'
 
-export const ProductDetailSection = ({
-  name,
-  prices,
-  description,
-  features,
-  imageUrls,
-  stockCount,
-  lastPurchasedAt,
-  rating,
-  createdAt,
-}) => {
+export const ProductDetailSection = (product) => {
   return (
     <Section
       maxWidth="lg"
@@ -51,10 +42,10 @@ export const ProductDetailSection = ({
         justifyContent="center"
         gap={{ xs: 2 }}>
         <Box maxWidth={{ xs: 640, md: 720 }}>
-          <LHS imageUrls={imageUrls} />
+          <LHS imageUrls={product.imageUrls} />
         </Box>
         <Box minWidth={{ md: 400 }} maxWidth={640}>
-          <RHS {...{ name, prices, rating, stockCount }} />
+          <RHS {...product} />
         </Box>
       </Grid>
     </Section>
@@ -83,27 +74,36 @@ const oldConfig = () => {
   )
 }
 
-const RHS = ({
-  name,
-  prices,
-  rating,
-  description,
-  features,
-  stockCount,
-  lastPurchasedAt,
-  createdAt,
-}) => {
-  const [isRequesting, setIsRequesting] = useState(false)
-  const [isLiked, setIsLiked] = useState(false)
+const RHS = (product) => {
+  const { name, prices, rating, description, features, stockCount, lastPurchasedAt, createdAt } =
+    product
 
-  const toggleSave = async () => {
+  const { bag } = useStore()
+
+  const hasStock = Boolean(stockCount)
+  const hasLowStock = stockCount < 10
+
+  const [qty, setQty] = useState(1)
+  const handleQtyChange = (e) => setQty(e.target.value)
+
+  const [isRequesting, setIsRequesting] = useState(false)
+  const handleAddToBagClick = async () => {
     setIsRequesting(true)
     await wait(1)
-    setIsLiked((prev) => !prev)
+    // success toast
+    bag.addLineItem(product, qty)
     setIsRequesting(false)
   }
 
-  const hasLowStock = stockCount < 10
+  const [isRequesting2, setIsRequesting2] = useState(false)
+  const [isLiked, setIsLiked] = useState(false)
+
+  const toggleSave = async () => {
+    setIsRequesting2(true)
+    await wait(1)
+    setIsLiked((prev) => !prev)
+    setIsRequesting2(false)
+  }
 
   return (
     <Grid
@@ -171,9 +171,9 @@ const RHS = ({
           <Typography
             variant="inherit"
             component="span"
-            color={!stockCount ? 'text.disabled' : hasLowStock ? 'red' : 'success.main'}
+            color={!hasStock ? 'text.disabled' : hasLowStock ? 'red' : 'success.main'}
             children={
-              !stockCount
+              !hasStock
                 ? 'out of stock ❌' // update to actual icons eventually
                 : hasLowStock
                 ? `only ${stockCount} left 🕒`
@@ -242,35 +242,40 @@ const RHS = ({
       </Grid>
 
       <Grid container justifyContent="flex-end" spacing={{ xs: 2, sm: 1 }}>
-        <Grid item xs={12} sm={2}>
-          <Select
-            label="Qty"
-            required={false}
-            defaultValue={1}
-            disabled={!stockCount} // or something like this (or remove from UI entirely?)
-            // value = ... add state
-            onChange={(e) => {}}>
-            {[...Array(stockCount > 9 ? 9 : stockCount).keys()].map((index) => (
-              <MenuItem key={index} value={index + 1} children={index + 1} /> // netter way to do this lol?
-            ))}
-          </Select>
-        </Grid>
-        <Grid item xs={12} sm={10}>
-          <Button
-            variant="contained"
-            children="Add to Bag"
-            fullWidth
-            sx={{ py: '13.5px' }} // hacky, but to match <Select>
-            disabled={!stockCount} // or something like this (or remove from UI entirely?)
-          />
-        </Grid>
-        <Grid item xs={12} sm={10}>
+        {/* if out of stock, either a) hide qty <Select> & <AddToBagButton> or b) disable them 
+        - see what other sites do and decide lol. But without any recon, a) looks kinda nice actually */}
+        {hasStock && (
+          <>
+            <Grid item xs={12} sm={2}>
+              <Select label="Qty" required={false} value={qty} onChange={handleQtyChange}>
+                {[...Array(stockCount > 9 ? 9 : stockCount).keys()].map((index) => (
+                  <MenuItem key={index} value={index + 1} children={index + 1} /> // netter way to do this lol?
+                ))}
+              </Select>
+            </Grid>
+            <Grid item xs={12} sm={10}>
+              <LoadingButton
+                variant="contained"
+                isLoading={isRequesting}
+                onClick={handleAddToBagClick}
+                children="Add to Bag"
+                fullWidth
+                sx={{ py: '13.5px' }} // hacky, but to match <Select>
+              />
+            </Grid>
+          </>
+        )}
+        <Grid
+          item
+          xs={12}
+          sm={
+            hasStock ? 10 : 12 // JFN lol
+          }>
           <LoadingButton
             variant="contained"
-            isLoading={isRequesting}
+            isLoading={isRequesting2}
             onClick={toggleSave}
             endIcon={isLiked ? <HeartIcon /> : <HeartIconOutlined />}
-            size="large"
             children={isLiked ? 'Saved' : 'Add to Wish List'}
             fullWidth
             sx={{ py: '13.5px' }} // hacky, but to match <Select>

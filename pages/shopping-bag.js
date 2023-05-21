@@ -18,6 +18,7 @@ import {
 } from '@/components'
 import { FooterPaymentMethods } from '@/components-layout/Footer/FooterPaymentMethods'
 import { NAMES } from '@/constants'
+import { useStore } from '@/context/global-context'
 import { bagProducts } from '@/data'
 import { isVPMaxSm } from '@/theming'
 
@@ -40,21 +41,9 @@ import { useState } from 'react'
 
 // inspired by M&S shopping bag. Still more to copy: https://www.marksandspencer.com/webapp/wcs/stores/servlet/OrderCalculate?calculationUsageIdentifier=MSBasketView_ShoppingCartURL&calculationUsageId=-1&updatePrices=1&catalogId=&errorViewName=AjaxOrderItemDisplayView&orderId=.&langId=-24&storeId=10151&doPrice=Y&URL=AjaxOrderItemDisplayView&intid=pdpnav_atb-ack-modal_checkout-button
 export default function ShoppingBagPage() {
-  const [products, setProducts] = useState(bagProducts)
-  const hasProducts = Boolean(products.length)
+  const { bag } = useStore()
 
-  const removeProduct = (name) => {
-    setProducts((prev) => prev.filter((prod) => prod.name !== name))
-  }
-
-  const setProductQty = (name, newQty) => {
-    setProducts((prev) =>
-      prev.map((prod) => {
-        if (prod.name !== name) return prod
-        else return { ...prod, quantity: newQty }
-      })
-    )
-  }
+  const hasLineItems = Boolean(bag.itemCount)
 
   return (
     <>
@@ -62,14 +51,14 @@ export default function ShoppingBagPage() {
         <title children={`Shopping Bag | ${NAMES.COMPANY}`} />
       </Head>
 
-      {hasProducts ? (
+      {hasLineItems ? (
         <Section maxWidth="lg" sx={{ pt: 2 }}>
           <Grid container spacing={{ xs: 4, md: 2 }}>
             <Grid item xs={12} md={8}>
-              <LineItemsSummary {...{ products, removeProduct, setProductQty }} />
+              <LineItemsSummary />
             </Grid>
             <Grid item xs={12} md={4}>
-              <PaymentSummary products={products} />
+              <PaymentSummary />
             </Grid>
           </Grid>
         </Section>
@@ -81,22 +70,23 @@ export default function ShoppingBagPage() {
 }
 
 const spacing = {
-  'products-summary': { xs: 1.5, sm: 2, md: 3 },
+  'items-summary': { xs: 1.5, sm: 2, md: 3 },
 }
 
-const LineItemsSummary = ({ products, removeProduct, setProductQty }) => {
+const LineItemsSummary = () => {
+  const { bag } = useStore()
+
   const isMaxSm = useMediaQuery(isVPMaxSm)
-  const productCount = products.length
 
   return (
     <Card elevation={isMaxSm ? 0 : 8} sx={{ p: { xs: 0, md: 2 } }}>
-      <Grid container alignItems="center" spacing={spacing['products-summary']}>
+      <Grid container alignItems="center" spacing={spacing['items-summary']}>
         <Grid item xs={12} sm={7.5}>
           <IconTypography
             Icon={ShoppingBagIcon}
             component="h2"
             variant="h6"
-            children={`My Bag (${productCount})`}
+            children={`My Bag (${bag.itemCount})`}
           />
         </Grid>
         <Grid item sx={{ display: { xs: 'none', sm: 'initial' } }} sm={4.5}>
@@ -111,16 +101,11 @@ const LineItemsSummary = ({ products, removeProduct, setProductQty }) => {
         </Grid>
       </Grid>
       <Grid container direction="column" rowGap={4} mt={4}>
-        {products.map((prod, index, self) => {
-          if (prod.stockCount >= prod.quantity)
+        {bag.items.map((item, index, self) => {
+          if (item.stockCount >= item.quantity)
             return (
               <>
-                <LineItem
-                  key={prod.name}
-                  {...prod}
-                  removeProduct={removeProduct}
-                  setProductQty={setProductQty}
-                />
+                <LineItem key={item.name} {...item} />
                 {/* better way to do this 👇 - raw CSS with border-bottom on LineItem or use MUI's <List> or something which offers `divider` prop? */}
                 {index !== self.length - 1 && (
                   <Divider
@@ -133,24 +118,19 @@ const LineItemsSummary = ({ products, removeProduct, setProductQty }) => {
               </>
             )
         })}
+        {/* 
         <Divider />
         Sorry, stock issues...removed from 📃 (will code later 👍):
-        {products.map((prod) => {
-          if (prod.stockCount < prod.quantity)
+        {bag.items.map((item) => {
+          if (item.stockCount < item.quantity)
             return (
               // done it this way because the customer may have quantity of 5 saved to basket, but now there might only be 4 available
               // so thus, customer should be able to adjust quantity
               // point is, stock issues means the inability to meet customer's original demand - not just "out of stock"
               // should add message saying "You wanted ${quantity} but there is now only ${stockCount}".
-              <LineItem
-                key={prod.name}
-                {...prod}
-                removeProduct={removeProduct}
-                setProductQty={setProductQty}
-                noCanDosVille
-              />
+              <LineItem key={item.name} {...item} noCanDosVille />
             )
-        })}
+        })} */}
       </Grid>
     </Card>
   )
@@ -163,22 +143,22 @@ const LineItem = ({
   quantity,
   stockCount,
   imageUrl,
-  removeProduct,
-  setProductQty,
   color = 'Navy',
   pSize = '2XL', // wouldn't work as `size`??
   noCanDosVille,
 }) => {
   // previously included logic if "0" was selected to remove product from basket, but all the sites don't have it and just offer bespoke delete button
-  const handleQtyChange = (e) => setProductQty(name, e.target.value)
+  const { bag } = useStore()
+
+  const handleQtyChange = (e) => bag.updateLineItemQty(name, e.target.value)
 
   const hasStock = Boolean(stockCount)
   const hasLowStock = hasStock && stockCount < 10
 
-  const handleRemoveClick = () => removeProduct(name)
+  const handleRemoveClick = () => bag.removeLineItem(name)
 
   return (
-    <Grid container spacing={spacing['products-summary']}>
+    <Grid container spacing={spacing['items-summary']}>
       <Grid item xs={3} sm={2.5}>
         <Img
           src={imageUrl}
@@ -283,11 +263,13 @@ const LineItem = ({
   )
 }
 
-const PaymentSummary = ({ products }) => {
+const PaymentSummary = () => {
+  const { bag } = useStore()
+
   const isMaxSm = useMediaQuery(isVPMaxSm)
 
-  const subtotal = products.reduce((acca, prod) => {
-    if (prod.stockCount) acca += prod.price * prod.quantity
+  const subtotal = bag.items.reduce((acca, item) => {
+    if (item.stockCount) acca += item.price * item.quantity
     return acca
   }, 0)
 

@@ -1,8 +1,8 @@
 import { Snackbar as MuiSnackbar } from '@mui/material'
 import { createContext, useContext, useState } from 'react'
 
-const snackbarContext = createContext()
-export const useSnackbar = () => useContext(snackbarContext)
+const context = createContext()
+export const useSnackbar = () => useContext(context)
 
 export const SnackbarProvider = (props) => {
   const [state, setSnackbar] = useState({
@@ -13,7 +13,7 @@ export const SnackbarProvider = (props) => {
   const closeSnackbar = () => setSnackbar((prev) => ({ ...prev, isOpen: false }))
   const openSnackbar = (message) => setSnackbar((prev) => ({ ...prev, isOpen: true, message }))
 
-  return <snackbarContext.Provider value={{ ...state, openSnackbar, closeSnackbar }} {...props} />
+  return <context.Provider value={{ ...state, openSnackbar, closeSnackbar }} {...props} />
 }
 
 export const Snackbar = () => {

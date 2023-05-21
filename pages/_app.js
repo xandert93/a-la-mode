@@ -1,6 +1,7 @@
 import { Header, Footer } from '@/components-layout'
 import { NAMES, PATHS } from '@/constants'
-import { SnackbarProvider, Snackbar } from '@/context/snackbar'
+import { StoreProvider } from '@/context/global-context'
+import { SnackbarProvider, Snackbar } from '@/context/snackbar-context'
 import { ThemeProvider } from '@/theming'
 
 import Head from 'next/head'
@@ -19,20 +20,22 @@ export default function App({ Component, pageProps }) {
           content="Menswear and Womenswear defined by fine tailoring and a quintessentially British style."
         />
       </Head>
-      {isAuthPage ? (
-        <ThemeProvider>
-          <Component {...pageProps} />
-        </ThemeProvider>
-      ) : (
-        <ThemeProvider>
-          {/* <Header /> */}
-          <SnackbarProvider>
+      <StoreProvider>
+        {isAuthPage ? (
+          <ThemeProvider>
             <Component {...pageProps} />
-            <Snackbar />
-          </SnackbarProvider>
-          {/* <Footer /> */}
-        </ThemeProvider>
-      )}
+          </ThemeProvider>
+        ) : (
+          <ThemeProvider>
+            <Header />
+            <SnackbarProvider>
+              <Component {...pageProps} />
+              <Snackbar />
+            </SnackbarProvider>
+            <Footer />
+          </ThemeProvider>
+        )}
+      </StoreProvider>
     </>
   )
 }

@@ -38,6 +38,7 @@ export {
   AccessTime as ClockIcon,
   PublishedWithChanges as ValidateIcon,
   RedeemOutlined as GiftIcon,
+  PersonOutline as AccountIcon,
 } from '@mui/icons-material'
 
 export { Img, Image, CoverImage, BackgroundVideo } from './Images'
