@@ -3,7 +3,7 @@ import { Box, Card, Grid, Typography } from '@mui/material'
 
 import { Link, HeartIcon, IconButton, Img, MoneyTypography } from '../../../../components'
 
-import { useToggle } from '@/hooks'
+import { useEffectOnMount, useToggle } from '@/hooks'
 
 import styles from './styles'
 import { isHoverable } from '@/theming'
@@ -77,10 +77,17 @@ const ColorCircle = ({ color }) => {
 const SaveButton = ({ product }) => {
   const wishList = useWishList()
 
-  const [isSaved, toggleSave] = useToggle()
+  const [isSaved, setIsSaved] = useState()
+
+  // JFN
+  useEffectOnMount(() => {
+    setIsSaved(
+      JSON.parse(localStorage.getItem('saved-items'))?.some((item) => item.name === product.name)
+    )
+  })
 
   const handleClick = async () => {
-    toggleSave() // will be an optimistic update
+    setIsSaved((prev) => !prev) // will be an optimistic update
     await wait(1)
     !isSaved ? wishList.addSavedItem(product) : wishList.removeSavedItem(product.name)
   }

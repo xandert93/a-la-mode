@@ -237,11 +237,7 @@ const newProducts = [
   },
 ]
 
-popularProducts.forEach((product) => {
-  product.slug = slugify(product.name)
-})
-
-newProducts.forEach((product) => {
+popularProducts.concat(newProducts).forEach((product) => {
   product.slug = slugify(product.name)
 })
 

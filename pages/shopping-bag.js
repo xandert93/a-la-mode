@@ -22,6 +22,7 @@ import {
 import { FooterPaymentMethods } from '@/components-layout/Footer/FooterPaymentMethods'
 import { NAMES } from '@/constants'
 import { useBag, useWishList } from '@/context/global-context'
+import { useEffectOnMount } from '@/hooks'
 import { isVPMaxSm } from '@/theming'
 import { wait } from '@/utils/helpers'
 
@@ -183,6 +184,14 @@ const LineItem = (lineItem) => {
   const wishList = useWishList()
 
   const [isSaved, setIsSaved] = useState(false)
+
+  // JFN
+  useEffectOnMount(() => {
+    setIsSaved(
+      JSON.parse(localStorage.getItem('saved-items'))?.some((item) => item.name === lineItem.name)
+    )
+  })
+
   const [isSaving, setIsSaving] = useState(false)
 
   const handleSaveClick = async () => {

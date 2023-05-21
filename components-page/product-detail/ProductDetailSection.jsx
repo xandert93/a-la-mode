@@ -13,6 +13,7 @@ import {
   Select,
 } from '@/components'
 import { useBag, useWishList } from '@/context/global-context'
+import { useEffectOnMount } from '@/hooks'
 import { isHoverable } from '@/theming'
 import { wait } from '@/utils/helpers'
 import {
@@ -97,6 +98,13 @@ const RHS = (product) => {
 
   const [isSaving, setIsSaving] = useState(false)
   const [isSaved, setIsSaved] = useState(false)
+
+  // JFN
+  useEffectOnMount(() => {
+    setIsSaved(
+      JSON.parse(localStorage.getItem('saved-items'))?.some((item) => item.name === product.name)
+    )
+  })
 
   const wishList = useWishList()
 
