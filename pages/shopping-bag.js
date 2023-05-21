@@ -157,7 +157,7 @@ const LineItem = ({
   const { bag } = useStore()
 
   const [qty, setQty] = useState(initialQuantity)
-  const [isUpdatingQty, setIsUpdatingQty] = useState(false)
+  const [isUpdatingQty, setIsUpdatingQty] = useState(false) // only need 1 piece of loading state for <Select> change or <RemoveItemButton> click, since with the <BlockingLoadingOverlay>, only 1 can happen at a time!
   const handleQtyChange = async (e) => {
     setIsUpdatingQty(true)
     await wait(2)
@@ -169,17 +169,17 @@ const LineItem = ({
   const hasStock = Boolean(stockCount)
   const hasLowStock = hasStock && stockCount < 10
 
-  const [isRemoving, setIsRemoving] = useState(false)
+  // blocking <LineItem> when being removed, cos user could make request to update quantity during
   const handleRemoveClick = async () => {
-    setIsRemoving(true)
+    setIsUpdatingQty(true)
     await wait(1)
     bag.removeLineItem(name)
-    setIsRemoving(false)
+    setIsUpdatingQty(false)
   }
 
   return (
     <Grid container spacing={spacing['items-summary']} sx={{ position: 'relative' }}>
-      {isUpdatingQty && <QtyUpdateOverlay />}
+      {isUpdatingQty && <BlockingLoadingOverlay />}
       <Grid item xs={3} sm={2.5}>
         <Img
           src={imageUrl}
@@ -233,10 +233,9 @@ const LineItem = ({
               />
             </Grid>
             <Grid item xs={12} sm={6}>
-              <LoadingButton
+              <Button
                 variant="outlined"
                 startIcon={<DeleteIcon />}
-                isLoading={isRemoving}
                 onClick={handleRemoveClick}
                 children="Remove"
                 fullWidth
@@ -262,7 +261,7 @@ const LineItem = ({
               onChange={handleQtyChange}
               required={false}
               fullWidth={false}
-              disabled={isUpdatingQty || noCanDosVille} // something like this
+              disabled={isUpdatingQty || noCanDosVille} // something like this, but obvs not ideal
             >
               {[...Array(stockCount > 9 ? 9 : stockCount).keys()].map((index) => (
                 <MenuItem key={index} value={index + 1} children={index + 1} /> // netter way to do this lol?
@@ -285,7 +284,7 @@ const LineItem = ({
   )
 }
 
-const QtyUpdateOverlay = () => {
+const BlockingLoadingOverlay = () => {
   // JFN - very, very rough. Effect like this not bad.
   return (
     <Box
