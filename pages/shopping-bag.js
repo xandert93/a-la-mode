@@ -9,7 +9,7 @@ import {
   DeleteIcon,
   MoneyTypography,
   ReceiptIcon,
-  ShoppingBagIcon,
+  ShoppingBagIconOutlined,
   ClockIcon,
   ValidateIcon,
   HeartIconOutlined,
@@ -17,10 +17,11 @@ import {
   IconTypography,
   LoadingButton,
   FacebookCircularProgress,
+  HeartIcon,
 } from '@/components'
 import { FooterPaymentMethods } from '@/components-layout/Footer/FooterPaymentMethods'
 import { NAMES } from '@/constants'
-import { useStore } from '@/context/global-context'
+import { useBag, useWishList } from '@/context/global-context'
 import { isVPMaxSm } from '@/theming'
 import { wait } from '@/utils/helpers'
 
@@ -47,7 +48,7 @@ import { useState } from 'react'
 
 // inspired by M&S shopping bag. Still more to copy: https://www.marksandspencer.com/webapp/wcs/stores/servlet/OrderCalculate?calculationUsageIdentifier=MSBasketView_ShoppingCartURL&calculationUsageId=-1&updatePrices=1&catalogId=&errorViewName=AjaxOrderItemDisplayView&orderId=.&langId=-24&storeId=10151&doPrice=Y&URL=AjaxOrderItemDisplayView&intid=pdpnav_atb-ack-modal_checkout-button
 export default function ShoppingBagPage() {
-  const { bag } = useStore()
+  const bag = useBag()
 
   const hasLineItems = Boolean(bag.itemCount)
 
@@ -80,7 +81,7 @@ const spacing = {
 }
 
 const LineItemsSummary = () => {
-  const { bag } = useStore()
+  const bag = useBag()
 
   const isMaxSm = useMediaQuery(isVPMaxSm)
 
@@ -89,7 +90,7 @@ const LineItemsSummary = () => {
       <Grid container alignItems="center" spacing={spacing['items-summary']}>
         <Grid item xs={12} sm={7.5}>
           <IconTypography
-            Icon={ShoppingBagIcon}
+            Icon={ShoppingBagIconOutlined}
             component="h2"
             variant="h6"
             children={`My Bag (${bag.itemCount})`}
@@ -142,21 +143,23 @@ const LineItemsSummary = () => {
   )
 }
 
-const LineItem = ({
-  name,
-  slug,
-  price,
-  qty: initialQuantity,
-  stockCount, // *** I don't think this should be here - instead it should be fetched and then checked against maybe via a graphQL api that returns [{id: '...', quantity: ___}]
-  imageUrl,
-  color = 'Navy',
-  pSize = '2XL', // wouldn't work as `size`??
-  noCanDosVille,
-}) => {
-  // previously included logic if "0" was selected to remove product from basket, but all the sites don't have it and just offer bespoke delete button
-  const { bag } = useStore()
+const LineItem = (lineItem) => {
+  const {
+    name,
+    slug,
+    price,
+    qty: initialQty,
+    stockCount, // *** I don't think this should be here - instead it should be fetched and then checked against maybe via a graphQL api that returns [{id: '...', quantity: ___}]
+    imageUrl,
+    color = 'Navy',
+    pSize = '2XL', // wouldn't work as `size`??
+    noCanDosVille,
+  } = lineItem
 
-  const [qty, setQty] = useState(initialQuantity)
+  // previously included logic if "0" was selected to remove product from basket, but all the sites don't have it and just offer bespoke delete button
+  const bag = useBag()
+
+  const [qty, setQty] = useState(initialQty)
   const [isUpdatingQty, setIsUpdatingQty] = useState(false) // only need 1 piece of loading state for <Select> change or <RemoveItemButton> click, since with the <BlockingLoadingOverlay>, only 1 can happen at a time!
   const handleQtyChange = async (e) => {
     setIsUpdatingQty(true)
@@ -172,9 +175,23 @@ const LineItem = ({
   // blocking <LineItem> when being removed, cos user could make request to update quantity during
   const handleRemoveClick = async () => {
     setIsUpdatingQty(true)
-    await wait(1)
+    await wait(1.5)
     bag.removeLineItem(name)
     setIsUpdatingQty(false)
+  }
+
+  const wishList = useWishList()
+
+  const [isSaved, setIsSaved] = useState(false)
+  const [isSaving, setIsSaving] = useState(false)
+
+  const handleSaveClick = async () => {
+    setIsSaving(true)
+    await wait(1.5)
+    !isSaved ? wishList.addSavedItemFromBag(lineItem) : wishList.removeSavedItem(name)
+    setIsSaved((prev) => !prev)
+
+    setIsSaving(false)
   }
 
   return (
@@ -225,10 +242,13 @@ const LineItem = ({
           )}
           <Grid container spacing={2}>
             <Grid item xs={12} sm={6}>
-              <Button
+              <LoadingButton
+                // since there are quite a few "save" buttons around app, could make single component. but gonna refrain #RootOfAllEvil
                 variant="outlined"
-                startIcon={<HeartIconOutlined />}
-                children="Save"
+                startIcon={!isSaved ? <HeartIconOutlined /> : <HeartIcon />}
+                onClick={handleSaveClick}
+                isLoading={isSaving}
+                children={!isSaved ? 'Save' : 'Saved'}
                 fullWidth
               />
             </Grid>
@@ -302,7 +322,7 @@ const BlockingLoadingOverlay = () => {
 }
 
 const PaymentSummary = () => {
-  const { bag } = useStore()
+  const bag = useBag()
 
   const isMaxSm = useMediaQuery(isVPMaxSm)
 

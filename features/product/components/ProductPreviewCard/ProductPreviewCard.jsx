@@ -7,16 +7,12 @@ import { useToggle } from '@/hooks'
 
 import styles from './styles'
 import { isHoverable } from '@/theming'
+import { useWishList } from '@/context/global-context'
+import { wait } from '@/utils/helpers'
 
-export const ProductPreviewCard = ({
-  id,
-  slug,
-  name,
-  prices,
-  imageUrls,
-  href,
-  colors = ['black', 'navy', '#c5c285'],
-}) => {
+export const ProductPreviewCard = (product) => {
+  const { id, slug, name, prices, imageUrls, href, colors = ['black', 'navy', '#c5c285'] } = product
+
   return (
     <Card component="article" elevation={0} sx={styles.root}>
       <Link href={'/' + slug} sx={{ [isHoverable]: { p: 1.5 } }}>
@@ -39,7 +35,7 @@ export const ProductPreviewCard = ({
           </Grid>
         </Grid>
       </Link>
-      <LikeButton />
+      <SaveButton product={product} />
     </Card>
   )
 }
@@ -78,15 +74,23 @@ const ColorCircle = ({ color }) => {
   return <Box sx={styles['color-circle'](color)} />
 }
 
-const LikeButton = () => {
-  const [isLiked, toggleLike] = useToggle()
+const SaveButton = ({ product }) => {
+  const wishList = useWishList()
+
+  const [isSaved, toggleSave] = useToggle()
+
+  const handleClick = async () => {
+    toggleSave() // will be an optimistic update
+    await wait(1)
+    !isSaved ? wishList.addSavedItem(product) : wishList.removeSavedItem(product.name)
+  }
 
   return (
     <IconButton
-      sx={styles['like-button'](isLiked)}
-      onClick={toggleLike}
-      aria-label="Add product to your wish list">
-      <HeartIcon sx={styles.icon(isLiked)} />
+      onClick={handleClick}
+      sx={styles['save-button'](isSaved)}
+      aria-label="Add product to your Wish List">
+      <HeartIcon sx={styles.icon(isSaved)} />
     </IconButton>
   )
 }

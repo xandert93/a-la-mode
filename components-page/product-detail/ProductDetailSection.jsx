@@ -12,7 +12,7 @@ import {
   MoneyTypography,
   Select,
 } from '@/components'
-import { useStore } from '@/context/global-context'
+import { useBag, useWishList } from '@/context/global-context'
 import { isHoverable } from '@/theming'
 import { wait } from '@/utils/helpers'
 import {
@@ -78,7 +78,7 @@ const RHS = (product) => {
   const { name, prices, rating, description, features, stockCount, lastPurchasedAt, createdAt } =
     product
 
-  const { bag } = useStore()
+  const bag = useBag()
 
   const hasStock = Boolean(stockCount)
   const hasLowStock = stockCount < 10
@@ -98,9 +98,12 @@ const RHS = (product) => {
   const [isSaving, setIsSaving] = useState(false)
   const [isSaved, setIsSaved] = useState(false)
 
+  const wishList = useWishList()
+
   const toggleSave = async () => {
     setIsSaving(true)
-    await wait(1)
+    await wait(2)
+    !isSaved ? wishList.addSavedItem(product) : wishList.removeSavedItem(name)
     setIsSaved((prev) => !prev)
     setIsSaving(false)
   }
@@ -276,7 +279,7 @@ const RHS = (product) => {
             isLoading={isSaving}
             onClick={toggleSave}
             endIcon={isSaved ? <HeartIcon /> : <HeartIconOutlined />}
-            children={isSaved ? 'Saved' : 'Add to Wish List'}
+            children={isSaved ? 'Saved' : 'Save for later'}
             fullWidth
             sx={{ py: '13.5px' }} // hacky, but to match <Select>
           />

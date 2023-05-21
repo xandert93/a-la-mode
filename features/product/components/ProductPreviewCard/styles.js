@@ -12,13 +12,13 @@ export const styles = {
     },
   },
 
-  'like-button': (isLiked) => ({
+  'save-button': (isSaved) => ({
     position: 'absolute',
     p: {
       xs: 0.75, // default of `1` looks a bit crap on xs
       lg: 1,
     },
-    backgroundColor: ({ palette }) => alpha(palette.primary.main, isLiked ? 0 : 0.5),
+    backgroundColor: ({ palette }) => alpha(palette.primary.main, isSaved ? 0 : 0.5),
 
     top: '5px',
     right: '5px',
@@ -35,9 +35,9 @@ export const styles = {
     transition: ({ transitions }) => transitions.create('transform'),
   }),
 
-  icon: (isLiked) => ({
+  icon: (isSaved) => ({
     stroke: 'white', // border
-    fill: ({ palette }) => (isLiked ? palette.primary.main : 'transparent'), // background-color
+    fill: ({ palette }) => (isSaved ? palette.primary.main : 'transparent'), // background-color
   }),
 
   'image-box': {

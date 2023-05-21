@@ -1,11 +1,19 @@
-import { Link, IconButton, HeartIconOutlined, ShoppingBagIcon, AccountIcon } from '@/components'
+import {
+  Link,
+  IconButton,
+  HeartIconOutlined,
+  ShoppingBagIconOutlined,
+  AccountIcon,
+  ShoppingBagIcon,
+  HeartIcon,
+} from '@/components'
 import { isVPMinLg } from '@/theming'
 import { Badge, Grid, useMediaQuery } from '@mui/material'
 import { MobileHeaderSearchButton } from './MobileHeaderSearchButton'
 import { HeaderSearchForm } from './HeaderSearchForm'
 import { PATHS } from '@/constants'
 
-import { useStore } from '@/context/global-context'
+import { useBag, useWishList } from '@/context/global-context'
 
 export const HeaderActions = () => {
   const isMinLg = useMediaQuery(isVPMinLg)
@@ -22,7 +30,7 @@ export const HeaderActions = () => {
       <IconButton
         component={Link}
         href={PATHS.WISH_LIST}
-        children={<HeartIconOutlined />}
+        children={<WishListIconBadge />}
         aria-label="Visit Wish List Page"
       />
       <IconButton
@@ -35,8 +43,18 @@ export const HeaderActions = () => {
   )
 }
 
-const ShoppingBagIconBadge = () => {
-  const { itemCount } = useStore().bag
+const WishListIconBadge = () => {
+  const { itemCount } = useWishList()
 
-  return <Badge color="secondary" badgeContent={itemCount} children={<ShoppingBagIcon />} />
+  const Icon = itemCount ? HeartIcon : HeartIconOutlined
+
+  return <Badge color="secondary" badgeContent={itemCount} children={<Icon />} />
+}
+
+const ShoppingBagIconBadge = () => {
+  const { itemCount } = useBag()
+
+  const Icon = itemCount ? ShoppingBagIcon : ShoppingBagIconOutlined
+
+  return <Badge color="secondary" badgeContent={itemCount} children={<Icon />} />
 }

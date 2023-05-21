@@ -249,14 +249,17 @@ newProducts.forEach((product) => {
 
 export { popularProducts, newProducts }
 
-// stripped `product` suitable for FE <ShoppingBag> display
+// create temporary stripped `product` suitable for FE <ShoppingBag> display. This will come from DB in reality.
 export const genLineItem = (product, qty) => ({
   name: product.name,
   slug: product.slug,
   price: product.prices.current,
-  size: '',
   imageUrl: product.imageUrls[0],
-  qty: qty,
+  // determined by client:
+  color: '',
+  size: '',
+  qty,
+  // *** don't think this belongs and should instead be fetched:
   stockCount: product.stockCount,
 })
 
