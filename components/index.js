@@ -53,3 +53,5 @@ export { Link, TextLink } from './Links'
 export { Checkbox, CheckboxGroup, Select, Radio, RadioGroup } from './Inputs'
 
 export { GradientTypography, MoneyTypography, IconTypography } from './Typographies'
+
+export { FacebookCircularProgress } from './Loaders'

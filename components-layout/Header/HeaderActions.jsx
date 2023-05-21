@@ -38,17 +38,5 @@ export const HeaderActions = () => {
 const ShoppingBagIconBadge = () => {
   const { itemCount } = useStore().bag
 
-  return (
-    <Badge
-      color="secondary"
-      badgeContent={itemCount} // badge now auto-hides if badgeContent === 0
-      children={<ShoppingBagIcon />}
-    />
-  )
-}
-
-const defaultProps = {
-  variant: 'standard',
-  overlap: 'rectangular',
-  anchorOrigin: { vertical: 'top', horizontal: 'right' },
+  return <Badge color="secondary" badgeContent={itemCount} children={<ShoppingBagIcon />} />
 }

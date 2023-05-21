@@ -250,17 +250,15 @@ newProducts.forEach((product) => {
 export { popularProducts, newProducts }
 
 // stripped `product` suitable for FE <ShoppingBag> display
-export const genLineItem = (product, qty = 2) => ({
+export const genLineItem = (product, qty) => ({
   name: product.name,
   slug: product.slug,
   price: product.prices.current,
   size: '',
   imageUrl: product.imageUrls[0],
-  quantity: qty,
+  qty: qty,
   stockCount: product.stockCount,
 })
-
-export const bagProducts = popularProducts.slice(0, 4).map((prod) => genLineItem(prod))
 
 // additional product review fields: productId, reviewer._id
 export const productReviews = [

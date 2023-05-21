@@ -15,12 +15,14 @@ import {
   HeartIconOutlined,
   Select,
   IconTypography,
+  LoadingButton,
+  FacebookCircularProgress,
 } from '@/components'
 import { FooterPaymentMethods } from '@/components-layout/Footer/FooterPaymentMethods'
 import { NAMES } from '@/constants'
 import { useStore } from '@/context/global-context'
-import { bagProducts } from '@/data'
 import { isVPMaxSm } from '@/theming'
+import { wait } from '@/utils/helpers'
 
 import {
   Box,
@@ -34,6 +36,10 @@ import {
   useMediaQuery,
   accordionSummaryClasses,
   MenuItem,
+  CircularProgress,
+  CircularProgressProps,
+  alpha,
+  circularProgressClasses,
 } from '@mui/material'
 import Head from 'next/head'
 import Link from 'next/link'
@@ -102,7 +108,7 @@ const LineItemsSummary = () => {
       </Grid>
       <Grid container direction="column" rowGap={4} mt={4}>
         {bag.items.map((item, index, self) => {
-          if (item.stockCount >= item.quantity)
+          if (item.stockCount >= item.qty)
             return (
               <>
                 <LineItem key={item.name} {...item} />
@@ -122,12 +128,12 @@ const LineItemsSummary = () => {
         <Divider />
         Sorry, stock issues...removed from 📃 (will code later 👍):
         {bag.items.map((item) => {
-          if (item.stockCount < item.quantity)
+          if (item.stockCount < item.qty)
             return (
               // done it this way because the customer may have quantity of 5 saved to basket, but now there might only be 4 available
-              // so thus, customer should be able to adjust quantity
+              // so thus, customer should be able to adjust qty
               // point is, stock issues means the inability to meet customer's original demand - not just "out of stock"
-              // should add message saying "You wanted ${quantity} but there is now only ${stockCount}".
+              // should add message saying "You wanted ${qty} but there is now only ${stockCount}".
               <LineItem key={item.name} {...item} noCanDosVille />
             )
         })} */}
@@ -140,8 +146,8 @@ const LineItem = ({
   name,
   slug,
   price,
-  quantity,
-  stockCount,
+  qty: initialQuantity,
+  stockCount, // *** I don't think this should be here - instead it should be fetched and then checked against maybe via a graphQL api that returns [{id: '...', quantity: ___}]
   imageUrl,
   color = 'Navy',
   pSize = '2XL', // wouldn't work as `size`??
@@ -150,15 +156,30 @@ const LineItem = ({
   // previously included logic if "0" was selected to remove product from basket, but all the sites don't have it and just offer bespoke delete button
   const { bag } = useStore()
 
-  const handleQtyChange = (e) => bag.updateLineItemQty(name, e.target.value)
+  const [qty, setQty] = useState(initialQuantity)
+  const [isUpdatingQty, setIsUpdatingQty] = useState(false)
+  const handleQtyChange = async (e) => {
+    setIsUpdatingQty(true)
+    await wait(2)
+    setQty(e.target.value)
+    bag.updateLineItemQty(name, e.target.value)
+    setIsUpdatingQty(false)
+  }
 
   const hasStock = Boolean(stockCount)
   const hasLowStock = hasStock && stockCount < 10
 
-  const handleRemoveClick = () => bag.removeLineItem(name)
+  const [isRemoving, setIsRemoving] = useState(false)
+  const handleRemoveClick = async () => {
+    setIsRemoving(true)
+    await wait(1)
+    bag.removeLineItem(name)
+    setIsRemoving(false)
+  }
 
   return (
-    <Grid container spacing={spacing['items-summary']}>
+    <Grid container spacing={spacing['items-summary']} sx={{ position: 'relative' }}>
+      {isUpdatingQty && <QtyUpdateOverlay />}
       <Grid item xs={3} sm={2.5}>
         <Img
           src={imageUrl}
@@ -212,9 +233,10 @@ const LineItem = ({
               />
             </Grid>
             <Grid item xs={12} sm={6}>
-              <Button
+              <LoadingButton
                 variant="outlined"
                 startIcon={<DeleteIcon />}
+                isLoading={isRemoving}
                 onClick={handleRemoveClick}
                 children="Remove"
                 fullWidth
@@ -236,11 +258,11 @@ const LineItem = ({
             <Select
               size="small"
               label="Qty"
-              defaultValue={quantity}
+              value={qty}
               onChange={handleQtyChange}
               required={false}
               fullWidth={false}
-              disabled={noCanDosVille} // something like this
+              disabled={isUpdatingQty || noCanDosVille} // something like this
             >
               {[...Array(stockCount > 9 ? 9 : stockCount).keys()].map((index) => (
                 <MenuItem key={index} value={index + 1} children={index + 1} /> // netter way to do this lol?
@@ -249,7 +271,7 @@ const LineItem = ({
           </Grid>
           <Grid item sx={{ display: { xs: 'none', sm: 'initial' } }} sm={4}>
             <MoneyTypography
-              children={price * quantity}
+              children={price * qty}
               fontWeight={500}
               sx={{
                 textDecoration: noCanDosVille && 'line-through', // JFN
@@ -263,13 +285,30 @@ const LineItem = ({
   )
 }
 
+const QtyUpdateOverlay = () => {
+  // JFN - very, very rough. Effect like this not bad.
+  return (
+    <Box
+      ml={{ xs: 1, md: 3 }} // just to accommodate for my crappy grid config
+      sx={(theme) => ({
+        ...theme.mixins.absCover,
+        borderRadius: 1,
+        bgcolor: ({ palette }) => alpha(palette.background.default, 0.7),
+      })}>
+      <Box sx={(theme) => theme.mixins.absCenter}>
+        <CircularProgress thickness={4} size={32} />
+      </Box>
+    </Box>
+  )
+}
+
 const PaymentSummary = () => {
   const { bag } = useStore()
 
   const isMaxSm = useMediaQuery(isVPMaxSm)
 
   const subtotal = bag.items.reduce((acca, item) => {
-    if (item.stockCount) acca += item.price * item.quantity
+    if (item.stockCount) acca += item.price * item.qty
     return acca
   }, 0)
 

@@ -86,23 +86,23 @@ const RHS = (product) => {
   const [qty, setQty] = useState(1)
   const handleQtyChange = (e) => setQty(e.target.value)
 
-  const [isRequesting, setIsRequesting] = useState(false)
+  const [isAdding, setIsAdding] = useState(false)
   const handleAddToBagClick = async () => {
-    setIsRequesting(true)
+    setIsAdding(true)
     await wait(1)
     // success toast
     bag.addLineItem(product, qty)
-    setIsRequesting(false)
+    setIsAdding(false)
   }
 
-  const [isRequesting2, setIsRequesting2] = useState(false)
-  const [isLiked, setIsLiked] = useState(false)
+  const [isSaving, setIsSaving] = useState(false)
+  const [isSaved, setIsSaved] = useState(false)
 
   const toggleSave = async () => {
-    setIsRequesting2(true)
+    setIsSaving(true)
     await wait(1)
-    setIsLiked((prev) => !prev)
-    setIsRequesting2(false)
+    setIsSaved((prev) => !prev)
+    setIsSaving(false)
   }
 
   return (
@@ -256,7 +256,7 @@ const RHS = (product) => {
             <Grid item xs={12} sm={10}>
               <LoadingButton
                 variant="contained"
-                isLoading={isRequesting}
+                isLoading={isAdding}
                 onClick={handleAddToBagClick}
                 children="Add to Bag"
                 fullWidth
@@ -273,10 +273,10 @@ const RHS = (product) => {
           }>
           <LoadingButton
             variant="contained"
-            isLoading={isRequesting2}
+            isLoading={isSaving}
             onClick={toggleSave}
-            endIcon={isLiked ? <HeartIcon /> : <HeartIconOutlined />}
-            children={isLiked ? 'Saved' : 'Add to Wish List'}
+            endIcon={isSaved ? <HeartIcon /> : <HeartIconOutlined />}
+            children={isSaved ? 'Saved' : 'Add to Wish List'}
             fullWidth
             sx={{ py: '13.5px' }} // hacky, but to match <Select>
           />
