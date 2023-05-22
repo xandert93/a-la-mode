@@ -7,7 +7,6 @@ export {
   heroItems,
   newProducts,
   popularProducts,
-  bagProducts,
   productReviews,
   blogArticles,
   paymentMethods,

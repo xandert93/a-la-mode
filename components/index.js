@@ -33,6 +33,7 @@ export {
   LocalShippingOutlined as DeliveryIcon,
   ArrowForward as ArrowForwardIcon,
   DeleteOutlined as DeleteIcon,
+  Clear as ClearIcon,
   Approval as ApproveIcon,
   ShoppingBag as ShoppingBagIcon,
   ShoppingBagOutlined as ShoppingBagIconOutlined,

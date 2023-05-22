@@ -241,7 +241,7 @@ popularProducts.concat(newProducts).forEach((product) => {
   product.slug = slugify(product.name)
 })
 
-// additional product fields: productId, priceId, tags/categories, sizes (?), colours (?)
+// additional product fields: productId, priceId, tags/categories (for filtering), sizes (?), colours (?)
 
 export { popularProducts, newProducts }
 
@@ -255,6 +255,7 @@ export const genLineItem = (product, qty) => ({
   color: 'Navy',
   size: 'M',
   qty,
+  isSaved: false, // JFN
   // *** don't think this belongs and should instead be fetched:
   stockCount: product.stockCount,
 })

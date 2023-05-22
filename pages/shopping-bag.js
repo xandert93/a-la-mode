@@ -16,7 +16,6 @@ import {
   Select,
   IconTypography,
   LoadingButton,
-  FacebookCircularProgress,
   HeartIcon,
 } from '@/components'
 import { FooterPaymentMethods } from '@/components-layout/Footer/FooterPaymentMethods'
@@ -40,9 +39,7 @@ import {
   accordionSummaryClasses,
   MenuItem,
   CircularProgress,
-  CircularProgressProps,
   alpha,
-  circularProgressClasses,
 } from '@mui/material'
 import Head from 'next/head'
 import Link from 'next/link'
@@ -114,8 +111,8 @@ const LineItemsSummary = () => {
           if (item.stockCount >= item.qty)
             return (
               <>
-                <LineItem key={item.name} {...item} />
-                {/* better way to do this 👇 - raw CSS with border-bottom on LineItem or use MUI's <List> or something which offers `divider` prop? */}
+                <BagLineItem key={item.name} {...item} />
+                {/* better way to do this 👇 - raw CSS with border-bottom on BagLineItem or use MUI's <List> or something which offers `divider` prop? */}
                 {index !== self.length - 1 && (
                   <Divider
                     sx={{
@@ -137,7 +134,7 @@ const LineItemsSummary = () => {
               // so thus, customer should be able to adjust qty
               // point is, stock issues means the inability to meet customer's original demand - not just "out of stock"
               // should add message saying "You wanted ${qty} but there is now only ${stockCount}".
-              <LineItem key={item.name} {...item} noCanDosVille />
+              <BagLineItem key={item.name} {...item} hasInsufficientStock />
             )
         })} */}
       </Grid>
@@ -146,7 +143,8 @@ const LineItemsSummary = () => {
 }
 
 // A line item represents a line in an order, containing details such as the product, quantity, and price for each line of an order
-const LineItem = (lineItem) => {
+// Later on, on orders page, we might have <OrderLineItem> (which won't include <Remove>, <Select>, <Hurry> and will have <Cancel> etc.). Hence <BagLineItem> here.
+const BagLineItem = (lineItem) => {
   const {
     name,
     slug,
@@ -155,18 +153,105 @@ const LineItem = (lineItem) => {
     imageUrl,
     color,
     size,
-    qty: initialQty,
-    noCanDosVille,
+    qty,
+    hasInsufficientStock,
   } = lineItem
 
   // previously included logic if "0" was selected to remove product from basket, but all the sites don't have it and just offer bespoke delete button
 
-  const snackbar = useSnackbar()
+  const [isUpdatingQty, setIsUpdatingQty] = useState(false) // only need 1 piece of loading state for <Select> change or <RemoveItemButton> click, since with the <BlockingLoadingOverlay>, only 1 can happen at a time!
 
+  // blocking <BagLineItem> when being removed, cos user could make request to update quantity during
+
+  return (
+    <Grid container spacing={spacing['items-summary']} sx={{ position: 'relative' }}>
+      {isUpdatingQty && <BlockingLoadingOverlay />}
+      <Grid item xs={3} sm={2.5}>
+        <LineItemImage src={imageUrl} />
+      </Grid>
+      <Grid item xs={6.5} sm={5}>
+        <LineItemDetails {...{ name, slug, color, size, stockCount }} />
+      </Grid>
+      <Grid item xs={2.5} sm={4.5} alignSelf="flex-start">
+        <LineItemDemands
+          {...{ price, stockCount, qty, isUpdatingQty, setIsUpdatingQty, hasInsufficientStock }}
+        />
+      </Grid>
+
+      <Grid item container justifyContent="space-between">
+        <SaveLineItemButton lineItem={lineItem} />
+        <RemoveLineItemButton {...{ name, setIsUpdatingQty }} />
+      </Grid>
+    </Grid>
+  )
+}
+
+const LineItemImage = (props) => {
+  return (
+    <Img
+      sx={{
+        width: '100%',
+        aspectRatio: '4/5', // for electronics/music 1:1 better, but clothing should probs have more height than width
+        objectFit: 'cover',
+        borderRadius: 1,
+      }}
+      {...props}
+    />
+  )
+}
+
+const LineItemDetails = ({ name, slug, color, size, stockCount }) => {
+  const hasStock = Boolean(stockCount)
+  const hasLowStock = hasStock && stockCount < 10
+
+  return (
+    <Grid container direction="column" gap={{ xs: 1.5, sm: 2, md: 2.5 }}>
+      <Typography
+        children={name}
+        letterSpacing={-0.5}
+        fontWeight={500}
+        component={Link}
+        href={'/' + slug}
+      />
+      <Grid container direction="column" rowGap={0.5}>
+        <Typography variant="body2" fontWeight={500}>
+          Color:{' '}
+          <Typography variant="body2" component="span">
+            {color}
+          </Typography>
+        </Typography>
+        <Typography variant="body2" fontWeight={500}>
+          Size:{' '}
+          <Typography variant="body2" component="span">
+            {size}
+          </Typography>
+        </Typography>
+      </Grid>
+      {hasLowStock && (
+        <IconTypography
+          Icon={ClockIcon}
+          color="red"
+          children={`Hurry! Only ${stockCount} left`}
+          letterSpacing={-0.5}
+          fontWeight={500}
+        />
+      )}
+    </Grid>
+  )
+}
+
+const LineItemDemands = ({
+  price,
+  stockCount,
+  qty: initialQty,
+  isUpdatingQty,
+  setIsUpdatingQty,
+  hasInsufficientStock,
+}) => {
   const bag = useBag()
 
   const [qty, setQty] = useState(initialQty)
-  const [isUpdatingQty, setIsUpdatingQty] = useState(false) // only need 1 piece of loading state for <Select> change or <RemoveItemButton> click, since with the <BlockingLoadingOverlay>, only 1 can happen at a time!
+
   const handleQtyChange = async (e) => {
     setIsUpdatingQty(true)
     await wait(2)
@@ -175,20 +260,51 @@ const LineItem = (lineItem) => {
     setIsUpdatingQty(false)
   }
 
-  const hasStock = Boolean(stockCount)
-  const hasLowStock = hasStock && stockCount < 10
+  return (
+    <Grid
+      container
+      flexDirection={{ xs: 'column', sm: 'row' }}
+      alignItems="center"
+      rowSpacing={2} // for when it wraps on xs
+    >
+      <Grid item sx={{ display: { xs: 'none', sm: 'initial' } }} sm={4}>
+        <MoneyTypography children={price} />
+      </Grid>
+      <Grid item xs={12} sm={4}>
+        <Select
+          size="small"
+          label="Qty"
+          value={qty}
+          onChange={handleQtyChange}
+          required={false}
+          fullWidth={false}
+          disabled={isUpdatingQty || hasInsufficientStock} // something like this, but obvs not ideal
+        >
+          {[...Array(stockCount > 9 ? 9 : stockCount).keys()].map((index) => (
+            <MenuItem key={index} value={index + 1} children={index + 1} /> // netter way to do this lol?
+          ))}
+        </Select>
+      </Grid>
+      <Grid item xs={12} sm={4}>
+        <MoneyTypography
+          children={price * qty}
+          fontWeight={500}
+          sx={{
+            textDecoration: hasInsufficientStock && 'line-through', // JFN
+            color: hasInsufficientStock && 'text.disabled', // JFN
+          }}
+        />
+      </Grid>
+    </Grid>
+  )
+}
 
-  // blocking <LineItem> when being removed, cos user could make request to update quantity during
-  const handleRemoveClick = async () => {
-    setIsUpdatingQty(true)
-    await wait(1.5)
-    bag.removeLineItem(name)
-    setIsUpdatingQty(false)
-  }
-
+const SaveLineItemButton = ({ lineItem }) => {
   const wishList = useWishList()
+  const snackbar = useSnackbar()
 
-  const [isSaved, setIsSaved] = useState(false)
+  const [isSaved, setIsSaved] = useState(lineItem.isSaved)
+  const [isSaving, setIsSaving] = useState(false)
 
   // JFN
   useEffectOnMount(() => {
@@ -197,124 +313,48 @@ const LineItem = (lineItem) => {
     )
   })
 
-  const [isSaving, setIsSaving] = useState(false)
-
   const handleSaveClick = async () => {
     setIsSaving(true)
     await wait(1.5)
-    !isSaved ? wishList.addSavedItemFromBag(lineItem) : wishList.removeSavedItem(name)
+    !isSaved ? wishList.addSavedItemFromBag(lineItem) : wishList.removeSavedItem(lineItem.name)
     setIsSaved((prev) => !prev)
     snackbar.success('Saved ♥')
     setIsSaving(false)
   }
 
   return (
-    <Grid container spacing={spacing['items-summary']} sx={{ position: 'relative' }}>
-      {isUpdatingQty && <BlockingLoadingOverlay />}
-      <Grid item xs={3} sm={2.5}>
-        <Img
-          src={imageUrl}
-          sx={{
-            width: '100%',
-            aspectRatio: '4/5', // for electronics/music 1:1 better, but clothing should probs have more height than width
-            objectFit: 'cover',
-            borderRadius: 1,
-          }}
-        />
-      </Grid>
-      <Grid item xs={6.5} sm={5}>
-        <Grid container direction="column" gap={{ xs: 1.5, sm: 2, md: 2.5 }}>
-          <Typography
-            children={name}
-            letterSpacing={-0.5}
-            fontWeight={500}
-            component={Link}
-            href={'/' + slug}
-          />
-          <Grid container direction="column" rowGap={0.5}>
-            <Typography variant="body2" fontWeight={500}>
-              Color:{' '}
-              <Typography variant="body2" component="span">
-                {color}
-              </Typography>
-            </Typography>
-            <Typography variant="body2" fontWeight={500}>
-              Size:{' '}
-              <Typography variant="body2" component="span">
-                {size}
-              </Typography>
-            </Typography>
-          </Grid>
-          {hasLowStock && (
-            <IconTypography
-              Icon={ClockIcon}
-              color="red"
-              children={`Hurry! Only ${stockCount} left`}
-              letterSpacing={-0.5}
-              fontWeight={500}
-            />
-          )}
-          <Grid container spacing={2}>
-            <Grid item xs={12} sm={6}>
-              <LoadingButton
-                // since there are quite a few "save" buttons around app, could make single component. but gonna refrain #RootOfAllEvil
-                variant="outlined"
-                startIcon={!isSaved ? <HeartIconOutlined /> : <HeartIcon />}
-                onClick={handleSaveClick}
-                isLoading={isSaving}
-                children={!isSaved ? 'Save' : 'Saved'}
-                fullWidth
-              />
-            </Grid>
-            <Grid item xs={12} sm={6}>
-              <Button
-                variant="outlined"
-                startIcon={<DeleteIcon />}
-                onClick={handleRemoveClick}
-                children="Remove"
-                fullWidth
-              />
-            </Grid>
-          </Grid>
-        </Grid>
-      </Grid>
-      <Grid item xs={2.5} sm={4.5} alignSelf="flex-start">
-        <Grid
-          container
-          alignItems="center"
-          rowSpacing={2} // for when it wraps on xs
-        >
-          <Grid item xs={12} sm={4}>
-            <MoneyTypography children={price} />
-          </Grid>
-          <Grid item xs={12} sm={4}>
-            <Select
-              size="small"
-              label="Qty"
-              value={qty}
-              onChange={handleQtyChange}
-              required={false}
-              fullWidth={false}
-              disabled={isUpdatingQty || noCanDosVille} // something like this, but obvs not ideal
-            >
-              {[...Array(stockCount > 9 ? 9 : stockCount).keys()].map((index) => (
-                <MenuItem key={index} value={index + 1} children={index + 1} /> // netter way to do this lol?
-              ))}
-            </Select>
-          </Grid>
-          <Grid item sx={{ display: { xs: 'none', sm: 'initial' } }} sm={4}>
-            <MoneyTypography
-              children={price * qty}
-              fontWeight={500}
-              sx={{
-                textDecoration: noCanDosVille && 'line-through', // JFN
-                color: noCanDosVille && 'text.disabled', // JFN
-              }}
-            />
-          </Grid>
-        </Grid>
-      </Grid>
-    </Grid>
+    <LoadingButton
+      // since there are quite a few "save" buttons around app, could make single component. but gonna refrain #RootOfAllEvil
+      variant="outlined"
+      startIcon={!isSaved ? <HeartIconOutlined /> : <HeartIcon />}
+      onClick={handleSaveClick}
+      isLoading={isSaving}
+      children={!isSaved ? 'Save' : 'Saved'}
+      sx={{ minWidth: '13ch' }} // JFN, but I want same width on both
+    />
+  )
+}
+
+const RemoveLineItemButton = ({ name, setIsUpdatingQty }) => {
+  const bag = useBag()
+
+  // probably should have confirmation modal cos of a) accidental click and b) make customer rethink (⬆ conversion)
+  const handleClick = async () => {
+    setIsUpdatingQty(true)
+    await wait(1.5)
+    bag.removeLineItem(name)
+    setIsUpdatingQty(false)
+  }
+
+  return (
+    <Button
+      variant="outlined"
+      color="secondary"
+      startIcon={<DeleteIcon />}
+      onClick={handleClick}
+      children="Remove"
+      sx={{ minWidth: '13ch' }} // JFN, but I want same width on both
+    />
   )
 }
 

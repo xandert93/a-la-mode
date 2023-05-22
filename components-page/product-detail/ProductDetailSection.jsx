@@ -316,7 +316,7 @@ const RHS = (product) => {
         />
         <IconButton
           children={<InformationIcon />}
-          onClick // see M&S - open modal displaying shipping data
+          onClick={() => {}} // see M&S - open modal displaying shipping data
         />
       </Grid>
     </Grid>
