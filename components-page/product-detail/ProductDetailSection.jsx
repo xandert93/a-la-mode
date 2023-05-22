@@ -13,6 +13,7 @@ import {
   Select,
 } from '@/components'
 import { useBag, useWishList } from '@/context/global-context'
+import { useSnackbar } from '@/context/snackbar-context'
 import { useEffectOnMount } from '@/hooks'
 import { isHoverable } from '@/theming'
 import { wait } from '@/utils/helpers'
@@ -79,10 +80,11 @@ const RHS = (product) => {
   const { name, prices, rating, description, features, stockCount, lastPurchasedAt, createdAt } =
     product
 
-  const bag = useBag()
-
   const hasStock = Boolean(stockCount)
   const hasLowStock = stockCount < 10
+
+  const bag = useBag()
+  const snackbar = useSnackbar()
 
   const [qty, setQty] = useState(1)
   const handleQtyChange = (e) => setQty(e.target.value)
@@ -91,8 +93,8 @@ const RHS = (product) => {
   const handleAddToBagClick = async () => {
     setIsAdding(true)
     await wait(1)
-    // success toast
     bag.addLineItem(product, qty)
+    snackbar.success('Added to Bag!')
     setIsAdding(false)
   }
 
@@ -112,6 +114,7 @@ const RHS = (product) => {
     setIsSaving(true)
     await wait(2)
     !isSaved ? wishList.addSavedItem(product) : wishList.removeSavedItem(name)
+    !isSaved && snackbar.success('Saved ♥')
     setIsSaved((prev) => !prev)
     setIsSaving(false)
   }
@@ -241,6 +244,7 @@ const RHS = (product) => {
       <Grid container columnGap={1.5}>
         <Img
           src="/images/popular-star.gif"
+          alt="Popular Star GIF"
           height="40px"
           bgcolor="secondary.main"
           borderRadius="50%"
@@ -461,6 +465,7 @@ const ImageStack = ({ imageUrls, changeImage, imageIndex }) => {
                 aspectRatio: '1/1',
                 objectFit: 'cover',
               }}
+              alt="Product Image Preview" // JFN
             />
           </Box>
         </Grid>

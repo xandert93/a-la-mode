@@ -14,6 +14,7 @@ export {
   Place as LocationIcon,
   Phone as TelephoneIcon,
   Email as EmailIcon,
+  MarkEmailRead as EmailSuccessIcon,
   ArrowLeft as ArrowLeftIcon,
   ArrowRight as ArrowRightIcon,
   Send as SendIcon,

@@ -3,9 +3,9 @@ import { Box, Button, CircularProgress } from '@mui/material'
 
 import styles from './styles'
 
-export const LoadingButton = ({ children, sx, isLoading, ...props }) => {
+export const LoadingButton = ({ children, sx, disabled, isLoading, ...props }) => {
   return (
-    <Button sx={[styles.root, sx]} disabled={isLoading} {...props}>
+    <Button sx={[styles.root, sx]} disabled={disabled || isLoading} {...props}>
       {children}
       {isLoading && (
         <Box sx={styles['progress-box']}>

@@ -22,6 +22,7 @@ import {
 import { FooterPaymentMethods } from '@/components-layout/Footer/FooterPaymentMethods'
 import { NAMES } from '@/constants'
 import { useBag, useWishList } from '@/context/global-context'
+import { useSnackbar } from '@/context/snackbar-context'
 import { useEffectOnMount } from '@/hooks'
 import { isVPMaxSm } from '@/theming'
 import { wait } from '@/utils/helpers'
@@ -144,20 +145,24 @@ const LineItemsSummary = () => {
   )
 }
 
+// A line item represents a line in an order, containing details such as the product, quantity, and price for each line of an order
 const LineItem = (lineItem) => {
   const {
     name,
     slug,
     price,
-    qty: initialQty,
     stockCount, // *** I don't think this should be here - instead it should be fetched and then checked against maybe via a graphQL api that returns [{id: '...', quantity: ___}]
     imageUrl,
-    color = 'Navy',
-    pSize = '2XL', // wouldn't work as `size`??
+    color,
+    size,
+    qty: initialQty,
     noCanDosVille,
   } = lineItem
 
   // previously included logic if "0" was selected to remove product from basket, but all the sites don't have it and just offer bespoke delete button
+
+  const snackbar = useSnackbar()
+
   const bag = useBag()
 
   const [qty, setQty] = useState(initialQty)
@@ -199,7 +204,7 @@ const LineItem = (lineItem) => {
     await wait(1.5)
     !isSaved ? wishList.addSavedItemFromBag(lineItem) : wishList.removeSavedItem(name)
     setIsSaved((prev) => !prev)
-
+    snackbar.success('Saved ♥')
     setIsSaving(false)
   }
 
@@ -236,7 +241,7 @@ const LineItem = (lineItem) => {
             <Typography variant="body2" fontWeight={500}>
               Size:{' '}
               <Typography variant="body2" component="span">
-                {pSize}
+                {size}
               </Typography>
             </Typography>
           </Grid>

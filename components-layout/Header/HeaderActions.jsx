@@ -28,8 +28,8 @@ export const HeaderActions = () => {
         aria-label="See Account"
       />
       <IconButton
-        component={Link}
-        href={PATHS.WISH_LIST}
+        // component={Link}
+        // href={PATHS.WISH_LIST}
         children={<WishListIconBadge />}
         aria-label="Visit Wish List Page"
       />

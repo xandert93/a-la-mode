@@ -1,10 +1,17 @@
 import { useState } from 'react'
 
 import { Card, Grid, MenuItem, TextField, Typography } from '@mui/material'
-import { CoverImage, Form, Section, LoadingButton, Select } from '@/components'
+import {
+  CoverImage,
+  Form,
+  Section,
+  LoadingButton,
+  Select,
+  EmailIcon,
+  EmailSuccessIcon,
+} from '@/components'
 
 import { wait } from '@/utils/helpers'
-import { MarkEmailRead } from '@mui/icons-material'
 
 import styles from './styles'
 
@@ -53,10 +60,13 @@ const Subscription = () => {
 
 const SubscriptionForm = () => {
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const [errMessage, setErrMessage] = useState('')
+  const [isSubscribed, setIsSubscribed] = useState(false)
 
   const handleSubmit = async () => {
     setIsSubmitting(true)
-    await wait(5)
+    await wait(2)
+    setIsSubscribed(true)
     setIsSubmitting(false)
   }
 
@@ -82,12 +92,23 @@ const SubscriptionForm = () => {
           variant="contained"
           size="large"
           isLoading={isSubmitting}
-          children="Subscribe"
-          endIcon={<MarkEmailRead />}
+          disabled={isSubscribed}
+          children={isSubscribed ? '' : 'Subscribe'}
+          endIcon={isSubscribed ? <EmailSuccessIcon /> : <EmailIcon />}
           fullWidth
           sx={styles['submit-button']}
         />
       </Grid>
+      {/* JFN 👇, but atm, on md+, because of abrupt mount, form gets longer and thus so does side image: */}
+      {isSubscribed && (
+        <Grid item xs={12}>
+          <Typography
+            color="success.main"
+            children="Subscribed ✔. Please check your inbox 😄"
+            align="center"
+          />
+        </Grid>
+      )}
     </Grid>
   )
 }

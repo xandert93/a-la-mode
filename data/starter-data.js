@@ -252,8 +252,8 @@ export const genLineItem = (product, qty) => ({
   price: product.prices.current,
   imageUrl: product.imageUrls[0],
   // determined by client:
-  color: '',
-  size: '',
+  color: 'Navy',
+  size: 'M',
   qty,
   // *** don't think this belongs and should instead be fetched:
   stockCount: product.stockCount,

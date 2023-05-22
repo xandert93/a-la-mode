@@ -9,6 +9,7 @@ import styles from './styles'
 import { isHoverable } from '@/theming'
 import { useWishList } from '@/context/global-context'
 import { wait } from '@/utils/helpers'
+import { useSnackbar } from '@/context/snackbar-context'
 
 export const ProductPreviewCard = (product) => {
   const { id, slug, name, prices, imageUrls, href, colors = ['black', 'navy', '#c5c285'] } = product
@@ -75,6 +76,7 @@ const ColorCircle = ({ color }) => {
 }
 
 const SaveButton = ({ product }) => {
+  const snackbar = useSnackbar()
   const wishList = useWishList()
 
   const [isSaved, setIsSaved] = useState()
@@ -89,6 +91,7 @@ const SaveButton = ({ product }) => {
   const handleClick = async () => {
     setIsSaved((prev) => !prev) // will be an optimistic update
     await wait(1)
+    snackbar.success('Saved ♥')
     !isSaved ? wishList.addSavedItem(product) : wishList.removeSavedItem(product.name)
   }
 
