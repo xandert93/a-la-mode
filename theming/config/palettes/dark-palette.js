@@ -5,6 +5,12 @@ const { palette } = createMuiTheme({
   palette: {
     mode: 'dark',
 
+    text: {
+      primary: '#e8e6d5',
+      secondary: '#bab9af',
+      tertiary: red[100],
+    },
+
     primary: {
       touch: red[100],
       main: red[500],
@@ -19,8 +25,9 @@ const { palette } = createMuiTheme({
       dark: yellow[700],
     },
 
-    text: {
-      primary: '#e9e8de',
+    background: {
+      default: '#121212', // default
+      paper: '#121212', // default
     },
   },
 })

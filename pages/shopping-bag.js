@@ -9,21 +9,19 @@ import {
   DeleteIcon,
   MoneyTypography,
   ReceiptIcon,
-  ShoppingBagIconOutlined,
-  ClockIcon,
   ValidateIcon,
   HeartIconOutlined,
   Select,
   IconTypography,
   LoadingButton,
   HeartIcon,
+  ShoppingBagIcon,
 } from '@/components'
 import { FooterPaymentMethods } from '@/components-layout/Footer/FooterPaymentMethods'
 import { NAMES } from '@/constants'
 import { useBag, useWishList } from '@/context/global-context'
 import { useSnackbar } from '@/context/snackbar-context'
 import { useEffectOnMount } from '@/hooks'
-import { isVPMaxSm } from '@/theming'
 import { wait } from '@/utils/helpers'
 
 import {
@@ -34,16 +32,23 @@ import {
   Typography,
   TextField,
   IconButton,
-  Card,
-  useMediaQuery,
   accordionSummaryClasses,
   MenuItem,
   CircularProgress,
   alpha,
+  Paper,
 } from '@mui/material'
 import Head from 'next/head'
 import Link from 'next/link'
 import { useState } from 'react'
+
+const stylez = {
+  paper: {
+    p: { xs: 2, sm: 3, md: 2.5 },
+    borderRadius: { xs: 0, sm: 1 },
+    boxShadow: 2,
+  },
+}
 
 // inspired by M&S shopping bag. Still more to copy: https://www.marksandspencer.com/webapp/wcs/stores/servlet/OrderCalculate?calculationUsageIdentifier=MSBasketView_ShoppingCartURL&calculationUsageId=-1&updatePrices=1&catalogId=&errorViewName=AjaxOrderItemDisplayView&orderId=.&langId=-24&storeId=10151&doPrice=Y&URL=AjaxOrderItemDisplayView&intid=pdpnav_atb-ack-modal_checkout-button
 export default function ShoppingBagPage() {
@@ -54,20 +59,23 @@ export default function ShoppingBagPage() {
   return (
     <>
       <Head>
-        <title children={`Shopping Bag | ${NAMES.COMPANY}`} />
+        <title children={`Your Bag | ${NAMES.COMPANY}`} />
       </Head>
 
       {hasLineItems ? (
-        <Section maxWidth="lg" sx={{ pt: 2 }}>
-          <Grid container spacing={{ xs: 4, md: 2 }}>
-            <Grid item xs={12} md={8}>
-              <LineItemsSummary />
+        <Box bgcolor={({ palette }) => alpha(palette.primary.main, 0.15)}>
+          <Section maxWidth="lg" sx={{ p: { xs: 0, sm: 2 } }}>
+            <Grid container spacing={{ xs: 1, md: 2 }}>
+              <Grid item xs={12} md={8}>
+                <LineItemsSummaryHeader />
+                <LineItemList />
+              </Grid>
+              <Grid item xs={12} md={4}>
+                <PaymentSummary />
+              </Grid>
             </Grid>
-            <Grid item xs={12} md={4}>
-              <PaymentSummary />
-            </Grid>
-          </Grid>
-        </Section>
+          </Section>
+        </Box>
       ) : (
         'Empty bag bitch'
       )}
@@ -79,66 +87,76 @@ const spacing = {
   'items-summary': { xs: 1.5, sm: 2, md: 3 },
 }
 
-const LineItemsSummary = () => {
-  const bag = useBag()
+const lineItemDemandsAlignment = 'right'
+const lineItemDemandsColumnSpacing = 3
 
-  const isMaxSm = useMediaQuery(isVPMaxSm)
-
+const LineItemsSummaryHeader = () => {
   return (
-    <Card elevation={isMaxSm ? 0 : 8} sx={{ p: { xs: 0, md: 2 } }}>
+    <Paper sx={stylez.paper}>
       <Grid container alignItems="center" spacing={spacing['items-summary']}>
         <Grid item xs={12} sm={7.5}>
-          <IconTypography
-            Icon={ShoppingBagIconOutlined}
-            component="h2"
-            variant="h6"
-            children={`My Bag (${bag.itemCount})`}
-          />
+          <BagHeading />
         </Grid>
         <Grid item sx={{ display: { xs: 'none', sm: 'initial' } }} sm={4.5}>
-          <Grid container justifyContent="flex-end">
-            <Grid item sm={4}>
-              <Typography variant="body2" children="Quantity" />
-            </Grid>
-            <Grid item sm={4}>
-              <Typography variant="body2" children="Subtotal" />
-            </Grid>
-          </Grid>
+          <DemandsHeadings />
         </Grid>
       </Grid>
-      <Grid container direction="column" rowGap={4} mt={4}>
-        {bag.items.map((item, index, self) => {
-          if (item.stockCount >= item.qty)
-            return (
-              <>
-                <BagLineItem key={item.name} {...item} />
-                {/* better way to do this 👇 - raw CSS with border-bottom on BagLineItem or use MUI's <List> or something which offers `divider` prop? */}
-                {index !== self.length - 1 && (
-                  <Divider
-                    sx={{
-                      // border: '1px solid',
-                      borderColor: 'primary.main', // horizontal <Divider> returns <hr>. 🔥 CSS border is used to style it: https://www.w3schools.com/howto/howto_css_style_hr.asp
-                    }}
-                  />
-                )}
-              </>
-            )
-        })}
-        {/* 
-        <Divider />
-        Sorry, stock issues...removed from 📃 (will code later 👍):
-        {bag.items.map((item) => {
-          if (item.stockCount < item.qty)
-            return (
-              // done it this way because the customer may have quantity of 5 saved to basket, but now there might only be 4 available
-              // so thus, customer should be able to adjust qty
-              // point is, stock issues means the inability to meet customer's original demand - not just "out of stock"
-              // should add message saying "You wanted ${qty} but there is now only ${stockCount}".
-              <BagLineItem key={item.name} {...item} hasInsufficientStock />
-            )
-        })} */}
+    </Paper>
+  )
+}
+
+const BagHeading = () => {
+  const bag = useBag()
+
+  return (
+    <IconTypography Icon={ShoppingBagIcon} component="h2" variant="h6" color="text.tertiary">
+      Your Bag{' '}
+      <Typography component="span" variant="inherit" fontWeight={400}>
+        ({bag.itemCount})
+      </Typography>
+    </IconTypography>
+  )
+}
+
+const DemandsHeadings = () => {
+  return (
+    <Grid
+      container
+      justifyContent="flex-end"
+      textAlign={lineItemDemandsAlignment}
+      columnSpacing={lineItemDemandsColumnSpacing}>
+      <Grid item sm={4}>
+        <Typography variant="body2" children="Quantity" fontWeight={500} />
       </Grid>
-    </Card>
+      <Grid item sm={4}>
+        <Typography variant="body2" children="Subtotal" fontWeight={500} />
+      </Grid>
+    </Grid>
+  )
+}
+
+const LineItemList = () => {
+  const bag = useBag()
+
+  return (
+    <Grid container direction="column" rowGap={{ xs: 0.25, sm: 1 }} mt={{ xs: 0.25, sm: 1 }}>
+      {bag.items.map((item) => {
+        if (item.stockCount >= item.qty) return <BagLineItem key={item.name} {...item} />
+      })}
+      {/* 
+  <Divider />
+  Sorry, stock issues...removed from 📃 (will code later 👍):
+  {bag.items.map((item) => {
+    if (item.stockCount < item.qty)
+      return (
+        // done it this way because the customer may have quantity of 5 saved to basket, but now there might only be 4 available
+        // so thus, customer should be able to adjust qty
+        // point is, stock issues means the inability to meet customer's original demand - not just "out of stock"
+        // should add message saying "You wanted ${qty} but there is now only ${stockCount}".
+        <BagLineItem key={item.name} {...item} hasInsufficientStock />
+      )
+  })} */}
+    </Grid>
   )
 }
 
@@ -164,25 +182,35 @@ const BagLineItem = (lineItem) => {
   // blocking <BagLineItem> when being removed, cos user could make request to update quantity during
 
   return (
-    <Grid container spacing={spacing['items-summary']} sx={{ position: 'relative' }}>
-      {isUpdatingQty && <BlockingLoadingOverlay />}
-      <Grid item xs={3} sm={2.5}>
-        <LineItemImage src={imageUrl} />
-      </Grid>
-      <Grid item xs={6.5} sm={5}>
-        <LineItemDetails {...{ name, slug, color, size, stockCount }} />
-      </Grid>
-      <Grid item xs={2.5} sm={4.5} alignSelf="flex-start">
-        <LineItemDemands
-          {...{ price, stockCount, qty, isUpdatingQty, setIsUpdatingQty, hasInsufficientStock }}
-        />
-      </Grid>
+    <Paper sx={[stylez.paper, { py: { xs: 3 } }]}>
+      <Grid container spacing={spacing['items-summary']} sx={{ position: 'relative' }}>
+        {isUpdatingQty && <BlockingLoadingOverlay />}
+        <Grid item xs={3} sm={2.5}>
+          <LineItemImage src={imageUrl} />
+        </Grid>
+        <Grid item xs={6.5} sm={5}>
+          <LineItemDetails {...{ name, slug, color, size, stockCount }} />
+        </Grid>
+        <Grid item xs={2.5} sm={4.5}>
+          <LineItemDemands
+            {...{
+              name,
+              price,
+              stockCount,
+              qty,
+              isUpdatingQty,
+              setIsUpdatingQty,
+              hasInsufficientStock,
+            }}
+          />
+        </Grid>
 
-      <Grid item container justifyContent="space-between">
-        <SaveLineItemButton lineItem={lineItem} />
-        <RemoveLineItemButton {...{ name, setIsUpdatingQty }} />
+        <Grid item container justifyContent="space-between">
+          <SaveLineItemButton lineItem={lineItem} />
+          <RemoveLineItemButton {...{ name, setIsUpdatingQty }} />
+        </Grid>
       </Grid>
-    </Grid>
+    </Paper>
   )
 }
 
@@ -191,7 +219,7 @@ const LineItemImage = (props) => {
     <Img
       sx={{
         width: '100%',
-        aspectRatio: '4/5', // for electronics/music 1:1 better, but clothing should probs have more height than width
+        aspectRatio: '9/10', // for electronics/music 1:1 better, but clothing should probs have more height than width
         objectFit: 'cover',
         borderRadius: 1,
       }}
@@ -205,15 +233,15 @@ const LineItemDetails = ({ name, slug, color, size, stockCount }) => {
   const hasLowStock = hasStock && stockCount < 10
 
   return (
-    <Grid container direction="column" gap={{ xs: 1.5, sm: 2, md: 2.5 }}>
+    <Grid container direction="column" gap={{ xs: 1.5, lg: 2 }}>
       <Typography
         children={name}
         letterSpacing={-0.5}
         fontWeight={500}
-        component={Link}
+        // component={Link}
         href={'/' + slug}
       />
-      <Grid container direction="column" rowGap={0.5}>
+      <Grid container direction="column" rowGap={0.5} color="text.secondary">
         <Typography variant="body2" fontWeight={500}>
           Color:{' '}
           <Typography variant="body2" component="span">
@@ -226,21 +254,22 @@ const LineItemDetails = ({ name, slug, color, size, stockCount }) => {
             {size}
           </Typography>
         </Typography>
+        <Typography variant="body2" fontWeight={500}>
+          Availability:{' '}
+          <Typography
+            component="span"
+            variant="inherit"
+            color={hasLowStock ? 'red' : 'success.main'}
+            children={hasLowStock ? `only ${stockCount} left` : 'in stock ✔'}
+          />
+        </Typography>
       </Grid>
-      {hasLowStock && (
-        <IconTypography
-          Icon={ClockIcon}
-          color="red"
-          children={`Hurry! Only ${stockCount} left`}
-          letterSpacing={-0.5}
-          fontWeight={500}
-        />
-      )}
     </Grid>
   )
 }
 
 const LineItemDemands = ({
+  name,
   price,
   stockCount,
   qty: initialQty,
@@ -263,12 +292,12 @@ const LineItemDemands = ({
   return (
     <Grid
       container
-      flexDirection={{ xs: 'column', sm: 'row' }}
       alignItems="center"
+      columnSpacing={lineItemDemandsColumnSpacing}
       rowSpacing={2} // for when it wraps on xs
-    >
+      textAlign={lineItemDemandsAlignment}>
       <Grid item sx={{ display: { xs: 'none', sm: 'initial' } }} sm={4}>
-        <MoneyTypography children={price} />
+        <MoneyTypography variant="body2" children={price} />
       </Grid>
       <Grid item xs={12} sm={4}>
         <Select
@@ -287,6 +316,7 @@ const LineItemDemands = ({
       </Grid>
       <Grid item xs={12} sm={4}>
         <MoneyTypography
+          variant="body2"
           children={price * qty}
           fontWeight={500}
           sx={{
@@ -318,7 +348,7 @@ const SaveLineItemButton = ({ lineItem }) => {
     await wait(1.5)
     !isSaved ? wishList.addSavedItemFromBag(lineItem) : wishList.removeSavedItem(lineItem.name)
     setIsSaved((prev) => !prev)
-    snackbar.success('Saved ♥')
+    !isSaved && snackbar.success('Saved ♥')
     setIsSaving(false)
   }
 
@@ -349,7 +379,6 @@ const RemoveLineItemButton = ({ name, setIsUpdatingQty }) => {
   return (
     <Button
       variant="outlined"
-      color="secondary"
       startIcon={<DeleteIcon />}
       onClick={handleClick}
       children="Remove"
@@ -378,8 +407,6 @@ const BlockingLoadingOverlay = () => {
 const PaymentSummary = () => {
   const bag = useBag()
 
-  const isMaxSm = useMediaQuery(isVPMaxSm)
-
   const subtotal = bag.items.reduce((acca, item) => {
     if (item.stockCount) acca += item.price * item.qty
     return acca
@@ -389,25 +416,34 @@ const PaymentSummary = () => {
   const hasFreeDelivery = freeDeliveryOffset <= 0
 
   const deliveryCost = hasFreeDelivery ? 0 : 499
+  const tax = 0
 
-  const total = subtotal + deliveryCost
+  const total = subtotal + deliveryCost + tax
 
   return (
-    <Card elevation={isMaxSm ? 0 : 8} sx={{ p: { xs: 1, md: 3 } }}>
+    <Paper sx={stylez.paper}>
       <Grid container direction="column" rowGap={3}>
         <Grid container direction="column" rowGap={2}>
-          <IconTypography component="h2" variant="h6" children="Summary" Icon={ReceiptIcon} />
+          <IconTypography
+            component="h2"
+            variant="h6"
+            children="Summary"
+            Icon={ReceiptIcon}
+            color="text.tertiary"
+          />
           <Divider
             sx={{
               borderColor: 'primary.main', // horizontal <Divider> returns <hr>. 🔥 CSS border is used to style it: https://www.w3schools.com/howto/howto_css_style_hr.asp
             }}
           />
           <Grid container direction="column" rowGap={0.5}>
-            <CostRow title="Subtotal" amount={subtotal} />
+            <CostRow variant="body2" title="Subtotal" amount={subtotal} />
             <CostRow
+              variant="body2"
               title={`Delivery ${hasFreeDelivery ? '(Free)' : ''}`}
               amount={hasFreeDelivery ? 0 : 499}
             />
+            <CostRow variant="body2" title="Tax" amount={tax} />
           </Grid>
           <Divider
             sx={{
@@ -428,7 +464,7 @@ const PaymentSummary = () => {
             pl={2}
             pr={1} // JFN - since <IconButton> already has padding applied
             borderRadius={1} // use paper/card instead?
-            color="primary.dark">
+          >
             <DeliveryIcon />
             <Typography
               variant="body2"
@@ -463,7 +499,7 @@ const PaymentSummary = () => {
           />
         </Box>
       </Grid>
-    </Card>
+    </Paper>
   )
 }
 
@@ -488,9 +524,7 @@ const DiscountCodeAccordion = () => {
     <Accordion
       disableGutters
       elevation={0}
-      title={
-        <Typography variant="body2" color="primary.dark" children="Do you have a voucher code?" />
-      }
+      title={<Typography variant="body2" children="Do you have a voucher code?" />}
       sx={styles}>
       <Grid
         pt={2}

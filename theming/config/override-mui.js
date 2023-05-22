@@ -42,6 +42,12 @@ export const overrideMui = (palette) => ({
     },
   },
 
+  MuiPaper: {
+    defaultProps: {
+      elevation: 0,
+    },
+  },
+
   MuiCard: {
     defaultProps: {
       elevation: 0,

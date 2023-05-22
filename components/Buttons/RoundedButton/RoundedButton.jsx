@@ -1,19 +1,19 @@
-import { Button } from '@material-ui/core';
-import clsx from 'clsx';
-import { forwardRef } from 'react';
-import useStyles from './styles';
+import { Button } from '@mui/material'
+import { forwardRef } from 'react'
 
-export const RoundedButton = forwardRef(({ className, ...props }, ref) => {
-  const classes = useStyles();
+const styles = {
+  borderRadius: 8,
+}
 
+export const RoundedButton = forwardRef(({ sx, ...props }, ref) => {
   return (
     <Button
       ref={ref} // 1
-      className={clsx(className, classes['rounded-button'])}
+      sx={[styles, sx]}
       {...props}
     />
-  );
-});
+  )
+})
 
 /*
 1) Transition component wants it to hold a ref

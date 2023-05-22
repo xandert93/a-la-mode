@@ -20,7 +20,7 @@ export const Header = () => {
 
   return (
     <Slide appear={false} in={!isScrolledDown} timeout={{ enter: 250, exit: 500 }}>
-      <Appbar position="sticky" elevation={8}>
+      <Appbar position="sticky" elevation={2}>
         <PromotionBanner />
         <Toolbar>
           <Grid container justifyContent="space-between" alignItems="center">

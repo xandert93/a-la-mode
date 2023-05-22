@@ -1,1 +1,1 @@
-export { RoundedButton } from './RoundedButton';
+export { RoundedButton } from './RoundedButton'

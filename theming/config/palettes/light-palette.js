@@ -5,6 +5,10 @@ const { palette } = createTheme({
   palette: {
     mode: 'light',
 
+    text: {
+      tertiary: brown[700],
+    },
+
     primary: {
       main: brown[300], // light brown
       touch: brown[50],
@@ -17,6 +21,11 @@ const { palette } = createTheme({
 
     tertiary: {
       main: '#7A2048', // maroon
+    },
+
+    background: {
+      background: '#fff', // default
+      paper: '#fff', // default
     },
   },
 })
