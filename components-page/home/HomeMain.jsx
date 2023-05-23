@@ -11,8 +11,8 @@ const styles = {
   },
 }
 
-export const HomeMain = (props) => {
-  return <Main sx={styles} {...props} />
+export const HomeMain = ({ sx, ...props }) => {
+  return <Main sx={[styles, sx]} {...props} />
 }
 
 HomeMain.propTypes = {

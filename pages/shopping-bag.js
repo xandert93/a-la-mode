@@ -57,7 +57,7 @@ import { forwardRef, useState } from 'react'
 
 /*
 🤔 
-Also must consider a situation where a product's stockCount has decreased on database (courtesy 
+Also must consider a situation where a product's stock.count has decreased on database (courtesy 
 of another client) while in the client's basket. 
 
 When we fetch the client's basket, we therefore need to split line items whose stock demands cannot be 
@@ -67,7 +67,7 @@ now out of stock).
 
 For insufficient stock line items, we could do something like this: 
 
-  lineItems.map(item => item.stockCount < item.qty && <BagLineItem {...item} insufficientStock/>)
+  lineItems.map(item => item.stock.count < item.qty && <BagLineItem {...item} insufficientStock/>)
 
 Or even better, when we could get the server to do the splitting, so that it returns a basket of: 
 
@@ -250,7 +250,7 @@ const BagLineItem = (lineItem) => {
     name,
     slug,
     price,
-    stockCount, // *** I don't think this should be here - instead it should be fetched and then checked against maybe via a graphQL api that returns [{id: '...', quantity: ___}]
+    stock,
     imageUrl,
     color,
     size,
@@ -271,14 +271,14 @@ const BagLineItem = (lineItem) => {
           <LineItemImage src={imageUrl} />
         </Grid>
         <Grid item xs={6.5} sm={5}>
-          <LineItemDetails {...{ name, slug, color, size, stockCount }} />
+          <LineItemDetails {...{ name, slug, color, size, stock }} />
         </Grid>
         <Grid item xs={2.5} sm={4.5}>
           <LineItemDemands
             {...{
               name,
               price,
-              stockCount,
+              stock,
               qty,
               isUpdatingQty,
               setIsUpdatingQty,
@@ -311,10 +311,7 @@ const LineItemImage = (props) => {
   return <Img sx={styles.lineItem.image} {...props} />
 }
 
-const LineItemDetails = ({ name, slug, color, size, stockCount }) => {
-  const hasStock = Boolean(stockCount)
-  const hasLowStock = hasStock && stockCount < 10
-
+const LineItemDetails = ({ name, slug, color, size, stock }) => {
   return (
     <Grid container direction="column" gap={{ xs: 1.5, lg: 2 }}>
       <TextLink href={'/' + slug} children={name} letterSpacing={-0.5} fontWeight={500} />
@@ -328,9 +325,9 @@ const LineItemDetails = ({ name, slug, color, size, stockCount }) => {
         <Typography variant="body2" fontWeight={500}>
           Availability:{' '}
           <Span
-            color={hasLowStock ? 'red' : 'success.main'}
-            children={hasLowStock ? `only ${stockCount} left` : 'in stock ✔'}
-            fontWeight={hasLowStock ? 500 : 400}
+            color={stock.isLow ? 'red' : 'success.main'}
+            children={stock.isLow ? `only ${stock.count} left` : 'in stock ✔'}
+            fontWeight={stock.isLow ? 500 : 400}
           />
         </Typography>
       </Grid>
@@ -341,7 +338,7 @@ const LineItemDetails = ({ name, slug, color, size, stockCount }) => {
 const LineItemDemands = ({
   name,
   price,
-  stockCount,
+  stock,
   qty: initialQty,
   isUpdatingQty,
   setIsUpdatingQty,
@@ -358,6 +355,8 @@ const LineItemDemands = ({
     bag.updateLineItemQty(name, e.target.value)
     setIsUpdatingQty(false)
   }
+
+  console.log(stock)
 
   return (
     <Grid
@@ -378,7 +377,7 @@ const LineItemDemands = ({
           fullWidth={false}
           disabled={isUpdatingQty || hasInsufficientStock} // something like this, but obviously not ideal
         >
-          {[...Array(stockCount > 9 ? 9 : stockCount).keys()].map((index) => (
+          {[...Array(stock.count > 9 ? 9 : stock.count).keys()].map((index) => (
             <MenuItem key={index} value={index + 1} children={index + 1} /> // better way to do this lol?
           ))}
         </Select>
@@ -417,7 +416,7 @@ const SaveLineItemButton = ({ lineItem }) => {
     await wait(1.5)
     !isSaved ? wishList.addSavedItemFromBag(lineItem) : wishList.removeSavedItem(lineItem.name)
     setIsSaved((prev) => !prev)
-    !isSaved && snackbar.success('Saved ♥')
+    !isSaved && snackbar.success('Saved')
     setIsSaving(false)
   }
 

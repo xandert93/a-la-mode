@@ -34,8 +34,11 @@ export const FreeDeliveryAlert = () => {
   }
 
   return (
-    /*  JFN 👇 might delete. Also has bug of negative delivery offset being displayed while exiting */
-    <Collapse in={Boolean(bag.costs.delivery)}>
+    /* *** JFN 👇 might delete. Also has bug of negative delivery offset being displayed while exiting */
+    <Collapse
+      in={Boolean(bag.costs.delivery)}
+      unmountOnExit // if false this, its very smooth, but there is extra space at its original location (?) and with, there's very slight juddery layout shift (probably cos of row-gap)...
+    >
       <Paper elevation={1} sx={styles.root}>
         <Grid container wrap="nowrap" alignItems="center" columnGap={3}>
           <DeliveryIcon />
@@ -51,12 +54,14 @@ export const FreeDeliveryAlert = () => {
               to qualify for <Span children="FREE Standard Delivery." fontWeight={500} />
             </Typography>
             <TextLink variant="body2" href={PATHS.HOME} children="< Continue Shopping" hover />
-            <TextLink
-              variant="body2"
-              href={PATHS.WISH_LIST}
-              children={`< Saved Items (${wishList.itemCount})`}
-              hover
-            />
+            {wishList.hasItems && (
+              <TextLink
+                variant="body2"
+                href={PATHS.WISH_LIST}
+                children={`< Saved Items (${wishList.itemCount})`}
+                hover
+              />
+            )}
           </Grid>
           <IconButton
             onClick={handleActionClick}

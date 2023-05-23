@@ -1,8 +1,11 @@
-import { Main } from '@/components'
-import { ProductDetailSection, ProductReviewsSection } from '@/components-page/product-detail'
+import { HomeMain } from '@/components-page/home'
+import {
+  ProductDetailSection,
+  ProductReviewsSection,
+  RecommendedProductsSection,
+} from '@/components-page/product'
 import { NAMES } from '@/constants'
 import { newProducts, popularProducts } from '@/data'
-import { Breadcrumbs, Typography } from '@mui/material'
 
 import Head from 'next/head'
 
@@ -31,9 +34,19 @@ export const getStaticProps = (context) => {
   return { props: product }
 }
 
-export default function ProductDetailPage(product) {
-  // Nike made each a <input:radio> (interesting). But all sites seemed to perform a HTTP request each time a size was picked. Something to explore and revisit later.
+/*
+Add breadcrumbs eventually:
 
+  <Breadcrumbs
+     children={['Link 1', 'Link 2', 'Link 3'].map((l) => (
+  // https://mui.com/material-ui/react-breadcrumbs/:
+     <Typography key={l} children={l} />
+     ))}
+  />
+
+*/
+
+export default function ProductPage(product) {
   return (
     <>
       <Head>
@@ -45,23 +58,15 @@ export default function ProductDetailPage(product) {
           content={product.description} // *** accurate use?
         />
       </Head>
-      <Breadcrumbs
-        children={['Link 1', 'Link 2', 'Link 3'].map((l) => (
-          // https://mui.com/material-ui/react-breadcrumbs/:
-          <Typography key={l} children={l} />
-        ))}
-      />
-      <Main rowGap={5}>
+
+      {/* JFN - just extending <HomeMain>. Once I've built more pages and see the pattern, perhaps create <AuthMain> and <Main> */}
+      <HomeMain sx={{ '> :first-child': { mt: { xs: 2, md: 3 } } }}>
         <ProductDetailSection {...product} />
-        {/* <RecommendedProductsSection />
-        <ProductReviewsSection /> */}
-      </Main>
+        <ProductReviewsSection />
+        <RecommendedProductsSection />
+      </HomeMain>
     </>
   )
-}
-
-const RecommendedProductsSection = () => {
-  return null
 }
 
 // "shop the look"."wear it with" section? See M&S: https://www.marksandspencer.com/linen-blend-hawaiian-floral-shirt/p/clp60580705#intid=pid_pg1pip48g4r1c1

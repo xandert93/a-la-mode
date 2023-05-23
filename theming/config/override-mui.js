@@ -1,3 +1,4 @@
+import { alertClasses } from '@mui/material'
 import { isVPMaxSm, isVPMinSm, isVPXs } from './media-queries'
 
 export const overrideMui = (palette) => ({
@@ -204,6 +205,19 @@ export const overrideMui = (palette) => ({
         // JTO - ensures icon, text and action button are all vertically centered irrespective of their individual heights
         display: 'flex',
         alignItems: 'center',
+      },
+    },
+  },
+
+  MuiSnackbar: {
+    styleOverrides: {
+      root: {
+        // JTO, but at xs, <Snackbar> receives offsets of { left: 8px, right: 8px, bottom: 8px }, making it span width of bottom of VP basically
+        // <Snackbar> is also a flexbox. If an <Alert> is placed as child, by default, it doesn't consume that new extra space.
+        // This configuration achieves that
+        ['& .' + alertClasses.root]: {
+          flexGrow: 1,
+        },
       },
     },
   },

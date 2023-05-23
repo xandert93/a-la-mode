@@ -239,6 +239,14 @@ const newProducts = [
 
 popularProducts.concat(newProducts).forEach((product) => {
   product.slug = slugify(product.name)
+
+  // probably get server to do this:
+  product.stock = {
+    count: product.stockCount,
+    isAvailable: product.stockCount > 0,
+    isLow: product.stockCount < 10,
+  }
+  delete product.stockCount
 })
 
 // additional product fields: productId, priceId, tags/categories (for filtering), sizes (?), colours (?)
@@ -256,8 +264,8 @@ export const genLineItem = (product, qty) => ({
   size: 'M',
   qty,
   isSaved: false, // JFN
-  // *** don't think this belongs and should instead be fetched:
-  stockCount: product.stockCount,
+  // *** JFN:
+  stock: product.stock,
 })
 
 // additional product review fields: productId, reviewer._id

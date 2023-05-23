@@ -42,7 +42,7 @@ export const StoreProvider = (props) => {
 
   // JFN
   const subtotal = bagItems.reduce((acca, item) => {
-    if (item.stockCount) acca += item.price * item.qty
+    if (item.stock.count) acca += item.price * item.qty
     return acca
   }, 0)
 
@@ -60,7 +60,7 @@ export const StoreProvider = (props) => {
         if (isAlreadyInBag)
           return prev.map((item) => {
             if (item.name !== product.name) return item
-            else return { ...item, qty: item.qty + qty }
+            else return { ...item, qty } // previously increment existing quantity by new quantity, but this is easier to implement to ensure client can only add 9 max of a product to bag rather than 7 and then 8 to get 15 in bag
           })
         else {
           // stripped `product` suitable for FE <ShoppingBag> display

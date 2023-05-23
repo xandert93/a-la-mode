@@ -34,7 +34,7 @@ export const Snackbar = () => {
   const { isOpen, type, message, close } = useSnackbar()
 
   return (
-    <MuiSnackbar open={isOpen} message={message} autoHideDuration={6000} onClose={close}>
+    <MuiSnackbar open={isOpen} autoHideDuration={6000} onClose={close}>
       <Alert
         severity={type} // 'success | error | warning | info'. Determines icon used + snackbar color
         onClose={close} //if provided and no "action" button prop specified, displays <CloseIcon /> as action button
