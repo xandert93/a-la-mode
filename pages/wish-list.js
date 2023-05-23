@@ -1,4 +1,4 @@
-import { DeleteIcon } from '@/components'
+import { DeleteIcon, Span } from '@/components'
 import { NAMES } from '@/constants'
 import { useWishList } from '@/context/global-context'
 import { Box, IconButton, Typography } from '@mui/material'
@@ -19,7 +19,7 @@ export default function WishListPage() {
         <Box>
           {items.map((item) => (
             <Box key={item.name}>
-              <Typography component="span" children={item.name} />
+              <Span children={item.name} />
               <IconButton children={<DeleteIcon />} onClick={() => removeSavedItem(item.name)} />
             </Box>
           ))}

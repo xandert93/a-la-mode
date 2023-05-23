@@ -11,6 +11,7 @@ import {
   DeliveryIcon,
   MoneyTypography,
   Select,
+  Span,
 } from '@/components'
 import { useBag, useWishList } from '@/context/global-context'
 import { useSnackbar } from '@/context/snackbar-context'
@@ -182,9 +183,7 @@ const RHS = (product) => {
       <Grid container direction="column" rowGap={1.5}>
         <Typography variant="body2" fontWeight={500}>
           Availability:{' '}
-          <Typography
-            variant="inherit"
-            component="span"
+          <Span
             color={!hasStock ? 'text.disabled' : hasLowStock ? 'red' : 'success.main'}
             children={
               !hasStock

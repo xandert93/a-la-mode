@@ -1,5 +1,5 @@
 import { createTheme } from '@mui/material'
-import { brown } from '@mui/material/colors'
+import { brown, green, yellow } from '@mui/material/colors'
 
 const { palette } = createTheme({
   palette: {
@@ -21,6 +21,14 @@ const { palette } = createTheme({
 
     tertiary: {
       main: '#7A2048', // maroon
+    },
+
+    success: {
+      main: green.A700, // livelier green
+    },
+
+    info: {
+      main: yellow.A700, // near gold
     },
 
     background: {

@@ -19,7 +19,7 @@ export const HeaderActions = () => {
   const isMinLg = useMediaQuery(isVPMinLg)
 
   return (
-    <Grid container justifyContent="flex-end" columnGap={1}>
+    <Grid container justifyContent="flex-end" alignItems="center" columnGap={1}>
       {isMinLg ? <HeaderSearchForm /> : <MobileHeaderSearchButton />}
       <IconButton
         component={Link}

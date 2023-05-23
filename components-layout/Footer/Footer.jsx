@@ -1,23 +1,15 @@
 import { Box, Container, Grid } from '@mui/material'
 
-import { FooterAbout } from './FooterAbout'
 import { FooterLinks } from './FooterLinks'
 import { FooterContact } from './FooterContact'
-import { FooterPaymentMethods } from './FooterPaymentMethods'
 import { FooterSocialMediaLinks } from './FooterSocialMediaLinks'
 import { FooterCopyright } from './FooterCopyright'
-
-const styles = {
-  root: {
-    mt: 5,
-    backgroundColor: 'primary.heavy',
-  },
-}
+import { PaymentMethods } from '@/components'
 
 // I don't need to specify the `xs`, `sm` prop each time if they are the same, but just makes it easier to understand/picture
 export const Footer = () => {
   return (
-    <Box component="footer" sx={styles.root}>
+    <Box component="footer" bgcolor="primary.heavy">
       <Container maxWidth="lg" disableGutters>
         <Grid
           container
@@ -41,7 +33,7 @@ export const Footer = () => {
           <Grid item xs={12} sm={7} md={12}>
             <Grid container direction="column" justifyContent="center" gap={{ xs: 3, md: 4 }}>
               <FooterSocialMediaLinks />
-              <FooterPaymentMethods />
+              <PaymentMethods />
             </Grid>
           </Grid>
         </Grid>

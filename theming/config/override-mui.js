@@ -66,13 +66,15 @@ export const overrideMui = (palette) => ({
   },
 
   MuiLink: {
+    defaultProps: {
+      variant: 'body1', // 'inherit'*
+      color: 'inherit', // 'primary'*
+      underline: 'none', // 'always*'
+    },
     styleOverrides: {
       root: {
         display: 'block',
       },
-    },
-    defaultProps: {
-      underline: 'none', // 'hover'*
     },
   },
 
@@ -172,10 +174,8 @@ export const overrideMui = (palette) => ({
 
   // JTO
   MuiIconButton: {
-    styleOverrides: {
-      root: {
-        color: palette.primary.main, // <IconButton> `color` prop will no longer work!
-      },
+    defaultProps: {
+      color: 'primary', // 'default'* (?)
     },
   },
 
@@ -195,6 +195,16 @@ export const overrideMui = (palette) => ({
     defaultProps: {
       readOnly: true,
       precision: 0.1,
+    },
+  },
+
+  MuiAlert: {
+    styleOverrides: {
+      root: {
+        // JTO - ensures icon, text and action button are all vertically centered irrespective of their individual heights
+        display: 'flex',
+        alignItems: 'center',
+      },
     },
   },
 })

@@ -1,8 +1,9 @@
 import { isVPMinMd } from '@/theming'
+import { alpha } from '@mui/material'
 
 const styles = {
   card: {
-    backgroundColor: 'primary.touch',
+    bgcolor: ({ palette }) => alpha(palette.primary.main, 0.25),
   },
 
   container: {

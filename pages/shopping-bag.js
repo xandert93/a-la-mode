@@ -1,7 +1,5 @@
 import {
   Section,
-  Accordion,
-  Form,
   DeliveryIcon,
   InformationIcon,
   ArrowForwardIcon,
@@ -9,15 +7,20 @@ import {
   DeleteIcon,
   MoneyTypography,
   ReceiptIcon,
-  ValidateIcon,
   HeartIconOutlined,
   Select,
   IconTypography,
   LoadingButton,
   HeartIcon,
   ShoppingBagIcon,
+  Span,
+  Main,
+  CostRow,
+  PaymentMethods,
+  IconButton,
+  TextLink,
 } from '@/components'
-import { FooterPaymentMethods } from '@/components-layout/Footer/FooterPaymentMethods'
+import { FreeDeliveryAlert, PromotionCodeAccordion } from '@/components-page/shopping-bag'
 import { NAMES } from '@/constants'
 import { useBag, useWishList } from '@/context/global-context'
 import { useSnackbar } from '@/context/snackbar-context'
@@ -30,23 +33,125 @@ import {
   Divider,
   Grid,
   Typography,
-  TextField,
-  IconButton,
-  accordionSummaryClasses,
   MenuItem,
   CircularProgress,
   alpha,
   Paper,
+  Fade,
+  Alert,
+  Collapse,
 } from '@mui/material'
 import Head from 'next/head'
 import Link from 'next/link'
-import { useState } from 'react'
+import { forwardRef, useState } from 'react'
 
-const stylez = {
+/* 
+
+1) "A line item represents a line in an order, containing details such as the product, 
+    quantity, and price for each line of an order"
+
+2) For Qty <Select>, I previously included logic if "0" was selected to remove item from 
+   bag, but all the sites don't have it and just offer a bespoke delete <button>. Fine by me!
+
+*/
+
+/*
+🤔 
+Also must consider a situation where a product's stockCount has decreased on database (courtesy 
+of another client) while in the client's basket. 
+
+When we fetch the client's basket, we therefore need to split line items whose stock demands cannot be 
+met (e.g. user had 5 of ProductA in basket, but now only 4 are left) and show them to the client
+so that they can either update their quantity demand or remove the product altogether (especially if
+now out of stock).
+
+For insufficient stock line items, we could do something like this: 
+
+  lineItems.map(item => item.stockCount < item.qty && <BagLineItem {...item} insufficientStock/>)
+
+Or even better, when we could get the server to do the splitting, so that it returns a basket of: 
+
+  { lineItems: { valid: [ ... ], invalid: [ ... ] } }
+
+And then we can just map through both sets on the FE.
+
+🤔 
+For now, using <BagItemLoadingOverlay> I'm blocking <BagLineItem> interaction when quantity being 
+updated (via <Select> or <RemoveLineItemButton>) to prevent another request for a quantity update.
+   
+For example, if the client uses the <Select> to update the quantity, without blocking interaction,
+during the request, client could then click <RemoveLineItemButton>, or vice versa.
+    
+This shouldn't be possible. Consider disabling both when `isUpdatingQty`. 
+Find more robust solution later.
+
+🤔
+Reluctant to refactor and abstract, because a lot of this could go on orders page. Refactor once
+orders page complete.
+
+🤔
+When checkout clicked, if not signed in, redirect to login and once logged in to checkout
+
+*/
+
+const styles = {
+  main: {
+    bgcolor: ({ palette }) => alpha(palette.primary.main, 0.15),
+    p: { xs: 0, sm: 2 },
+  },
+
   paper: {
     p: { xs: 2, sm: 3, md: 2.5 },
     borderRadius: { xs: 0, sm: 1 },
     boxShadow: 2,
+  },
+
+  'line-item-list-box': {
+    mt: { xs: 0.25, sm: 1 },
+  },
+
+  lineItem: {
+    paper: {
+      position: 'relative',
+      py: { xs: 3 }, // on xs, it's <button>s are a bit too close together. Extra vertical spacing ensures better mobile UX.
+    },
+
+    loadingOverlay: (theme) => ({
+      ...theme.mixins.absCover,
+      borderRadius: 1,
+      bgcolor: ({ palette }) => alpha(palette.background.default, 0.7),
+    }),
+
+    loadingOverlayProgressBox: (theme) => theme.mixins.absCenter,
+
+    image: {
+      width: '100%',
+      aspectRatio: '9/10', // for electronics/music 1:1 better, but clothing should probs have more height than width
+      objectFit: 'cover',
+      borderRadius: 1,
+    },
+  },
+
+  paymentSummaryDivider: {
+    borderColor: 'primary.main',
+  },
+
+  // special! - not following my usual convention. Has to be done this way (for now, until better solution found):
+  demands: {
+    headings: {
+      display: { xs: 'none', sm: 'initial' },
+    },
+  },
+
+  lineItems: {
+    summary: {
+      spacing: { xs: 1.5, sm: 2, md: 3 },
+    },
+
+    demands: {
+      textAlign: 'right',
+      columnSpacing: 3,
+    },
   },
 }
 
@@ -62,42 +167,47 @@ export default function ShoppingBagPage() {
         <title children={`Your Bag | ${NAMES.COMPANY}`} />
       </Head>
 
-      {hasLineItems ? (
-        <Box bgcolor={({ palette }) => alpha(palette.primary.main, 0.15)}>
-          <Section maxWidth="lg" sx={{ p: { xs: 0, sm: 2 } }}>
-            <Grid container spacing={{ xs: 1, md: 2 }}>
-              <Grid item xs={12} md={8}>
-                <LineItemsSummaryHeader />
-                <LineItemList />
-              </Grid>
-              <Grid item xs={12} md={4}>
-                <PaymentSummary />
-              </Grid>
-            </Grid>
-          </Section>
-        </Box>
-      ) : (
-        'Empty bag bitch'
-      )}
+      <Main sx={styles.main}>
+        <Section maxWidth="lg" disableGutters>
+          {hasLineItems ? <ShoppingBag /> : <EmptyBag />}
+        </Section>
+      </Main>
     </>
   )
 }
 
-const spacing = {
-  'items-summary': { xs: 1.5, sm: 2, md: 3 },
+const EmptyBag = () => {
+  return <p>Empty bag bitch</p>
 }
 
-const lineItemDemandsAlignment = 'right'
-const lineItemDemandsColumnSpacing = 3
+const ShoppingBag = () => {
+  return (
+    <Grid container spacing={{ xs: 1, md: 2 }}>
+      <Grid item xs={12} md={8}>
+        <Grid container direction="column" rowGap={{ xs: 0.25, sm: 1 }}>
+          <FreeDeliveryAlert />
+
+          <LineItemsSummaryHeader />
+          <Grid container direction="column" rowGap={{ xs: 0.25, sm: 1 }}>
+            <LineItemList />
+          </Grid>
+        </Grid>
+      </Grid>
+      <Grid item xs={12} md={4}>
+        <PaymentSummary />
+      </Grid>
+    </Grid>
+  )
+}
 
 const LineItemsSummaryHeader = () => {
   return (
-    <Paper sx={stylez.paper}>
-      <Grid container alignItems="center" spacing={spacing['items-summary']}>
+    <Paper sx={styles.paper}>
+      <Grid container alignItems="center" spacing={styles.lineItems.summary.spacing}>
         <Grid item xs={12} sm={7.5}>
           <BagHeading />
         </Grid>
-        <Grid item sx={{ display: { xs: 'none', sm: 'initial' } }} sm={4.5}>
+        <Grid item sm={4.5} sx={styles.demands.headings}>
           <DemandsHeadings />
         </Grid>
       </Grid>
@@ -110,21 +220,14 @@ const BagHeading = () => {
 
   return (
     <IconTypography Icon={ShoppingBagIcon} component="h2" variant="h6" color="text.tertiary">
-      Your Bag{' '}
-      <Typography component="span" variant="inherit" fontWeight={400}>
-        ({bag.itemCount})
-      </Typography>
+      Your Bag <Span fontWeight={400}>({bag.itemCount})</Span>
     </IconTypography>
   )
 }
 
 const DemandsHeadings = () => {
   return (
-    <Grid
-      container
-      justifyContent="flex-end"
-      textAlign={lineItemDemandsAlignment}
-      columnSpacing={lineItemDemandsColumnSpacing}>
+    <Grid container justifyContent="flex-end" sx={styles.lineItems.demands}>
       <Grid item sm={4}>
         <Typography variant="body2" children="Quantity" fontWeight={500} />
       </Grid>
@@ -136,32 +239,12 @@ const DemandsHeadings = () => {
 }
 
 const LineItemList = () => {
-  const bag = useBag()
+  const lineItems = useBag().items
 
-  return (
-    <Grid container direction="column" rowGap={{ xs: 0.25, sm: 1 }} mt={{ xs: 0.25, sm: 1 }}>
-      {bag.items.map((item) => {
-        if (item.stockCount >= item.qty) return <BagLineItem key={item.name} {...item} />
-      })}
-      {/* 
-  <Divider />
-  Sorry, stock issues...removed from 📃 (will code later 👍):
-  {bag.items.map((item) => {
-    if (item.stockCount < item.qty)
-      return (
-        // done it this way because the customer may have quantity of 5 saved to basket, but now there might only be 4 available
-        // so thus, customer should be able to adjust qty
-        // point is, stock issues means the inability to meet customer's original demand - not just "out of stock"
-        // should add message saying "You wanted ${qty} but there is now only ${stockCount}".
-        <BagLineItem key={item.name} {...item} hasInsufficientStock />
-      )
-  })} */}
-    </Grid>
-  )
+  return lineItems.map((item) => <BagLineItem key={item.name} {...item} />)
 }
 
-// A line item represents a line in an order, containing details such as the product, quantity, and price for each line of an order
-// Later on, on orders page, we might have <OrderLineItem> (which won't include <Remove>, <Select>, <Hurry> and will have <Cancel> etc.). Hence <BagLineItem> here.
+// Later on, on orders page, we might have <OrderLineItem> (which won't include <Remove>, <Select>, <Availability> and will have <CancelButton> etc.). Hence <BagLineItem> here.
 const BagLineItem = (lineItem) => {
   const {
     name,
@@ -172,19 +255,18 @@ const BagLineItem = (lineItem) => {
     color,
     size,
     qty,
-    hasInsufficientStock,
+    hasInsufficientStock = false, // JFN, until we have DB set up
   } = lineItem
 
-  // previously included logic if "0" was selected to remove product from basket, but all the sites don't have it and just offer bespoke delete button
-
-  const [isUpdatingQty, setIsUpdatingQty] = useState(false) // only need 1 piece of loading state for <Select> change or <RemoveItemButton> click, since with the <BlockingLoadingOverlay>, only 1 can happen at a time!
-
-  // blocking <BagLineItem> when being removed, cos user could make request to update quantity during
+  // only need 1 piece of loading state for <Select> change or <RemoveLineItemButton> click, since with the <BagItemLoadingOverlay>, only 1 can happen at a time!
+  const [isUpdatingQty, setIsUpdatingQty] = useState(false)
 
   return (
-    <Paper sx={[stylez.paper, { py: { xs: 3 } }]}>
-      <Grid container spacing={spacing['items-summary']} sx={{ position: 'relative' }}>
-        {isUpdatingQty && <BlockingLoadingOverlay />}
+    <Paper sx={[styles.paper, styles.lineItem.paper]}>
+      <Fade in={isUpdatingQty}>
+        <BagItemLoadingOverlay />
+      </Fade>
+      <Grid container spacing={styles.lineItems.summary.spacing}>
         <Grid item xs={3} sm={2.5}>
           <LineItemImage src={imageUrl} />
         </Grid>
@@ -214,18 +296,19 @@ const BagLineItem = (lineItem) => {
   )
 }
 
-const LineItemImage = (props) => {
+// JFN - very, very rough. Effect like this nice though!
+const BagItemLoadingOverlay = forwardRef((props, ref) => {
   return (
-    <Img
-      sx={{
-        width: '100%',
-        aspectRatio: '9/10', // for electronics/music 1:1 better, but clothing should probs have more height than width
-        objectFit: 'cover',
-        borderRadius: 1,
-      }}
-      {...props}
-    />
+    <Box ref={ref} sx={styles.lineItem.loadingOverlay} {...props}>
+      <Box sx={styles.lineItem.loadingOverlayProgressBox}>
+        <CircularProgress thickness={4} size={32} />
+      </Box>
+    </Box>
   )
+})
+
+const LineItemImage = (props) => {
+  return <Img sx={styles.lineItem.image} {...props} />
 }
 
 const LineItemDetails = ({ name, slug, color, size, stockCount }) => {
@@ -234,33 +317,20 @@ const LineItemDetails = ({ name, slug, color, size, stockCount }) => {
 
   return (
     <Grid container direction="column" gap={{ xs: 1.5, lg: 2 }}>
-      <Typography
-        children={name}
-        letterSpacing={-0.5}
-        fontWeight={500}
-        // component={Link}
-        href={'/' + slug}
-      />
+      <TextLink href={'/' + slug} children={name} letterSpacing={-0.5} fontWeight={500} />
       <Grid container direction="column" rowGap={0.5} color="text.secondary">
         <Typography variant="body2" fontWeight={500}>
-          Color:{' '}
-          <Typography variant="body2" component="span">
-            {color}
-          </Typography>
+          Color: <Span children={color} fontWeight={400} />
         </Typography>
         <Typography variant="body2" fontWeight={500}>
-          Size:{' '}
-          <Typography variant="body2" component="span">
-            {size}
-          </Typography>
+          Size: <Span children={size} fontWeight={400} />
         </Typography>
         <Typography variant="body2" fontWeight={500}>
           Availability:{' '}
-          <Typography
-            component="span"
-            variant="inherit"
+          <Span
             color={hasLowStock ? 'red' : 'success.main'}
             children={hasLowStock ? `only ${stockCount} left` : 'in stock ✔'}
+            fontWeight={hasLowStock ? 500 : 400}
           />
         </Typography>
       </Grid>
@@ -283,7 +353,7 @@ const LineItemDemands = ({
 
   const handleQtyChange = async (e) => {
     setIsUpdatingQty(true)
-    await wait(2)
+    await wait(3)
     setQty(e.target.value)
     bag.updateLineItemQty(name, e.target.value)
     setIsUpdatingQty(false)
@@ -293,10 +363,9 @@ const LineItemDemands = ({
     <Grid
       container
       alignItems="center"
-      columnSpacing={lineItemDemandsColumnSpacing}
       rowSpacing={2} // for when it wraps on xs
-      textAlign={lineItemDemandsAlignment}>
-      <Grid item sx={{ display: { xs: 'none', sm: 'initial' } }} sm={4}>
+      sx={styles.lineItems.demands}>
+      <Grid item sx={styles.demands.headings} sm={4}>
         <MoneyTypography variant="body2" children={price} />
       </Grid>
       <Grid item xs={12} sm={4}>
@@ -307,10 +376,10 @@ const LineItemDemands = ({
           onChange={handleQtyChange}
           required={false}
           fullWidth={false}
-          disabled={isUpdatingQty || hasInsufficientStock} // something like this, but obvs not ideal
+          disabled={isUpdatingQty || hasInsufficientStock} // something like this, but obviously not ideal
         >
           {[...Array(stockCount > 9 ? 9 : stockCount).keys()].map((index) => (
-            <MenuItem key={index} value={index + 1} children={index + 1} /> // netter way to do this lol?
+            <MenuItem key={index} value={index + 1} children={index + 1} /> // better way to do this lol?
           ))}
         </Select>
       </Grid>
@@ -371,7 +440,7 @@ const RemoveLineItemButton = ({ name, setIsUpdatingQty }) => {
   // probably should have confirmation modal cos of a) accidental click and b) make customer rethink (⬆ conversion)
   const handleClick = async () => {
     setIsUpdatingQty(true)
-    await wait(1.5)
+    await wait(3)
     bag.removeLineItem(name)
     setIsUpdatingQty(false)
   }
@@ -387,102 +456,40 @@ const RemoveLineItemButton = ({ name, setIsUpdatingQty }) => {
   )
 }
 
-const BlockingLoadingOverlay = () => {
-  // JFN - very, very rough. Effect like this not bad.
-  return (
-    <Box
-      ml={{ xs: 1, md: 3 }} // just to accommodate for my crappy grid config
-      sx={(theme) => ({
-        ...theme.mixins.absCover,
-        borderRadius: 1,
-        bgcolor: ({ palette }) => alpha(palette.background.default, 0.7),
-      })}>
-      <Box sx={(theme) => theme.mixins.absCenter}>
-        <CircularProgress thickness={4} size={32} />
-      </Box>
-    </Box>
-  )
-}
-
 const PaymentSummary = () => {
-  const bag = useBag()
-
-  const subtotal = bag.items.reduce((acca, item) => {
-    if (item.stockCount) acca += item.price * item.qty
-    return acca
-  }, 0)
-
-  const freeDeliveryOffset = 5000 - subtotal
-  const hasFreeDelivery = freeDeliveryOffset <= 0
-
-  const deliveryCost = hasFreeDelivery ? 0 : 499
-  const tax = 0
-
-  const total = subtotal + deliveryCost + tax
+  const { costs } = useBag()
 
   return (
-    <Paper sx={stylez.paper}>
+    <Paper sx={styles.paper}>
       <Grid container direction="column" rowGap={3}>
         <Grid container direction="column" rowGap={2}>
           <IconTypography
             component="h2"
             variant="h6"
+            color="text.tertiary"
             children="Summary"
             Icon={ReceiptIcon}
-            color="text.tertiary"
           />
-          <Divider
-            sx={{
-              borderColor: 'primary.main', // horizontal <Divider> returns <hr>. 🔥 CSS border is used to style it: https://www.w3schools.com/howto/howto_css_style_hr.asp
-            }}
-          />
+          <Divider sx={styles.paymentSummaryDivider} />
           <Grid container direction="column" rowGap={0.5}>
-            <CostRow variant="body2" title="Subtotal" amount={subtotal} />
+            <CostRow variant="body2" title="Subtotal" amount={costs.subtotal} />
             <CostRow
               variant="body2"
-              title={`Delivery ${hasFreeDelivery ? '(Free)' : ''}`}
-              amount={hasFreeDelivery ? 0 : 499}
+              title={`Delivery ${costs.delivery === 0 ? '(Free)' : ''}`}
+              amount={costs.delivery}
             />
-            <CostRow variant="body2" title="Tax" amount={tax} />
+            <CostRow variant="body2" title="Tax" amount={costs.tax} />
           </Grid>
-          <Divider
-            sx={{
-              borderColor: 'primary.main', // horizontal <Divider> returns <hr>. 🔥 CSS border is used to style it: https://www.w3schools.com/howto/howto_css_style_hr.asp
-            }}
+          <Divider sx={styles.paymentSummaryDivider} />
+          <CostRow title="Total" amount={costs.total} fontWeight={500} />
+          <Button
+            children="Checkout Now"
+            endIcon={<ArrowForwardIcon />}
+            // should be disabled when ANY `isUpdatingQty === true`. But interesting case...best way to disable a single button based on any `isUpdatingQty` being true? 🤔
           />
-          <CostRow title="Total" amount={total} fontWeight={500} />
-          <Button children="Checkout Now" endIcon={<ArrowForwardIcon />} />
         </Grid>
-        {!hasFreeDelivery && (
-          <Grid
-            container
-            wrap="nowrap"
-            alignItems="center"
-            columnGap={2}
-            bgcolor="primary.touch"
-            py={1}
-            pl={2}
-            pr={1} // JFN - since <IconButton> already has padding applied
-            borderRadius={1} // use paper/card instead?
-          >
-            <DeliveryIcon />
-            <Typography
-              variant="body2"
-              // add "< Continue Shopping" button around here
-
-              flexGrow={1}>
-              Can we tempt you? Spend another{' '}
-              <MoneyTypography variant="inherit" component="span" children={freeDeliveryOffset} />{' '}
-              to qualify for FREE Standard Delivery.
-            </Typography>
-            <IconButton
-              children={<InformationIcon />}
-              // see M&S - open modal displaying shipping data
-            />
-          </Grid>
-        )}
-        <DiscountCodeAccordion />
-        <FooterPaymentMethods />
+        <PromotionCodeAccordion />
+        <PaymentMethods />
         <Box>
           <Typography
             variant="caption"
@@ -502,53 +509,3 @@ const PaymentSummary = () => {
     </Paper>
   )
 }
-
-const styles = {
-  '&:before': {
-    display: 'none', // https://stackoverflow.com/questions/63488140/how-can-i-remove-line-above-the-accordion-of-material-ui
-  },
-
-  [`& .${accordionSummaryClasses.content}`]: {
-    justifyContent: 'center', // center title
-  },
-}
-
-accordionSummaryClasses
-
-const DiscountCodeAccordion = () => {
-  const handleSubmit = (e) => {
-    alert('Voucher code submitted')
-  }
-
-  return (
-    <Accordion
-      disableGutters
-      elevation={0}
-      title={<Typography variant="body2" children="Do you have a voucher code?" />}
-      sx={styles}>
-      <Grid
-        pt={2}
-        container
-        wrap="nowrap"
-        alignItems="cent"
-        columnGap={1}
-        component={Form}
-        onSubmit={handleSubmit}>
-        <TextField label="Code" size="small" />
-        <Button type="submit" children={<ValidateIcon />} disableElevation sx={{ p: 0 }} />
-      </Grid>
-    </Accordion>
-  )
-}
-
-// Did see some website use HTML tables e.g. <td>, <tr>, <th> etc. Checked MUI's tables and just seemed like a lot of boilerplate for this table's needs
-const CostRow = ({ title, amount, ...props }) => {
-  return (
-    <Typography {...props} component={Grid} container justifyContent="space-between">
-      <Typography component="span" variant="inherit" children={title} />
-      <MoneyTypography component="span" variant="inherit" children={amount} />
-    </Typography>
-  )
-}
-
-// when checkout clicked, if not signed in, redirect to login and once logged in to checkout

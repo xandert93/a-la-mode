@@ -1,7 +1,7 @@
-import { List, ListItem, Typography, useMediaQuery } from '@mui/material'
+import { List, ListItem, useMediaQuery } from '@mui/material'
 
 import { TextLink } from '@/components'
-import { isHoverable, isVPXs } from '@/theming'
+import { isVPXs } from '@/theming'
 
 import { FooterAccordion } from './FooterAccordion'
 import { FooterHeading } from './FooterHeading'
@@ -28,16 +28,6 @@ const data = {
   ],
 }
 
-const styles = {
-  link: {
-    [isHoverable]: {
-      ':hover': {
-        color: 'primary.light',
-      },
-    },
-  },
-}
-
 // *** probably more efficient way of doing this
 export const FooterLinks = ({ title }) => {
   const isXs = useMediaQuery(isVPXs)
@@ -53,7 +43,7 @@ export const FooterLinks = ({ title }) => {
   else
     return (
       <>
-        <FooterHeading children={title} pl={1} paragraph />
+        <FooterHeading children={title} gutterBottom />
         <FooterNavigation links={links} />
       </>
     )
@@ -64,8 +54,8 @@ const FooterNavigation = ({ links }) => {
     <nav>
       <List disablePadding>
         {links.map((props, index) => (
-          <ListItem key={index} disablePadding>
-            <Typography variant="body2" sx={styles.link} component={TextLink} {...props} />
+          <ListItem key={index}>
+            <TextLink variant="body2" {...props} underline="hover" />
           </ListItem>
         ))}
       </List>

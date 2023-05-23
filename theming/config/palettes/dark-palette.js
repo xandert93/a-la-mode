@@ -1,5 +1,5 @@
 import { createTheme as createMuiTheme } from '@mui/material'
-import { orange, red, yellow } from '@mui/material/colors'
+import { lightGreen, orange, blue, red, yellow } from '@mui/material/colors'
 
 const { palette } = createMuiTheme({
   palette: {
@@ -8,13 +8,13 @@ const { palette } = createMuiTheme({
     text: {
       primary: '#e8e6d5',
       secondary: '#bab9af',
-      tertiary: red[100],
+      tertiary: blue[100],
     },
 
     primary: {
-      touch: red[100],
-      main: red[500],
-      heavy: red[900],
+      touch: blue[100],
+      main: blue[500],
+      heavy: blue[900],
     },
     secondary: {
       main: orange[500],
@@ -23,6 +23,14 @@ const { palette } = createMuiTheme({
       light: yellow[300],
       main: yellow[500],
       dark: yellow[700],
+    },
+
+    success: {
+      main: lightGreen.A400, // bright green that suits dark background
+    },
+
+    error: {
+      main: red.A200, // lighter red that that suits dark background
     },
 
     background: {

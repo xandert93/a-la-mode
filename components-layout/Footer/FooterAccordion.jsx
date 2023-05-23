@@ -15,9 +15,7 @@ const styles = {
     my: 1, // 1.5*
   },
 
-  [`& .${accordionDetailsClasses.root}`]: {
-    ml: -1, // to account for `px:1` on <Link>
-  },
+  [`& .${accordionDetailsClasses.root}`]: {},
 }
 
 // inherits from <Paper>, so `square` and `elevation` also available

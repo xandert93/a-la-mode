@@ -22,7 +22,8 @@ const styles = {
     },
   }),
 
-  preview: {
+  'preview-link': {
+    position: 'relative',
     borderRadius: 1,
     overflow: 'hidden',
   },

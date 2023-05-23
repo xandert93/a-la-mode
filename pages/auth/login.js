@@ -89,7 +89,14 @@ export default function LoginPage() {
             <Button type="submit" children="Sign in" />
           </Grid>
           <Typography>
-            New Customer? <TextLink href={PATHS.REGISTRATION} children="Register Now ➡" />
+            New Customer?{' '}
+            <TextLink
+              color="primary"
+              href={PATHS.REGISTRATION}
+              children="Register Now ➡"
+              hover
+              underline="hover"
+            />
           </Typography>
           <Divider flexItem>
             <Typography

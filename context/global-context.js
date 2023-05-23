@@ -9,6 +9,15 @@ const context = createContext()
 export const useBag = () => useContext(context).bag
 export const useWishList = () => useContext(context).wishList
 
+const tax = 0
+
+const delivery = {
+  costs: {
+    standard: 499,
+  },
+  freeThreshold: 5000,
+}
+
 export const StoreProvider = (props) => {
   const [bagItems, setBagItems] = useState([])
   const [savedItems, setSavedItems] = useState([])
@@ -31,8 +40,14 @@ export const StoreProvider = (props) => {
     localStorage.setItem('saved-items', JSON.stringify(savedItems))
   }, [savedItems])
 
-  // just local methods JFN
-  const bag = {
+  // JFN
+  const subtotal = bagItems.reduce((acca, item) => {
+    if (item.stockCount) acca += item.price * item.qty
+    return acca
+  }, 0)
+
+  // just local properties + methods JFN
+  let bag = {
     items: bagItems,
     itemCount: bagItems.length,
     hasItems: Boolean(bagItems.length),
@@ -69,6 +84,26 @@ export const StoreProvider = (props) => {
     },
 
     clear: () => setBagItems([]), // should probably have a confirmation modal saying "are you sure"
+  }
+
+  // JFN, but add this crap to bag
+  delivery.freeOffset = delivery.freeThreshold - subtotal
+  const hasFreeDelivery = delivery.freeOffset <= 0
+  const deliveryCost = hasFreeDelivery ? 0 : delivery.costs.standard
+
+  bag = {
+    ...bag,
+    // an absolute mess but leave it for now lol
+    delivery: {
+      freeOffset: delivery.freeOffset,
+    },
+
+    costs: {
+      subtotal,
+      delivery: deliveryCost,
+      tax,
+      total: subtotal + deliveryCost + tax,
+    },
   }
 
   const wishList = {

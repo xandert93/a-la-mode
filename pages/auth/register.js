@@ -110,7 +110,14 @@ export default function RegistrationPage() {
             reward scheme.
           </Typography>
           <Typography>
-            Already have an account? <TextLink href={PATHS.LOGIN} children="Sign in ➡" />
+            Already have an account?{' '}
+            <TextLink
+              href={PATHS.LOGIN}
+              color="primary"
+              children="Sign in ➡"
+              underline="hover"
+              hover
+            />
           </Typography>
         </Grid>
       </Card>

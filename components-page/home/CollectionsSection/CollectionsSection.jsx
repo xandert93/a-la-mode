@@ -1,5 +1,4 @@
 import { Box, Grid, Typography } from '@mui/material'
-
 import { CoverImage, Link, ImageButton, Section } from '@/components'
 import { collections } from '@/data'
 
@@ -11,7 +10,7 @@ export const CollectionsSection = () => {
       <Grid container spacing={2}>
         {collections.map((collection, index) => (
           <Grid key={index} item xs={12} sm={index === 2 ? 12 : 6} md={index < 3 ? 4 : 6}>
-            <CollectionPreview {...collection} />
+            <CollectionPreviewLink {...collection} />
           </Grid>
         ))}
       </Grid>
@@ -19,9 +18,9 @@ export const CollectionsSection = () => {
   )
 }
 
-const CollectionPreview = ({ title, description, imageUrl }) => {
+const CollectionPreviewLink = ({ title, description, imageUrl }) => {
   return (
-    <Link href="/#" sx={styles.preview}>
+    <Link href="/#" sx={styles['preview-link']}>
       <PreviewOverlay {...{ title, description }} />
       <PreviewImage {...{ title, imageUrl }} />
     </Link>

@@ -5,6 +5,7 @@ export { CompanyLogo } from './CompanyLogo'
 export { CompanyHeading } from './CompanyHeading'
 export { SearchInputAdornment } from './SearchInputAdornment'
 export { PaymentMethodImageList } from './PaymentMethodImageList'
+export { PaymentMethods } from './PaymentMethods'
 
 export {
   Favorite as HeartIcon,
@@ -55,6 +56,8 @@ export { Link, TextLink } from './Links'
 
 export { Checkbox, CheckboxGroup, Select, Radio, RadioGroup } from './Inputs'
 
-export { GradientTypography, MoneyTypography, IconTypography } from './Typographies'
+export { GradientTypography, MoneyTypography, IconTypography, Span } from './Typographies'
 
 export { FacebookCircularProgress } from './Loaders'
+
+export { CostRow } from './CostRow'

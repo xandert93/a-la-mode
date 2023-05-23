@@ -1,7 +1,7 @@
 import { PaymentMethodImageList } from '@/components'
 import { Grid, Typography } from '@mui/material'
 
-export const FooterPaymentMethods = () => {
+export const PaymentMethods = () => {
   return (
     <Grid container direction="column" alignItems="center" rowGap={2}>
       <Typography
