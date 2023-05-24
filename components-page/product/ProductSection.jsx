@@ -4,7 +4,7 @@ import { Box, Grid } from '@mui/material'
 import { ProductImageDisplay } from './ProductImagesDisplay'
 import { ProductDetails } from './ProductDetails'
 
-export const ProductDetailSection = (product) => {
+export const ProductSection = (product) => {
   return (
     /* the wrapping, minWidth & maxWidth on this 👇 <Grid> work closely together, sometimes desirably engaging in a tug-of-war for space. Understand well before editing */
     <Section maxWidth="lg">
@@ -12,7 +12,7 @@ export const ProductDetailSection = (product) => {
         container
         flexWrap={{ xs: 'wrap', md: 'nowrap' }}
         justifyContent="center"
-        gap={{ xs: 2 }}>
+        gap={{ xs: 2, sm: 3 }}>
         <Box maxWidth={{ xs: 640, md: 720 }}>
           <ProductImageDisplay imageUrls={product.imageUrls} />
         </Box>

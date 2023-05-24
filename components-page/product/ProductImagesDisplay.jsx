@@ -1,6 +1,6 @@
 import { Img, ArrowLeftIcon, ArrowRightIcon } from '@/components'
 
-import { Box, Fade, Grid, IconButton as MuiIconButton } from '@mui/material'
+import { Box, ButtonBase, Fade, Grid } from '@mui/material'
 import { useState } from 'react'
 import { ProductImageStack } from './ProductImageStack'
 
@@ -13,16 +13,12 @@ export const ProductImageDisplay = ({ imageUrls }) => {
 
   // JFN - probs better way lol
   const toPrevImage = () => {
-    setIndex((curr) => {
-      return curr === 0 ? imageCount - 1 : curr - 1
-    })
+    setIndex((curr) => (curr === 0 ? imageCount - 1 : curr - 1))
   }
 
   // JFN - probs better way lol
   const toNextImage = () => {
-    setIndex((curr) => {
-      return curr === imageCount - 1 ? 0 : curr + 1
-    })
+    setIndex((curr) => (curr === imageCount - 1 ? 0 : curr + 1))
   }
 
   return (
@@ -50,22 +46,33 @@ export const ProductImageDisplay = ({ imageUrls }) => {
         </Fade>
         <Grid
           container
-          width="fit-content"
-          sx={{ position: 'absolute', bottom: 8, right: 8 }}
+          justifyContent="flex-end"
+          sx={{ position: 'absolute', bottom: '2.5%', right: '2.5%' }}
           columnGap={1}>
-          <MuiIconButton
-            // JFN - kinda broken styling (even with default muiiconbutton because its not supposed to be styled like I have below) - need to come back and configure
-            sx={{ bgcolor: 'white', p: 0.5, border: '2px solid', borderColor: 'primary.main' }}
-            children={<ArrowLeftIcon fontSize="large" />}
-            onClick={toPrevImage}
-          />
-          <MuiIconButton
-            sx={{ bgcolor: 'white', p: 0.5, border: '2px solid', borderColor: 'primary.main' }}
-            children={<ArrowRightIcon fontSize="large" />}
-            onClick={toNextImage}
-          />
+          <ImageNavigationButton Icon={ArrowLeftIcon} onClick={toPrevImage} />
+          <ImageNavigationButton Icon={ArrowRightIcon} onClick={toNextImage} />
         </Grid>
       </Grid>
     </Grid>
+  )
+}
+
+// JFN - would use <MuiIconButton>, but it has a default :hover setting which makes background effectively transparent.
+// Can't be bothered to undo that here...easier to create from scratch:
+const ImageNavigationButton = ({ Icon, ...props }) => {
+  return (
+    <ButtonBase
+      sx={{
+        bgcolor: 'background.default',
+        color: 'primary.main',
+        p: 0.5,
+        border: '2px solid',
+        borderColor: 'primary.main',
+        borderRadius: '50%',
+      }}
+      // hate doing this...need to find way of making icons responsive
+      children={<Icon sx={{ fontSize: { xs: 28, sm: 32, md: 36, lg: 40 } }} />}
+      {...props}
+    />
   )
 }

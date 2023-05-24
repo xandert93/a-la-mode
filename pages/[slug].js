@@ -1,6 +1,6 @@
 import { HomeMain } from '@/components-page/home'
 import {
-  ProductDetailSection,
+  ProductSection,
   ProductReviewsSection,
   RecommendedProductsSection,
 } from '@/components-page/product'
@@ -61,7 +61,7 @@ export default function ProductPage(product) {
 
       {/* JFN - just extending <HomeMain>. Once I've built more pages and see the pattern, perhaps create <AuthMain> and <Main> */}
       <HomeMain sx={{ '> :first-child': { mt: { xs: 2, md: 3 } } }}>
-        <ProductDetailSection {...product} />
+        <ProductSection {...product} />
         <ProductReviewsSection />
         <RecommendedProductsSection />
       </HomeMain>

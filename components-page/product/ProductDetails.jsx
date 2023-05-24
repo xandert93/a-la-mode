@@ -16,8 +16,24 @@ import { useSnackbar } from '@/context/snackbar-context'
 import { NewTag } from '@/features/product'
 import { useEffectOnMount } from '@/hooks'
 import { wait } from '@/utils/helpers'
-import { Box, Button, Grid, Rating, Typography, MenuItem, Paper } from '@mui/material'
+import { Box, Button, Grid, Rating, Typography, MenuItem } from '@mui/material'
 import { useState } from 'react'
+
+/*
+🤔 
+Find best position for <NewTag> - Review other sites
+
+🤔
+At the moment (in <ProductActions>), if out of stock, I'm conditionally removing
+<QtySelect> and <AddToBagButton> from the UI. This is JFN. Review other sites actual 
+handling out of stock UI?
+
+🤔
+Find best position for <ProductAvailability> and how best to inform client that product
+is out of stock. At the moment, message is quite small and perhaps easy to miss. 
+Review other sites.
+
+*/
 
 export const ProductDetails = (product) => {
   const { name, prices, rating, description, features, stock, lastPurchasedAt, createdAt } = product
@@ -33,7 +49,7 @@ export const ProductDetails = (product) => {
       <Grid
         container
         direction="column"
-        alignItems="flex-start" // otherwise <ButtonBase> stretches, making whole line clickable
+        alignItems="flex-start" // otherwise <ProductRatingsLink> stretches, making whole line clickable
         rowGap={1.5}>
         <ProductName name={name} />
         <ProductRatingsLink rating={rating} />
@@ -59,7 +75,6 @@ const ProductName = ({ name }) => {
       component="h1" // *** all eComm website do this! Apparently is supposed to match <title>. But now have multiple and differing H1s...
       variant="h6"
       children={name}
-      fontWeight={500} // JFN
       letterSpacing={-0.5}
     />
   )
