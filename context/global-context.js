@@ -83,6 +83,7 @@ export const StoreProvider = (props) => {
       )
     },
 
+    // no ecommerce site seems to have this (unsurprising lol), but JIC:
     clear: () => setBagItems([]), // should probably have a confirmation modal saying "are you sure"
   }
 

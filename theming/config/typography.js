@@ -49,17 +49,4 @@ export const typography = {
     },
     fontSize: '0.9rem', // 0.875rem* => 14px, new is => 14.4px
   },
-
-  button: {
-    [isVPXs]: {
-      fontSize: '0.9rem', // => 14.4px
-    },
-    [isVPSm]: {
-      fontSize: '0.95rem', // => 15.2px
-    },
-    fontSize: '1rem', // 0.875rem* (bit small)
-
-    fontWeight: 500, // default
-    textTransform: 'initial', // uppercase*
-  },
 }

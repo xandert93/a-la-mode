@@ -1,4 +1,5 @@
 import { DeleteIcon, Span } from '@/components'
+import { EmptyWishListSection } from '@/components-page/wish-list'
 import { NAMES } from '@/constants'
 import { useWishList } from '@/context/global-context'
 import { Box, IconButton, Typography } from '@mui/material'
@@ -13,8 +14,6 @@ export default function WishListPage() {
         <title children={`Wish List | ${NAMES.COMPANY}`} />
       </Head>
 
-      <Typography component="h2" children={`My Wishlist (${itemCount})`} />
-
       {hasItems ? (
         <Box>
           {items.map((item) => (
@@ -25,10 +24,7 @@ export default function WishListPage() {
           ))}
         </Box>
       ) : (
-        <Box>
-          <Typography component="h3" children="You haven't added anything to your Wish List yet" />
-          <Typography children="To add a product to your Wish List just click the 'Save for later' button" />
-        </Box>
+        <EmptyWishListSection />
       )}
     </>
   )

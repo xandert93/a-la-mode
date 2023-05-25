@@ -14,6 +14,8 @@ export {
   isVPLandscape,
   isVPXsAndLandscape,
   isVPMaxSmAndLandscape,
+  isVPXsAndPortrait,
+  isVPSmAndPortrait,
   isHoverable,
   prefersDarkMode,
 } from './config'

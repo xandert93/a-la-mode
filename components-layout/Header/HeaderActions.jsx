@@ -2,7 +2,7 @@ import {
   Link,
   IconButton,
   HeartIconOutlined,
-  ShoppingBagIconOutlined,
+  EmptyShoppingBagIcon,
   AccountIcon,
   ShoppingBagIcon,
   HeartIcon,
@@ -28,8 +28,8 @@ export const HeaderActions = () => {
         aria-label="See Account"
       />
       <IconButton
-        // component={Link}
-        // href={PATHS.WISH_LIST}
+        component={Link}
+        href={PATHS.WISH_LIST}
         children={<WishListIconBadge />}
         aria-label="Visit Wish List Page"
       />
@@ -54,7 +54,7 @@ const WishListIconBadge = () => {
 const ShoppingBagIconBadge = () => {
   const { itemCount } = useBag()
 
-  const Icon = itemCount ? ShoppingBagIcon : ShoppingBagIconOutlined
+  const Icon = itemCount ? ShoppingBagIcon : EmptyShoppingBagIcon
 
   return <Badge color="secondary" badgeContent={itemCount} children={<Icon />} />
 }

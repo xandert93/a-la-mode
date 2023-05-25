@@ -37,7 +37,7 @@ export {
   Clear as ClearIcon,
   Approval as ApproveIcon,
   ShoppingBag as ShoppingBagIcon,
-  ShoppingBagOutlined as ShoppingBagIconOutlined,
+  ShoppingBagOutlined as EmptyShoppingBagIcon,
   ReceiptOutlined as ReceiptIcon,
   AccessTime as ClockIcon,
   PublishedWithChanges as ValidateIcon,
@@ -52,7 +52,7 @@ export { ImageButton, IconButton, LoadingButton, OutlinedButton } from './Button
 export { Main, Section, Accordion } from './Containers'
 export { SectionHeading, SectionSubHeading } from './Headings'
 
-export { Link, TextLink } from './Links'
+export { Link, TextLink, ButtonLink } from './Links'
 
 export { Checkbox, CheckboxGroup, Select, Radio, RadioGroup } from './Inputs'
 

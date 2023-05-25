@@ -1,5 +1,5 @@
 import { alertClasses } from '@mui/material'
-import { isVPMaxSm, isVPMinSm, isVPXs } from './media-queries'
+import { isVPMaxSm, isVPMinSm, isVPSm, isVPXs } from './media-queries'
 
 export const overrideMui = (palette) => ({
   MuiCssBaseline: {
@@ -148,27 +148,55 @@ export const overrideMui = (palette) => ({
     },
     styleOverrides: {
       root: {
-        minWidth: 64, // default
-        borderRadius: 4, // default
+        textTransform: 'initial', // uppercase*
+
+        /* other notable defaults include: { 
+          minWidth: 64, 
+          borderRadius: 4, 
+          fontWeight: 500, 
+        }
+        */
       },
       text: {
         fontWeight: 400, // 500*
       },
-
       outlined: {
-        padding: '5px 15px', // default
         fontWeight: 400, // 500*
       },
 
       // JTO:
       containedSizeSmall: {
-        padding: '5px 15px',
-        fontSize: 'initial', // 0.8125rem* (but will now revert to theme.typography.button styles)
+        padding: '6px 14px', // '5px 15px'*
+        fontSize: '0.9rem', // '0.8125rem'* (too small)
+
+        [isVPSm]: {
+          fontSize: '0.85rem', // => 13.6px
+        },
       },
 
-      // JTO:
+      // JTO (the default contained <Button>):
       containedSizeMedium: {
-        padding: '12px 16px', // '6px 16px'*
+        padding: '8px 16px', // '6px 16px'*
+        fontSize: '1rem', // '0.875rem'* (too small)
+
+        [isVPSm]: {
+          fontSize: '0.95rem', // => 15.2px
+        },
+        [isVPXs]: {
+          fontSize: '0.9rem', // => 14.4px
+        },
+      },
+
+      containedSizeLarge: {
+        padding: '10px 24px', // '8px 22px'
+
+        fontSize: '1.05rem', // '0.9375rem'* (too small)
+        [isVPSm]: {
+          fontSize: '1rem', // => 15.2px
+        },
+        [isVPXs]: {
+          fontSize: '0.95rem', // => 14.4px
+        },
       },
     },
   },

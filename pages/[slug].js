@@ -5,9 +5,12 @@ import {
   RecommendedProductsSection,
 } from '@/components-page/product'
 import { NAMES } from '@/constants'
+import { useBag } from '@/context/global-context'
 import { newProducts, popularProducts } from '@/data'
+import { useEffectOnMount } from '@/hooks'
 
 import Head from 'next/head'
+import { useEffect, useRef } from 'react'
 
 const productDb = [...popularProducts, ...newProducts]
 
@@ -47,6 +50,26 @@ Add breadcrumbs eventually:
 */
 
 export default function ProductPage(product) {
+  // JFN - to accommodate for Strict Mode, otherwise product gets added twice to LS
+  const isSecondEffectRef = useRef(false)
+  useEffect(() => {
+    if (isSecondEffectRef.current) {
+      // store viewed products chronologically in LS
+      // remove any existing instance of that product and then make it first in array
+      // if array has 11 products, pop the last, capping it at 10 products in total
+
+      let viewedProducts = JSON.parse(localStorage.getItem('viewed-products')) ?? []
+      viewedProducts = viewedProducts.filter((p) => p.name !== product.name)
+      viewedProducts.unshift(product)
+      if (viewedProducts.length === 11) viewedProducts.pop()
+      localStorage.setItem('viewed-products', JSON.stringify(viewedProducts))
+
+      // tried to do some of this CRUD by storing products as dictionary, but chronological ordering proved sticky.
+    }
+
+    return () => (isSecondEffectRef.current = true)
+  }, [])
+
   return (
     <>
       <Head>
@@ -60,7 +83,7 @@ export default function ProductPage(product) {
       </Head>
 
       {/* JFN - just extending <HomeMain>. Once I've built more pages and see the pattern, perhaps create <AuthMain> and <Main> */}
-      <HomeMain sx={{ '> :first-child': { mt: { xs: 2, md: 3 } } }}>
+      <HomeMain sx={{ 'section:first-of-type': { mt: { xs: 2, md: 3 } } }}>
         <ProductSection {...product} />
         <ProductReviewsSection />
         <RecommendedProductsSection />

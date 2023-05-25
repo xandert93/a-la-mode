@@ -1,7 +1,5 @@
 import {
   Section,
-  DeliveryIcon,
-  InformationIcon,
   ArrowForwardIcon,
   Img,
   DeleteIcon,
@@ -17,10 +15,14 @@ import {
   Main,
   CostRow,
   PaymentMethods,
-  IconButton,
   TextLink,
 } from '@/components'
-import { FreeDeliveryAlert, PromotionCodeAccordion } from '@/components-page/shopping-bag'
+import {
+  EmptyBagSection,
+  FreeDeliveryAlert,
+  PromotionCodeAccordion,
+  ViewedProductsSection,
+} from '@/components-page/shopping-bag'
 import { NAMES } from '@/constants'
 import { useBag, useWishList } from '@/context/global-context'
 import { useSnackbar } from '@/context/snackbar-context'
@@ -38,11 +40,8 @@ import {
   alpha,
   Paper,
   Fade,
-  Alert,
-  Collapse,
 } from '@mui/material'
 import Head from 'next/head'
-import Link from 'next/link'
 import { forwardRef, useState } from 'react'
 
 /* 
@@ -159,44 +158,48 @@ const styles = {
 export default function ShoppingBagPage() {
   const bag = useBag()
 
-  const hasLineItems = Boolean(bag.itemCount)
-
   return (
     <>
       <Head>
         <title children={`Your Bag | ${NAMES.COMPANY}`} />
       </Head>
-
       <Main sx={styles.main}>
-        <Section maxWidth="lg" disableGutters>
-          {hasLineItems ? <ShoppingBag /> : <EmptyBag />}
-        </Section>
+        {bag.hasItems && <ShoppingBagSection />}
+        {/* *** initial load bug 👇 because of LS check after mount. Once using SSR (and initial page has accurate DB data), hopefully no longer problem  */}
+        <Fade
+          in={!bag.hasItems}
+          appear={false}
+          unmountOnExit // temp
+        >
+          <EmptyBagSection />
+        </Fade>
+        {/* <ViewedProductsSection /> */}
       </Main>
     </>
   )
 }
 
-const EmptyBag = () => {
-  return <p>Empty bag bitch</p>
-}
+// Items that are saved to your Wish List are stored temporarily, with availability and pricing subject to change.
 
-const ShoppingBag = () => {
+const ShoppingBagSection = () => {
   return (
-    <Grid container spacing={{ xs: 1, md: 2 }}>
-      <Grid item xs={12} md={8}>
-        <Grid container direction="column" rowGap={{ xs: 0.25, sm: 1 }}>
-          <FreeDeliveryAlert />
-
-          <LineItemsSummaryHeader />
+    <Section maxWidth="lg" disableGutters>
+      <Grid container spacing={{ xs: 1, md: 2 }}>
+        <Grid item xs={12} md={8}>
           <Grid container direction="column" rowGap={{ xs: 0.25, sm: 1 }}>
-            <LineItemList />
+            <FreeDeliveryAlert />
+
+            <LineItemsSummaryHeader />
+            <Grid container direction="column" rowGap={{ xs: 0.25, sm: 1 }}>
+              <LineItemList />
+            </Grid>
           </Grid>
         </Grid>
+        <Grid item xs={12} md={4}>
+          <PaymentSummary />
+        </Grid>
       </Grid>
-      <Grid item xs={12} md={4}>
-        <PaymentSummary />
-      </Grid>
-    </Grid>
+    </Section>
   )
 }
 
