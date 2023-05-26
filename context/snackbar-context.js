@@ -48,10 +48,10 @@ export const Snackbar = () => {
   }
 
   return (
-    <MuiSnackbar open={isOpen} onClose={close}>
+    <MuiSnackbar open={isOpen} autoHideDuration={6000} onClose={close}>
       <SnackbarContent
-        elevation={10}
-        sx={{ bgcolor: (theme) => alpha(theme.palette.secondary.main, 0.95) }}
+        elevation={8}
+        sx={{ bgcolor: (theme) => alpha(theme.palette.secondary.main, 0.95), borderRadius: 7 }}
         message={
           <IconTypography Icon={Icon} IconFontSize="medium" children={message} columnGap={1.5} />
         }

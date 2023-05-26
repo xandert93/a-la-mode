@@ -102,7 +102,7 @@ const SaveButton = ({ product }) => {
   const handleClick = async () => {
     setIsSaved((prev) => !prev) // will be an optimistic update
     await wait(1)
-    !isSaved && snackbar.success({ type: 'save', message: 'Added to Bag!' })
+    !isSaved && snackbar.success({ type: 'save', message: 'Saved to Wish List' })
     !isSaved ? wishList.addSavedItem(product) : wishList.removeSavedItem(product.name)
   }
 

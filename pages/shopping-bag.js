@@ -16,6 +16,7 @@ import {
   CostRow,
   PaymentMethods,
   TextLink,
+  ClockIcon,
 } from '@/components'
 import {
   EmptyBagSection,
@@ -293,8 +294,9 @@ const BagLineItem = (lineItem) => {
         <Grid
           item
           container
-          // justifyContent="space-between" - gets in way of "subtotal" column, so...
-          gap={1.5}>
+          justifyContent={{ xs: 'space-between', sm: 'initial' }} // gets in way of "subtotal" column, so...
+          flexDirection={{ xs: 'row-reverse', sm: 'row' }}
+          gap={{ sm: 1.5 }}>
           <RemoveLineItemButton {...{ name, setIsUpdatingQty }} />
           <SaveLineItemButton lineItem={lineItem} />
         </Grid>
@@ -320,23 +322,24 @@ const LineItemImage = (props) => {
 
 const LineItemDetails = ({ name, slug, color, size, stock }) => {
   return (
-    <Grid container direction="column" gap={{ xs: 1.5, lg: 2 }}>
+    <Grid container direction="column" gap={{ xs: 1, lg: 1.5 }}>
       <TextLink href={'/' + slug} children={name} letterSpacing={-0.5} fontWeight={500} />
       <Grid container direction="column" rowGap={0.5} color="text.secondary">
-        <Typography variant="body2" fontWeight={500}>
-          Color: <Span children={color} fontWeight={400} />
+        <Typography variant="body2">
+          Color: <Span children={color} fontWeight={500} />
         </Typography>
-        <Typography variant="body2" fontWeight={500}>
-          Size: <Span children={size} fontWeight={400} />
+        <Typography variant="body2">
+          Size: <Span children={size} fontWeight={500} />
         </Typography>
-        <Typography variant="body2" fontWeight={500}>
-          Availability:{' '}
-          <Span
-            color={stock.isLow ? 'red' : 'success.main'}
-            children={stock.isLow ? `only ${stock.count} left` : 'in stock ✔'}
-            fontWeight={stock.isLow ? 500 : 400}
+        {stock.isLow && (
+          <IconTypography
+            Icon={ClockIcon}
+            variant="body2"
+            color="error.main"
+            children={`only ${stock.count} left`}
+            fontWeight={500}
           />
-        </Typography>
+        )}
       </Grid>
     </Grid>
   )
@@ -367,7 +370,7 @@ const LineItemDemands = ({
     <Grid
       container
       alignItems="center"
-      rowSpacing={2} // for when it wraps on xs
+      rowSpacing={1.5} // for when it wraps on xs
       sx={styles.lineItems.demands}>
       <Grid item sx={styles.demands.headings} sm={4}>
         <MoneyTypography variant="body2" children={price} />
