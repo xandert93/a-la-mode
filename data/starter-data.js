@@ -7,13 +7,14 @@ export const promotions = [
     priority: 1,
   },
   {
-    title: 'Calling All Students',
-    message: 'Get 20% Off',
+    title: '15% OFF EVERYTHING',
+    message: "Use code: 'SPRING15' at checkout",
     priority: 2,
   },
   {
-    title: 'Stuck for ideas?',
-    message: 'Shop our E-Gift Card Now',
+    title: 'Shop our E-Gift Card Now', // JFN
+    // title: 'Stuck for ideas?',
+    // message: 'Shop our E-Gift Card Now',
     priority: 3,
   },
 ]

@@ -51,16 +51,14 @@ export const styles = {
     objectFit: 'cover',
   },
 
-  // Inspired by <AvatarGroup> - inspect MUI use for further configuration: https://mui.com/material-ui/react-avatar/#grouped
-  'color-circle': (color) => ({
+  'color-circle': {
     marginRight: '-4px',
-    height: 20,
-    width: 20,
+    height: 24,
+    width: 24,
     borderRadius: '50%',
     border: '2px solid',
     borderColor: 'primary.touch',
-    backgroundColor: color,
-  }),
+  },
 }
 
 export default styles

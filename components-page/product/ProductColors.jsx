@@ -1,6 +1,5 @@
 import { Radio, RadioGroup, Span } from '@/components'
-import { Box, Typography, formLabelClasses, ButtonBase, Grid } from '@mui/material'
-import { useState } from 'react'
+import { Typography, formLabelClasses, ButtonBase, Grid } from '@mui/material'
 
 const styles = {
   'radio-group-label': {
@@ -11,7 +10,6 @@ const styles = {
 
   'radio-group': {
     gap: 2,
-    mb: '2px', // bit hacky, but <RadioGroup> is quite domineering. Just a little bit more space underneath it
   },
 
   'radio-label': {
@@ -31,7 +29,7 @@ const styles = {
     borderRadius: '50%',
     border: '3px solid',
     borderColor: 'background.default',
-    outline: '2px solid transparent',
+    outline: '2px outset transparent',
 
     ...(checked && {
       outlineColor: (theme) => theme.palette.secondary.main, // isn't theme aware so can't write shorthand
@@ -83,7 +81,7 @@ export const ProductColors = ({
 
 // add disabled for <Radio> and <RadioIcon> later once I've figured colors out
 const ColorRadio = ({ color }) => {
-  const cssColor = color.toLowerCase().replace(/ /g, '')
+  const cssColor = color.replace(/ /g, '')
 
   return (
     <Radio

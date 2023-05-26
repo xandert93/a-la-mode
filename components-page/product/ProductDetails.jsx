@@ -17,10 +17,14 @@ import { NewTag } from '@/features/product'
 import { useEffectOnMount } from '@/hooks'
 import { wait } from '@/utils/helpers'
 import { Box, Grid, Rating, Typography, MenuItem } from '@mui/material'
-import { useState } from 'react'
+import { createContext, useContext, useState } from 'react'
 
 import { ProductSizing } from './ProductSizing'
 import { ProductColors } from './ProductColors'
+
+const context = createContext()
+const useProductDetails = () => useContext(context) // perhaps "useProduct", we'll see
+const ProductDetailsProvider = context.Provider
 
 /*
 🤔 
@@ -84,14 +88,14 @@ export const ProductDetails = (product) => {
       container
       direction="column"
       alignItems="flex-start" // without <Grid item> system, <NewTag> will stretch. Will remove if I start using <Grid item>s
-      rowGap={2.5}>
+      rowGap={2}>
       <NewTag />
 
       <Grid
         container
         direction="column"
         alignItems="flex-start" // otherwise <ProductRatingsLink> stretches, making whole line clickable
-        rowGap={2}>
+        rowGap={1.5}>
         <ProductHeading name={name} />
         <ProductRatingsLink rating={rating} />
         <ProductPricing prices={prices} />
@@ -252,7 +256,7 @@ const AddToBagButton = ({ product, color, size, qty, setErr }) => {
       setIsAdding(true)
       await wait(1)
       bag.addLineItem({ product, color, size, qty })
-      snackbar.success('Added to Bag!')
+      snackbar.success({ type: 'add', message: 'Added to Bag!' })
       setIsAdding(false)
     }
   }
@@ -260,6 +264,7 @@ const AddToBagButton = ({ product, color, size, qty, setErr }) => {
   return (
     <LoadingButton
       variant="contained"
+      color="secondary" // JFN - should be "primary" really, no?
       isLoading={isAdding}
       onClick={handleAddToBagClick}
       children="Add to Bag"
@@ -287,7 +292,7 @@ const SaveButton = ({ product }) => {
     setIsSaving(true)
     await wait(2)
     !isSaved ? wishList.addSavedItem(product) : wishList.removeSavedItem(product.name)
-    !isSaved && snackbar.success('Saved')
+    !isSaved && snackbar.success({ type: 'save', message: 'Saved to Wish List' })
     setIsSaved((prev) => !prev)
     setIsSaving(false)
   }

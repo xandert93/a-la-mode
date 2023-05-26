@@ -265,7 +265,7 @@ const BagLineItem = (lineItem) => {
   const [isUpdatingQty, setIsUpdatingQty] = useState(false)
 
   return (
-    <Paper sx={[styles.paper, styles.lineItem.paper]}>
+    <Paper component="article" sx={[styles.paper, styles.lineItem.paper]}>
       <Fade in={isUpdatingQty}>
         <BagItemLoadingOverlay />
       </Fade>
@@ -290,9 +290,13 @@ const BagLineItem = (lineItem) => {
           />
         </Grid>
 
-        <Grid item container justifyContent="space-between">
-          <SaveLineItemButton lineItem={lineItem} />
+        <Grid
+          item
+          container
+          // justifyContent="space-between" - gets in way of "subtotal" column, so...
+          gap={1.5}>
           <RemoveLineItemButton {...{ name, setIsUpdatingQty }} />
+          <SaveLineItemButton lineItem={lineItem} />
         </Grid>
       </Grid>
     </Paper>
@@ -417,7 +421,7 @@ const SaveLineItemButton = ({ lineItem }) => {
     await wait(1.5)
     !isSaved ? wishList.addSavedItemFromBag(lineItem) : wishList.removeSavedItem(lineItem.name)
     setIsSaved((prev) => !prev)
-    !isSaved && snackbar.success('Saved')
+    !isSaved && snackbar.success({ type: 'save', message: 'Saved to Wish List' })
     setIsSaving(false)
   }
 
@@ -483,6 +487,7 @@ const PaymentSummary = () => {
           <Divider sx={styles.paymentSummaryDivider} />
           <CostRow title="Total" amount={costs.total} fontWeight={500} />
           <Button
+            size="large"
             children="Checkout Now"
             endIcon={<ArrowForwardIcon />}
             // should be disabled when ANY `isUpdatingQty === true`. But interesting case...best way to disable a single button based on any `isUpdatingQty` being true? 🤔

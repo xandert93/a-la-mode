@@ -3,7 +3,7 @@ import { Box, Card, Grid, Typography } from '@mui/material'
 
 import { Link, HeartIcon, IconButton, Img, MoneyTypography } from '../../../../components'
 
-import { useEffectOnMount, useToggle } from '@/hooks'
+import { useEffectOnMount } from '@/hooks'
 
 import styles from './styles'
 import { isHoverable } from '@/theming'
@@ -64,15 +64,26 @@ const ProductImage = ({ urls }) => {
 const ProductColors = ({ colors }) => {
   return (
     <Grid container>
-      {colors.map((color) => (
-        <ColorCircle key={color} color={color} />
+      {colors.slice(0, 3).map((color) => (
+        <ColorCircle key={color} bgcolor={color.replace(/ /g, '')} />
       ))}
+      {colors.length > 3 && (
+        <ColorCircle
+          bgcolor="divider"
+          children={'+' + String(colors.length - 3)}
+          fontSize={12}
+          display="flex"
+          justifyContent="center"
+          alignItems="center"
+        />
+      )}
     </Grid>
   )
 }
 
-const ColorCircle = ({ color }) => {
-  return <Box sx={styles['color-circle'](color)} />
+// Inspired by <AvatarGroup> - inspect MUI use for further configuration: https://mui.com/material-ui/react-avatar/#grouped
+const ColorCircle = (props) => {
+  return <Box sx={styles['color-circle']} {...props} />
 }
 
 const SaveButton = ({ product }) => {
@@ -91,7 +102,7 @@ const SaveButton = ({ product }) => {
   const handleClick = async () => {
     setIsSaved((prev) => !prev) // will be an optimistic update
     await wait(1)
-    !isSaved && snackbar.success('Saved')
+    !isSaved && snackbar.success({ type: 'save', message: 'Added to Bag!' })
     !isSaved ? wishList.addSavedItem(product) : wishList.removeSavedItem(product.name)
   }
 

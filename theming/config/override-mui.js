@@ -240,9 +240,18 @@ export const overrideMui = (palette) => ({
   MuiSnackbar: {
     styleOverrides: {
       root: {
-        // JTO, but at xs, <Snackbar> receives offsets of { left: 8px, right: 8px, bottom: 8px }, making it span width of bottom of VP basically
-        // <Snackbar> is also a flexbox. If an <Alert> is placed as child, by default, it doesn't consume that new extra space.
-        // This configuration achieves that
+        // For sm+, <Snackbar> receives offsets of { left: 24px, bottom: 24px }, placing it in the bottom-left of the VP, with a bit of space from edges. It's width is determined by its content or manual configuration
+        // For xs, <Snackbar> receives offsets of { left: 8px, right: 8px, bottom: 8px }, making it span width of bottom of VP basically.
+        // <Snackbar> is also a flexbox. This means that on xs, by default, any child will not consume that new extra space.
+
+        // JTO - default configuration is a bit too low for me
+        [isVPXs]: {
+          left: 16, // 8px*
+          right: 16, // 8px*
+          bottom: 16, // 8px*
+        },
+
+        // For xs, JTO, but configuration makes a child <Alert> consume the extra space:
         ['& .' + alertClasses.root]: {
           flexGrow: 1,
         },
