@@ -116,7 +116,7 @@ export const StoreProvider = (props) => {
 
     addSavedItem: (product) => {
       setSavedItems((prev) => {
-        const savedItem = genLineItem(product)
+        const savedItem = genLineItem({ product }) // not gonna add `size` for now (seems convention), cos home screen <ProductPreviewCard> doesn't enable size selection
         return [...prev, savedItem]
       })
     },

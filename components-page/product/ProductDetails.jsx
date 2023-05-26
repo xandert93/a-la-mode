@@ -39,7 +39,8 @@ Review other sites.
 */
 
 export const ProductDetails = (product) => {
-  const { name, prices, rating, description, features, stock, lastPurchasedAt, createdAt } = product
+  const { name, prices, rating, description, features, stock, colors, lastPurchasedAt, createdAt } =
+    product
 
   // JFN - lazy...
   const [state, setState] = useState({
@@ -98,7 +99,7 @@ export const ProductDetails = (product) => {
 
       <Grid container direction="column" rowGap={2}>
         <ProductAvailability {...stock} />
-        <ProductColors {...{ ...state.color, handleChange }} />
+        <ProductColors {...{ colors, ...state.color, handleChange }} />
         <ProductSizing {...{ ...state.size, handleChange }} />
       </Grid>
 

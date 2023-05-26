@@ -34,7 +34,7 @@ const styles = {
     outline: '2px solid transparent',
 
     ...(checked && {
-      outlineColor: (theme) => theme.palette.text.tertiary, // isn't theme aware so can't write shorthand
+      outlineColor: (theme) => theme.palette.secondary.main, // isn't theme aware so can't write shorthand
     }),
   }),
 

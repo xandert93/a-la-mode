@@ -21,12 +21,6 @@ const styles = {
     padding: 0, // remove default padding and border-radius from <input:radio>'s <span> wrapper
     borderRadius: 0,
   },
-
-  'radio-icon': {
-    // normalise padding and font-size on icon, since it will flip between an outlined <Button> and a contained <Button>, which natively have different padding and font-size applied.
-    p: '10px 16px',
-    fontSize: { md: '1rem', sm: '0.95rem', xs: '0.9rem' },
-  },
 }
 
 const defaultSizes = ['XS', 'S', 'M', 'L', 'XL', '2XL'] // JFN
@@ -75,28 +69,34 @@ export const ProductSizing = ({
   )
 }
 
+// *** add disabled to BOTH <Radio> (disable actual <input:radio>) and <RadioIcon> (applies disabled styling to the <span>)
+// *** Also, I don't think specifying two custom icons for non-checked and checked status is best, but JFN. It's how MUI does it so... 🤷‍♀️
 const SizeRadio = ({ size }) => {
   return (
     <Radio
       value={size}
-      // disabled={...} // add later - will disable actual <input:radio>
       sx={styles['radio-label']}
       RadioProps={{
         sx: styles['radio-box'],
-        // don't think specifying two custom icons for non-checked and checked status is best, but JFN
-        icon: (
-          <RadioIcon
-            variant="outlined"
-            children={size}
-            // disabled={...} // add later - applies disabled styling to the <span>
-          />
-        ),
-        checkedIcon: <RadioIcon variant="contained" children={size} disableElevation />,
+        icon: <RadioIcon children={size} />,
+        checkedIcon: <RadioIcon children={size} checked />,
       }}
     />
   )
 }
 
-const RadioIcon = (props) => {
-  return <Button component="span" sx={styles['radio-icon']} {...props} />
+const RadioIcon = ({ checked, ...props }) => {
+  const styles = {
+    py: 1.5,
+    px: 2,
+
+    ...(checked && {
+      // simulated contained styling (actual contained styling was producing unpredictable 0.5px height change 🤷‍♀️)
+      color: 'background.default',
+      bgcolor: 'secondary.main',
+      fontWeight: 500,
+    }),
+  }
+
+  return <Button component="span" variant="outlined" color="secondary" sx={styles} {...props} />
 }

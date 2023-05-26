@@ -118,11 +118,12 @@ const popularProducts = [
       count: 787,
       average: 4.8,
     },
+    colors: ['Blanched Almond', 'Beige', 'Old Lace', 'Linen', 'Antique White'],
     lastPurchasedAt: 'Yesterday',
     createdAt: '', // can display "NEW" flag in UI
   },
   {
-    name: 'Non-Iron Pink & White Bengal Stripe Fitted Slim Shirt',
+    name: 'Bengal Stripe Fitted Slim Shirt',
     prices: { previous: 2999, current: 1999 },
     imageUrls: [
       '/images/products/popular/slim-shirt-1.jpg',
@@ -133,9 +134,10 @@ const popularProducts = [
       count: 256,
       average: 4.1,
     },
+    colors: ['Pink', 'Plum', 'Light Pink', 'Light Salmon', 'Pale Violet Red'],
   },
   {
-    name: 'Royal Blue 2 Piece Italian Cotton Linen Slim Suit',
+    name: 'Italian Cotton Linen Slim Suit',
     prices: { current: 1399 },
     imageUrls: [
       '/images/products/popular/linen-suit-1.jpg',
@@ -146,6 +148,7 @@ const popularProducts = [
       count: 183,
       average: 4.5,
     },
+    colors: ['Royal Blue', 'Midnight Blue', 'Cornflower Blue', 'Dark Blue', 'Navy'],
   },
   {
     name: 'Navy Mercerised Pique Polo Shirt',
@@ -177,7 +180,7 @@ const popularProducts = [
 
 const newProducts = [
   {
-    name: 'Black Printed Paisley Velvet Tuxedo Jacket',
+    name: 'Printed Paisley Velvet Tuxedo Jacket',
     prices: { current: 3499 },
     imageUrls: [
       '/images/products/new/tuxedo-jacket-1.jpg',
@@ -188,6 +191,7 @@ const newProducts = [
       count: 9,
       average: 3.9,
     },
+    colors: ['Black', 'Indigo', 'Dark Slate Gray', 'Midnight Blue'],
   },
   {
     name: 'White & Cream Broken Stripe Pussy Bow Blouse',
@@ -249,7 +253,7 @@ popularProducts.concat(newProducts).forEach((product) => {
   delete product.stockCount
 })
 
-// additional product fields: productId, priceId, tags/categories (for filtering), sizes (?), colours (?)
+// additional product fields: productId, priceId, tags/categories (for filtering), sizes + colors (a lot more complicated - like a sub-product within a product)
 
 export { popularProducts, newProducts }
 
