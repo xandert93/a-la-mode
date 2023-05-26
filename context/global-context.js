@@ -52,7 +52,9 @@ export const StoreProvider = (props) => {
     itemCount: bagItems.length,
     hasItems: Boolean(bagItems.length),
 
-    addLineItem: (product, qty) => {
+    addLineItem: (args) => {
+      const { product, color, size, qty } = args
+
       // if line item not in bag, add it. If already in bag, just update its qty
       setBagItems((prev) => {
         const isAlreadyInBag = prev.some((item) => item.name === product.name)
@@ -60,11 +62,11 @@ export const StoreProvider = (props) => {
         if (isAlreadyInBag)
           return prev.map((item) => {
             if (item.name !== product.name) return item
-            else return { ...item, qty } // previously increment existing quantity by new quantity, but this is easier to implement to ensure client can only add 9 max of a product to bag rather than 7 and then 8 to get 15 in bag
+            else return { ...item, color, size, qty } // update color + size selection and previously increment existing quantity by new quantity, but this is easier to implement to ensure client can only add 9 max of a product to bag rather than 7 and then 8 to get 15 in bag
           })
         else {
           // stripped `product` suitable for FE <ShoppingBag> display
-          const newLineItem = genLineItem(product, qty)
+          const newLineItem = genLineItem(args)
           return [...prev, newLineItem]
         }
       })

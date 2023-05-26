@@ -254,14 +254,14 @@ popularProducts.concat(newProducts).forEach((product) => {
 export { popularProducts, newProducts }
 
 // create temporary stripped `product` suitable for FE <ShoppingBag> display. This will come from DB in reality.
-export const genLineItem = (product, qty) => ({
+export const genLineItem = ({ product, color, size, qty }) => ({
   name: product.name,
   slug: product.slug,
   price: product.prices.current,
   imageUrl: product.imageUrls[0],
   // determined by client:
-  color: 'Navy',
-  size: 'M',
+  color,
+  size,
   qty,
   isSaved: false, // JFN
   // *** JFN:

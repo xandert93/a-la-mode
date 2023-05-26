@@ -359,8 +359,6 @@ const LineItemDemands = ({
     setIsUpdatingQty(false)
   }
 
-  console.log(stock)
-
   return (
     <Grid
       container

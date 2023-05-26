@@ -16,8 +16,11 @@ import { useSnackbar } from '@/context/snackbar-context'
 import { NewTag } from '@/features/product'
 import { useEffectOnMount } from '@/hooks'
 import { wait } from '@/utils/helpers'
-import { Box, Button, Grid, Rating, Typography, MenuItem } from '@mui/material'
+import { Box, Grid, Rating, Typography, MenuItem } from '@mui/material'
 import { useState } from 'react'
+
+import { ProductSizing } from './ProductSizing'
+import { ProductColors } from './ProductColors'
 
 /*
 🤔 
@@ -25,7 +28,7 @@ Find best position for <NewTag> - Review other sites
 
 🤔
 At the moment (in <ProductActions>), if out of stock, I'm conditionally removing
-<QtySelect> and <AddToBagButton> from the UI. This is JFN. Review other sites actual 
+<ProductQtySelect> and <AddToBagButton> from the UI. This is JFN. Review other sites actual 
 handling out of stock UI?
 
 🤔
@@ -38,11 +41,48 @@ Review other sites.
 export const ProductDetails = (product) => {
   const { name, prices, rating, description, features, stock, lastPurchasedAt, createdAt } = product
 
+  // JFN - lazy...
+  const [state, setState] = useState({
+    color: { value: '', hasErr: false },
+    size: { value: '', hasErr: false },
+  })
+
+  const handleChange = (e) => {
+    const { name, value } = e.target
+    setState((prev) => ({ ...prev, [name]: { value, hasErr: false } }))
+  }
+
+  const setErr = (name) => {
+    setState((prev) => ({ ...prev, [name]: { value: prev[name].value, hasErr: true } }))
+  }
+
+  const [qty, setQty] = useState(1)
+
+  // JFN
+  useEffectOnMount(() => {
+    const foundBagItem = JSON.parse(localStorage.getItem('bag-items'))?.find(
+      (item) => item.name === product.name
+    )
+
+    if (foundBagItem) {
+      const { color, size, qty } = foundBagItem
+
+      setState((prev) => ({
+        ...prev,
+        color: { value: color, hasErr: false },
+        size: { value: size, hasErr: false },
+      }))
+      setQty(qty)
+    }
+  })
+
+  const handleQtyChange = (e) => setQty(e.target.value)
+
   return (
     <Grid
       container
       direction="column"
-      alignItems="flex-start" // without <Grid item> system, <ButtonBase> will stretch. Will remove if I start using <Grid item>s
+      alignItems="flex-start" // without <Grid item> system, <NewTag> will stretch. Will remove if I start using <Grid item>s
       rowGap={2.5}>
       <NewTag />
 
@@ -50,26 +90,35 @@ export const ProductDetails = (product) => {
         container
         direction="column"
         alignItems="flex-start" // otherwise <ProductRatingsLink> stretches, making whole line clickable
-        rowGap={1.5}>
-        <ProductName name={name} />
+        rowGap={2}>
+        <ProductHeading name={name} />
         <ProductRatingsLink rating={rating} />
         <ProductPricing prices={prices} />
       </Grid>
 
-      <Grid container direction="column" rowGap={1.5}>
+      <Grid container direction="column" rowGap={2}>
         <ProductAvailability {...stock} />
-        <ProductColors />
-        <ProductSizing />
+        <ProductColors {...{ ...state.color, handleChange }} />
+        <ProductSizing {...{ ...state.size, handleChange }} />
       </Grid>
 
       <BestSellerTag />
-      <ProductActions product={product} />
+      <ProductActions
+        {...{
+          product,
+          color: state.color.value,
+          size: state.size.value,
+          qty,
+          handleQtyChange,
+          setErr,
+        }}
+      />
       <FreeDeliveryAlert />
     </Grid>
   )
 }
 
-const ProductName = ({ name }) => {
+const ProductHeading = ({ name }) => {
   return (
     <Typography
       component="h1" // *** all eComm website do this! Apparently is supposed to match <title>. But now have multiple and differing H1s...
@@ -121,7 +170,7 @@ const ProductPricing = ({ prices }) => {
 const ProductAvailability = ({ isAvailable, isLow, count }) => {
   return (
     <Box>
-      <Typography variant="body2" fontWeight={500}>
+      <Typography variant="body2">
         Availability:{' '}
         <Span
           color={!isAvailable ? 'text.disabled' : isLow ? 'error.main' : 'success.main'}
@@ -129,58 +178,6 @@ const ProductAvailability = ({ isAvailable, isLow, count }) => {
           fontWeight={isAvailable && isLow ? 500 : 400}
         />
       </Typography>
-    </Box>
-  )
-}
-
-// should have <RadioGroup>
-const ProductColors = ({ colors = ['beige', 'navy', 'primary.dark', 'black'] }) => {
-  return (
-    <Box>
-      <Typography variant="body2" children="Select your color:" fontWeight={500} />
-      <Grid container columnGap={2} my={2}>
-        {colors.map((c) => (
-          <Box
-            key={c}
-            height={30}
-            width={30}
-            bgcolor={c}
-            borderRadius="50%"
-            border={'2px solid'}
-            borderColor="primary.light"
-          />
-        ))}
-      </Grid>
-    </Box>
-  )
-}
-
-// should have <RadioGroup>
-const ProductSizing = ({ sizes = ['xs', 's', 'm', 'l', 'xl', '2xl'] }) => {
-  return (
-    <Box>
-      <Grid container justifyContent="space-between" alignItems="center">
-        <Typography variant="body2" children="Select your size:" fontWeight={500} />
-        <Typography variant="body2" color="text.secondary" children="Size Guide" fontWeight={500} />
-      </Grid>
-      <Grid container gap={{ xs: 1, md: 1.5, xl: 2 }} my={2}>
-        {sizes.map((size) => (
-          <Button
-            key={size}
-            variant="outlined"
-            children={size}
-            sx={{ py: 1.5, px: 2, textTransform: 'uppercase' }}
-            disabled={['m', '2xl'].includes(size)}
-          />
-        ))}
-      </Grid>
-      <Box>
-        <Typography variant="body2" children="Size Missing?" fontWeight={500} />
-        <Typography
-          variant="body2"
-          children="Sign up to be notified when the product comes back in stock" // Add "Notify Me 🔔" link or button
-        />
-      </Box>
     </Box>
   )
 }
@@ -204,19 +201,7 @@ const BestSellerTag = () => {
   )
 }
 
-const ProductActions = ({ product }) => {
-  const [qty, setQty] = useState(1)
-
-  // JFN
-  useEffectOnMount(() => {
-    setQty(
-      JSON.parse(localStorage.getItem('bag-items'))?.find((item) => item.name === product.name)
-        ?.qty || 1
-    )
-  })
-
-  const handleQtyChange = (e) => setQty(e.target.value)
-
+const ProductActions = ({ product, color, size, qty, handleQtyChange, setErr }) => {
   return (
     <Grid container justifyContent="flex-end" spacing={{ xs: 2, sm: 1 }}>
       {/* if out of stock, either a) hide qty <Select> & <AddToBagButton> or b) disable them 
@@ -224,10 +209,10 @@ const ProductActions = ({ product }) => {
       {product.stock.isAvailable && (
         <>
           <Grid item xs={12} sm={2}>
-            <QtySelect stock={product.stock} value={qty} onChange={handleQtyChange} />
+            <ProductQtySelect stock={product.stock} value={qty} onChange={handleQtyChange} />
           </Grid>
           <Grid item xs={12} sm={10}>
-            <AddToBagButton product={product} qty={qty} />
+            <AddToBagButton {...{ product, color, size, qty, setErr }} />
           </Grid>
         </>
       )}
@@ -239,7 +224,7 @@ const ProductActions = ({ product }) => {
   )
 }
 
-const QtySelect = ({ stock, ...props }) => {
+const ProductQtySelect = ({ stock, ...props }) => {
   // better way to do this?
   const values = [...Array(stock.count > 9 ? 9 : stock.count).keys()].map((index) => index + 1)
 
@@ -252,18 +237,23 @@ const QtySelect = ({ stock, ...props }) => {
   )
 }
 
-const AddToBagButton = ({ product, qty }) => {
+const AddToBagButton = ({ product, color, size, qty, setErr }) => {
   const bag = useBag()
   const snackbar = useSnackbar()
 
   const [isAdding, setIsAdding] = useState(false)
 
   const handleAddToBagClick = async () => {
-    setIsAdding(true)
-    await wait(1)
-    bag.addLineItem(product, qty)
-    snackbar.success('Added to Bag!')
-    setIsAdding(false)
+    if (!color) setErr('color')
+    if (!size) setErr('size')
+
+    if (color && size) {
+      setIsAdding(true)
+      await wait(1)
+      bag.addLineItem({ product, color, size, qty })
+      snackbar.success('Added to Bag!')
+      setIsAdding(false)
+    }
   }
 
   return (
