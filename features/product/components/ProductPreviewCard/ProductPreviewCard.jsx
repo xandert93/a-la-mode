@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Box, Card, Grid, Typography } from '@mui/material'
+import { Box, Card, Grid, Rating, Typography } from '@mui/material'
 
 import { Link, HeartIcon, IconButton, Img, MoneyTypography } from '../../../../components'
 
@@ -10,30 +10,30 @@ import { isHoverable } from '@/theming'
 import { useWishList } from '@/context/global-context'
 import { wait } from '@/utils/helpers'
 import { useSnackbar } from '@/context/snackbar-context'
+import { ProductPricing } from '../ProductPricing'
 
 export const ProductPreviewCard = (product) => {
-  const { id, slug, name, prices, imageUrls, href, colors = ['black', 'navy', '#c5c285'] } = product
+  const {
+    id,
+    slug,
+    name,
+    prices,
+    imageUrls,
+    href,
+    colors = ['black', 'navy', '#c5c285'],
+    rating,
+  } = product
 
   return (
     <Card component="article" elevation={0} sx={styles.root}>
       <Link href={'/' + slug} sx={{ [isHoverable]: { p: 1.5 } }}>
-        <Grid container direction="column" rowGap={2}>
-          <ProductImage urls={imageUrls} />
-          <Grid container alignItems="center" rowGap={1} px={1}>
-            <Grid item xs={12}>
-              <Typography
-                children={name}
-                sx={{ letterSpacing: 1 }} // JFN
-              />
-            </Grid>
-            <Grid item xs>
-              <ProductColors colors={colors} />
-            </Grid>
-            <MoneyTypography
-              children={prices.current}
-              sx={{ fontWeight: 500, letterSpacing: -0.5 }} // JFN - "body1" fontsize too small and "h6" too big...need solution
-            />
-          </Grid>
+        <Grid container direction="column" rowGap={1.5}>
+          <ProductPreviewImage urls={imageUrls} />
+          {/* <PPP> 👇 is a bit tall for some reason - mb of -4px is hacky JFN. Return later *** */}
+          <ProductPreviewPricing prices={prices} mb={-0.5} />
+          <ProductPreviewName name={name} />
+          <ProductPreviewColors colors={colors} />
+          <ProductPreviewRating rating={rating} />
         </Grid>
       </Link>
       <SaveButton product={product} />
@@ -41,7 +41,19 @@ export const ProductPreviewCard = (product) => {
   )
 }
 
-const ProductImage = ({ urls }) => {
+const ProductPreviewRating = ({ rating }) => {
+  return (
+    <Rating
+      size="small"
+      value={rating.average}
+      sx={{
+        color: 'secondary.main', // JTO
+      }}
+    />
+  )
+}
+
+const ProductPreviewImage = ({ urls }) => {
   const [index, setIndex] = useState(0)
 
   const toggleImage = (newIndex) => () => setIndex(newIndex)
@@ -61,29 +73,69 @@ const ProductImage = ({ urls }) => {
   )
 }
 
-const ProductColors = ({ colors }) => {
+const ProductPreviewPricing = ({ prices, ...props }) => {
   return (
-    <Grid container>
-      {colors.slice(0, 3).map((color) => (
-        <ColorCircle key={color} bgcolor={color.replace(/ /g, '')} />
+    <Grid container justifyContent="space-between" alignItems="center" {...props}>
+      <ProductPricing variant1="caption" prices={prices} gap={0.5} width="auto" />
+      {prices.previous && <ProductPriceSaving prices={prices} />}
+    </Grid>
+  )
+}
+
+const ProductPreviewName = ({ name }) => {
+  return <Typography component="h2" children={name} letterSpacing={-0.25} />
+}
+
+const ProductPriceSaving = ({ prices }) => {
+  const saving = Math.round((1 - prices.current / prices.previous) * 100) // *** perform on server?
+
+  return (
+    <Typography
+      variant="caption"
+      sx={{
+        clipPath: 'polygon(12% 0, 100% 0, 88% 100%, 0 100%)',
+        bgcolor: 'secondary.main',
+        color: 'background.default',
+        py: 1 / 8,
+        px: 2,
+      }}
+      children={`Save ${saving}%`}
+    />
+  )
+}
+
+const ProductPreviewColors = ({ colors, ...props }) => {
+  const shownColorCount = 5
+
+  return (
+    <Grid container alignItems="center" gap={1} {...props}>
+      {colors.slice(0, shownColorCount).map((color) => (
+        <PreviewColor key={color} bgcolor={color.replace(/ /g, '')} title={color} />
       ))}
-      {colors.length > 3 && (
-        <ColorCircle
-          bgcolor="divider"
-          children={'+' + String(colors.length - 3)}
-          fontSize={12}
-          display="flex"
-          justifyContent="center"
-          alignItems="center"
+      {colors.length > shownColorCount && (
+        <Typography
+          variant="body2"
+          children={'+' + String(colors.length - shownColorCount)}
+          color="secondary.main"
         />
       )}
     </Grid>
   )
 }
 
-// Inspired by <AvatarGroup> - inspect MUI use for further configuration: https://mui.com/material-ui/react-avatar/#grouped
-const ColorCircle = (props) => {
-  return <Box sx={styles['color-circle']} {...props} />
+const PreviewColor = (props) => {
+  return (
+    <Box
+      sx={{
+        height: 24,
+        width: 24,
+        border: '1px solid',
+        borderColor: 'text.primary',
+        borderRadius: 0.5,
+      }}
+      {...props}
+    />
+  )
 }
 
 const SaveButton = ({ product }) => {
@@ -109,6 +161,7 @@ const SaveButton = ({ product }) => {
   return (
     <IconButton
       onClick={handleClick}
+      shaded={false}
       sx={styles['save-button'](isSaved)}
       aria-label="Add product to your Wish List">
       <HeartIcon sx={styles.icon(isSaved)} />

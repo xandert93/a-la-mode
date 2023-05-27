@@ -106,25 +106,36 @@ export const collections = [
 const popularProducts = [
   {
     name: 'Natural Herringbone Linen Jacket',
-    prices: { previous: 7999, current: 5999 },
+    prices: { previous: 5999, current: 4499 },
     description:
       'Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis officia veritatis sunt nostrum quas tempore necessitatibus tenetur. Dolorum reprehenderit facilis veritatis modi. Illo facere, vel ratione assumenda nisi ex quibusdam!',
     features: ['feature 1', 'feature 2', 'feature 3', 'feature 4'],
     imageUrls: [
       '/images/products/popular/linen-jacket-1.jpg',
       '/images/products/popular/linen-jacket-2.jpg',
+      '/images/products/popular/linen-jacket-3.jpg',
+      '/images/products/popular/linen-jacket-4.jpg',
+      '/images/products/popular/linen-jacket-5.jpg',
     ],
     stockCount: 8,
     rating: {
       count: 787,
-      average: 4.8,
+      average: 4.6,
     },
-    colors: ['Blanched Almond', 'Beige', 'Old Lace', 'Linen', 'Antique White'],
+    colors: [
+      'Blanched Almond',
+      'Pale Golden Rod',
+      'Beige',
+      'Old Lace',
+      'Khaki',
+      'Linen',
+      'Antique White',
+    ],
     lastPurchasedAt: 'Yesterday',
     createdAt: '', // can display "NEW" flag in UI
   },
   {
-    name: 'Bengal Stripe Fitted Slim Shirt',
+    name: 'Stripe Fitted Slim Shirt',
     prices: { previous: 2999, current: 1999 },
     imageUrls: [
       '/images/products/popular/slim-shirt-1.jpg',
@@ -133,13 +144,13 @@ const popularProducts = [
     stockCount: 0,
     rating: {
       count: 256,
-      average: 4.1,
+      average: 4.7,
     },
-    colors: ['Pink', 'Plum', 'Light Pink', 'Light Salmon', 'Pale Violet Red'],
+    colors: ['Pink', 'Plum', 'Light Pink', 'Light Salmon', 'Pale Violet Red', 'Sandy Brown'],
   },
   {
     name: 'Italian Cotton Linen Slim Suit',
-    prices: { current: 1399 },
+    prices: { current: 7999 },
     imageUrls: [
       '/images/products/popular/linen-suit-1.jpg',
       '/images/products/popular/linen-suit-2.jpg',
@@ -152,37 +163,27 @@ const popularProducts = [
     colors: ['Royal Blue', 'Midnight Blue', 'Cornflower Blue', 'Dark Blue', 'Navy'],
   },
   {
-    name: 'Navy Mercerised Pique Polo Shirt',
-    prices: { current: 3999 },
+    name: 'Mercerised Pique Polo Shirt',
+    prices: { current: 2499 },
     imageUrls: [
       '/images/products/popular/polo-shirt-1.jpg',
       '/images/products/popular/polo-shirt-2.jpg',
+      '/images/products/popular/polo-shirt-3.jpg',
+      '/images/products/popular/polo-shirt-4.jpg',
     ],
     stockCount: 4,
     rating: {
       count: 83,
-      average: 4.2,
-    },
-  },
-  {
-    name: 'Taupe Mercerised Pique Polo Shirt',
-    prices: { current: 3999 },
-    imageUrls: [
-      '/images/products/popular/polo-shirt-3.jpg',
-      '/images/products/popular/polo-shirt-4.jpg',
-    ],
-    stockCount: 8,
-    rating: {
-      count: 109,
       average: 4.6,
     },
+    colors: ['Midnight Blue', 'Tan'],
   },
 ]
 
 const newProducts = [
   {
     name: 'Printed Paisley Velvet Tuxedo Jacket',
-    prices: { current: 3499 },
+    prices: { current: 10999 },
     imageUrls: [
       '/images/products/new/tuxedo-jacket-1.jpg',
       '/images/products/new/tuxedo-jacket-2.jpg',
@@ -195,8 +196,8 @@ const newProducts = [
     colors: ['Black', 'Indigo', 'Dark Slate Gray', 'Midnight Blue'],
   },
   {
-    name: 'White & Cream Broken Stripe Pussy Bow Blouse',
-    prices: { current: 4599 },
+    name: 'Broken Stripe Pussy Bow Blouse',
+    prices: { previous: 3999, current: 2999 },
     imageUrls: [
       '/images/products/new/stripe-blouse-1.jpg',
       '/images/products/new/stripe-blouse-2.jpg',
@@ -208,8 +209,8 @@ const newProducts = [
     },
   },
   {
-    name: 'Light Grey Twill 3 Piece Slim Suit',
-    prices: { current: 4299 },
+    name: 'Twill 3 Piece Slim Suit',
+    prices: { previous: 18999, current: 14999 },
     imageUrls: ['/images/products/new/grey-suit-1.jpg', '/images/products/new/grey-suit-2.jpg'],
     stockCount: 2,
     rating: {
@@ -218,8 +219,8 @@ const newProducts = [
     },
   },
   {
-    name: 'Pink & Black Abstract Paint Pussy Bow Blouse',
-    prices: { current: 4599 },
+    name: 'Abstract Paint Pussy Bow Blouse',
+    prices: { current: 3999 },
     imageUrls: ['/images/products/new/pink-blouse-1.jpg', '/images/products/new/pink-blouse-2.jpg'],
     stockCount: 35,
     rating: {
@@ -228,8 +229,8 @@ const newProducts = [
     },
   },
   {
-    name: 'Men’s Navy Plain Velvet Jacket',
-    prices: { current: 2799 },
+    name: 'Velvet Jacket',
+    prices: { current: 8499 },
     imageUrls: [
       '/images/products/new/velvet-jacket-1.jpg',
       '/images/products/new/velvet-jacket-2.jpg',
@@ -255,6 +256,7 @@ popularProducts.concat(newProducts).forEach((product) => {
 })
 
 // additional product fields: productId, priceId, tags/categories (for filtering), sizes + colors (a lot more complicated - like a sub-product within a product)
+// colors should probably be [{ name: 'Taupe', hexCode: '#...' }]
 
 export { popularProducts, newProducts }
 

@@ -6,7 +6,6 @@ import {
   LoadingButton,
   InformationIcon,
   DeliveryIcon,
-  MoneyTypography,
   Select,
   Span,
   Link,
@@ -21,6 +20,7 @@ import { createContext, useContext, useState } from 'react'
 
 import { ProductSizing } from './ProductSizing'
 import { ProductColors } from './ProductColors'
+import { ProductPricing } from '@/features/product/components'
 
 const context = createContext()
 const useProductDetails = () => useContext(context) // perhaps "useProduct", we'll see
@@ -98,7 +98,7 @@ export const ProductDetails = (product) => {
         rowGap={1.5}>
         <ProductHeading name={name} />
         <ProductRatingsLink rating={rating} />
-        <ProductPricing prices={prices} />
+        <ProductPricing prices={prices} variant2="h6" />
       </Grid>
 
       <Grid container direction="column" rowGap={2}>
@@ -149,26 +149,6 @@ const ProductRatingsLink = ({ rating }) => {
         <Typography children={`${rating.average} (${rating.count})`} />
       </Grid>
     </Link>
-  )
-}
-
-const ProductPricing = ({ prices }) => {
-  return (
-    <Grid container columnGap={1}>
-      {prices.previous && (
-        <MoneyTypography
-          color="text.disabled"
-          children={prices.previous}
-          sx={{ textDecoration: 'line-through' }} // JFN
-        />
-      )}
-      <MoneyTypography
-        variant="h6" // or makes same size...JTO!
-        component="p"
-        children={prices.current}
-        color={prices.previous && 'secondary.main'}
-      />
-    </Grid>
   )
 }
 

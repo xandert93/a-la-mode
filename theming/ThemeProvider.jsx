@@ -27,7 +27,7 @@ export const ThemeProvider = ({ children }) => {
     <MuiThemeProvider theme={isDarkMode ? darkTheme : lightTheme}>
       <CssBaseline />
       {children}
-      {/* 👇 JFN */}
+      {/* 👇 *** JFN */}
       <Button onClick={toggleDarkMode} children="💡" />
     </MuiThemeProvider>
   )

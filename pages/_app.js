@@ -27,12 +27,12 @@ export default function App({ Component, pageProps }) {
           </ThemeProvider>
         ) : (
           <ThemeProvider>
-            <Header />
+            {/* <Header /> */}
             <SnackbarProvider>
               <Component {...pageProps} />
               <Snackbar />
             </SnackbarProvider>
-            <Footer />
+            {/* <Footer /> */}
           </ThemeProvider>
         )}
       </StoreProvider>

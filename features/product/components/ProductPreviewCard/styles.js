@@ -18,7 +18,7 @@ export const styles = {
       xs: 0.75, // default of `1` looks a bit crap on xs
       lg: 1,
     },
-    backgroundColor: ({ palette }) => alpha(palette.primary.main, isSaved ? 0 : 0.5),
+    backgroundColor: ({ palette }) => alpha(palette.common.white, isSaved ? 0 : 0.2),
 
     top: '5px',
     right: '5px',
@@ -41,7 +41,6 @@ export const styles = {
   }),
 
   'image-box': {
-    borderRadius: 1,
     overflow: 'hidden',
   },
 

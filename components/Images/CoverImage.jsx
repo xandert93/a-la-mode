@@ -1,18 +1,23 @@
 import { Box } from '@mui/material'
 import Image from 'next/image'
 
-const styles = {
-  objectFit: 'cover',
-}
+import PropTypes from 'prop-types'
 
-export const CoverImage = ({ src, sx, ...props }) => {
+export const CoverImage = ({ sx, ...props }) => {
   return (
     <Box
       component={Image}
-      src={src} //
       fill
-      sx={[styles, sx]}
+      sx={{
+        objectFit: 'cover',
+        ...sx,
+      }}
       {...props}
     />
   )
+}
+
+CoverImage.propTypes = {
+  src: PropTypes.string.isRequired,
+  alt: PropTypes.string.isRequired,
 }
