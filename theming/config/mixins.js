@@ -37,11 +37,11 @@ export const mixins = {
     '-webkit-background-clip': 'text',
   }),
 
-  lineClamp: (lineCount) => ({
+  lineClamp: (count) => ({
     display: '-webkit-box',
     '-webkit-box-orient': 'vertical',
-    '-webkit-line-clamp': `${lineCount}` /* number of lines to show */,
-    lineClamp: `${lineCount}` /* used if browser accepts it */,
+    '-webkit-line-clamp': `${count}`, // number of lines to show
+    lineClamp: `${count}`, // used if browser accepts it
     overflow: 'hidden',
   }),
 }

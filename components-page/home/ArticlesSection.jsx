@@ -42,7 +42,7 @@ const styles = {
   ['article-body']: (theme) => ({
     [isVPXs]: {
       color: 'common.white',
-      ...theme.mixins.lineClamp(2),
+      ...theme.mixins.lineClamp(3),
     },
   }),
 }
