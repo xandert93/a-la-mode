@@ -6,7 +6,7 @@ const { palette } = createTheme({
     mode: 'light',
 
     text: {
-      tertiary: brown[700],
+      tertiary: brown[700], // a dark color!
     },
 
     primary: {

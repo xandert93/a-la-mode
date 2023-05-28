@@ -14,11 +14,7 @@ export const styles = {
 
   'save-button': (isSaved) => ({
     position: 'absolute',
-    p: {
-      xs: 0.75, // default of `1` looks a bit crap on xs
-      lg: 1,
-    },
-    backgroundColor: ({ palette }) => alpha(palette.common.white, isSaved ? 0 : 0.2),
+    backgroundColor: ({ palette }) => alpha(palette.common.white, isSaved ? 0 : 0.7),
 
     top: '5px',
     right: '5px',
@@ -29,34 +25,22 @@ export const styles = {
       right: '22px',
       ':hover': {
         transform: 'scale(0.95)',
+        backgroundColor: 'common.white',
       },
     },
 
-    transition: ({ transitions }) => transitions.create('transform'),
+    transition: ({ transitions }) => transitions.create(['transform', 'background-color']),
   }),
 
   icon: (isSaved) => ({
-    stroke: 'white', // border
+    stroke: ({ palette }) => (isSaved ? 'white' : palette.primary.main), // border
     fill: ({ palette }) => (isSaved ? palette.primary.main : 'transparent'), // background-color
   }),
 
   'image-box': {
-    overflow: 'hidden',
-  },
-
-  image: {
-    width: '100%',
+    position: 'relative',
     aspectRatio: '4/5',
-    objectFit: 'cover',
-  },
-
-  'color-circle': {
-    marginRight: '-4px',
-    height: 24,
-    width: 24,
-    borderRadius: '50%',
-    border: '2px solid',
-    borderColor: 'primary.touch',
+    overflow: 'hidden',
   },
 }
 

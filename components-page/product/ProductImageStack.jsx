@@ -16,14 +16,16 @@ export const ProductImageStack = ({ imageUrls, changeImage, imageIndex }) => {
           md={12} // 1 per row, but row only consumes 1.5/12 (see <ProductImageStack> parent)
           key={index}>
           <Box
-            overflow="hidden"
-            borderRadius={1}
+            onClick={changeImage(index)}
+            onMouseEnter={changeImage(index)}
             sx={{
-              border: '1px solid transparent',
+              borderRadius: 1,
+              overflow: 'hidden',
+              border: '2px solid transparent',
               transition: (theme) => theme.transitions.create('border-color'),
 
               ...(imageIndex === index && {
-                borderColor: 'secondary.light',
+                borderColor: 'primary.light',
               }),
 
               [isHoverable]: {
@@ -31,9 +33,8 @@ export const ProductImageStack = ({ imageUrls, changeImage, imageIndex }) => {
                   filter: 'brightness(0.9)',
                 },
               },
-            }}
-            onClick={changeImage(index)}
-            onMouseEnter={changeImage(index)}>
+            }}>
+            {/* *** Tried hard to use next/image here, but not working...possibly because of max-width configuration on containers... */}
             <Img
               src={url}
               sx={{
@@ -41,7 +42,7 @@ export const ProductImageStack = ({ imageUrls, changeImage, imageIndex }) => {
                 aspectRatio: '1/1',
                 objectFit: 'cover',
               }}
-              alt="Product Image Preview" // JFN
+              alt="" // JFN
             />
           </Box>
         </Grid>

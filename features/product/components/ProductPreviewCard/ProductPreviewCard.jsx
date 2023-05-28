@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Box, Card, Grid, Rating, Typography } from '@mui/material'
 
-import { Link, HeartIcon, IconButton, Img, MoneyTypography } from '../../../../components'
+import { Link, HeartIcon, IconButton, CoverImage } from '../../../../components'
 
 import { useEffectOnMount } from '@/hooks'
 
@@ -28,7 +28,7 @@ export const ProductPreviewCard = (product) => {
     <Card component="article" elevation={0} sx={styles.root}>
       <Link href={'/' + slug} sx={{ [isHoverable]: { p: 1.5 } }}>
         <Grid container direction="column" rowGap={1.5}>
-          <ProductPreviewImage urls={imageUrls} />
+          <ProductPreviewImage name={name} urls={imageUrls} />
           {/* <PPP> 👇 is a bit tall for some reason - mb of -4px is hacky JFN. Return later *** */}
           <ProductPreviewPricing prices={prices} mb={-0.5} />
           <ProductPreviewName name={name} />
@@ -53,7 +53,9 @@ const ProductPreviewRating = ({ rating }) => {
   )
 }
 
-const ProductPreviewImage = ({ urls }) => {
+const ProductPreviewImage = ({ name, urls }) => {
+  const imageCount = urls.length
+
   const [index, setIndex] = useState(0)
 
   const toggleImage = (newIndex) => () => setIndex(newIndex)
@@ -64,10 +66,9 @@ const ProductPreviewImage = ({ urls }) => {
       onMouseEnter={toggleImage(1)}
       onMouseLeave={toggleImage(0)}
       sx={styles['image-box']}>
-      <Img
+      <CoverImage
         src={urls[index]}
-        sx={styles.image}
-        alt="Product Image 3 of 4" // JFN come back later
+        alt={`${name} ${index + 1} of ${imageCount}`} // *** via M&S. Necessary? Macy's and Asos use `alt=""`
       />
     </Grid>
   )
@@ -105,19 +106,17 @@ const ProductPriceSaving = ({ prices }) => {
 }
 
 const ProductPreviewColors = ({ colors, ...props }) => {
+  const colorCount = colors.length
   const shownColorCount = 5
+  const remainingColorCount = colorCount - shownColorCount
 
   return (
     <Grid container alignItems="center" gap={1} {...props}>
       {colors.slice(0, shownColorCount).map((color) => (
         <PreviewColor key={color} bgcolor={color.replace(/ /g, '')} title={color} />
       ))}
-      {colors.length > shownColorCount && (
-        <Typography
-          variant="body2"
-          children={'+' + String(colors.length - shownColorCount)}
-          color="secondary.main"
-        />
+      {remainingColorCount > 0 && (
+        <Typography variant="body2" children={`+${remainingColorCount}`} color="text.secondary" />
       )}
     </Grid>
   )
@@ -160,6 +159,7 @@ const SaveButton = ({ product }) => {
 
   return (
     <IconButton
+      size="small"
       onClick={handleClick}
       shaded={false}
       sx={styles['save-button'](isSaved)}

@@ -36,4 +36,12 @@ export const mixins = {
     color: 'transparent',
     '-webkit-background-clip': 'text',
   }),
+
+  lineClamp: (lineCount) => ({
+    display: '-webkit-box',
+    '-webkit-box-orient': 'vertical',
+    '-webkit-line-clamp': `${lineCount}` /* number of lines to show */,
+    lineClamp: `${lineCount}` /* used if browser accepts it */,
+    overflow: 'hidden',
+  }),
 }

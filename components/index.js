@@ -43,6 +43,9 @@ export {
   PublishedWithChanges as ValidateIcon,
   RedeemOutlined as GiftIcon,
   PersonOutline as AccountIcon,
+  Circle as CircleIcon,
+  OfflineBolt as CircleElectricIcon,
+  Star as StarIcon,
 } from '@mui/icons-material'
 
 export { Img, Image, CoverImage, BackgroundVideo } from './Images'

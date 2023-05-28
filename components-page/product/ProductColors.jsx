@@ -1,5 +1,5 @@
-import { Radio, RadioGroup, Span } from '@/components'
-import { Typography, formLabelClasses, ButtonBase, Grid } from '@mui/material'
+import { CircleIcon, Radio, RadioGroup, Span } from '@/components'
+import { Typography, formLabelClasses, Grid } from '@mui/material'
 
 const styles = {
   'radio-group-label': {
@@ -19,22 +19,6 @@ const styles = {
   'radio-box': {
     padding: 0, // remove default padding from <input:radio>'s <span> wrapper
   },
-
-  'radio-icon': ({ color, checked }) => ({
-    // typography: 'h3', - was very hit/miss
-    fontSize: 36,
-    height: '1em',
-    width: '1em',
-    bgcolor: color,
-    borderRadius: '50%',
-    border: '3px solid',
-    borderColor: 'background.default',
-    outline: '2px outset transparent',
-
-    ...(checked && {
-      outlineColor: (theme) => theme.palette.secondary.main, // isn't theme aware so can't write shorthand
-    }),
-  }),
 
   'radio-helper-text': {
     typography: 'body2',
@@ -96,6 +80,19 @@ const ColorRadio = ({ color }) => {
   )
 }
 
-const RadioIcon = (props) => {
-  return <ButtonBase component="span" sx={styles['radio-icon'](props)} />
+const RadioIcon = ({ color, checked }) => {
+  return (
+    <CircleIcon
+      sx={{
+        color,
+        // typography: 'h3', // very hit/miss
+        fontSize: 36,
+        borderRadius: '50%',
+        ...(checked && {
+          border: checked && '2px outset',
+          borderColor: 'secondary.main',
+        }),
+      }}
+    />
+  )
 }

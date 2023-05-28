@@ -1,5 +1,6 @@
 import { alertClasses } from '@mui/material'
-import { isVPMaxSm, isVPMinSm, isVPSm, isVPXs } from './media-queries'
+import { isVPMinSm, isVPSm, isVPXs } from './media-queries'
+import { Star as StarIcon } from '@mui/icons-material'
 
 export const overrideMui = (palette) => ({
   MuiCssBaseline: {
@@ -224,6 +225,7 @@ export const overrideMui = (palette) => ({
     defaultProps: {
       readOnly: true,
       precision: 0.1,
+      emptyIcon: <StarIcon fontSize="inherit" />, // StarOutlined*
     },
   },
 

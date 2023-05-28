@@ -5,9 +5,7 @@ import {
   RecommendedProductsSection,
 } from '@/components-page/product'
 import { NAMES } from '@/constants'
-import { useBag } from '@/context/global-context'
 import { newProducts, popularProducts } from '@/data'
-import { useEffectOnMount } from '@/hooks'
 
 import Head from 'next/head'
 import { useEffect, useRef } from 'react'

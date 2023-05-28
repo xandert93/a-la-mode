@@ -1,4 +1,4 @@
-import { Img, ArrowLeftIcon, ArrowRightIcon } from '@/components'
+import { ArrowLeftIcon, ArrowRightIcon, CoverImage } from '@/components'
 
 import { Box, ButtonBase, Fade, Grid } from '@mui/material'
 import { useState } from 'react'
@@ -26,21 +26,29 @@ export const ProductImageDisplay = ({ imageUrls }) => {
       <Grid item xs={12} md={1.5}>
         <ProductImageStack imageUrls={imageUrls} changeImage={changeImage} imageIndex={index} />
       </Grid>
-      <Grid item xs={12} md={10.5} sx={{ position: 'relative' }}>
+      <Grid
+        item
+        xs={12}
+        md={10.5}
+        sx={{
+          position: 'relative',
+          width: '100%', // *** otherwise Next <CoverImage> below goes whack...I think it's cos it effectively has no children (absolute) and therefore collapses completely
+        }}>
         <Fade
           in
           timeout={500}
           key={index} // JFN - bit of a hack, but desired effect. Best way to achieve?
         >
-          <Box sx={{ borderRadius: 1, overflow: 'hidden' }}>
-            <Img
+          <Box
+            sx={{
+              borderRadius: 1,
+              overflow: 'hidden',
+              position: 'relative',
+              aspectRatio: { xs: '1/1', md: '4/5' },
+            }}>
+            <CoverImage
               src={imageUrls[index]}
-              sx={{
-                width: '100%',
-                aspectRatio: { xs: '1/1', md: '4/5' },
-                objectFit: 'cover',
-              }}
-              alt="Product Image 1 of 3" // JFN
+              alt="" // JFN
             />
           </Box>
         </Fade>

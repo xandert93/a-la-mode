@@ -9,6 +9,7 @@ import {
   Select,
   Span,
   Link,
+  EmptyShoppingBagIcon,
 } from '@/components'
 import { useBag, useWishList } from '@/context/global-context'
 import { useSnackbar } from '@/context/snackbar-context'
@@ -21,6 +22,7 @@ import { createContext, useContext, useState } from 'react'
 import { ProductSizing } from './ProductSizing'
 import { ProductColors } from './ProductColors'
 import { ProductPricing } from '@/features/product/components'
+import { Star } from '@mui/icons-material'
 
 const context = createContext()
 const useProductDetails = () => useContext(context) // perhaps "useProduct", we'll see
@@ -248,8 +250,9 @@ const AddToBagButton = ({ product, color, size, qty, setErr }) => {
       isLoading={isAdding}
       onClick={handleAddToBagClick}
       children="Add to Bag"
+      endIcon={<EmptyShoppingBagIcon />}
       fullWidth
-      sx={{ py: '13.5px' }} // hacky, but to match <Select>
+      sx={{ py: '13.5px' }} // *** hacky, but to match <Select>
     />
   )
 }

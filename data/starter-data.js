@@ -124,7 +124,7 @@ const popularProducts = [
     },
     colors: [
       'Blanched Almond',
-      'Pale Golden Rod',
+      'Dark Golden Rod',
       'Beige',
       'Old Lace',
       'Khaki',
@@ -342,7 +342,7 @@ export const productReviews = [
 export const blogArticles = [
   {
     title: 'Formal Wear',
-    body: 'Luxury meets history. Stylish formal wear that exudes confidence. Crafted from luxurious Italian fabrics, our menswear collections will give you an ultra-smart and polished look, perfect for prestigious events.',
+    body: 'Crafted from luxurious Italian fabrics, our menswear collections will give you an ultra-smart and polished look, perfect for prestigious events.',
     imageUrl: '/images/blog-articles/formal-wear.jpg',
   },
   {
