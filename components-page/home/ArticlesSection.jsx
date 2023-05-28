@@ -27,8 +27,9 @@ const styles = {
   ['article-details']: (theme) => ({
     [isVPXs]: {
       ...theme.mixins.absCover,
+      pr: '33%', // JFN, but desired effect
       borderRadius: 1,
-      bgcolor: alpha(theme.palette.common.black, 0.4),
+      bgcolor: alpha(theme.palette.common.black, 0.35),
     },
   }),
 
@@ -68,7 +69,12 @@ export const ArticlesSection = () => {
 
 const Article = ({ direction, title, body, imageUrl, href }) => {
   return (
-    <Grid container direction={direction} spacing={{ sm: 3, md: 4 }} sx={styles.root}>
+    <Grid
+      container
+      direction={direction}
+      alignItems="center"
+      spacing={{ sm: 3, md: 4 }}
+      sx={styles.root}>
       <Grid item sm={6} xs={12}>
         <ArticleImage imageUrl={imageUrl} title={title} />
       </Grid>
@@ -94,12 +100,14 @@ const ArticleDetails = ({ title, body }) => {
       direction="column"
       justifyContent="center"
       alignItems="flex-start" // prevent <Button> stretch
+      wrap="nowrap"
       p={3}
       rowGap={{ xs: 2, sm: 3 }}
       sx={styles['article-details']}>
       <Typography component="h3" variant="h6" children={title} sx={styles['article-title']} />
       <Typography children={body} sx={styles['article-body']} />
-      <ButtonLink variant="contained" color="secondary" href="#" children="Continue reading ➡" />
+      {/* *** <ImageButton> probably better on xs, but then I'd need MQ in component (not eager) */}
+      <ButtonLink color="secondary" href="#" children="Continue reading ➡" />
     </Grid>
   )
 }
