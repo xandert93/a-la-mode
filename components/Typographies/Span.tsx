@@ -1,6 +1,6 @@
-import { Typography } from '@mui/material'
+import { Typography, TypographyProps } from '@mui/material'
 
-export const Span = (props) => {
+export const Span = (props: TypographyProps) => {
   return (
     <Typography
       component="span"

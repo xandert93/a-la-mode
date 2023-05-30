@@ -5,7 +5,7 @@ export const CompanyHeading = ({ variant, ...props }) => {
   return (
     <Typography
       component="h1"
-      variant={variant} //
+      variant={variant}
       children={NAMES.COMPANY}
       fontFamily="Ephesis, cursive"
       fontWeight={400}

@@ -1,8 +1,8 @@
-import { alertClasses } from '@mui/material'
+import { alertClasses, Palette } from '@mui/material'
 import { isVPMinSm, isVPSm, isVPXs } from './media-queries'
 import { Star as StarIcon } from '@mui/icons-material'
 
-export const overrideMui = (palette) => ({
+export const overrideMui = (palette: Palette) => ({
   MuiCssBaseline: {
     styleOverrides: {
       'img, video': {
@@ -61,12 +61,6 @@ export const overrideMui = (palette) => ({
     },
   },
 
-  MuiFormControl: {
-    defaultProps: {
-      variant: 'standard', // outlined*
-    },
-  },
-
   MuiLink: {
     defaultProps: {
       variant: 'body1', // 'inherit'*
@@ -104,6 +98,7 @@ export const overrideMui = (palette) => ({
 
   MuiFormControl: {
     defaultProps: {
+      variant: 'standard', // outlined*
       required: true,
     },
   },
@@ -225,7 +220,7 @@ export const overrideMui = (palette) => ({
     defaultProps: {
       readOnly: true,
       precision: 0.1,
-      emptyIcon: <StarIcon fontSize="inherit" />, // StarOutlined*
+      emptyIcon: <StarIcon fontSize="inherit" />,
     },
   },
 

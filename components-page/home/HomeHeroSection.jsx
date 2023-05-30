@@ -27,8 +27,8 @@ export const HomeHeroSection = () => {
     <Section sx={styles.root}>
       <BackgroundVideo
         p={{ md: 2, lg: 3 }}
-        poster="/videos/hero-video-1-poster.jpg"
-        src="/videos/hero-video-1.mp4"
+        posterSrc="/videos/hero-video-1-poster.jpg"
+        videoSrc="/videos/hero-video-1.mp4"
       />
       <Grid container direction="column" rowGap={{ xs: 3, sm: 4, md: 6 }} sx={styles.content}>
         <Typography component="h3" variant="h4" children="Summer'23" />

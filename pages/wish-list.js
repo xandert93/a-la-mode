@@ -4,7 +4,7 @@ import { NAMES } from '@/constants'
 import { useWishList } from '@/context/global-context'
 import { newProducts, popularProducts } from '@/data'
 import { ProductPreviewCard } from '@/features/product'
-import { useEffectOnUpdate } from '@/hooks'
+import { useEffectOnMount, useEffectOnUpdate } from '@/hooks'
 import { Grid } from '@mui/material'
 import Head from 'next/head'
 import { useState } from 'react'
@@ -15,7 +15,8 @@ export default function WishListPage() {
   const { items, itemCount, hasItems, removeSavedItem } = useWishList()
   const [products, setProducts] = useState([])
 
-  useEffectOnUpdate(() => {
+  // *** need to fix - okay in production, but not in dev:
+  useEffectOnMount(() => {
     const foundProducts = items.map((item) =>
       productDb.find((product) => product.name === item.name)
     )
@@ -24,7 +25,7 @@ export default function WishListPage() {
     setProducts(foundProducts)
 
     return () => setProducts([])
-  }, [items])
+  })
 
   return (
     <>

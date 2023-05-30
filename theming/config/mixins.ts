@@ -1,3 +1,19 @@
+// JFN ***
+declare module '@mui/material/styles' {
+  interface Theme {
+    mixins: {
+      toolbar: object // without this, toolbar not typed...why?
+      absCenter: object
+      absCover: object
+      coverImage: object
+      textOutline: (color: string) => object
+      textShadowDark: object
+      gradientColor: (angle: number | string, color1: number, color2: number) => object
+      lineClamp: (count: number) => object
+    }
+  }
+}
+
 export const mixins = {
   absCenter: {
     position: 'absolute',
@@ -22,7 +38,7 @@ export const mixins = {
     objectFit: 'cover',
   },
 
-  textOutline: (color) => ({
+  textOutline: (color: string) => ({
     textShadow: `1.5px 1px 1px ${color}`,
   }),
 
@@ -31,16 +47,16 @@ export const mixins = {
     textShadow: '0 2px 24px rgba(0, 0, 0, 0.6)',
   },
 
-  gradientColor: (angle = 135, color1, color2) => ({
+  gradientColor: (angle: number, color1: number, color2: number) => ({
     backgroundImage: `linear-gradient(${angle}deg, ${color1}, ${color2})`,
     color: 'transparent',
     '-webkit-background-clip': 'text',
   }),
 
-  lineClamp: (count) => ({
+  lineClamp: (count: number) => ({
     display: '-webkit-box',
-    '-webkit-box-orient': 'vertical',
-    '-webkit-line-clamp': `${count}`, // number of lines to show
+    WebkitBoxOrient: 'vertical',
+    WebkitLineClamp: `${count}`, // number of lines to show
     lineClamp: `${count}`, // used if browser accepts it
     overflow: 'hidden',
   }),
