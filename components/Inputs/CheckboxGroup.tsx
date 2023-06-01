@@ -1,7 +1,12 @@
 import { FormControl, FormGroup, FormHelperText, FormLabel } from '@mui/material'
-import PropTypes from 'prop-types'
 
-export const CheckboxGroup = ({ label, helperText, required = false, ...props }) => {
+type Props = {
+  label: React.ReactNode
+  helperText?: React.ReactNode
+  required?: boolean
+}
+
+export const CheckboxGroup = ({ label, helperText, required = false, ...props }: Props) => {
   return (
     <FormControl
       component="fieldset"
@@ -12,10 +17,4 @@ export const CheckboxGroup = ({ label, helperText, required = false, ...props })
       {helperText && <FormHelperText children={helperText} />}
     </FormControl>
   )
-}
-
-CheckboxGroup.propTypes = {
-  label: PropTypes.oneOf([PropTypes.string, PropTypes.element]).isRequired,
-  helperText: PropTypes.oneOf([PropTypes.string, PropTypes.element]),
-  required: PropTypes.bool,
 }

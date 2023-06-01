@@ -1,11 +1,15 @@
-import { Box, Button, CircularProgress } from '@mui/material'
+import { Box, Button, CircularProgress, ButtonProps } from '@mui/material'
 // import { RoundedButton } from '../RoundedButton'
 
 import styles from './styles'
 
-export const LoadingButton = ({ children, sx, disabled, isLoading, ...props }) => {
+type Props = ButtonProps & {
+  isLoading: boolean
+}
+
+export const LoadingButton = ({ children, sx, disabled, isLoading, ...props }: Props) => {
   return (
-    <Button sx={[styles.root, sx]} disabled={disabled || isLoading} {...props}>
+    <Button sx={Object.assign(styles.root, sx)} disabled={disabled || isLoading} {...props}>
       {children}
       {isLoading && (
         <Box sx={styles['progress-box']}>
