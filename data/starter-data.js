@@ -2,7 +2,7 @@ import { genRandomIntFromInterval, slugify } from '@/utils/helpers'
 
 export const promotions = [
   {
-    title: 'Free UK Delivery on orders over £50',
+    title: 'Free UK Shipping on orders over £50',
     message: "Use code: 'SMOOTHDEL' at checkout",
     priority: 1,
   },
@@ -259,21 +259,6 @@ popularProducts.concat(newProducts).forEach((product) => {
 // colors should probably be [{ name: 'Taupe', hexCode: '#...' }]
 
 export { popularProducts, newProducts }
-
-// create temporary stripped `product` suitable for FE <ShoppingBag> display. This will come from DB in reality.
-export const genLineItem = ({ product, color, size, qty }) => ({
-  name: product.name,
-  slug: product.slug,
-  price: product.prices.current,
-  imageUrl: product.imageUrls[0],
-  // determined by client:
-  color,
-  size,
-  qty,
-  isSaved: false, // JFN
-  // *** JFN:
-  stock: product.stock,
-})
 
 // additional product review fields: productId, reviewer._id
 export const productReviews = [

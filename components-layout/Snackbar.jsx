@@ -1,37 +1,8 @@
-import { ClearIcon } from '@/components'
-import { HeartIcon, IconButton, IconTypography, ShoppingBagIcon } from '@/components'
+'use client'
+
+import { HeartIcon, ClearIcon, IconButton, IconTypography, BagIcon } from '@/components'
+import { useSnackbar } from '@/context/snackbar-context'
 import { Alert, Snackbar as MuiSnackbar, SnackbarContent, alpha } from '@mui/material'
-import { createContext, useContext, useState } from 'react'
-
-const context = createContext()
-export const useSnackbar = () => useContext(context)
-
-export const SnackbarProvider = (props) => {
-  const [state, setSnackbar] = useState({
-    isOpen: false,
-    type: '',
-    message: '',
-  })
-
-  const snackbar = {
-    isOpen: state.isOpen,
-    type: state.type,
-    message: state.message,
-
-    success: ({ type, message }) => {
-      setSnackbar((prev) => ({ ...prev, isOpen: true, type, message }))
-    },
-    error: (message) => {
-      setSnackbar((prev) => ({ ...prev, isOpen: true, type: 'error', message }))
-    },
-
-    close: () => {
-      setSnackbar((prev) => ({ ...prev, isOpen: false }))
-    },
-  }
-
-  return <context.Provider value={snackbar} {...props} />
-}
 
 // All JFN - let's see where it goes
 export const Snackbar = () => {
@@ -44,7 +15,7 @@ export const Snackbar = () => {
       Icon = HeartIcon
       break
     case 'add':
-      Icon = ShoppingBagIcon
+      Icon = BagIcon
   }
 
   return (

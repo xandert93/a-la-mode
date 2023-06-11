@@ -1,4 +1,4 @@
-import { isHoverable } from '@/theming'
+import { isHoverable } from '@/theme'
 import { Link, LinkProps } from '@mui/material'
 import NextLink from 'next/link'
 import PropTypes from 'prop-types'

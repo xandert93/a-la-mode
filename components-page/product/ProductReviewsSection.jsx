@@ -20,11 +20,13 @@ import { useRef } from 'react'
 export const ProductReviewsSection = () => {
   const reviewCount = productReviews.length
 
-  const avgRating = (
-    productReviews.reduce((acca, review) => {
-      return acca + review.rating
-    }, 0) / reviewCount
-  ).toFixed(1)
+  const avgRating = Number(
+    (
+      productReviews.reduce((acca, review) => {
+        return acca + review.rating
+      }, 0) / reviewCount
+    ).toFixed(1)
+  )
 
   return (
     <Section

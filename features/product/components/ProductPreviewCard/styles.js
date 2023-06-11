@@ -1,4 +1,4 @@
-import { isHoverable } from '@/theming'
+import { isHoverable } from '@/theme'
 import { alpha } from '@mui/material'
 
 export const styles = {

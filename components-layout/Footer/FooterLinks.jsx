@@ -1,7 +1,7 @@
 import { List, ListItem, useMediaQuery } from '@mui/material'
 
 import { TextLink } from '@/components'
-import { isVPXs } from '@/theming'
+import { isVPXs } from '@/theme'
 
 import { FooterAccordion } from './FooterAccordion'
 import { FooterHeading } from './FooterHeading'
@@ -9,7 +9,7 @@ import { FooterHeading } from './FooterHeading'
 const data = {
   'Customer Care': [
     { href: '/#', children: 'Help & FAQs' },
-    { href: '/#', children: 'Delivery & Returns' },
+    { href: '/#', children: 'Shipping & Returns' },
     { href: '/#', children: 'Track My Order' },
     { href: '/#', children: 'Accessibility' },
     { href: '/#', children: 'Terms & Conditions' },

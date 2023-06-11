@@ -1,6 +1,6 @@
 import { ButtonLink, CoverImage, Section, SectionHeading, SectionSubHeading } from '@/components'
 import { blogArticles } from '@/data'
-import { isVPMaxSmAndLandscape, isVPXs } from '@/theming'
+import { isVPMaxSmAndLandscape, isVPXs } from '@/theme'
 import { Box, Grid, Typography, alpha } from '@mui/material'
 
 // *** inspiration: https://www.hawesandcurtis.co.uk/lords-cricket-club

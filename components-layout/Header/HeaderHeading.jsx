@@ -1,7 +1,7 @@
 import { Grid, useMediaQuery } from '@mui/material'
 import { CompanyHeading, CompanyLogo, Link } from '@/components'
 import { PATHS } from '@/constants'
-import { isVPMaxSm } from '@/theming'
+import { isVPMaxSm } from '@/theme'
 
 import { SideDrawerButton } from './SideDrawerButton'
 

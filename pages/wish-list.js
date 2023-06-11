@@ -1,7 +1,7 @@
 import { Section } from '@/components'
 import { EmptyWishListSection } from '@/components-page/wish-list'
 import { NAMES } from '@/constants'
-import { useWishList } from '@/context/global-context'
+import { useWishList } from '@/context/wish-list-context'
 import { newProducts, popularProducts } from '@/data'
 import { ProductPreviewCard } from '@/features/product'
 import { useEffectOnMount, useEffectOnUpdate } from '@/hooks'

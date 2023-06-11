@@ -11,7 +11,7 @@ import {
   TextLink,
 } from '@/components'
 import { PATHS } from '@/constants'
-import { isVPXs } from '@/theming'
+import { isVPXs } from '@/theme'
 import {
   Box,
   Button,

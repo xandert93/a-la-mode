@@ -7,9 +7,9 @@ export const ButtonLink = (props) => {
   return <Button component={Link} {...props} />
 }
 
-ButtonLink.propTypes = {
-  href: PropTypes.string.isRequired,
-  variant: PropTypes.oneOf(['text', 'outlined', 'contained']),
-  size: PropTypes.oneOf(['small', 'medium', 'large']),
-  children: PropTypes.oneOf([PropTypes.string, PropTypes.element]).isRequired,
-}
+// ButtonLink.propTypes = {
+//   href: PropTypes.string.isRequired,
+//   variant: PropTypes.oneOf(['text', 'outlined', 'contained']),
+//   size: PropTypes.oneOf(['small', 'medium', 'large']),
+//   children: PropTypes.oneOf([PropTypes.string, PropTypes.element]).isRequired,
+// }

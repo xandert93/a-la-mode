@@ -1,6 +1,5 @@
 import { Section } from '@/components'
-import { isVPXsAndPortrait } from '@/theming'
-import { forwardRef } from 'react'
+import { isVPXsAndPortrait } from '@/theme'
 
 const styles = {
   root: {
@@ -25,11 +24,11 @@ const styles = {
   },
 }
 
-export const EmptyItemsSection = forwardRef(({ Icon, children, ...props }, ref) => {
+export const EmptyItemsSection = ({ Icon, children, ...props }) => {
   return (
-    <Section maxWidth="sm" sx={styles.root} {...props} ref={ref}>
+    <Section maxWidth="sm" sx={styles.root} {...props}>
       <Icon color="primary" sx={styles.icon} />
       {children}
     </Section>
   )
-})
+}

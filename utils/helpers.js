@@ -20,3 +20,7 @@ export const slugify = (str) =>
 export const genRandomIntFromInterval = (min, max) => {
   return Math.floor(Math.random() * (max - min + 1) + min)
 }
+
+export const createPageTitle = (pageName) => {
+  return pageName + ' | ' + process.env.NEXT_PUBLIC_APP_NAME
+}

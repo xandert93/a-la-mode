@@ -22,8 +22,8 @@ export const RadioGroup = ({
   )
 }
 
-RadioGroup.propTypes = {
-  label: PropTypes.oneOf([PropTypes.string, PropTypes.element]).isRequired,
-  helperText: PropTypes.oneOf([PropTypes.string, PropTypes.element]),
-  required: PropTypes.bool,
-}
+// RadioGroup.propTypes = {
+//   label: PropTypes.oneOf([PropTypes.string, PropTypes.element]).isRequired,
+//   helperText: PropTypes.oneOf([PropTypes.string, PropTypes.element]),
+//   required: PropTypes.bool,
+// }

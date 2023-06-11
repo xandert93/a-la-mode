@@ -1,7 +1,7 @@
 import { useRef } from 'react'
 import { Box, useMediaQuery, Grid } from '@mui/material'
 
-import { breakpoints, isVPMinMd } from '@/theming'
+import { breakpoints, isVPMinMd } from '@/theme'
 
 import { ProductPreviewCard } from '../ProductPreviewCard'
 

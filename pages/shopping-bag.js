@@ -10,7 +10,7 @@ import {
   IconTypography,
   LoadingButton,
   HeartIcon,
-  ShoppingBagIcon,
+  BagIcon,
   Span,
   Main,
   CostRow,
@@ -20,12 +20,13 @@ import {
 } from '@/components'
 import {
   EmptyBagSection,
-  FreeDeliveryAlert,
+  FreeShippingAlert,
   PromotionCodeAccordion,
   ViewedProductsSection,
 } from '@/components-page/shopping-bag'
 import { NAMES } from '@/constants'
-import { useBag, useWishList } from '@/context/global-context'
+import { useBag } from '@/context/bag-context'
+import { useWishList } from '@/context/wish-list-context'
 import { useSnackbar } from '@/context/snackbar-context'
 import { useEffectOnMount } from '@/hooks'
 import { wait } from '@/utils/helpers'
@@ -165,15 +166,7 @@ export default function ShoppingBagPage() {
         <title children={`Your Bag | ${NAMES.COMPANY}`} />
       </Head>
       <Main sx={styles.main}>
-        {bag.hasItems && <ShoppingBagSection />}
-        {/* *** initial load bug 👇 because of LS check after mount. Once using SSR (and initial page has accurate DB data), hopefully no longer problem  */}
-        <Fade
-          in={!bag.hasItems}
-          appear={false}
-          unmountOnExit // temp
-        >
-          <EmptyBagSection />
-        </Fade>
+        {bag.hasItems ? <ShoppingBagSection /> : <EmptyBagSection />}
         {/* <ViewedProductsSection /> */}
       </Main>
     </>
@@ -188,9 +181,9 @@ const ShoppingBagSection = () => {
       <Grid container spacing={{ xs: 1, md: 2 }}>
         <Grid item xs={12} md={8}>
           <Grid container direction="column" rowGap={{ xs: 0.25, sm: 1 }}>
-            <FreeDeliveryAlert />
-
+            <FreeShippingAlert />
             <LineItemsSummaryHeader />
+
             <Grid container direction="column" rowGap={{ xs: 0.25, sm: 1 }}>
               <LineItemList />
             </Grid>
@@ -223,7 +216,7 @@ const BagHeading = () => {
   const bag = useBag()
 
   return (
-    <IconTypography Icon={ShoppingBagIcon} component="h2" variant="h6" color="text.tertiary">
+    <IconTypography Icon={BagIcon} component="h2" variant="h6" color="text.tertiary">
       Your Bag <Span fontWeight={400}>({bag.itemCount})</Span>
     </IconTypography>
   )
@@ -482,8 +475,8 @@ const PaymentSummary = () => {
             <CostRow variant="body2" title="Subtotal" amount={costs.subtotal} />
             <CostRow
               variant="body2"
-              title={`Delivery ${costs.delivery === 0 ? '(Free)' : ''}`}
-              amount={costs.delivery}
+              title={`Shipping ${costs.shipping === 0 ? '(Free)' : ''}`}
+              amount={costs.shipping}
             />
             <CostRow variant="body2" title="Tax" amount={costs.tax} />
           </Grid>
@@ -503,7 +496,7 @@ const PaymentSummary = () => {
             variant="caption"
             component="p"
             color="text.secondary"
-            children="Prices and delivery costs are only confirmed at checkout."
+            children="Prices and shipping costs are only confirmed at checkout."
             paragraph
           />
           <Typography

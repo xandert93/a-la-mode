@@ -1,4 +1,4 @@
-import { isVPMinMd } from '@/theming'
+import { isVPMinMd } from '@/theme'
 import { alpha } from '@mui/material'
 
 const styles = {

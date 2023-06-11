@@ -1,5 +1,5 @@
 import {
-  DeliveryIcon,
+  ShippingIcon,
   IconButton,
   InformationIcon,
   MoneyTypography,
@@ -7,7 +7,10 @@ import {
   TextLink,
 } from '@/components'
 import { PATHS } from '@/constants'
-import { useBag, useWishList } from '@/context/global-context'
+
+import { useBag } from '@/context/bag-context'
+import { useWishList } from '@/context/wish-list-context'
+
 import { Collapse, Grid, Paper, Typography, alpha } from '@mui/material'
 
 const styles = {
@@ -25,33 +28,33 @@ const styles = {
 
 // Tried MUI's <Alert>, but overriding their color configuration was a hassle. This is fine ✔:
 
-export const FreeDeliveryAlert = () => {
+export const FreeShippingAlert = () => {
   const bag = useBag()
   const wishList = useWishList()
 
   const handleActionClick = (e) => {
-    // open modal that displays delivery information - see M&S
+    // open modal that displays shipping information - see M&S
   }
 
   return (
-    /* *** JFN 👇 might delete. Also has bug of negative delivery offset being displayed while exiting */
+    /* *** JFN 👇 might delete. Also has bug of negative shipping offset being displayed while exiting */
     <Collapse
-      in={Boolean(bag.costs.delivery)}
+      in={Boolean(bag.costs.shipping)}
       unmountOnExit // if false this, its very smooth, but there is extra space at its original location (?) and with, there's very slight juddery layout shift (probably cos of row-gap)...
     >
       <Paper elevation={1} sx={styles.root}>
         <Grid container wrap="nowrap" alignItems="center" columnGap={3}>
-          <DeliveryIcon />
+          <ShippingIcon />
           <Grid container direction="column" alignItems="flex-start" rowGap={{ xs: 2.5, md: 1 }}>
             <Typography variant="body2">
               Can we tempt you? Spend another{' '}
               <MoneyTypography
                 component="span"
                 variant="inherit"
-                children={bag.delivery.freeOffset}
+                children={bag.shipping.freeOffset}
                 fontWeight={500}
               />{' '}
-              to qualify for <Span children="FREE Standard Delivery." fontWeight={500} />
+              to qualify for <Span children="FREE Standard Shipping." fontWeight={500} />
             </Typography>
             <TextLink variant="body2" href={PATHS.HOME} children="< Continue Shopping" hover />
             {wishList.hasItems && (

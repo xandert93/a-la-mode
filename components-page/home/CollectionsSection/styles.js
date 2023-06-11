@@ -1,4 +1,4 @@
-import { isHoverable, isVPMaxSmAndLandscape } from '@/theming'
+import { isHoverable, isVPMaxSmAndLandscape } from '@/theme'
 import { alpha } from '@mui/material'
 
 const styles = {

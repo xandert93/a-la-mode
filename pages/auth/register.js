@@ -13,7 +13,7 @@ import {
 } from '@/components'
 
 import { NAMES, PATHS } from '@/constants'
-import { isVPXs } from '@/theming'
+import { isVPXs } from '@/theme'
 import {
   Box,
   Button,

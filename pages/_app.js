@@ -1,45 +1,45 @@
-import { Header, Footer } from '@/components-layout'
-import { NAMES, PATHS } from '@/constants'
-import { StoreProvider } from '@/context/global-context'
-import { SnackbarProvider, Snackbar } from '@/context/snackbar-context'
-import { ThemeProvider } from '@/theming'
+import { Header, Footer, Snackbar } from '@/components-layout'
+import { SnackbarProvider } from '@/context/SnackbarProvider'
+import { WishListProvider } from '@/context/WishListProvider'
+import { BagProvider } from '@/context/BagProvider'
+
+import { ThemeProvider } from '@/theme'
 
 import Head from 'next/head'
-import { useRouter } from 'next/router'
+
+import { usePathname } from 'next/navigation' // 🔥
 
 export default function App({ Component, pageProps }) {
-  const router = useRouter() // 1
-  const isAuthPage = [PATHS.LOGIN, PATHS.REGISTRATION].includes(router.pathname) // JFN
+  const isAuthPage = usePathname().startsWith('/auth/') // JFN
 
   return (
     <>
       <Head>
-        <title children={NAMES.COMPANY} />
+        <title children={process.env.NEXT_PUBLIC_APP_NAME} />
         <meta
           name="description"
           content="Menswear and Womenswear defined by fine tailoring and a quintessentially British style."
         />
       </Head>
-      <StoreProvider>
-        {isAuthPage ? (
-          <ThemeProvider>
-            <Component {...pageProps} />
-          </ThemeProvider>
-        ) : (
-          <ThemeProvider>
-            <Header />
-            <SnackbarProvider>
-              <Component {...pageProps} />
-              <Snackbar />
-            </SnackbarProvider>
-            <Footer />
-          </ThemeProvider>
-        )}
-      </StoreProvider>
+
+      {isAuthPage ? (
+        <ThemeProvider>
+          <Component {...pageProps} />
+        </ThemeProvider>
+      ) : (
+        <BagProvider>
+          <WishListProvider>
+            <ThemeProvider>
+              <Header />
+              <SnackbarProvider>
+                <Component {...pageProps} />
+                <Snackbar />
+              </SnackbarProvider>
+              <Footer />
+            </ThemeProvider>
+          </WishListProvider>
+        </BagProvider>
+      )}
     </>
   )
 }
-
-/*
-1) Apparently Next 13 solves this issue "out of the box" ?: https://stackoverflow.com/questions/67663919/how-to-hide-header-only-at-one-page-in-nextjs-app
-*/

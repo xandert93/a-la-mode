@@ -1,6 +1,6 @@
 import { Img } from '@/components'
 
-import { isHoverable } from '@/theming'
+import { isHoverable } from '@/theme'
 import { Box, Grid } from '@mui/material'
 
 // Nike also has < and > buttons in bottom right of their main image. Could add later

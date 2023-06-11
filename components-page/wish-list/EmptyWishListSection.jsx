@@ -1,4 +1,4 @@
-import { ButtonLink, HeartIconOutlined, ShoppingBagIcon } from '@/components'
+import { ButtonLink, HeartIconOutlined, BagIcon } from '@/components'
 import { PATHS } from '@/constants'
 import { EmptyItemsSection } from '@/features/product'
 import { Typography } from '@mui/material'
@@ -16,7 +16,7 @@ export const EmptyWishListSection = () => {
         variant="body2"
         children="Start saving as you shop by selecting the little heart - we'll sync these across all your devices. Easy."
       />
-      <ButtonLink href={PATHS.HOME} children="Start Shopping" endIcon={<ShoppingBagIcon />} />
+      <ButtonLink href={PATHS.HOME} children="Start Shopping" endIcon={<BagIcon />} />
     </EmptyItemsSection>
   )
 }

@@ -2,18 +2,19 @@ import {
   Link,
   IconButton,
   HeartIconOutlined,
-  EmptyShoppingBagIcon,
+  EmptyBagIcon,
   AccountIcon,
-  ShoppingBagIcon,
+  BagIcon,
   HeartIcon,
 } from '@/components'
-import { isVPMinLg } from '@/theming'
+import { isVPMinLg } from '@/theme'
 import { Badge, Grid, useMediaQuery } from '@mui/material'
 import { MobileHeaderSearchButton } from './MobileHeaderSearchButton'
 import { HeaderSearchForm } from './HeaderSearchForm'
 import { PATHS } from '@/constants'
 
-import { useBag, useWishList } from '@/context/global-context'
+import { useBag } from '@/context/bag-context'
+import { useWishList } from '@/context/wish-list-context'
 
 export const HeaderActions = () => {
   const isMinLg = useMediaQuery(isVPMinLg)
@@ -36,7 +37,7 @@ export const HeaderActions = () => {
       <IconButton
         component={Link}
         href={PATHS.SHOPPING_BAG}
-        children={<ShoppingBagIconBadge />}
+        children={<BagIconBadge />}
         aria-label="Visit Shopping Bag Page"
       />
     </Grid>
@@ -51,10 +52,10 @@ const WishListIconBadge = () => {
   return <Badge color="secondary" badgeContent={itemCount} children={<Icon />} />
 }
 
-const ShoppingBagIconBadge = () => {
+const BagIconBadge = () => {
   const { itemCount } = useBag()
 
-  const Icon = itemCount ? ShoppingBagIcon : EmptyShoppingBagIcon
+  const Icon = itemCount ? BagIcon : EmptyBagIcon
 
   return <Badge color="secondary" badgeContent={itemCount} children={<Icon />} />
 }

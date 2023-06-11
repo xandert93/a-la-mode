@@ -5,14 +5,17 @@ import {
   Img,
   LoadingButton,
   InformationIcon,
-  DeliveryIcon,
+  ShippingIcon,
   Select,
   Span,
   Link,
-  EmptyShoppingBagIcon,
+  EmptyBagIcon,
 } from '@/components'
-import { useBag, useWishList } from '@/context/global-context'
+
+import { useBag } from '@/context/bag-context'
+import { useWishList } from '@/context/wish-list-context'
 import { useSnackbar } from '@/context/snackbar-context'
+
 import { NewTag } from '@/features/product'
 import { useEffectOnMount } from '@/hooks'
 import { wait } from '@/utils/helpers'
@@ -120,7 +123,7 @@ export const ProductDetails = (product) => {
           setErr,
         }}
       />
-      <FreeDeliveryAlert />
+      <FreeShippingAlert />
     </Grid>
   )
 }
@@ -250,7 +253,7 @@ const AddToBagButton = ({ product, color, size, qty, setErr }) => {
       isLoading={isAdding}
       onClick={handleAddToBagClick}
       children="Add to Bag"
-      endIcon={<EmptyShoppingBagIcon />}
+      endIcon={<EmptyBagIcon />}
       fullWidth
       sx={{ py: '13.5px' }} // *** hacky, but to match <Select>
     />
@@ -293,7 +296,7 @@ const SaveButton = ({ product }) => {
   )
 }
 
-const FreeDeliveryAlert = () => {
+const FreeShippingAlert = () => {
   return (
     <Grid
       container
@@ -306,10 +309,10 @@ const FreeDeliveryAlert = () => {
       pr={1} // JFN - since <IconButton> already has padding applied
       borderRadius={1} // use paper/card instead?
       color="primary.dark">
-      <DeliveryIcon />
+      <ShippingIcon />
       <Typography
         variant="body2"
-        children="Free standard delivery on orders over £50"
+        children="Free standard shipping on orders over £50"
         flexGrow={1}
       />
       <IconButton

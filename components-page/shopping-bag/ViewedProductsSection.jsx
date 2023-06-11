@@ -1,5 +1,6 @@
 import { Link, Section } from '@/components'
-import { useBag } from '@/context/global-context'
+import { useBag } from '@/context/bag-context'
+
 import { useEffectOnMount } from '@/hooks'
 import { useState } from 'react'
 
