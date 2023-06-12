@@ -10,7 +10,11 @@ const freeShippingThreshold = 5000
 const standardShippingCost = 499
 const tax = 0
 
-export const BagProvider: React.FC = (props) => {
+type Props = {
+  children: React.ReactNode
+}
+
+export const BagProvider = (props: Props) => {
   const [items, setItems] = useState<LineItem[]>([])
 
   // JFN

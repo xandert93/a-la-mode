@@ -1,7 +1,8 @@
 'use client'
 
 import { HeartIcon, ClearIcon, IconButton, IconTypography, BagIcon } from '@/components'
-import { useSnackbar } from '@/context/snackbar-context'
+import { useSnackbar } from '@/contexts/snackbar-context'
+
 import { Alert, Snackbar as MuiSnackbar, SnackbarContent, alpha } from '@mui/material'
 
 // All JFN - let's see where it goes

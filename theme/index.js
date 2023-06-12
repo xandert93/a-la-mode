@@ -19,5 +19,3 @@ export {
   isHoverable,
   prefersDarkMode,
 } from './config'
-
-export { ThemeProvider } from './ThemeProvider'

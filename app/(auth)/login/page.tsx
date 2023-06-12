@@ -1,34 +1,42 @@
+'use client'
+
+import { useState } from 'react'
+
 import {
-  Checkbox,
+  Main,
   CompanyHeading,
   CompanyLogo,
-  FacebookIcon,
   Form,
-  Main,
-  GoogleIcon,
-  AppleIcon,
   Link,
   TextLink,
+  Checkbox,
+  GoogleIcon,
+  FacebookIcon,
+  AppleIcon,
 } from '@/components'
 import { PATHS } from '@/constants'
 import { isVPXs } from '@/theme'
 import {
-  Box,
-  Button,
   Card,
   Divider,
   Grid,
-  TextField,
   Typography,
+  Box,
   useMediaQuery,
+  TextField,
+  Button,
 } from '@mui/material'
-import { useState } from 'react'
+import { genPageTitle } from '@/utils/helpers'
+
+export const metadata = {
+  title: genPageTitle('Login'), // wont work until this is a RSC
+}
 
 const styles = {}
 
 export default function LoginPage() {
   const isXs = useMediaQuery(isVPXs) // so I get <Paper>'s dark mode `elevation` background-image
-  const handleSubmit = (e) => {}
+  const handleSubmit = (e: React.FormEvent) => {}
 
   return (
     <Main
@@ -152,7 +160,7 @@ export default function LoginPage() {
 const LoginPersistCheckbox = () => {
   const [isChecked, setIsChecked] = useState(false)
 
-  const handleChange = (e) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setIsChecked(e.target.checked)
   }
 
@@ -167,11 +175,11 @@ const LoginPersistCheckbox = () => {
 }
 
 /*
-<Checkbox>'s actual <Checkbox> button has 9px padding applied to it, which increase 
-vertical spacing. Also has some margin-left and margin-right to account for the 
-horizontal spacing applied by this padding. 
-
-As such, I just decided to create a separate <Grid> for the <TextFields> which have 
-more actual spacing.
-
-*/
+  <Checkbox>'s actual <Checkbox> button has 9px padding applied to it, which increase 
+  vertical spacing. Also has some margin-left and margin-right to account for the 
+  horizontal spacing applied by this padding. 
+  
+  As such, I just decided to create a separate <Grid> for the <TextFields> which have 
+  more actual spacing.
+  
+  */

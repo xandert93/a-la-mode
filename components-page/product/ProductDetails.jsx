@@ -12,9 +12,9 @@ import {
   EmptyBagIcon,
 } from '@/components'
 
-import { useBag } from '@/context/bag-context'
-import { useWishList } from '@/context/wish-list-context'
-import { useSnackbar } from '@/context/snackbar-context'
+import { useBag } from '@/contexts/bag-context'
+import { useWishList } from '@/contexts/wish-list-context'
+import { useSnackbar } from '@/contexts/snackbar-context'
 
 import { NewTag } from '@/features/product'
 import { useEffectOnMount } from '@/hooks'

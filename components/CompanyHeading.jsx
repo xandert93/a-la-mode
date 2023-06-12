@@ -7,7 +7,7 @@ export const CompanyHeading = ({ variant, ...props }) => {
       component="h1"
       variant={variant}
       children={NAMES.COMPANY}
-      fontFamily="Ephesis, cursive"
+      fontFamily="Ephesis"
       fontWeight={400}
       letterSpacing={1}
       align="center"

@@ -7,9 +7,9 @@ import { useEffectOnMount } from '@/hooks'
 
 import styles from './styles'
 import { isHoverable } from '@/theme'
-import { useWishList } from '@/context/wish-list-context'
+import { useWishList } from '@/contexts/wish-list-context'
 import { wait } from '@/utils/helpers'
-import { useSnackbar } from '@/context/snackbar-context'
+import { useSnackbar } from '@/contexts/snackbar-context'
 import { ProductPricing } from '../ProductPricing'
 
 export const ProductPreviewCard = (product) => {

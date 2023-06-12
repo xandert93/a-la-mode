@@ -1,7 +1,14 @@
+import { Rubik } from 'next/font/google'
 import { isVPSm, isVPXs } from './media-queries'
 
+const rubik = Rubik({
+  weight: ['300', '400', '500', '600', '700', '800', '900'],
+  style: ['normal', 'italic'],
+  subsets: ['latin'],
+})
+
 export const typography = {
-  fontFamily: 'Rubik, sans-serif', // Rubik imported from Google into _document.js (recommended)
+  fontFamily: rubik.style.fontFamily,
 
   h1: {
     fontWeight: 500, // 300*

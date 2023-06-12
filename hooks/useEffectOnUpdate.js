@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react'
 
 // JTO - accounting for Strict Mode
-export const useEffectOnUpdate = (cb, deps) => {
+const useEffectOnUpdate_strict_mode = (cb, deps) => {
   const renderCountRef = useRef(0)
 
   useEffect(() => {
@@ -9,7 +9,7 @@ export const useEffectOnUpdate = (cb, deps) => {
   }, deps)
 }
 
-const useEffectOnUpdate_old = (cb, deps) => {
+export const useEffectOnUpdate = (cb, deps) => {
   const isFirstRender = useRef(true)
 
   useEffect(() => {

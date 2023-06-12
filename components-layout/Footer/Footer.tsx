@@ -1,3 +1,5 @@
+'use client'
+
 import { Box, Container, Grid } from '@mui/material'
 
 import { FooterLinks } from './FooterLinks'

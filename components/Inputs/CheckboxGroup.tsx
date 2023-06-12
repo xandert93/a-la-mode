@@ -1,6 +1,7 @@
 import { FormControl, FormGroup, FormHelperText, FormLabel } from '@mui/material'
 
 type Props = {
+  children: React.ReactNode
   label: React.ReactNode
   helperText?: React.ReactNode
   required?: boolean

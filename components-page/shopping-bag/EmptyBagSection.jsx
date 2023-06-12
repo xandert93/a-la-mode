@@ -1,7 +1,7 @@
 import { EmptyBagIcon, HeartIcon, BagIcon, ButtonLink } from '@/components'
 
 import { PATHS } from '@/constants'
-import { useWishList } from '@/context/wish-list-context'
+import { useWishList } from '@/contexts/wish-list-context'
 import { EmptyItemsSection } from '@/features/product'
 import { Divider, Grid, Typography } from '@mui/material'
 

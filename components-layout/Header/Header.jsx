@@ -1,3 +1,5 @@
+'use client'
+
 import { isVPMinMd } from '@/theme'
 
 import {

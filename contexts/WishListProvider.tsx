@@ -5,7 +5,11 @@ import { WishListContextValue, wishListContext } from './wish-list-context'
 import { genSavedItem } from '@/data/utils'
 import { useEffectOnMount, useEffectOnUpdate } from '@/hooks'
 
-export const WishListProvider: React.FC = (props) => {
+type Props = {
+  children: React.ReactNode
+}
+
+export const WishListProvider = (props: Props) => {
   const [items, setItems] = useState<SavedItem[]>([])
 
   // JFN

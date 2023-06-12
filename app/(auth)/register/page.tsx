@@ -1,3 +1,5 @@
+'use client'
+
 import {
   Checkbox,
   Form,
@@ -25,7 +27,7 @@ import {
   Typography,
   useMediaQuery,
 } from '@mui/material'
-import { useState } from 'react'
+import React, { useState } from 'react'
 
 // Hey there! Let's get started - M&S
 // Some of the great reasons to join: Faster checkout Offers Rewards + Treats Digital Receipts - M&S
@@ -34,10 +36,7 @@ import { useState } from 'react'
 export default function RegistrationPage() {
   const isXs = useMediaQuery(isVPXs) // so I get <Paper>'s dark mode `elevation` background-image
 
-  const handleSubmit = (e) => {
-    const data = Object.fromEntries(new FormData(e.target))
-    alert(JSON.stringify(data))
-  }
+  const handleSubmit = (e: React.FormEvent) => {}
 
   return (
     <Main
@@ -136,7 +135,9 @@ export default function RegistrationPage() {
 const PurchasePreferenceRadioGroup = () => {
   const [preference, setPreference] = useState('')
 
-  const handleChange = (e) => setPreference(e.target.value)
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setPreference(e.target.value)
+  }
 
   return (
     <RadioGroup
@@ -159,7 +160,7 @@ const ContactPreferencesCheckboxGroup = () => {
     partners: false,
   })
 
-  const handleChange = (e) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setState((prev) => ({ ...prev, [e.target.name]: e.target.checked }))
   }
 
@@ -168,7 +169,7 @@ const ContactPreferencesCheckboxGroup = () => {
       label="I would like to receive emails about:"
       helperText="You can update this any time in your preferences">
       <Checkbox
-        checked={state.currents}
+        checked={state.offers}
         onChange={handleChange}
         name="offers"
         label="Discounts and promotions"
@@ -191,7 +192,9 @@ const ContactPreferencesCheckboxGroup = () => {
 
 const PrivacyTermsCheckbox = () => {
   const [isChecked, setIsChecked] = useState(false)
-  const handleCheck = (e) => setIsChecked(e.target.checked)
+  const handleCheck = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setIsChecked(e.target.checked)
+  }
 
   return (
     <Checkbox

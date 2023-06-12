@@ -8,8 +8,8 @@ import {
 } from '@/components'
 import { PATHS } from '@/constants'
 
-import { useBag } from '@/context/bag-context'
-import { useWishList } from '@/context/wish-list-context'
+import { useBag } from '@/contexts/bag-context'
+import { useWishList } from '@/contexts/wish-list-context'
 
 import { Collapse, Grid, Paper, Typography, alpha } from '@mui/material'
 

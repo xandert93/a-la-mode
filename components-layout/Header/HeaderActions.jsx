@@ -13,8 +13,8 @@ import { MobileHeaderSearchButton } from './MobileHeaderSearchButton'
 import { HeaderSearchForm } from './HeaderSearchForm'
 import { PATHS } from '@/constants'
 
-import { useBag } from '@/context/bag-context'
-import { useWishList } from '@/context/wish-list-context'
+import { useBag } from '@/contexts/bag-context'
+import { useWishList } from '@/contexts/wish-list-context'
 
 export const HeaderActions = () => {
   const isMinLg = useMediaQuery(isVPMinLg)

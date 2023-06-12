@@ -1,7 +1,7 @@
 import { Header, Footer, Snackbar } from '@/components-layout'
-import { SnackbarProvider } from '@/context/SnackbarProvider'
-import { WishListProvider } from '@/context/WishListProvider'
-import { BagProvider } from '@/context/BagProvider'
+import { SnackbarProvider } from '@/contexts/SnackbarProvider'
+import { WishListProvider } from '@/contexts/WishListProvider'
+import { BagProvider } from '@/contexts/BagProvider'
 
 import { ThemeProvider } from '@/theme'
 

@@ -3,12 +3,18 @@
 import { useState } from 'react'
 import { SnackbarContextValue, snackbarContext } from './snackbar-context'
 
-export const SnackbarProvider: React.FC = (props) => {
+type Props = {
+  children: React.ReactNode
+}
+
+export const SnackbarProvider = (props: Props) => {
   const [state, setSnackbar] = useState({
     isOpen: false,
     type: '',
     message: '',
   })
+
+  props.children
 
   const value: SnackbarContextValue = {
     isOpen: state.isOpen,
