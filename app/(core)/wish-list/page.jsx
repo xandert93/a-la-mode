@@ -1,13 +1,13 @@
 'use client'
+
 import { Section } from '@/components'
 import { useWishList } from '@/contexts/wish-list-context'
 import { newProducts, popularProducts } from '@/data'
-import { useEffectOnMount } from '@/hooks'
 import { ProductPreviewCard } from '@/features/product'
 import { genPageTitle } from '@/utils/helpers'
 import { Grid } from '@mui/material'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 import { EmptyWishListSection } from './components'
 
@@ -20,18 +20,20 @@ export const metadata = {
 }
 
 export default function WishListPage() {
-  const { items, itemCount, hasItems, removeSavedItem } = useWishList()
+  const { items, hasItems } = useWishList()
   const [products, setProducts] = useState([])
 
-  // *** need to fix - okay in production, but not in dev:
-  useEffectOnMount(() => {
+  // JFN obvs
+  useEffect(() => {
+    if (!hasItems) return
+
     const foundProducts = items.map((item) =>
       productDb.find((product) => product.name === item.name)
     )
 
     foundProducts.forEach((product) => (product.isSaved = true))
     setProducts(foundProducts)
-  })
+  }, [hasItems])
 
   return hasItems ? (
     <Section maxWidth="lg">

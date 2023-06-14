@@ -1,3 +1,5 @@
+import './global.css' // JFN - has Ephesis font. But should use Google approach later
+
 import { genPageTitle } from '@/utils/helpers'
 import { ThemeProvider } from './ThemeProvider'
 

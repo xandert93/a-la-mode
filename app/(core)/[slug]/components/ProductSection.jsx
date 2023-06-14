@@ -1,3 +1,5 @@
+'use client'
+
 import { Section } from '@/components'
 import { Box, Grid } from '@mui/material'
 

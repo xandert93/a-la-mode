@@ -1,3 +1,5 @@
+'use client' // JFN
+
 import {
   Section,
   ArrowForwardIcon,
@@ -23,13 +25,14 @@ import {
   FreeShippingAlert,
   PromotionCodeAccordion,
   ViewedProductsSection,
-} from '@/components-page/shopping-bag'
-import { NAMES } from '@/constants'
+} from './components'
+
 import { useBag } from '@/contexts/bag-context'
 import { useWishList } from '@/contexts/wish-list-context'
 import { useSnackbar } from '@/contexts/snackbar-context'
+
 import { useEffectOnMount } from '@/hooks'
-import { wait } from '@/utils/helpers'
+import { genPageTitle, wait } from '@/utils/helpers'
 
 import {
   Box,
@@ -47,53 +50,53 @@ import Head from 'next/head'
 import { forwardRef, useState } from 'react'
 
 /* 
-
-1) "A line item represents a line in an order, containing details such as the product, 
-    quantity, and price for each line of an order"
-
-2) For Qty <Select>, I previously included logic if "0" was selected to remove item from 
-   bag, but all the sites don't have it and just offer a bespoke delete <button>. Fine by me!
-
-*/
+  
+  1) "A line item represents a line in an order, containing details such as the product, 
+      quantity, and price for each line of an order"
+  
+  2) For Qty <Select>, I previously included logic if "0" was selected to remove item from 
+     bag, but all the sites don't have it and just offer a bespoke delete <button>. Fine by me!
+  
+  */
 
 /*
-🤔 
-Also must consider a situation where a product's stock.count has decreased on database (courtesy 
-of another client) while in the client's basket. 
-
-When we fetch the client's basket, we therefore need to split line items whose stock demands cannot be 
-met (e.g. user had 5 of ProductA in basket, but now only 4 are left) and show them to the client
-so that they can either update their quantity demand or remove the product altogether (especially if
-now out of stock).
-
-For insufficient stock line items, we could do something like this: 
-
-  lineItems.map(item => item.stock.count < item.qty && <BagLineItem {...item} insufficientStock/>)
-
-Or even better, when we could get the server to do the splitting, so that it returns a basket of: 
-
-  { lineItems: { valid: [ ... ], invalid: [ ... ] } }
-
-And then we can just map through both sets on the FE.
-
-🤔 
-For now, using <BagItemLoadingOverlay> I'm blocking <BagLineItem> interaction when quantity being 
-updated (via <Select> or <RemoveLineItemButton>) to prevent another request for a quantity update.
-   
-For example, if the client uses the <Select> to update the quantity, without blocking interaction,
-during the request, client could then click <RemoveLineItemButton>, or vice versa.
-    
-This shouldn't be possible. Consider disabling both when `isUpdatingQty`. 
-Find more robust solution later.
-
-🤔
-Reluctant to refactor and abstract, because a lot of this could go on orders page. Refactor once
-orders page complete.
-
-🤔
-When checkout clicked, if not signed in, redirect to login and once logged in to checkout
-
-*/
+  🤔 
+  Also must consider a situation where a product's stock.count has decreased on database (courtesy 
+  of another client) while in the client's basket. 
+  
+  When we fetch the client's basket, we therefore need to split line items whose stock demands cannot be 
+  met (e.g. user had 5 of ProductA in basket, but now only 4 are left) and show them to the client
+  so that they can either update their quantity demand or remove the product altogether (especially if
+  now out of stock).
+  
+  For insufficient stock line items, we could do something like this: 
+  
+    lineItems.map(item => item.stock.count < item.qty && <BagLineItem {...item} insufficientStock/>)
+  
+  Or even better, when we could get the server to do the splitting, so that it returns a basket of: 
+  
+    { lineItems: { valid: [ ... ], invalid: [ ... ] } }
+  
+  And then we can just map through both sets on the FE.
+  
+  🤔 
+  For now, using <BagItemLoadingOverlay> I'm blocking <BagLineItem> interaction when quantity being 
+  updated (via <Select> or <RemoveLineItemButton>) to prevent another request for a quantity update.
+     
+  For example, if the client uses the <Select> to update the quantity, without blocking interaction,
+  during the request, client could then click <RemoveLineItemButton>, or vice versa.
+      
+  This shouldn't be possible. Consider disabling both when `isUpdatingQty`. 
+  Find more robust solution later.
+  
+  🤔
+  Reluctant to refactor and abstract, because a lot of this could go on orders page. Refactor once
+  orders page complete.
+  
+  🤔
+  When checkout clicked, if not signed in, redirect to login and once logged in to checkout
+  
+  */
 
 const styles = {
   main: {
@@ -156,20 +159,19 @@ const styles = {
   },
 }
 
+export const metadata = {
+  title: genPageTitle('Your Bag'),
+}
+
 // inspired by M&S shopping bag. Still more to copy: https://www.marksandspencer.com/webapp/wcs/stores/servlet/OrderCalculate?calculationUsageIdentifier=MSBasketView_ShoppingCartURL&calculationUsageId=-1&updatePrices=1&catalogId=&errorViewName=AjaxOrderItemDisplayView&orderId=.&langId=-24&storeId=10151&doPrice=Y&URL=AjaxOrderItemDisplayView&intid=pdpnav_atb-ack-modal_checkout-button
 export default function ShoppingBagPage() {
   const bag = useBag()
 
   return (
-    <>
-      <Head>
-        <title children={`Your Bag | ${NAMES.COMPANY}`} />
-      </Head>
-      <Main sx={styles.main}>
-        {bag.hasItems ? <ShoppingBagSection /> : <EmptyBagSection />}
-        {/* <ViewedProductsSection /> */}
-      </Main>
-    </>
+    <Main sx={styles.main}>
+      {bag.hasItems ? <ShoppingBagSection /> : <EmptyBagSection />}
+      {/* <ViewedProductsSection /> */}
+    </Main>
   )
 }
 

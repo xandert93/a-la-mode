@@ -21,9 +21,11 @@ export const genRandomIntFromInterval = (min, max) => {
   return Math.floor(Math.random() * (max - min + 1) + min)
 }
 
-export const genPageTitle = (pageName) => {
-  const appName = process.env.NEXT_PUBLIC_APP_NAME
+export const getAppName = () => {
+  return process.env.NEXT_PUBLIC_APP_NAME
+}
 
-  if (!pageName) return appName
-  else return `${pageName} | ${appName}`
+export const genPageTitle = (pageName) => {
+  if (!pageName) return getAppName()
+  else return `${pageName} | ${getAppName()}`
 }

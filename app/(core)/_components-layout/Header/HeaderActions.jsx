@@ -24,7 +24,7 @@ export const HeaderActions = () => {
       {isMinLg ? <HeaderSearchForm /> : <MobileHeaderSearchButton />}
       <IconButton
         component={Link}
-        href="/auth/login" // JFN until I can privatise routes etc
+        href={PATHS.LOGIN} // JFN until I can privatise routes etc
         children={<AccountIcon />}
         aria-label="See Account"
       />

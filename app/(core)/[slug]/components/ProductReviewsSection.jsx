@@ -1,3 +1,5 @@
+'use client'
+
 import { IconButton, Section, SectionHeading, Select } from '@/components'
 import { productReviews } from '@/data'
 import { useToggle } from '@/hooks'

@@ -14,8 +14,9 @@ import {
   Link,
 } from '@/components'
 
-import { NAMES, PATHS } from '@/constants'
+import { PATHS } from '@/constants'
 import { isVPXs } from '@/theme'
+import { getAppName } from '@/utils/helpers'
 import {
   Box,
   Button,
@@ -102,7 +103,7 @@ export default function RegistrationPage() {
             />
 
             <PrivacyTermsCheckbox />
-            <Button type="submit" children={`Join ${NAMES.COMPANY}`} />
+            <Button type="submit" children={`Join ${getAppName()}`} />
           </Grid>
           <Typography component="p" variant="caption" color="text.secondary">
             By creating an account, you'll automatically be signed up to Sparks (underline), our

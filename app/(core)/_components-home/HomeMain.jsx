@@ -1,3 +1,5 @@
+'use client'
+
 import { Main } from '@/components'
 
 import PropTypes from 'prop-types'

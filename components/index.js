@@ -1,5 +1,3 @@
-export { NewsletterSection } from '../components-page/home/NewsletterSection'
-
 export { Form } from './Form'
 export { CompanyLogo } from './CompanyLogo'
 export { CompanyHeading } from './CompanyHeading'
