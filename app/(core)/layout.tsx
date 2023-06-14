@@ -4,6 +4,8 @@ import { BagProvider } from '@/contexts/BagProvider'
 import { WishListProvider } from '@/contexts/WishListProvider'
 import { SnackbarProvider } from '@/contexts/SnackbarProvider'
 
+import { ThemeButton } from '@/features/ui/components'
+
 type Props = {
   children: React.ReactNode
 }
@@ -21,6 +23,7 @@ export default function CoreLayout({ children }: Props) {
         </WishListProvider>
       </BagProvider>
       <Footer />
+      <ThemeButton />
     </>
   )
 }

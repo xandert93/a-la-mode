@@ -159,10 +159,10 @@ const styles = {
   },
 }
 
-export const metadata = {
+/* export const metadata = {
   title: genPageTitle('Your Bag'),
 }
-
+ */
 // inspired by M&S shopping bag. Still more to copy: https://www.marksandspencer.com/webapp/wcs/stores/servlet/OrderCalculate?calculationUsageIdentifier=MSBasketView_ShoppingCartURL&calculationUsageId=-1&updatePrices=1&catalogId=&errorViewName=AjaxOrderItemDisplayView&orderId=.&langId=-24&storeId=10151&doPrice=Y&URL=AjaxOrderItemDisplayView&intid=pdpnav_atb-ack-modal_checkout-button
 export default function ShoppingBagPage() {
   const bag = useBag()

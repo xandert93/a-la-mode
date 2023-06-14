@@ -1,4 +1,4 @@
-'use client'
+'use client' // JFN
 
 /*
 Next 12 font <head>

@@ -28,9 +28,9 @@ import {
 } from '@mui/material'
 import { genPageTitle } from '@/utils/helpers'
 
-export const metadata = {
+/* export const metadata = {
   title: genPageTitle('Login'), // wont work until this is a RSC
-}
+} */
 
 const styles = {}
 

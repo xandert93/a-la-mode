@@ -15,9 +15,9 @@ import { EmptyWishListSection } from './components'
 
 const productDb = [...popularProducts, ...newProducts]
 
-export const metadata = {
+/* export const metadata = {
   title: genPageTitle('Wish List'),
-}
+} */
 
 export default function WishListPage() {
   const { items, hasItems } = useWishList()
