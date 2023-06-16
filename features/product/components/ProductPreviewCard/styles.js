@@ -19,7 +19,7 @@ export const styles = {
     top: '5px',
     right: '5px',
 
-    // *** probs not best (JFN), but when hoverable, padding is applied which affects positioning
+    // ❗ probs not best (🚧), but when hoverable, padding is applied which affects positioning
     [isHoverable]: {
       top: '22px',
       right: '22px',

@@ -11,7 +11,7 @@ import { useState, useEffect } from 'react'
 
 import { EmptyWishListSection } from './components'
 
-// JFN
+// 🚧
 
 const productDb = [...popularProducts, ...newProducts]
 
@@ -23,7 +23,7 @@ export default function WishListPage() {
   const { items, hasItems } = useWishList()
   const [products, setProducts] = useState([])
 
-  // JFN obvs
+  // 🚧 obvs
   useEffect(() => {
     if (!hasItems) return
 

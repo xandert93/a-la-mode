@@ -28,7 +28,7 @@ const data = {
   ],
 }
 
-// *** probably more efficient way of doing this
+// ❗ probably more efficient way of doing this
 export const FooterLinks = ({ title }) => {
   const isXs = useMediaQuery(isVPXs)
 

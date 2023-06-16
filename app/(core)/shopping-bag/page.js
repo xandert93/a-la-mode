@@ -1,4 +1,4 @@
-'use client' // JFN
+'use client' // 🚧
 
 import {
   Section,
@@ -254,7 +254,7 @@ const BagLineItem = (lineItem) => {
     color,
     size,
     qty,
-    hasInsufficientStock = false, // JFN, until we have DB set up
+    hasInsufficientStock = false, // 🚧, until we have DB set up
   } = lineItem
 
   // only need 1 piece of loading state for <Select> change or <RemoveLineItemButton> click, since with the <BagItemLoadingOverlay>, only 1 can happen at a time!
@@ -290,7 +290,7 @@ const BagLineItem = (lineItem) => {
           item
           container
           justifyContent={{ xs: 'space-between', sm: 'initial' }} // gets in way of "subtotal" column, so...
-          flexDirection={{ xs: 'row-reverse', sm: 'row' }} // JFN
+          flexDirection={{ xs: 'row-reverse', sm: 'row' }} // 🚧
           gap={{ sm: 1.5 }}>
           <RemoveLineItemButton {...{ name, setIsUpdatingQty }} />
           <SaveLineItemButton lineItem={lineItem} />
@@ -300,7 +300,7 @@ const BagLineItem = (lineItem) => {
   )
 }
 
-// JFN - very, very rough. Effect like this nice though!
+// 🚧 - very, very rough. Effect like this nice though!
 const BagItemLoadingOverlay = forwardRef((props, ref) => {
   return (
     <Box ref={ref} sx={styles.lineItem.loadingOverlay} {...props}>
@@ -391,8 +391,8 @@ const LineItemDemands = ({
           children={price * qty}
           fontWeight={500}
           sx={{
-            textDecoration: hasInsufficientStock && 'line-through', // JFN
-            color: hasInsufficientStock && 'text.disabled', // JFN
+            textDecoration: hasInsufficientStock && 'line-through', // 🚧
+            color: hasInsufficientStock && 'text.disabled', // 🚧
           }}
         />
       </Grid>
@@ -407,7 +407,7 @@ const SaveLineItemButton = ({ lineItem }) => {
   const [isSaved, setIsSaved] = useState(lineItem.isSaved)
   const [isSaving, setIsSaving] = useState(false)
 
-  // JFN
+  // 🚧
   useEffectOnMount(() => {
     setIsSaved(
       JSON.parse(localStorage.getItem('saved-items'))?.some((item) => item.name === lineItem.name)
@@ -431,7 +431,7 @@ const SaveLineItemButton = ({ lineItem }) => {
       onClick={handleSaveClick}
       isLoading={isSaving}
       children={!isSaved ? 'Save' : 'Saved'}
-      sx={{ minWidth: '13ch' }} // JFN, but I want same width on both
+      sx={{ minWidth: '13ch' }} // 🚧, but I want same width on both
     />
   )
 }
@@ -453,7 +453,7 @@ const RemoveLineItemButton = ({ name, setIsUpdatingQty }) => {
       startIcon={<DeleteIcon />}
       onClick={handleClick}
       children="Remove"
-      sx={{ minWidth: '13ch' }} // JFN, but I want same width on both
+      sx={{ minWidth: '13ch' }} // 🚧, but I want same width on both
     />
   )
 }

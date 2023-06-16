@@ -16,10 +16,10 @@ const styles = ({ outlined, elevation = 0 }) => {
     border: '1px solid white',
     boxShadow: elevation,
 
-    // *** probably more efficient way of doing this:
+    // ❗ probably more efficient way of doing this:
     ...(outlined ? outlinedStyles : containedStyles),
 
-    // *** should only apply if [isHoverable], but that causes small styling bug. Fix later
+    // ❗ should only apply if [isHoverable], but that causes small styling bug. Fix later
     ':hover': {
       boxShadow: 2,
       ...(outlined ? containedStyles : outlinedStyles),

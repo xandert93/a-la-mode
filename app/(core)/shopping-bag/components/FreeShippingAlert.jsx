@@ -37,7 +37,7 @@ export const FreeShippingAlert = () => {
   }
 
   return (
-    /* *** JFN 👇 might delete. Also has bug of negative shipping offset being displayed while exiting */
+    /* ❗ 🚧 👇 might delete. Also has bug of negative shipping offset being displayed while exiting */
     <Collapse
       in={Boolean(bag.costs.shipping)}
       unmountOnExit // if false this, its very smooth, but there is extra space at its original location (?) and with, there's very slight juddery layout shift (probably cos of row-gap)...

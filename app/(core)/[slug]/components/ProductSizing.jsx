@@ -2,7 +2,7 @@ import { Radio, RadioGroup, Span } from '@/components'
 import { Box, Button, Grid, Typography, formLabelClasses } from '@mui/material'
 
 const styles = {
-  // *** only use this if I decide to make it into a <form> (where `required` serves a purpose)
+  // ❗ only use this if I decide to make it into a <form> (where `required` serves a purpose)
   'radio-group-label': {
     ['& .' + formLabelClasses.asterisk]: {
       display: 'none', // size is required and this is obvious. Better UX is to remove asterisk from UI
@@ -23,7 +23,7 @@ const styles = {
   },
 }
 
-const defaultSizes = ['XS', 'S', 'M', 'L', 'XL', '2XL'] // JFN
+const defaultSizes = ['XS', 'S', 'M', 'L', 'XL', '2XL'] // 🚧
 
 export const ProductSizing = ({
   sizes = defaultSizes,
@@ -39,7 +39,7 @@ export const ProductSizing = ({
         </Typography>
         <Typography variant="body2" color="text.secondary" children="Size Guide?" />
       </Grid>
-      {/* *** if wrapping and only 1 on second line, radio produces layout shift when clicked. Debug later */}
+      {/* ❗ if wrapping and only 1 on second line, radio produces layout shift when clicked. Debug later */}
       <RadioGroup
         row
         sx={styles['radio-group']}
@@ -69,8 +69,8 @@ export const ProductSizing = ({
   )
 }
 
-// *** add disabled to BOTH <Radio> (disable actual <input:radio>) and <RadioIcon> (applies disabled styling to the <span>)
-// *** Also, I don't think specifying two custom icons for non-checked and checked status is best, but JFN. It's how MUI does it so... 🤷‍♀️
+// ❗ add disabled to BOTH <Radio> (disable actual <input:radio>) and <RadioIcon> (applies disabled styling to the <span>)
+// ❗ Also, I don't think specifying two custom icons for non-checked and checked status is best, but 🚧. It's how MUI does it so... 🤷‍♀️
 const SizeRadio = ({ size }) => {
   return (
     <Radio

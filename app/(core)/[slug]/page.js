@@ -44,7 +44,7 @@ export default async function ProductPage(context) {
   if (!product) notFound() // 🔥: https://nextjs.org/docs/app/api-reference/functions/not-found
   // calls component in ./not-found.js (if present). Else will swap page out for /app/not-found.js (if unspecified, uses Next's default)
 
-  /* JFN - just extending <HomeMain>. Once I've built more pages and see the pattern, perhaps create <AuthMain> and <Main> */
+  /* 🚧 - just extending <HomeMain>. Once I've built more pages and see the pattern, perhaps create <AuthMain> and <Main> */
 
   return (
     <HomeMain sx={{ 'section:first-of-type': { mt: { xs: 2, md: 3 } } }}>

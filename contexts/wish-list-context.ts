@@ -16,7 +16,7 @@ const initialValue = {
   hasItems: false,
 
   addSavedItem: (product: Product) => {},
-  // JFN, since if we save item while on <ShoppingBag>, it's a LineItem, not a Product
+  // 🚧, since if we save item while on <ShoppingBag>, it's a LineItem, not a Product
   addSavedItemFromBag: (savedItem: SavedItem) => {},
   removeSavedItem: (name: string) => {},
 }

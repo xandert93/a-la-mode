@@ -12,7 +12,7 @@ export type BagContextValue = {
 
   shipping: { freeOffset: number }
 
-  // *** quicker way to do this i.e. type an object of number values? : https://stackoverflow.com/questions/13315131/enforcing-the-type-of-the-indexed-members-of-a-typescript-object
+  // ❗ quicker way to do this i.e. type an object of number values? : https://stackoverflow.com/questions/13315131/enforcing-the-type-of-the-indexed-members-of-a-typescript-object
   costs: {
     subtotal: number
     shipping: number

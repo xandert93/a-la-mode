@@ -34,7 +34,7 @@ export const ProductImageStack = ({ imageUrls, changeImage, imageIndex }) => {
                 },
               },
             }}>
-            {/* *** Tried hard to use next/image here, but not working...possibly because of max-width configuration on containers... */}
+            {/* ❗ Tried hard to use next/image here, but not working...possibly because of max-width configuration on containers... */}
             <Img
               src={url}
               sx={{
@@ -42,7 +42,7 @@ export const ProductImageStack = ({ imageUrls, changeImage, imageIndex }) => {
                 aspectRatio: '1/1',
                 objectFit: 'cover',
               }}
-              alt="" // JFN
+              alt="" // 🚧
             />
           </Box>
         </Grid>

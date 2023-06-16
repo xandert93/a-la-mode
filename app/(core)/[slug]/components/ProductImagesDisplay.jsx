@@ -11,12 +11,12 @@ export const ProductImageDisplay = ({ imageUrls }) => {
 
   const changeImage = (newIndex) => () => setIndex(newIndex)
 
-  // JFN - probs better way lol
+  // 🚧 - probs better way lol
   const toPrevImage = () => {
     setIndex((curr) => (curr === 0 ? imageCount - 1 : curr - 1))
   }
 
-  // JFN - probs better way lol
+  // 🚧 - probs better way lol
   const toNextImage = () => {
     setIndex((curr) => (curr === imageCount - 1 ? 0 : curr + 1))
   }
@@ -32,12 +32,12 @@ export const ProductImageDisplay = ({ imageUrls }) => {
         md={10.5}
         sx={{
           position: 'relative',
-          width: '100%', // *** otherwise Next <CoverImage> below goes whack...I think it's cos it effectively has no children (absolute) and therefore collapses completely
+          width: '100%', // ❗ otherwise Next <CoverImage> below goes whack...I think it's cos it effectively has no children (absolute) and therefore collapses completely
         }}>
         <Fade
           in
           timeout={500}
-          key={index} // JFN - bit of a hack, but desired effect. Best way to achieve?
+          key={index} // 🚧🐱‍💻 - desired effect. Best way to achieve?
         >
           <Box
             sx={{
@@ -48,7 +48,7 @@ export const ProductImageDisplay = ({ imageUrls }) => {
             }}>
             <CoverImage
               src={imageUrls[index]}
-              alt="" // JFN
+              alt="" // 🚧
             />
           </Box>
         </Fade>
@@ -65,7 +65,7 @@ export const ProductImageDisplay = ({ imageUrls }) => {
   )
 }
 
-// JFN - would use <MuiIconButton>, but it has a default :hover setting which makes background effectively transparent.
+// 🚧 - would use <MuiIconButton>, but it has a default :hover setting which makes background effectively transparent.
 // Can't be bothered to undo that here...easier to create from scratch:
 const ImageNavigationButton = ({ Icon, ...props }) => {
   return (

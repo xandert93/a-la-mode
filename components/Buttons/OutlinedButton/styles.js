@@ -6,7 +6,7 @@ const styles = ({ elevation = 0 }) => ({
     backgroundColor: 'currentColor',
 
     '> span': {
-      color: 'background.default', // *** doesn't work when color='inherit'!
+      color: 'background.default', // ❗ doesn't work when color='inherit'!
     },
   },
 })

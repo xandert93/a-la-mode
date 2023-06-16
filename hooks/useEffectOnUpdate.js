@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react'
 
-// JTO - accounting for Strict Mode
+// 🏉 - accounting for Strict Mode
 const useEffectOnUpdate_strict_mode = (cb, deps) => {
   const renderCountRef = useRef(0)
 

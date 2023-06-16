@@ -3,7 +3,7 @@ import { blogArticles } from '@/data'
 import { isVPMaxSmAndLandscape, isVPXs } from '@/theme'
 import { Box, Grid, Typography, alpha } from '@mui/material'
 
-// *** inspiration: https://www.hawesandcurtis.co.uk/lords-cricket-club
+// ❗ inspiration: https://www.hawesandcurtis.co.uk/lords-cricket-club
 
 const styles = {
   root: {
@@ -18,7 +18,7 @@ const styles = {
     overflow: 'hidden',
 
     height: '40vh',
-    // *** JFN - never feels ideal, but surely a better way to get around vh units on landscape?
+    // ❗ 🚧 - never feels ideal, but surely a better way to get around vh units on landscape?
     [isVPMaxSmAndLandscape]: {
       height: '70vh',
     },
@@ -27,7 +27,7 @@ const styles = {
   ['article-details']: (theme) => ({
     [isVPXs]: {
       ...theme.mixins.absCover,
-      pr: '33%', // JFN, but desired effect
+      pr: '33%', // 🚧, but desired effect
       borderRadius: 1,
       bgcolor: alpha(theme.palette.common.black, 0.35),
     },
@@ -106,7 +106,7 @@ const ArticleDetails = ({ title, body }) => {
       sx={styles['article-details']}>
       <Typography component="h3" variant="h6" children={title} sx={styles['article-title']} />
       <Typography children={body} sx={styles['article-body']} />
-      {/* *** <ImageButton> probably better on xs, but then I'd need MQ in component (not eager) */}
+      {/* ❗ <ImageButton> probably better on xs, but then I'd need MQ in component (not eager) */}
       <ButtonLink color="secondary" href="#" children="Continue reading ➡" />
     </Grid>
   )

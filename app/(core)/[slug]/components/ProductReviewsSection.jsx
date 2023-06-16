@@ -3,7 +3,7 @@
 import { IconButton, Section, SectionHeading, Select } from '@/components'
 import { productReviews } from '@/data'
 import { useToggle } from '@/hooks'
-import { MoreHoriz } from '@mui/icons-material'
+import MoreHoriz from '@mui/icons-material/MoreHoriz'
 import {
   Avatar,
   Button,
@@ -33,7 +33,7 @@ export const ProductReviewsSection = () => {
   return (
     <Section
       sx={{
-        maxWidth: 768, // JFN - felt 'sm' too small and 'md' slightly too big. Revisit
+        maxWidth: 768, // 🚧 - felt 'sm' too small and 'md' slightly too big. Revisit
         display: 'flex',
         flexDirection: 'column',
         rowGap: 2,
@@ -71,7 +71,7 @@ export const ProductReviewsSection = () => {
             children="Write a Review"
             fullWidth
             sx={{
-              p: '13.5px', // hacky but to match <Select> size JFN
+              p: '13.5px', // 🐱‍💻 but to match <Select> size 🚧
             }}
           />
         </Grid>
@@ -108,7 +108,7 @@ const RatingBar = ({ starCount, percentage }) => {
       />
       <Typography
         children={`(99)`}
-        minWidth={'3ch'} // hacky JFN - not gonna work when one is 1000 and another is 1
+        minWidth={'3ch'} // 🚧🐱‍💻 - not gonna work when one is 1000 and another is 1
       />
     </Grid>
   )
@@ -135,7 +135,7 @@ const ProductReview = ({ _id, reviewer, rating, title, text, createdAt }) => {
       <Grid container alignItems="center" columnGap={1}>
         <Rating value={rating} sx={{ fontSize: { xs: 16, sm: 20, md: 24, lg: 28 } }} />
         <Typography
-          variant="caption" // JFN - too small for sm+
+          variant="caption" // 🚧 - too small for sm+
           lineHeight={1}
           color="text.secondary"
           children={createdAt}

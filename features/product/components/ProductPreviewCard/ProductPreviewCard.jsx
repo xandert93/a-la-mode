@@ -29,7 +29,7 @@ export const ProductPreviewCard = (product) => {
       <Link href={'/' + slug} sx={{ [isHoverable]: { p: 1.5 } }}>
         <Grid container direction="column" rowGap={1.5}>
           <ProductPreviewImage name={name} urls={imageUrls} />
-          {/* <PPP> 👇 is a bit tall for some reason - mb of -4px is hacky JFN. Return later *** */}
+          {/* ❗🚧🐱‍💻 <ProductPreviewPricing> 👇 is a bit tall for some reason - mb of -4px is for now */}
           <ProductPreviewPricing prices={prices} mb={-0.5} />
           <ProductPreviewName name={name} />
           <ProductPreviewColors colors={colors} />
@@ -47,7 +47,7 @@ const ProductPreviewRating = ({ rating }) => {
       size="small"
       value={rating.average}
       sx={{
-        color: 'secondary.main', // JTO
+        color: 'secondary.main', // 🏉
       }}
     />
   )
@@ -68,7 +68,7 @@ const ProductPreviewImage = ({ name, urls }) => {
       sx={styles['image-box']}>
       <CoverImage
         src={urls[index]}
-        alt={`${name} ${index + 1} of ${imageCount}`} // *** via M&S. Necessary? Macy's and Asos use `alt=""`
+        alt={`${name} ${index + 1} of ${imageCount}`} // ❗ via M&S. Necessary? Macy's and Asos use `alt=""`
       />
     </Grid>
   )
@@ -88,7 +88,7 @@ const ProductPreviewName = ({ name }) => {
 }
 
 const ProductPriceSaving = ({ prices }) => {
-  const saving = Math.round((1 - prices.current / prices.previous) * 100) // *** perform on server?
+  const saving = Math.round((1 - prices.current / prices.previous) * 100) // ❗ perform on server?
 
   return (
     <Typography
@@ -143,7 +143,7 @@ const SaveButton = ({ product }) => {
 
   const [isSaved, setIsSaved] = useState()
 
-  // JFN
+  // 🚧
   useEffectOnMount(() => {
     setIsSaved(
       JSON.parse(localStorage.getItem('saved-items'))?.some((item) => item.name === product.name)

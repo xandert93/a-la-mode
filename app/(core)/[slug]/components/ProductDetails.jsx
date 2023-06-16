@@ -25,7 +25,6 @@ import { createContext, useContext, useState } from 'react'
 import { ProductSizing } from './ProductSizing'
 import { ProductColors } from './ProductColors'
 import { ProductPricing } from '@/features/product/components'
-import { Star } from '@mui/icons-material'
 
 const context = createContext()
 const useProductDetails = () => useContext(context) // perhaps "useProduct", we'll see
@@ -37,7 +36,7 @@ Find best position for <NewTag> - Review other sites
 
 🤔
 At the moment (in <ProductActions>), if out of stock, I'm conditionally removing
-<ProductQtySelect> and <AddToBagButton> from the UI. This is JFN. Review other sites actual 
+<ProductQtySelect> and <AddToBagButton> from the UI. This is 🚧. Review other sites actual 
 handling out of stock UI?
 
 🤔
@@ -51,7 +50,7 @@ export const ProductDetails = (product) => {
   const { name, prices, rating, description, features, stock, colors, lastPurchasedAt, createdAt } =
     product
 
-  // JFN - lazy...
+  // 🚧 - lazy...
   const [state, setState] = useState({
     color: { value: '', hasErr: false },
     size: { value: '', hasErr: false },
@@ -68,7 +67,7 @@ export const ProductDetails = (product) => {
 
   const [qty, setQty] = useState(1)
 
-  // JFN
+  // 🚧
   useEffectOnMount(() => {
     const foundBagItem = JSON.parse(localStorage.getItem('bag-items'))?.find(
       (item) => item.name === product.name
@@ -131,7 +130,7 @@ export const ProductDetails = (product) => {
 const ProductHeading = ({ name }) => {
   return (
     <Typography
-      component="h1" // *** all eComm website do this! Apparently is supposed to match <title>. But now have multiple and differing H1s...
+      component="h1" // ❗ all eComm website do this! Apparently is supposed to match <title>. But now have multiple and differing H1s...
       variant="h6"
       children={name}
       letterSpacing={-0.5}
@@ -139,7 +138,7 @@ const ProductHeading = ({ name }) => {
   )
 }
 
-// *** might end up just being a button too - undecided:
+// ❗ might end up just being a button too - undecided:
 const ProductRatingsLink = ({ rating }) => {
   return (
     <Link href="#">
@@ -148,7 +147,7 @@ const ProductRatingsLink = ({ rating }) => {
         alignItems="center"
         sx={{
           columnGap: 1,
-          my: 0.5, // JTO - don't mind the extra space
+          my: 0.5, // 🏉 - don't mind the extra space
         }}>
         <Rating value={rating.average} />
         <Typography children={`${rating.average} (${rating.count})`} />
@@ -206,7 +205,7 @@ const ProductActions = ({ product, color, size, qty, handleQtyChange, setErr }) 
           </Grid>
         </>
       )}
-      {/* JFN 👇 lol */}
+      {/* 🚧 👇 lol */}
       <Grid item xs={12} sm={product.stock.isAvailable ? 10 : 12}>
         <SaveButton product={product} />
       </Grid>
@@ -249,13 +248,13 @@ const AddToBagButton = ({ product, color, size, qty, setErr }) => {
   return (
     <LoadingButton
       variant="contained"
-      color="secondary" // JFN - should be "primary" really, no?
+      color="secondary" // 🚧 - should be "primary" really, no?
       isLoading={isAdding}
       onClick={handleAddToBagClick}
       children="Add to Bag"
       endIcon={<EmptyBagIcon />}
       fullWidth
-      sx={{ py: '13.5px' }} // *** hacky, but to match <Select>
+      sx={{ py: '13.5px' }} // ❗🐱‍💻, but to match <Select>
     />
   )
 }
@@ -267,7 +266,7 @@ const SaveButton = ({ product }) => {
   const [isSaved, setIsSaved] = useState(false)
   const [isSaving, setIsSaving] = useState(false)
 
-  // JFN
+  // 🚧
   useEffectOnMount(() => {
     setIsSaved(
       JSON.parse(localStorage.getItem('saved-items'))?.some((item) => item.name === product.name)
@@ -291,7 +290,7 @@ const SaveButton = ({ product }) => {
       endIcon={isSaved ? <HeartIcon /> : <HeartIconOutlined />}
       children={isSaved ? 'Saved' : 'Save for later'}
       fullWidth
-      sx={{ py: '13.5px' }} // hacky, but to match <Select>
+      sx={{ py: '13.5px' }} // ❗🐱‍💻, but to match <Select>
     />
   )
 }
@@ -306,7 +305,7 @@ const FreeShippingAlert = () => {
       bgcolor="primary.touch"
       py={1}
       pl={2}
-      pr={1} // JFN - since <IconButton> already has padding applied
+      pr={1} // 🚧 - since <IconButton> already has padding applied
       borderRadius={1} // use paper/card instead?
       color="primary.dark">
       <ShippingIcon />

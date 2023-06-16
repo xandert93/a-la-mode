@@ -14,7 +14,7 @@ const styles = {
       ':hover': {
         backgroundColor: 'initial',
 
-        // *** better way to do this?
+        // ❗ better way to do this?
         '& ~ div > img': {
           transform: 'scale(1.05)',
         },

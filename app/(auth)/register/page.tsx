@@ -51,7 +51,7 @@ export default function RegistrationPage() {
         justifyContent="center"
         alignItems="center"
         gap={2}
-        component={Link} // *** fix stretching eventually
+        component={Link} // ❗ fix stretching eventually
         href={PATHS.HOME}>
         <CompanyLogo sx={{ maxWidth: 64 }} />
         <CompanyHeading variant="h2" />

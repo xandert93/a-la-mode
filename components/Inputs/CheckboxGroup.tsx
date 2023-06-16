@@ -11,7 +11,7 @@ export const CheckboxGroup = ({ label, helperText, required = false, ...props }:
   return (
     <FormControl
       component="fieldset"
-      variant="standard" // *** not sure what this does?
+      variant="standard" // ❗ not sure what this does?
       required={required}>
       <FormLabel component="legend" children={label} />
       <FormGroup {...props} />

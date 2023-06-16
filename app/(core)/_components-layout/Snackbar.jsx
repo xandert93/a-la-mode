@@ -5,7 +5,7 @@ import { useSnackbar } from '@/contexts/snackbar-context'
 
 import { Alert, Snackbar as MuiSnackbar, SnackbarContent, alpha } from '@mui/material'
 
-// All JFN - let's see where it goes
+// All 🚧 - let's see where it goes
 export const Snackbar = () => {
   const { isOpen, type, message, close } = useSnackbar()
 

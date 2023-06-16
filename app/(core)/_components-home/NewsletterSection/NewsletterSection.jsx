@@ -23,7 +23,7 @@ export const NewsletterSection = () => {
           container
           direction="row-reverse"
           sx={styles.container}
-          // *** had trouble here applying `spacing` prop between two items. Appears to be because of Next's absolute image. Using `px` for now. Update when I get more experience.
+          // ❗ had trouble here applying `spacing` prop between two items. Appears to be because of Next's absolute image. Using `px` for now. Update when I get more experience.
           // could use `gap` but would need to turn off flex-wrap and then write media query to turn on again for small viewport, which acts against MUI
         >
           <Grid item xs={12} sm={4} sx={styles['image-box']}>
@@ -99,7 +99,7 @@ const SubscriptionForm = () => {
           sx={styles['submit-button']}
         />
       </Grid>
-      {/* JFN 👇, but atm, on md+, because of abrupt mount, form gets longer and thus so does side image: */}
+      {/* 🚧 👇, but atm, on md+, because of abrupt mount, form gets longer and thus so does side image: */}
       {isSubscribed && (
         <Grid item xs={12}>
           <Typography

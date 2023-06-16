@@ -12,7 +12,7 @@ export const typography = {
 
   h1: {
     fontWeight: 500, // 300*
-    lineHeight: 1.2, // 1.167* (all lineHeight changes 👇 are JFN, trying to make them more predictable)
+    lineHeight: 1.2, // 1.167* (all lineHeight changes 👇 are 🚧, trying to make them more predictable)
   },
   h2: {
     fontWeight: 500, // 300*

@@ -28,11 +28,11 @@ export const RadioGroup = ({
   return (
     <FormControl
       component="fieldset"
-      variant="standard" // *** not sure what this does?
+      variant="standard" // ❗ not sure what this does?
       error={error}
       required={required}>
       <FormLabel
-        // component="legend" - *** TSC flags
+        // component="legend" - ❗ TSC flags
         children={label}
         {...FormLabelProps}
       />

@@ -16,8 +16,8 @@ export const genLineItem = ({ product, color, size, qty }: GenLineItemArg): Line
   color,
   size,
   qty,
-  isSaved: false, // JFN
-  // *** JFN:
+  isSaved: false, // 🚧
+  // ❗ 🚧:
   stock: product.stock,
 })
 

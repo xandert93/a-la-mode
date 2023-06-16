@@ -11,7 +11,7 @@ export const ViewedProductsSection = () => {
 
   const hasProducts = Boolean(products.length)
 
-  // JFN - total BS
+  // 🚧 - total BS
   useEffectOnMount(() => {
     const viewedProducts = JSON.parse(localStorage.getItem('viewed-products'))
     if (viewedProducts) {

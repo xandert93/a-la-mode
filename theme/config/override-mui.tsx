@@ -1,6 +1,6 @@
 import { alertClasses, Palette } from '@mui/material'
 import { isVPMinSm, isVPSm, isVPXs } from './media-queries'
-import { Star as StarIcon } from '@mui/icons-material'
+import StarIcon from '@mui/icons-material/Star' // 🤷‍♀️ get error if I try to import from '@/components'
 
 export const overrideMui = (palette: Palette) => ({
   MuiCssBaseline: {
@@ -132,7 +132,7 @@ export const overrideMui = (palette: Palette) => ({
   MuiAccordionDetails: {
     styleOverrides: {
       root: {
-        // JTO
+        // 🏉
         padding: 'initial', // 8px 16px 16px* (kinda whack?)
       },
     },
@@ -160,7 +160,7 @@ export const overrideMui = (palette: Palette) => ({
         fontWeight: 400, // 500*
       },
 
-      // JTO:
+      // 🏉:
       containedSizeSmall: {
         padding: '6px 14px', // '5px 15px'*
         fontSize: '0.9rem', // '0.8125rem'* (too small)
@@ -170,7 +170,7 @@ export const overrideMui = (palette: Palette) => ({
         },
       },
 
-      // JTO (the default contained <Button>):
+      // 🏉 (the default contained <Button>):
       containedSizeMedium: {
         padding: '8px 16px', // '6px 16px'*
         fontSize: '1rem', // '0.875rem'* (too small)
@@ -197,14 +197,14 @@ export const overrideMui = (palette: Palette) => ({
     },
   },
 
-  // JTO
+  // 🏉
   MuiIconButton: {
     defaultProps: {
       color: 'primary', // 'default'* (?)
     },
   },
 
-  // JTO
+  // 🏉
   MuiSvgIcon: {
     styleOverrides: {
       root: {
@@ -227,7 +227,7 @@ export const overrideMui = (palette: Palette) => ({
   MuiAlert: {
     styleOverrides: {
       root: {
-        // JTO - ensures icon, text and action button are all vertically centered irrespective of their individual heights
+        // 🏉 - ensures icon, text and action button are all vertically centered irrespective of their individual heights
         display: 'flex',
         alignItems: 'center',
       },
@@ -241,14 +241,14 @@ export const overrideMui = (palette: Palette) => ({
         // For xs, <Snackbar> receives offsets of { left: 8px, right: 8px, bottom: 8px }, making it span width of bottom of VP basically.
         // <Snackbar> is also a flexbox. This means that on xs, by default, any child will not consume that new extra space.
 
-        // JTO - default configuration is a bit too low for me
+        // 🏉 - default configuration is a bit too low for me
         [isVPXs]: {
           left: 16, // 8px*
           right: 16, // 8px*
           bottom: 16, // 8px*
         },
 
-        // For xs, JTO, but configuration makes a child <Alert> consume the extra space:
+        // For xs, 🏉, but configuration makes a child <Alert> consume the extra space:
         ['& .' + alertClasses.root]: {
           flexGrow: 1,
         },

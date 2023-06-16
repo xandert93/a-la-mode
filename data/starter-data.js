@@ -12,7 +12,7 @@ export const promotions = [
     priority: 2,
   },
   {
-    title: 'Shop our E-Gift Card Now', // JFN
+    title: 'Shop our E-Gift Card Now', // 🚧
     // title: 'Stuck for ideas?',
     // message: 'Shop our E-Gift Card Now',
     priority: 3,

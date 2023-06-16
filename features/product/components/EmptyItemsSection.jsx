@@ -6,7 +6,7 @@ const styles = {
     minHeight: '50vh',
 
     [isVPXsAndPortrait]: {
-      minHeight: 'calc(100vh - 90px)', // *** JFN - but find dynamic approach
+      minHeight: 'calc(100vh - 90px)', // ❗ 🚧 - but find dynamic approach
     },
 
     display: 'flex',

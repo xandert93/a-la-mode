@@ -3,7 +3,7 @@ import { ListItemText, MenuItem, MenuList, SwipeableDrawer } from '@mui/material
 
 const styles = {
   menu: {
-    width: { xs: '80vw', sm: 320 }, // *** JFN - what's best practice, though? 🤔
+    width: { xs: '80vw', sm: 320 }, // ❗ 🚧 - what's best practice, though? 🤔
   },
 }
 

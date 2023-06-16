@@ -9,7 +9,7 @@ const styles = {
     justifyContent: 'center',
     alignItems: 'center',
 
-    height: `calc(100vh - 64px - 36px)`, // *** better way to do this?
+    height: `calc(100vh - 64px - 36px)`, // ❗ better way to do this?
     [isVPXs]: { height: `calc(100vh - 56px - 36px)` },
     [isVPXsAndLandscape]: { height: `calc(100vh - 48px - 36px)` },
   },

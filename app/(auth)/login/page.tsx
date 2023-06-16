@@ -50,7 +50,7 @@ export default function LoginPage() {
         justifyContent="center"
         alignItems="center"
         gap={2}
-        component={Link} // *** fix stretching eventually
+        component={Link} // ❗ fix stretching eventually
         href={PATHS.HOME}>
         <CompanyLogo sx={{ maxWidth: 64 }} />
         <CompanyHeading variant="h2" />
@@ -122,7 +122,7 @@ export default function LoginPage() {
                 fullWidth
                 sx={{
                   minWidth: {
-                    sm: '15ch', // *** JFN - not ideal but the look I want
+                    sm: '15ch', // ❗ 🚧 - not ideal but the look I want
                   },
                 }}
               />

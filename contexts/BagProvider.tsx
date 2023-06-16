@@ -5,7 +5,7 @@ import { BagContextValue, bagContext } from './bag-context'
 import { useEffectOnMount, useEffectOnUpdate } from '@/hooks'
 import { genLineItem } from '@/data/utils'
 
-// all JFN
+// all 🚧
 const freeShippingThreshold = 5000
 const standardShippingCost = 499
 const tax = 0
@@ -17,29 +17,29 @@ type Props = {
 export const BagProvider = (props: Props) => {
   const [items, setItems] = useState<LineItem[]>([])
 
-  // JFN
+  // 🚧
   useEffectOnMount(() => {
     const initialItems = localStorage.getItem('bag-items')
     if (initialItems) setItems(JSON.parse(initialItems))
   })
 
-  // JFN
+  // 🚧
   useEffectOnUpdate(() => {
     localStorage.setItem('bag-items', JSON.stringify(items))
   }, [items])
 
-  // JFN
+  // 🚧
   const subtotal = items.reduce((acca, item) => {
     if (item.stock.count) acca += item.price * item.qty
     return acca
   }, 0)
 
-  // JFN, but add this crap to bag
+  // 🚧, but add this crap to bag
   const freeShippingOffset = freeShippingThreshold - subtotal
   const hasFreeShipping = freeShippingOffset <= 0
   const shippingCost = hasFreeShipping ? 0 : standardShippingCost
 
-  // just local properties + methods JFN
+  // just local properties + methods 🚧
   const value: BagContextValue = {
     items: items,
     itemCount: items.length,
@@ -88,7 +88,7 @@ export const BagProvider = (props: Props) => {
     costs: {
       subtotal,
       shipping: shippingCost,
-      tax, // JFN
+      tax, // 🚧
       total: subtotal + shippingCost + tax,
     },
   }

@@ -37,7 +37,7 @@ export const ProductColors = ({
 }) => {
   return (
     <Grid container direction="column" rowGap={2}>
-      {/* should probably be provided as `label` prop to <RadioGroup>. Revisit *** */}
+      {/* ❗ should probably be provided as `label` prop to <RadioGroup> */}
       <Typography variant="body2">
         Select your color: <Span fontWeight={500} children={checkedColor} />
       </Typography>

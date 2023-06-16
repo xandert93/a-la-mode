@@ -12,13 +12,13 @@ type Props = {
 export const WishListProvider = (props: Props) => {
   const [items, setItems] = useState<SavedItem[]>([])
 
-  // JFN
+  // 🚧
   useEffectOnMount(() => {
     const initialItems = localStorage.getItem('saved-items')
     if (initialItems) setItems(JSON.parse(initialItems))
   })
 
-  // JFN
+  // 🚧
   useEffectOnUpdate(() => {
     localStorage.setItem('saved-items', JSON.stringify(items))
   }, [items])
@@ -35,7 +35,7 @@ export const WishListProvider = (props: Props) => {
       })
     },
 
-    // JFN, since if we save item while on <ShoppingBag>, it's a LineItem, not a Product
+    // 🚧, since if we save item while on <ShoppingBag>, it's a LineItem, not a Product
     addSavedItemFromBag: (lineItem: SavedItem) => {
       setItems((prev) => [...prev, lineItem])
     },

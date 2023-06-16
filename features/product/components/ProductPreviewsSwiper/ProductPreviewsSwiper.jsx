@@ -71,7 +71,7 @@ export const ProductPreviewsSwiper = ({ type, title, products }) => {
   )
 }
 
-/* additional props I'm not passing JFN:
+/* additional props I'm not passing 🚧:
 
      direction of swiper:
        direction="horizontal" // default 
