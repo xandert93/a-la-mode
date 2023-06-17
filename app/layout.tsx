@@ -2,6 +2,7 @@ import './global.css' // 🚧 - has Ephesis font. But should use Google approach
 
 import { genPageTitle } from '@/utils/helpers'
 import { ThemeProvider } from './ThemeProvider'
+import { AuthProvider } from './AuthProvider'
 
 export const metadata = {
   title: genPageTitle(),
@@ -17,7 +18,9 @@ export default function RootLayout({ children }: Props) {
   return (
     <html lang="en">
       <ThemeProvider>
-        <body>{children}</body>
+        <AuthProvider>
+          <body>{children}</body>
+        </AuthProvider>
       </ThemeProvider>
     </html>
   )
